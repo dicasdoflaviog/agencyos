@@ -1,0 +1,255 @@
+# ============================================================
+# DIRETRIZES MANYCHAT — dicasdoflaviog
+# Arquivo: _brand/manychat-diretrizes.txt
+# Leia este arquivo antes de criar qualquer copy para DM,
+# fluxo de automação ou resposta automática no Instagram.
+# ============================================================
+
+
+## O QUE É O MANYCHAT E QUAL O PAPEL DELE
+
+O ManyChat é o Agente Engajador da eugência.
+Ele opera no Instagram automaticamente, sem intervenção humana,
+respondendo a gatilhos definidos e entregando o funil de produtos.
+
+Ele não substitui conversa humana.
+Ele filtra, qualifica e entrega — o humano entra quando o lead está quente.
+
+
+## REGRA ABSOLUTA DE TOM NO MANYCHAT
+
+O DM é mais íntimo que o feed. A pessoa está na sua caixa de entrada.
+Tom correto: direto + com personalidade. Nunca robótico. Nunca guru.
+
+SEMPRE:
+- Frases curtas. Parágrafos de 1-2 linhas no máximo.
+- Primeira mensagem nunca começa com "Olá!" ou "Oi, tudo bem?"
+- Personalidade presente — pode ser leve, pode ter humor seco, mas nunca vazio.
+- Uma ação por mensagem. Não empilha CTA.
+
+NUNCA:
+- "Aproveite essa oportunidade incrível!"
+- "Você vai adorar esse conteúdo exclusivo!"
+- "Oi! Seja bem-vindo à nossa comunidade!"
+- Mais de 2 botões por mensagem
+- Explicar o produto inteiro no DM — o link faz esse trabalho
+- Prometer resultado financeiro
+
+
+## OS 4 FLUXOS ATIVOS
+
+### FLUXO 1 — Novo seguidor
+Gatilho: pessoa seguiu @dicasdoflaviog
+Objetivo: apresentar quem é o Flávio + oferecer o checklist grátis
+Delay: mensagem 1 imediata / mensagem 2 com 30 minutos de delay
+
+MENSAGEM 1 (imediata):
+---
+Oi! Vi que você acabou de me seguir — obrigado por isso 🤝
+
+Aqui no @dicasdoflaviog eu falo sobre uma coisa só: como usar IA para
+trabalhar menos e vender mais — sem enrolação, sem promessa vazia.
+
+Sou designer e marqueteiro há 15 anos. Já cometi todos os erros possíveis
+no marketing. Hoje ensino como evitá-los.
+---
+
+MENSAGEM 2 (após 30 minutos):
+---
+Tenho um material gratuito que pode te ajudar agora:
+
+📋 Checklist Anti-Caos do Negócio — a ordem certa para estruturar
+um negócio sem perder tempo e dinheiro.
+
+Quer que eu te mande?
+---
+BOTÕES: [Sim, quero!] [Talvez depois]
+
+MENSAGEM 3 — se clicar "Sim, quero!":
+---
+Aqui está 👇
+
+[LINK DO GOOGLE DRIVE — PDF Checklist Anti-Caos]
+
+Lê com calma. É curto, direto e vai te poupar de alguns erros caros.
+
+Se quiser ir além, tenho o Manual Anti-Burrice do Marketing — o próximo
+nível disso. Link na bio quando quiser.
+---
+TAG APLICAR: checklist_enviado
+TAG APLICAR: lead_quente
+
+OBSERVAÇÃO TÉCNICA:
+O Instagram não permite DM automático para quem nunca interagiu antes.
+Este fluxo só funciona para pessoas que já comentaram, mandaram DM
+ou clicaram em anúncio com botão de mensagem. Não funciona para 100%
+dos novos seguidores — é limitação da API do Instagram, não do ManyChat.
+
+
+---
+
+
+### FLUXO 2 — Palavra-chave CHECKLIST
+Gatilho: pessoa comenta ou manda DM com a palavra CHECKLIST
+(configurar em maiúsculo e minúsculo: checklist, Checklist, CHECKLIST)
+Objetivo: entregar o checklist grátis e plantar semente do manual
+
+CONDIÇÃO: verificar se já tem tag checklist_enviado
+  - SE TEM: pular entrega e ir direto para oferta do manual
+  - SE NÃO TEM: entregar o checklist e aplicar tag
+
+RESPOSTA PÚBLICA (visível no comentário do post):
+---
+Te mandei no direct 👆
+---
+Função: cria prova social no post — outros veem e comentam também
+
+DM AUTOMÁTICO:
+---
+Oi! Aqui está o Checklist Anti-Caos do Negócio — gratuito, direto ao ponto:
+
+[LINK DO GOOGLE DRIVE]
+
+São 20 páginas com a ordem certa de decisões para não jogar dinheiro fora.
+
+Se quiser o próximo nível — o Manual Anti-Burrice do Marketing —
+é só me falar "MANUAL" aqui.
+---
+TAG APLICAR: checklist_enviado
+TAG APLICAR: lead_quente
+
+
+---
+
+
+### FLUXO 3 — Palavras-chave MANUAL e QUERO
+Gatilho: pessoa comenta ou manda DM com MANUAL ou QUERO
+Objetivo: levar direto para a página de vendas do manual
+
+RESPOSTA PÚBLICA (visível no comentário):
+---
+Te mandei o link no direct 👆
+---
+
+DM AUTOMÁTICO:
+---
+Oi! O Manual Anti-Burrice do Marketing é o guia completo para parar de
+perder dinheiro com marketing — sem fórmula mágica, sem guru.
+
+[LINK DA PÁGINA DE VENDAS]
+
+Se ainda não viu o Checklist gratuito antes, também te mando —
+ele é a base antes do manual.
+---
+BOTÕES: [Acessar o Manual] [Quero o checklist grátis antes]
+
+ACOMPANHAMENTO — 24h depois (dispara só se clicou no link mas não comprou):
+---
+Oi, tudo bem? Vi que você deu uma olhada no manual.
+
+Alguma dúvida antes de decidir? Pode me perguntar aqui mesmo — respondo eu.
+---
+REGRA: dispara máximo 1 vez por pessoa. Nunca repetir.
+TAG APLICAR: interesse_manual
+
+
+---
+
+
+### FLUXO 4 — Palavra-chave IA
+Gatilho: pessoa comenta IA em posts de tutoriais de IA
+Objetivo: entregar conteúdo extra + capturar para o funil do checklist
+
+RESPOSTA PÚBLICA:
+---
+Te mandei o material no direct 👆
+---
+
+DM AUTOMÁTICO:
+---
+Oi! Aqui está o material completo do post 👇
+
+[LINK ou conteúdo extra relacionado ao tutorial — definir por post]
+
+Se você quer aprender a usar IA para não desperdiçar dinheiro com
+marketing, tenho um checklist gratuito que vai direto ao ponto.
+
+Quer que eu mande?
+---
+BOTÕES: [Quero o checklist] [Só o tutorial tá bom]
+
+OBSERVAÇÃO: Este fluxo alimenta topo de funil.
+Foco em capturar, não em vender diretamente.
+
+
+---
+
+
+## TAGS DO SISTEMA — APLICAR CORRETAMENTE
+
+novo_seguidor      → pessoa seguiu o perfil
+checklist_enviado  → checklist já foi entregue (evita reenvio)
+interesse_manual   → clicou no link do manual
+lead_quente        → interagiu com CTA ou recebeu material
+comprou_checklist  → comprou o checklist pago (R$37)
+comprou_manual     → comprou o manual (R$67)
+nao_responde       → recebeu 2+ mensagens sem interação
+
+REGRA DE OURO: sempre verificar tags antes de disparar fluxo.
+Ninguém deve receber o mesmo material duas vezes.
+Ninguém deve receber fluxo de venda se já comprou.
+
+
+## CONFIGURAÇÃO TÉCNICA NO MANYCHAT
+
+Palavras-chave ativas:
+  CHECKLIST — fluxo 2
+  MANUAL    — fluxo 3
+  QUERO     — fluxo 3
+  IA        — fluxo 4
+  (configurar todas em maiúsculo e minúsculo)
+
+Comment Reply: ativar em todos os fluxos de palavra-chave
+Delay boas-vindas: msg 1 imediata, msg 2 com 30min — não parecer bot
+Anti-spam: cada fluxo tem condição de tag para evitar repetição
+Plano: ManyChat Free suporta até 1.000 contatos — suficiente para começar
+
+
+## ORDEM DE IMPLEMENTAÇÃO (não pular etapas)
+
+1. Subir o PDF do Checklist no Google Drive e pegar o link público
+2. Criar os 4 fluxos no ManyChat
+3. ATIVAR PRIMEIRO o Fluxo 2 (CHECKLIST) — mais simples de testar
+4. Publicar um post com CTA "Comenta CHECKLIST" para validar
+5. Confirmar que o fluxo 2 funciona
+6. Ativar os fluxos 3 e 4
+7. Ativar o fluxo 1 (boas-vindas) por último
+
+
+## O QUE OS AGENTES NÃO DEVEM FAZER NO MANYCHAT
+
+O Agente Copywriter escreve os textos dos fluxos.
+O Agente Engajador (ManyChat) executa automaticamente.
+O humano (Flávio) entra quando a pessoa manda mensagem livre fora dos fluxos.
+
+NENHUM AGENTE deve:
+- Prometer desconto sem autorização do Flávio
+- Criar novo fluxo sem brief do Estrategista
+- Alterar tags já aplicadas
+- Enviar material de produto que ainda não foi lançado
+- Responder reclamação — escalar para o humano
+
+
+## CONEXÃO COM O CRM DO NOTION
+
+Quando uma pessoa receber tag lead_quente:
+  → Criar entrada no CRM do Notion com:
+     Nome (se disponível), @handle, origem (palavra-chave ou novo seguidor),
+     produto de interesse, data do primeiro contato
+
+Quando uma pessoa receber tag comprou_manual ou comprou_checklist:
+  → Atualizar status no CRM para "Fechado"
+  → Mover para coluna "Clientes" no Kanban
+
+Esta integração é manual por enquanto.
+Quando o volume justificar, conectar ManyChat → Notion via Zapier ou Make.

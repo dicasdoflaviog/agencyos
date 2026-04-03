@@ -1,0 +1,75 @@
+════════════════════════════════════════════════════════════════
+🎨 TEMPLATES LINK — dicasdoflaviog (Marca: Sol)
+Ferramenta: Figma ou Canva (qualquer uma serve)
+════════════════════════════════════════════════════════════════
+
+ESTADO: Aguardando link do arquivo de templates
+
+════════════════════════════════════════════════════════════════
+LINK DO ARQUIVO DE TEMPLATES
+════════════════════════════════════════════════════════════════
+
+[🔗 Cole o link do Figma ou Canva aqui após criar os templates]
+
+════════════════════════════════════════════════════════════════
+TEMPLATES NECESSÁRIOS (4 × 4 = 16 frames | 1080×1350px)
+════════════════════════════════════════════════════════════════
+
+Template A — Gancho / Abertura
+  A1: Light + Logo
+  A2: Light + Sem Logo
+  A3: Dark + Logo
+  A4: Dark + Sem Logo
+
+Template B — Conteúdo / Humanização
+  B1: Light (50% imagem esquerda + 50% texto direita)
+  B2: Dark
+  B3: Com Logo
+  B4: Imagem direita (invertido)
+
+Template C — Educação / Listas
+  C1: Dark + 3 items numerados
+  C2: Light + 3 items
+  C3: Dark + 5 items (compacto)
+  C4: Com Logo
+
+Template D — CTA / Fechamento
+  D1: Dark + botão destaque
+  D2: Light + botão destaque
+  D3: Dark + minimalista
+  D4: Light + minimalista
+
+════════════════════════════════════════════════════════════════
+BRAND KIT (aplicar em todos os templates)
+════════════════════════════════════════════════════════════════
+
+Cores:
+  #FFD700  Amarelo (destaque)
+  #000000  Preto
+  #FFFFFF  Branco
+  #F5F5F5  Off-white
+  #1A1A1A  Cinza escuro
+
+Fontes:
+  Display / Headline:  Courier New — Bold — 32-40px
+  Body:                Courier New — Regular — 14-18px
+  Small:               Courier New — Regular — 12-14px
+
+Dimensões:
+  Formato:   Instagram Feed / Carrossel
+  Tamanho:   1080 × 1350px
+  Safe area: 100px em todas as bordas (não colocar texto fora)
+
+════════════════════════════════════════════════════════════════
+COMO USAR (após criar os templates)
+════════════════════════════════════════════════════════════════
+
+1. Estrategista define no brief qual template usar (A/B/C/D)
+2. Designer abre o arquivo (Figma ou Canva)
+3. Duplica o frame do template escolhido
+4. Troca imagem + texto
+5. Exporta PNG (1080×1350px)
+6. Salva em: clientes/dicasdoflaviog/2026-S1/03_design/pngs/
+7. Nomeia: [tema]-slide-1.png, [tema]-slide-2.png...
+
+════════════════════════════════════════════════════════════════

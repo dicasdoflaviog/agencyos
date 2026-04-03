@@ -1,0 +1,342 @@
+═══════════════════════════════════════════════════════════════════════════════
+📋 PROTOCOLO DE SINCRONIZAÇÃO DE DOCUMENTOS
+═══════════════════════════════════════════════════════════════════════════════
+Marca: Sol — Estrategista Antifrágil | Versão: 1.0
+
+"Cada mudança no sistema = atualização nos 5 documentos mestres"
+
+═══════════════════════════════════════════════════════════════════════════════
+OS 5 DOCUMENTOS MESTRES (Sempre sincronizados)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. README.txt
+   └─ Apresentação geral do projeto
+   └─ O que é o sistema, estrutura básica, como começar
+   └─ Localização: /dicasdoflaviog/README.txt
+
+2. ARQUITETURA_COMPLETA.txt
+   └─ Visão 360° do sistema (agentes, fluxos, integrações, roadmap)
+   └─ Documento "bible" — tudo que existe está ali
+   └─ Localização: /scripts/ARQUITETURA_COMPLETA.txt
+
+3. HIERARQUIA_AGENTES.txt
+   └─ Organograma de agentes (quem reporta pra quem)
+   └─ Fluxo de comunicação (como trabalham juntos)
+   └─ Checklist de handoff (quando passa bola para próximo)
+   └─ Localização: /scripts/HIERARQUIA_AGENTES.txt
+
+4. GUIA_OPERACIONAL_BRIEFING.txt
+   └─ Como coletar dados, estrutura briefing, fluxo cliente até live
+   └─ Ferramenta de trabalho diário (referência constante)
+   └─ Localização: /scripts/GUIA_OPERACIONAL_BRIEFING.txt
+
+5. MANUAL_INTEGRACAO_SQUAD_V3.0.txt
+   └─ Fluxo de campanha semestral (5 fases), responsabilidades, automação
+   └─ O "playbook" operacional (como executar tudo junto)
+   └─ Localização: /scripts/MANUAL_INTEGRACAO_SQUAD_V3.0.txt
+
+═══════════════════════════════════════════════════════════════════════════════
+MATRIZ DE SINCRONIZAÇÃO (O QUE ATUALIZAR QUANDO)
+═══════════════════════════════════════════════════════════════════════════════
+
+QUANDO IMPLEMENTAR NOVO AGENTE:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Exemplo: Você cria novo agente "Agente Analytics"                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ✅ ARQUITETURA_COMPLETA.txt                                               │
+│    └─ Adicione na seção "8 AGENTES DO SISTEMA":                            │
+│       ├─ Nome: Agente Analytics                                            │
+│       ├─ Responsabilidade: [descrição]                                     │
+│       ├─ Onde funciona no fluxo: (qual fase? com quem trabalha?)           │
+│       └─ Roadmap: Atualize "Phase 3" se necessário                         │
+│                                                                              │
+│ ✅ HIERARQUIA_AGENTES.txt                                                  │
+│    └─ Atualize visual hierarchy (diagrama ASCII):                           │
+│       ├─ Adicione novo agente no organograma                              │
+│       ├─ Mostre reporting (quem reporta pra quem?)                        │
+│       └─ Checklist de handoff: como interage com outros?                  │
+│                                                                              │
+│ ✅ MANUAL_INTEGRACAO_SQUAD_V3.0.txt                                        │
+│    └─ Parte 2 (Matriz de Responsabilidades):                              │
+│       ├─ Adicione linha do novo agente                                    │
+│       ├─ O que faz no semestral                                           │
+│       ├─ O que faz no mensal, semanal, diário                            │
+│       └─ Como interage com outros agentes                                 │
+│                                                                              │
+│ ✅ GUIA_OPERACIONAL_BRIEFING.txt                                           │
+│    └─ Se agente coleta dados ou precisa briefing:                         │
+│       ├─ Adicione na seção "Como coletar dados"                           │
+│       └─ Defina que dados ele recebe e em que momento                     │
+│                                                                              │
+│ ✅ README.txt                                                              │
+│    └─ Atualize contador de agentes (8 → 9)                                │
+│    └─ Adicione na lista visual "Conheça nossos agentes"                  │
+│                                                                              │
+│ RESULTADO: Sistema completo, documentado, comunicado.                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUANDO ADICIONAR NOVO FRAMEWORK / FERRAMENTA:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Exemplo: Você cria novo "Framework de Triagem de Leads v2.0"               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ✅ ARQUITETURA_COMPLETA.txt                                               │
+│    └─ Seção "FRAMEWORKS & METODOLOGIAS":                                   │
+│       ├─ Adicione novo framework                                          │
+│       ├─ Qual agente usa?                                                 │
+│       └─ Como integra com fluxo existente?                                │
+│                                                                              │
+│ ✅ GUIA_OPERACIONAL_BRIEFING.txt                                           │
+│    └─ Parte 2 ou 5 (Ferramentas):                                          │
+│       ├─ Adicione na lista de ferramentas recomendadas                    │
+│       ├─ Por quê usar este framework?                                     │
+│       ├─ Quando aplicar?                                                  │
+│       └─ Passo a passo de implementação                                   │
+│                                                                              │
+│ ✅ MANUAL_INTEGRACAO_SQUAD_V3.0.txt                                        │
+│    └─ Se muda fluxo de campanha:                                          │
+│       ├─ Atualize "5 FASES DE CAMPANHA"                                   │
+│       └─ Mostre aonde novo framework entra                                │
+│                                                                              │
+│ ✅ HIERARQUIA_AGENTES.txt                                                  │
+│    └─ Se muda responsabilidade de quem:                                   │
+│       ├─ Atualizar seção de "FLUXO DE COMUNICAÇÃO"                        │
+│       └─ Checklist de handoff afetado?                                    │
+│                                                                              │
+│ ✅ README.txt                                                              │
+│    └─ Se é importante pra visão geral:                                    │
+│       └─ Adicione na seção "METODOLOGIAS"                                 │
+│                                                                              │
+│ RESULTADO: Framework pronto, documentado, integrado.                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUANDO MUDAR FLUXO / PROCESSO:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Exemplo: Você muda "Fase 01" de 1 semana para 2 semanas"                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ✅ MANUAL_INTEGRACAO_SQUAD_V3.0.txt                                        │
+│    └─ Parte 1 (Fluxo de Campanha Semestral):                              │
+│       ├─ Atualize "FASE 01: IMERSÃO E DIAGNÓSTICO"                        │
+│       ├─ Nova duração: 2 semanas                                          │
+│       ├─ Novo checklist de atividades                                     │
+│       └─ Impacto em outras fases (timeline inteira muda?)                 │
+│                                                                              │
+│ ✅ GUIA_OPERACIONAL_BRIEFING.txt                                           │
+│    └─ Parte 3 (Fluxo Completo):                                            │
+│       ├─ Atualize "SEMANA 1: IMERSÃO"                                     │
+│       └─ Se virou "SEMANA 1-2: IMERSÃO", reorganize todo timeline        │
+│                                                                              │
+│ ✅ ARQUITETURA_COMPLETA.txt                                               │
+│    └─ Seção "ROADMAP" ou "FLUXO":                                          │
+│       └─ Atualize visual de timeline se houver                            │
+│                                                                              │
+│ ✅ HIERARQUIA_AGENTES.txt                                                  │
+│    └─ Se muda sequência de handoff:                                       │
+│       ├─ Atualize "FLUXO DE COMUNICAÇÃO"                                  │
+│       └─ Checklist pode ter mudado?                                       │
+│                                                                              │
+│ ✅ README.txt                                                              │
+│    └─ Se é mudança radical (afeta compreensão geral):                    │
+│       └─ Atualize descrição de fluxo                                      │
+│                                                                              │
+│ RESULTADO: Fluxo novo, todos sabem, timeline clara.                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUANDO ADICIONAR NOVA PLATAFORMA / REDE SOCIAL:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Exemplo: Você adiciona "Podcast" como novo canal"                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ✅ ARQUITETURA_COMPLETA.txt                                               │
+│    └─ Seção "PLATAFORMAS SUPORTADAS":                                      │
+│       ├─ Adicione Podcast                                                 │
+│       ├─ Formato de conteúdo                                              │
+│       └─ Integração com funil (topo/meio/fundo?)                          │
+│                                                                              │
+│ ✅ GUIA_OPERACIONAL_BRIEFING.txt                                           │
+│    └─ Parte 6 (Ferramentas) ou Parte 2 (Coleta de Dados):                 │
+│       ├─ Se Podcast = novo jeito de distribuir, documente                 │
+│       └─ Como Publicador distribui pra Podcast?                           │
+│                                                                              │
+│ ✅ HIERARQUIA_AGENTES.txt                                                  │
+│    └─ Se novo agente precisa ser criado (Podcast Manager?):               │
+│       ├─ Atualize organograma                                             │
+│       └─ Checklist de handoff                                             │
+│                                                                              │
+│ ✅ MANUAL_INTEGRACAO_SQUAD_V3.0.txt                                        │
+│    └─ Parte 2 (Matriz de Responsabilidades):                              │
+│       └─ Qual agente lida com Podcast? (Publicador? Novo agente?)        │
+│                                                                              │
+│ ✅ README.txt                                                              │
+│    └─ Atualize "PLATAFORMAS SUPORTADAS"                                   │
+│                                                                              │
+│ RESULTADO: Nova plataforma, documentada, integrada ao fluxo.               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUANDO CRIAR NOVO TEMPLATE / ASSET:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Exemplo: Você cria "Templates Canva A/B/C/D""                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ✅ ARQUITETURA_COMPLETA.txt                                               │
+│    └─ Seção "DESIGN SYSTEM" ou "ATIVOS":                                   │
+│       ├─ Adicione "Templates Canva v1.0"                                  │
+│       ├─ Descrição dos 4 templates                                        │
+│       ├─ Onde acessar (link ou local)                                     │
+│       └─ Como Designer Social usa                                         │
+│                                                                              │
+│ ✅ HIERARQUIA_AGENTES.txt                                                  │
+│    └─ Seção "DESIGNER SOCIAL":                                             │
+│       └─ Atualize responsabilidades (agora tem templates prontos)        │
+│                                                                              │
+│ ✅ GUIA_OPERACIONAL_BRIEFING.txt                                           │
+│    └─ Exemplo Prático (Parte 7):                                           │
+│       └─ Se for exemplo novo, mencione templates usados                   │
+│                                                                              │
+│ ✅ MANUAL_INTEGRACAO_SQUAD_V3.0.txt                                        │
+│    └─ Parte 4 (FASE 04: EXECUÇÃO, seção BUILD):                           │
+│       └─ "Designer: Cria carrosseis usando Templates A/B/C/D"            │
+│                                                                              │
+│ ✅ README.txt                                                              │
+│    └─ Seção "ASSETS & TEMPLATES":                                          │
+│       └─ Adicione referência a Templates Canva                            │
+│                                                                              │
+│ RESULTADO: Templates criados, documentados, usáveis.                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUANDO ATUALIZAR DIRETRIZ DE AGENTE:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Exemplo: Você atualiza "system-prompt.txt" do Copywriter para v2.5"        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ✅ MANUAL_INTEGRACAO_SQUAD_V3.0.txt                                        │
+│    └─ Parte 2 (Matriz de Responsabilidades, seção Copywriter):            │
+│       └─ Se mudou competência ou processo → atualizar                     │
+│                                                                              │
+│ ✅ HIERARQUIA_AGENTES.txt                                                  │
+│    └─ Seção "COPYWRITER":                                                  │
+│       └─ Se mudou como trabalha com outros agentes → atualizar            │
+│                                                                              │
+│ ✅ ARQUITETURA_COMPLETA.txt                                               │
+│    └─ Seção "8 AGENTES" (descrição de cada um):                           │
+│       └─ Se mudou responsabilidade core → atualizar                       │
+│                                                                              │
+│ ✅ README.txt                                                              │
+│    └─ Raramente (só se mudança é MUITO grande)                            │
+│                                                                              │
+│ RESULTADO: Agente documentado, versão sincronizada.                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+CHECKLIST: ANTES DE CONSIDERAR IMPLEMENTAÇÃO "PRONTA"
+═══════════════════════════════════════════════════════════════════════════════
+
+Toda vez que você implementar algo novo:
+
+□ Implementei / Testei / Funciona OK
+
+□ Atualizei ARQUITETURA_COMPLETA.txt
+  └─ Onde? (qual seção?)
+  └─ O quê? (descrição clara)
+  └─ Como integra? (com o resto do sistema)
+
+□ Atualizei HIERARQUIA_AGENTES.txt (se afeta fluxo entre agentes)
+  └─ Organograma reflete mudança?
+  └─ Checklist de handoff atualizado?
+
+□ Atualizei MANUAL_INTEGRACAO_SQUAD_V3.0.txt (se afeta fluxo de campanha)
+  └─ Qual fase afeta? (01-05)
+  └─ Qual agente afeta?
+
+□ Atualizei GUIA_OPERACIONAL_BRIEFING.txt (se afeta briefing ou dados)
+  └─ Coleta de dados mudou?
+  └─ Fluxo cliente até live mudou?
+
+□ Atualizei README.txt (se é relevante pra visão geral)
+  └─ Descrição geral precisa mudar?
+
+□ Todos os 5 documentos estão sincronizados?
+  └─ Não tem contradição?
+  └─ Fluxo está claro?
+
+□ PRONTO PARA COMUNICAR ao time
+
+═══════════════════════════════════════════════════════════════════════════════
+TEMPLATE: COMO DOCUMENTAR UMA MUDANÇA
+═══════════════════════════════════════════════════════════════════════════════
+
+Quando você implementar algo novo, use este template pra documentar:
+
+MUDANÇA: [NOME DA MUDANÇA]
+═════════════════════════════════════════════════════════════════════════════
+
+DATA: [DATA]
+RESPONSÁVEL: [NOME]
+
+O QUE MUDOU:
+[Descrição clara do que foi implementado/alterado]
+
+POR QUÊ:
+[Motivação: problema resolvido? melhoria? escalabilidade?]
+
+IMPACTO:
+├─ Qual agente(s) afetado(s)?
+├─ Qual fase(s) da campanha afetada(s)?
+├─ Que documentos precisam atualizar?
+└─ Algum treinamento necessário pro time?
+
+DOCUMENTOS ATUALIZADOS:
+├─ ✅ ARQUITETURA_COMPLETA.txt (qual seção?)
+├─ ✅ MANUAL_INTEGRACAO_SQUAD_V3.0.txt (qual seção?)
+├─ ✅ HIERARQUIA_AGENTES.txt (qual seção?)
+├─ ✅ GUIA_OPERACIONAL_BRIEFING.txt (qual seção?)
+└─ ✅ README.txt (qual seção?)
+
+PRÓXIMOS PASSOS:
+└─ Comunicar mudança ao team?
+└─ Treinamento necessário?
+└─ Revisar em 1 mês? (como está funcionando?)
+
+═══════════════════════════════════════════════════════════════════════════════
+FREQUÊNCIA DE REVISÃO DOS DOCUMENTOS
+═══════════════════════════════════════════════════════════════════════════════
+
+SEMANAL:
+└─ Você implementou algo novo?
+   └─ SIM → Atualizar os documentos que afeta
+   └─ NÃO → Nada a fazer
+
+MENSAL:
+└─ Revisar MANUAL_INTEGRACAO_SQUAD_V3.0.txt
+   └─ Está refletindo realidade de como squad trabalha?
+   └─ Alguma mudança que acumulou sem documentar?
+
+TRIMESTRAL:
+└─ Revisar ARQUITETURA_COMPLETA.txt (visão geral)
+   └─ Tudo ainda faz sentido?
+   └─ Algum agente/framework que deveria ser removido?
+   └─ Alguma integração que virou inviável?
+
+SEMESTRAL:
+└─ Revisão completa de todos os 5 documentos
+   └─ Por Head + Estrategista
+   └─ Tudo sincronizado?
+   └─ Sistema está escalável?
+
+═══════════════════════════════════════════════════════════════════════════════
+
+REGRA DE OURO:
+
+🎯 Se não tá documentado = não tá implementado
+
+Se você fez algo mas não atualizou os 5 documentos:
+├─ O time não sabe
+├─ Próximo cliente não recebe informação
+├─ Sistema não escala
+└─ Verdade verdadeira: não funciona
+
+SEMPRE atualize. 100% das vezes.
+
+═══════════════════════════════════════════════════════════════════════════════

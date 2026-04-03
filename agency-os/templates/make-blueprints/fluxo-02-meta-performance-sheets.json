@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "name": "02_Meta_Performance_to_Google_Sheets",
+    "description": "Todo dia às 23h, puxa dados da Meta Graph API e registra performance na planilha",
+    "version": "1.0"
+  },
+  "flow": [
+    {
+      "step": 1,
+      "type": "trigger",
+      "app": "Make Schedule",
+      "module": "Every Day",
+      "config": {
+        "time": "23:00",
+        "timezone": "America/Sao_Paulo"
+      }
+    },
+    {
+      "step": 2,
+      "type": "action",
+      "app": "HTTP",
+      "module": "Make a Request",
+      "config": {
+        "url": "https://graph.facebook.com/v18.0/act_1516734289018626/insights",
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer [SEU_META_ACCESS_TOKEN]"
+        },
+        "query_params": {
+          "fields": "impressions,clicks,spend,cpc,cpm,reach",
+          "date_preset": "today",
+          "level": "account"
+        }
+      },
+      "notes": "Substitua [SEU_AD_ACCOUNT_ID] e [SEU_META_ACCESS_TOKEN] com seus dados reais. Salve em clientes/dicasdoflaviog/2026-S1/05_performance/"
+    },
+    {
+      "step": 3,
+      "type": "action",
+      "app": "Google Sheets",
+      "module": "Add a Row",
+      "config": {
+        "spreadsheet": "Daily_Dashboard_dicasdoflaviog_2026",
+        "sheet": "Performance",
+        "columns": {
+          "A_Data": "{{now}}",
+          "B_Impressoes": "{{step2.data[0].impressions}}",
+          "C_Cliques": "{{step2.data[0].clicks}}",
+          "D_Gasto_R$": "{{step2.data[0].spend}}",
+          "E_CPM": "{{step2.data[0].cpm}}",
+          "F_CPC": "{{step2.data[0].cpc}}",
+          "G_Alcance": "{{step2.data[0].reach}}",
+          "H_CPL": "=D{{ROW}}/COUNTIF(Leads!A:A,TEXT(TODAY(),\"dd/mm/yyyy\"))"
+        }
+      }
+    }
+  ],
+  "setup_notes": [
+    "ANTES DE COMEÇAR:",
+    "  1. No Meta Business Manager > Configurações > API de Marketing",
+    "  2. Gere um Access Token com permissões: ads_read, ads_management",
+    "  3. Copie seu Ad Account ID (formato: act_123456789)",
+    "  4. Salve ambos em: clientes/dicasdoflaviog/2026-S1/05_performance/meta-credentials.txt (NUNCA commitar no git)",
+    "",
+    "NO MAKE:",
+    "  5. Crie cenário '02_Meta_Performance_to_Google_Sheets'",
+    "  6. Trigger: Schedule > Every Day > 23:00 São Paulo",
+    "  7. Ação: HTTP > Make a Request (configure URL + token)",
+    "  8. Ação: Google Sheets > Add a Row (aba Performance)",
+    "  9. Mapeie os campos",
+    " 10. Teste com Run Once (dados do dia)",
+    " 11. Ative o fluxo"
+  ]
+}

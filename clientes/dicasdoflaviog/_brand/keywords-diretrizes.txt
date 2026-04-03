@@ -1,0 +1,158 @@
+# ============================================================
+# KEYWORDS DINÂMICAS — dicasdoflaviog
+# Arquivo: _brand/keywords-diretrizes.txt
+# Leia este arquivo antes de gerar qualquer criativo.
+# O componente KeywordsBar no Figma tem 3 slots editáveis:
+# keyword-1 | keyword-2 | keyword-3
+# ============================================================
+
+
+## O QUE É A KEYWORDSBAR
+
+A KeywordsBar é a barra no rodapé inferior de cada slide que exibe
+3 palavras-chave relacionadas ao tema do conteúdo.
+
+Ela aparece abaixo da linha divisória e acima do final do frame.
+Não é o rodapé da marca — é uma camada de contexto temático.
+
+Função: identificar de forma visual e rápida o tema do post,
+reforçar SEO semântico e criar consistência de identidade editorial.
+
+
+## ONDE APLICAR
+
+Template A — Capa Editorial    : SEMPRE (slide 1)
+Template C — Conteúdo / Lista  : SEMPRE (slides internos)
+Template D — CTA / Encerramento: OPCIONAL (use se houver espaço)
+Template B — Foto + Headline   : NUNCA (conflita visualmente com foto)
+Stories                        : NUNCA (formato não comporta)
+
+
+## REGRAS DE USO
+
+1. SEMPRE 3 keywords — nunca 2, nunca 4.
+2. Todas em MAIÚSCULO e sem acento quando possível (ex: IA, não INTELIGÊNCIA).
+3. Máximo 20 caracteres por keyword.
+4. Nunca repetir a mesma palavra do headline do slide.
+5. Usar a tabela abaixo como referência — não inventar.
+
+
+## TABELA DE KEYWORDS POR CATEGORIA
+
+Consulte o campo "pillar" do brief e use as keywords correspondentes.
+Você pode variar dentro do grupo — não precisa usar sempre as mesmas 3.
+
+### pillar: "IA Aplicada"
+  Opção A: IA  |  AUTOMAÇÃO  |  PRODUTIVIDADE
+  Opção B: CHATGPT  |  WORKFLOW  |  EFICIÊNCIA
+  Opção C: INTELIGÊNCIA ARTIFICIAL  |  FERRAMENTAS  |  RESULTADO
+  Opção D: IA  |  PROMPT  |  PROCESSO
+
+### pillar: "Negócios & Empreendedorismo"
+  Opção A: NEGÓCIO  |  ESTRATÉGIA  |  RESULTADO
+  Opção B: EMPREENDEDORISMO  |  PROCESSO  |  CRESCIMENTO
+  Opção C: GESTÃO  |  CAIXA  |  DECISÃO
+  Opção D: MERCADO  |  POSICIONAMENTO  |  CLIENTE
+
+### pillar: "Branding & Design"
+  Opção A: MARCA  |  IDENTIDADE  |  DESIGN
+  Opção B: BRANDING  |  VISUAL  |  CONCEITO
+  Opção C: LOGOTIPO  |  TIPOGRAFIA  |  PALETA
+  Opção D: IDENTIDADE VISUAL  |  POSICIONAMENTO  |  PERCEPÇÃO
+
+### pillar: "Marketing Digital"
+  Opção A: MARKETING  |  CONTEÚDO  |  CONVERSÃO
+  Opção B: TRÁFEGO  |  FUNIL  |  VENDA
+  Opção C: COPY  |  CTA  |  RESULTADO
+  Opção D: INSTAGRAM  |  CARROSSEL  |  ENGAJAMENTO
+
+### pillar: "Bastidores & Processo"
+  Opção A: BASTIDORES  |  PROCESSO  |  APRENDIZADO
+  Opção B: EUGÊNCIA  |  WORKFLOW  |  AGENTES
+  Opção C: ROTINA  |  SISTEMA  |  FERRAMENTAS
+  Opção D: PRODUÇÃO  |  CONTEÚDO  |  MÉTODO
+
+### pillar: "Produtos Digitais"
+  Opção A: PRODUTO  |  LANÇAMENTO  |  VALOR
+  Opção B: EBOOK  |  CHECKLIST  |  MANUAL
+  Opção C: INFOPRODUTO  |  OFERTA  |  FUNIL
+  Opção D: VENDA  |  DIGITAL  |  ESCALA
+
+
+## COMO O AGENTE DESIGNER APLICA
+
+No brief recebido do Estrategista, o campo "pillar" e "keywords"
+já virão preenchidos. Exemplo:
+
+  pillar: "IA Aplicada"
+  keywords: ["IA", "AUTOMAÇÃO", "PRODUTIVIDADE"]
+
+O Agente Designer usa esses valores para preencher o componente
+KeywordsBar no Figma ou no HTML gerado pelo Playwright.
+
+Em HTML, a KeywordsBar é renderizada assim:
+
+  <div class="keywords-bar">
+    <span>IA</span>
+    <div class="sep"></div>
+    <span>AUTOMAÇÃO</span>
+    <div class="sep"></div>
+    <span>PRODUTIVIDADE</span>
+  </div>
+
+CSS base:
+  .keywords-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 72px;
+    border-top: 1px solid rgba(255,255,255,0.10); /* dark mode */
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: rgba(245,242,236,0.45); /* dark mode */
+  }
+  .keywords-bar .sep {
+    width: 1px;
+    height: 18px;
+    background: rgba(255,255,255,0.15);
+  }
+  /* Light mode overrides */
+  .keywords-bar.light {
+    border-top-color: #E8E5DF;
+    color: rgba(13,13,13,0.40);
+  }
+  .keywords-bar.light .sep {
+    background: #E8E5DF;
+  }
+
+
+## POSICIONAMENTO NO FRAME (1080×1350)
+
+  Y do início da KeywordsBar: 1314px (abaixo do rodapé da marca)
+  Altura: 36px
+  Fundo: transparente (herda o fundo do slide)
+  Margem lateral: 72px (alinhado com o grid)
+
+Ordem do rodapé do frame (de cima para baixo):
+  1272px — Linha divisória (1px)
+  1288px — dicasdoflaviog  +  @dicasdoflaviog ✓  (rodapé da marca)
+  1318px — Linha divisória KeywordsBar (1px, mais sutil)
+  1334px — Keyword 1  |  Keyword 2  |  Keyword 3
+
+Altura total reservada para rodapé: 78px (1272 até 1350)
+
+
+## QUANDO CRIAR KEYWORDS CUSTOMIZADAS
+
+Se o conteúdo não se encaixar em nenhuma categoria da tabela,
+o Agente Copywriter deve sugerir 3 keywords no brief.
+O Agente Designer NUNCA inventa keywords sem instrução do brief.
+
+
+## ATUALIZAR ESTE ARQUIVO
+
+Quando novos pilares de conteúdo forem criados, adicionar aqui
+com pelo menos 2 opções de keywords por pilar.
+Responsável pela atualização: Flávio G. (Estrategista).

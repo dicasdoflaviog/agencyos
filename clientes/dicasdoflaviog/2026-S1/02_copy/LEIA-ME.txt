@@ -1,0 +1,22 @@
+📁 02_COPY
+════════════════════════════════════════
+QUEM SALVA AQUI: Copywriter
+QUANDO: Após brief aprovado pelo HEAD
+
+FORMATO DO ARQUIVO:
+  copy-[tema]-[data].txt
+  Exemplo: copy-erros-marketing-2026-04-02.txt
+
+CONTEÚDO DO ARQUIVO:
+  - Slide 1: Headline / gancho
+  - Slide 2 a N: Textos de cada slide
+  - Caption completa (para o Instagram)
+  - Hashtags (lista completa)
+  - Alt text de cada imagem
+  - CTA final
+
+APROVAÇÃO:
+  HEAD revisa ortografia, tom e conversão.
+  Se aprovado: "✅ APROVADO — HEAD"
+  Se não: retorna com feedback no mesmo arquivo.
+════════════════════════════════════════

@@ -1,0 +1,1031 @@
+═══════════════════════════════════════════════════════════════════════════════
+🚀 MANUAL DE INTEGRAÇÃO DO SQUAD (VERSÃO FINAL 3.0)
+═══════════════════════════════════════════════════════════════════════════════
+Marca: Sol — Estrategista Antifrágil | Versão: 3.0 (Março/2026)
+Foco: Escala, Conversão e Gestão Multinicho
+
+"Este documento é a BÍBLIA operacional do squad.
+Se algum agente não sabe o que fazer = leia este manual."
+
+═══════════════════════════════════════════════════════════════════════════════
+ÍNDICE RÁPIDO
+═══════════════════════════════════════════════════════════════════════════════
+1. Fluxo de Campanha Semestral (5 Fases)
+2. Matriz de Responsabilidades (8 Agentes)
+3. Integração de Automação (ManyChat & Make)
+4. Documentação e Dashboards
+5. Travas de Segurança e Rigor
+6. Exemplo Prático Completo
+7. Checklist Executivo
+8. FAQ Operacional
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 1: FLUXO DE CAMPANHA SEMESTRAL (O MÉTODO)
+═══════════════════════════════════════════════════════════════════════════════
+
+PREMISSA FUNDAMENTAL:
+Toda campanha segue o mesmo rito. Não importa se é dicasdoflaviog, cliente novo
+ou produto diferente — o método é REPLICÁVEL e ESCALÁVEL.
+
+Timeline: 6 meses por ciclo (Semestral)
+Investimento: Alinha com calendário anual + sazonalidade
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FASE 01: IMERSÃO E DIAGNÓSTICO (Semana 1)                                  │
+│ Responsável: ESTRATEGISTA + HEAD                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+OBJETIVO: Entender o cliente, o mercado, a oportunidade.
+
+O ESTRATEGISTA faz:
+├─ COLETA DE DADOS (4-6h)
+│  ├─ Entrevista com cliente (1h)
+│  │  ├─ Histórico do negócio
+│  │  ├─ Objetivos para os próximos 6 meses
+│  │  ├─ Orçamento de marketing
+│  │  ├─ Principal rival/competidor
+│  │  └─ Qual é a maior dor do cliente?
+│  │
+│  ├─ Análise de concorrência (2h)
+│  │  ├─ Top 3 competidores (quem está ganhando?)
+│  │  ├─ Que tipo de conteúdo eles fazem?
+│  │  ├─ Como eles se posicionam?
+│  │  └─ Oportunidade aberta (gap no mercado?)
+│  │
+│  └─ Análise de público (2h)
+│     ├─ Quem são os clientes ideais?
+│     ├─ Onde estão? (LinkedIn, TikTok, Instagram, WhatsApp?)
+│     ├─ Qual é a dor REAL deles?
+│     └─ Em que estágio estão? (consciente, pronto para compra?)
+
+├─ DEFINIÇÃO DO "ÂNGULO FORA DA CURVA"
+│  └─ Qual é a provocação única que vai diferençar este cliente?
+│     Exemplo: "A maioria dos cursos ensinam prompt. Ninguém ensina lógica."
+│     Isso = THE ÂNGULO (guia de tudo que vem depois)
+
+└─ RESULTADO: "Imersão Report" (doc de 3-5 páginas)
+   Contém: Contexto, público, nicho, ângulo, oportunidades
+
+O HEAD então:
+├─ Revisa a viabilidade
+│  ├─ É possível fazer isso em 6 meses?
+│  ├─ Orçamento está alinhado com objetivos?
+│  ├─ Qual é o risco maior?
+│  └─ Precisa de ajuste de escopo?
+│
+└─ GREEN LIGHT ou SOLICITAÇÃO DE AJUSTES
+   └─ Se OK → avança. Se não → volta ao Estrategista
+
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FASE 02: PLANEJAMENTO ESTRATÉGICO (Semana 2-3)                             │
+│ Responsável: SQUAD COMPLETO (coordenado pelo Estrategista)                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+OBJETIVO: Desenhar o plano de execução para 6 meses.
+
+O ESTRATEGISTA cria:
+├─ ANÁLISE SWOT (2h)
+│  ├─ Strengths (força): O que o cliente faz MUITO bem?
+│  ├─ Weaknesses (fraqueza): O que o cliente faz RUIM?
+│  ├─ Opportunities (oportunidade): Como ganhar mercado?
+│  └─ Threats (ameaça): O que pode derrubar o plano?
+│
+├─ FUNIL DE VENDAS SEMESTRAL
+│  ├─ TOPO (Awareness)
+│  │  ├─ Meta: Atingir 100k+ impressões/mês
+│  │  ├─ Conteúdo: Educação + Posicionamento
+│  │  ├─ Plataforma: Instagram, TikTok, Pinterest (alcance)
+│  │  └─ CTA: "Salva isso", "Segue pro mais"
+│  │
+│  ├─ MEIO (Consideration)
+│  │  ├─ Meta: 10k+ cliques para LP/mês
+│  │  ├─ Conteúdo: Comparação, Case Study, Prova Social
+│  │  ├─ Plataforma: LinkedIn, Email, Anúncios retargetados
+│  │  └─ CTA: "Baixa este recurso", "Confira a análise"
+│  │
+│  └─ FUNDO (Conversion)
+│     ├─ Meta: 100-500 leads qualificados/mês (depende nicho)
+│     ├─ Conteúdo: Oferta, Urgência, Bônus
+│     ├─ Plataforma: Landing Page, WhatsApp, Email Sequence
+│     └─ CTA: "Compra agora", "Agende sua consulta"
+│
+├─ CALENDÁRIO DE 6 MESES (Estrutura)
+│  ├─ Mês 1-2: Launch (máxima energia, maioria de novos temas)
+│  ├─ Mês 3-4: Otimização (repete o que funciona, elimina o que falha)
+│  ├─ Mês 5-6: Escala (amplifica investimento no vencedor)
+│  └─ Cada mês: 8-12 temas de conteúdo
+│
+└─ RESULT: "Briefing Estratégico Completo" (apresentação)
+
+O COPYWRITER contribui:
+├─ Tom de voz da campanha
+├─ 3 variações de ângulos (cliente escolhe qual levar)
+└─ Estrutura narrativa geral (como os temas vão se conectar?)
+
+O DESIGNER SOCIAL contribui:
+├─ 4 templates visuais (A/B/C/D)
+├─ Paleta de cores confirmada
+└─ Estilo visual (minimalista, extravagante, etc?)
+
+O UI DESIGNER contribui:
+├─ Estrutura da Landing Page
+├─ Campos do formulário
+└─ Fluxo de experiência
+
+O TRAFFIC MANAGER contribui:
+├─ Orçamento mensal proposto
+├─ Distribuição por rede (30% Instagram, 40% Google, 30% LinkedIn?)
+├─ Meta de CPL (Custo Por Lead)
+├─ Meta de ROAS (Retorno sobre Ad Spend)
+└─ Público inicial (tamanho estimado)
+
+O ENGAJADOR contribui:
+├─ Fluxo de ManyChat (triagem automática)
+├─ Sequência de mensagens DM
+└─ KPI de qualificação de leads
+
+O PUBLICADOR contribui:
+├─ Calendário de horários de publicação
+├─ Estrutura de pastas (Drive)
+└─ Ferramentas que serão usadas
+
+O HEAD faz a síntese:
+├─ Todos os planos se conectam?
+├─ Essência humana preservada?
+├─ Viabilidade financeira OK?
+└─ GREEN LIGHT para Kickoff
+
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FASE 03: DOCUMENTAÇÃO E APROVAÇÃO DO CLIENTE (Semana 3-4)                  │
+│ Responsável: ESTRATEGISTA (apresentação) + SQUAD (suporte)                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+OBJETIVO: Cliente entende o plano e aprova investimento.
+
+O ESTRATEGISTA monta:
+├─ APRESENTAÇÃO NOTEBOOKLM (15-20 slides)
+│  ├─ Slide 1-2: Contexto (o que aprendemos sobre você?)
+│  ├─ Slide 3-5: Análise SWOT
+│  ├─ Slide 6-8: Oportunidade (o ângulo)
+│  ├─ Slide 9-12: Funil de 6 meses (topo/meio/fundo)
+│  ├─ Slide 13-15: Calendário visual (o que sai quando?)
+│  ├─ Slide 16-18: Investimento e ROI esperado
+│  └─ Slide 19-20: Próximos passos e timeline
+│
+└─ Apresentação no NotebookLM
+   └─ Para que o cliente possa compartilhar com seu time
+   └─ Acesso a toda documentação base (briefings, templates, etc)
+
+O HEAD participa da apresentação:
+├─ Valida números (CPL, ROAS, investimento)
+├─ Responde objeções técnicas
+└─ Colhe aprovação final
+
+RESULTADO:
+├─ ✅ Cliente aprova plano
+├─ ✅ Assinatura de SOW (Statement of Work)
+├─ ✅ Recebimento de 1º pagamento (se necessário)
+└─ ✅ Liberação para execução
+
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FASE 04: EXECUÇÃO E AUTOMAÇÃO (Semana 4-26, ao longo de 6 meses)           │
+│ Responsável: SQUAD COMPLETO (cada um em seu raio)                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+OBJETIVO: Colocar o plano em prática e automatizar ao máximo.
+
+SEMANA 4: BUILD (Construir os ativos)
+────────────────────────────────────
+├─ COPYWRITER: Escreve 8-12 legendas do Mês 1
+├─ DESIGNER SOCIAL: Cria 8-12 carrosseis + vídeos do Mês 1
+├─ UI DESIGNER: Finaliza Landing Page (código React/Tailwind)
+├─ TRAFFIC MANAGER: Configura campanhas (públicos, orçamento, pixels)
+├─ ENGAJADOR: Setup ManyChat (fluxos de triagem)
+├─ PUBLICADOR: Estrutura Drive, cria calendário
+└─ HEAD: Valida tudo antes de sair
+
+SEMANA 5: DEPLOY (Ligar os motores)
+─────────────────────────────────────
+├─ Landing Page: AO VIVO (teste de velocidade, formulário funciona?)
+├─ Anúncios Pagos: ATIVADOS (primeiro orçamento de 30% do mês)
+├─ Conteúdo Orgânico: INICIADO (1º posts saem)
+├─ ManyChat: DISPARADO (fluxos automáticos começam a triagem)
+├─ Pixels: RASTREANDO (Facebook, Google, conversões)
+└─ Dashboard: INICIADO (Traffic Manager começa a colher dados)
+
+SEMANA 6-26: OPERAÇÃO CONTÍNUA + OTIMIZAÇÃO
+──────────────────────────────────────────────
+A cada semana:
+├─ PUBLICADOR: Publica 2-3 conteúdos/semana
+├─ ENGAJADOR: Qualifica leads diariamente (documenta dores/objeções)
+├─ TRAFFIC MANAGER: Otimiza campanhas diárias (pausa ruins, escala vencedores)
+└─ COPYWRITER: Cria variações baseado em feedback do Engajador
+
+A cada 2 semanas:
+├─ HEAD: Reúne time (15 min standup)
+├─ Analisa: Que conteúdo está funcionando?
+├─ Pivô: Se algo falha, ajusta estratégia
+└─ Autoriza: Se precisa aumentar orçamento
+
+A cada mês:
+├─ TRAFFIC MANAGER: Relatório de ROI/CPL
+├─ ESTRATEGISTA: Narrativa de "próximos passos"
+├─ PUBLICADOR: Analytics consolidado
+└─ HEAD: Reúne squad + cliente (apresentação de resultados)
+
+INTEGRAÇÃO MANYCHAT & MAKE:
+───────────────────────────
+├─ ENGAJADOR desenha: "Se pessoa responde X, manda Y"
+├─ MAKE automação: "Se WhatsApp fala 'compra', cria linha em planilha"
+├─ RESULTADO: Leads qualificados caem em planilha automática
+├─ PUBLICADOR monitora: Está funcionando? Tem gargalo?
+└─ Se não funciona: Volta ao Engajador para ajuste
+
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FASE 05: MENSURAÇÃO E DASHBOARD (Mensal)                                   │
+│ Responsável: TRAFFIC MANAGER + PUBLICADOR (dados) + ESTRATEGISTA (narrativa)│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+OBJETIVO: Saber o que funciona e escalar.
+
+O TRAFFIC MANAGER coleta:
+├─ Impressões e Alcance
+├─ CTR (Click-Through Rate)
+├─ CPC (Custo Por Clique)
+├─ CPA (Custo Por Aquisição)
+├─ CPL (Custo Por Lead)
+├─ Taxa de Conversão da LP (% de visitantes → leads)
+├─ ROAS (Retorno sobre Ad Spend)
+└─ LTV (Lifetime Value, se possível)
+
+O PUBLICADOR coleta:
+├─ Engajamento por post (likes, comentários, salvamentos, shares)
+├─ Alcance orgânico vs. pago
+├─ Qual conteúdo converteu mais cliques?
+└─ Quais plataformas geraram mais leads?
+
+O ENGAJADOR coleta:
+├─ Dores mais repetidas (análise semanal)
+├─ Objeções principais
+├─ NPS (Net Promoter Score) informal ("Você recomendaria?")
+└─ Taxa de qualificação (% de leads que viram prospects)
+
+RESULTADO: DASHBOARD CONSOLIDADO
+├─ Prometido vs. Realizado (meta de CPL, ROAS, leads)
+├─ Qual foi a melhor semana?
+├─ Qual conteúdo converteu mais?
+├─ O que precisa ajustar no mês que vem?
+└─ Pronto para escala ou pivô?
+
+REUNIÃO MENSAL COM CLIENTE:
+───────────────────────────
+├─ O ESTRATEGISTA apresenta: "Aqui está o que funcionou"
+├─ Dados: ROI, leads, feedback do público
+├─ Insights: "O público quer mais conteúdo sobre X"
+├─ Próximos passos: "Próximo mês vamos escalar Y"
+└─ Aprovação: Cliente aprova pivô ou continua mesmo plano
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 2: MATRIZ DE RESPONSABILIDADES (8 AGENTES)
+═══════════════════════════════════════════════════════════════════════════════
+
+Durante o ciclo semestral, cada agente tem responsabilidades CRISTALINAS.
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ESTRATEGISTA — O ARQUITETO                                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 01: Imersão + Diagnóstico (entrevista cliente, análise market)
+├─ Fase 02: Criar Briefing Estratégico Completo (SWOT, Funil, Calendário)
+├─ Fase 03: Montar apresentação NotebookLM (aprovação cliente)
+├─ Fase 05: Narrativa mensal (o que funcionou, próximos passos)
+└─ Contato constante: Dados do Publicador + Engajador → ajusta plano
+
+MENSAL:
+├─ Reunião com cliente (apresentação de resultados)
+├─ Análise de trending topics (o que o mercado está falando?)
+├─ Pivot de estratégia (se números não bateram)
+└─ Recomendação de novo tema (baseado em dados de Engajador)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ HEAD — O ORQUESTRADOR                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 01: Aprova viabilidade (OK técnico/financeiro?)
+├─ Fase 02: Valida plano de todos agentes (conecta?)
+├─ Fase 03: Participa apresentação (responde objeções técnicas)
+├─ Fase 04: Valida BUILD (tudo pronto antes de deploy)
+├─ Fase 05: Mensal — Standup de 15 min (o que quebrou? Precisa pivotar?)
+
+CONTÍNUO:
+├─ Recebe escalações de agentes (dúvida, conflito, bloqueio)
+├─ Valida confrontos (cliente pede algo que mata ROI?)
+├─ Revisa ortografia em apresentações críticas
+├─ Trava de segurança: controla senha 2202 (mudanças críticas)
+└─ Relatório ao cliente (se necessário)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ COPYWRITER — A VIGA NARRATIVA                                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 02: Contribui tom de voz + 3 ângulos (cliente escolhe)
+├─ Fase 04: Escreve 8-12 legendas/mês durante 6 meses (96 legendas total)
+├─ Cria variações de anúncios (AIDA/PAS) para Traffic Manager testar
+└─ Pivota conteúdo baseado em feedback do Engajador (objeções)
+
+SEMANAL:
+├─ Lê relatório de Engajador (dores confirmadas)
+├─ Cria variações para A/B tests de anúncios
+├─ Revisa português em legendas (2x, sempre)
+└─ Colabora com Designer (copy + design andam juntos)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ UI DESIGNER — O CONSTRUTOR DE CONVERSÃO                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 02: Estrutura Landing Page completa
+├─ Fase 04: Constrói Landing Page em React/Tailwind
+├─ Setup: Formulário, CTA, Analytics pixel
+├─ Otimização: A/B testa headlines, CTAs, layout (baseado em dados)
+└─ Iterações: Redesenha seções com baixa conversão (baseado em heat maps)
+
+CONTÍNUO:
+├─ Monitora conversão da LP (trabalha com Traffic Manager)
+├─ Ajusta velocidade (página rápida = conversão melhor)
+├─ Design system mantido (paleta de cores, tipografia, spacing)
+└─ Suporta Publicador/Designer (tokens de cor, ícones reutilizáveis)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ DESIGNER SOCIAL — O CRIADOR VISUAL                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 02: Cria 4 templates (A/B/C/D) + paleta de cores
+├─ Fase 04: Desenha 96 carrosseis (8-12 por mês × 6 meses)
+├─ Cria variações de vídeos (15s, 30s, 60s para diferentes plataformas)
+├─ Otimiza com Nano Banana 2 (backgrounds, texturas, mockups)
+└─ Colabora com Copywriter (design + copy sincronizados)
+
+SEMANAL:
+├─ Recebe copy do Copywriter → encaixa no design
+├─ Cura com Copywriter (se copy prejudica visual)
+├─ Prepara arquivos para Publicador (dimensões corretas)
+└─ Garante coerência com UI Designer (design tokens)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ TRAFFIC MANAGER — O CONTROLADOR DE ROI                                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 02: Propõe orçamento, distribuição, meta de CPL/ROAS
+├─ Fase 04: Configura campanhas (públicos, pixels, UTMs)
+├─ Fase 04 onwards: Otimiza diária (pausa ruins, escala vencedores)
+├─ A/B testa criativos (copy variação A vs B)
+└─ Fase 05: Relatório mensal consolidado (ROI, CPL, conversão)
+
+DIÁRIO:
+├─ Monitora CTR, CPC, CPA, ROAS
+├─ Pausa anúncios que queimam verba
+├─ Escala campanhas com ROAS > 2.5x
+├─ Documenta em planilha (rastreamento 24/7)
+└─ Relatório flash se performance cai >20%
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ENGAJADOR — O QUALIFICADOR DE LEADS                                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 02: Desenha fluxos de ManyChat + Make
+├─ Fase 04: Qualifica leads DIÁRIOS (triagem automática + manual)
+├─ Coleta dores confirmadas (semanal, envia ao Estrategista/Copywriter)
+├─ Analisa sentimento do público (positivo/neutro/negativo)
+└─ Sinala HOT LEADS ao Traffic Manager (para lookalike)
+
+DIÁRIO:
+├─ Responde comentários (framework GREW)
+├─ Triagem em DM (3 perguntas-chave)
+├─ Documenta interações (planilha)
+├─ Mantém ManyChat/Make funcionando (alerta se bot quebra)
+└─ Escalação ao HEAD se crise (hater, crítica grave)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PUBLICADOR — O FINALIZADOR MULTICANAL                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SEMESTRAL:
+├─ Fase 04: Publica 2-3 conteúdos/semana (96+ publicações em 6 meses)
+├─ Otimiza SEO social por rede (hashtags, keywords, CTAs)
+├─ Estrutura Drive (pastas, arquivos nomeados, checklist)
+├─ Monitora performance 24-48h pós-publicação
+└─ Fase 05: Relatório consolidado (alcance, engajamento, cliques)
+
+SEMANAL:
+├─ Valida checklist de segurança (links, UTMs, português, dimensões)
+├─ Recebe artes do Designer + copy do Copywriter
+├─ Adapta conteúdo por rede (IG ≠ LinkedIn ≠ TikTok)
+├─ Agenda publicações (meta business suite, tiktok creator center, etc)
+├─ Acompanha primeiras 2 horas (engage com comentários iniciais)
+└─ Documenta em planilha de controle
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 3: INTEGRAÇÃO DE AUTOMAÇÃO (MANYCHAT & MAKE)
+═══════════════════════════════════════════════════════════════════════════════
+
+ManyChat e Make transformam leads em dados estruturados AUTOMATICAMENTE.
+
+ARQUITETURA:
+────────────
+Inbound (Lead chega)
+    ↓
+ManyChat (Triagem automática + manual)
+    ↓
+Make (Webhook: "Se pessoa responde X, salva em planilha")
+    ↓
+Google Sheets (Lead estruturado, pronto para conversão)
+
+O ENGAJADOR DESENHA:
+
+ManyChat Fluxos (Exemplo: Manual Anti-Burrice):
+┌─────────────────────────────────────────────────────────────┐
+│ INCOMING MESSAGE                                             │
+│ "Oi, achei interessado no manual"                            │
+├─────────────────────────────────────────────────────────────┤
+│ ↓                                                             │
+│ QUICK REPLIES (Triagem inicial)                             │
+│ ├─ "Sou freelancer" → Fluxo A                               │
+│ ├─ "Sou dono de agência" → Fluxo B                          │
+│ └─ "Sou só curioso" → Fluxo C                               │
+├─────────────────────────────────────────────────────────────┤
+│ FLUXO A (Freelancer):                                        │
+│ ↓                                                             │
+│ Bot: "Quanto você gasta de tempo em tarefas repetidas?"     │
+│ → Pessoa responde (livre)                                   │
+│ ↓                                                             │
+│ Make Webhook: "Salva resposta em planilha"                  │
+│ ↓                                                             │
+│ Bot: "Qual é o principal software que você usa?"           │
+│ → Pessoa responde                                           │
+│ ↓                                                             │
+│ Make Webhook: "Atualiza planilha"                           │
+│ ↓                                                             │
+│ Bot: "Top! Você é lead A (High-Ticket). Vou avisar nosso    │
+│      time pra conversar com você. Pode ficar de prontidão?" │
+│ → Pessoa confirma                                           │
+│ ↓                                                             │
+│ Make Webhook: "Cria novo contato em CRM" (ou dispara email) │
+└─────────────────────────────────────────────────────────────┘
+
+MAKE Automações (Webhook integrations):
+├─ Trigger: ManyChat envia dados para Make
+├─ Ações automáticas:
+│  ├─ Salva em Google Sheets (estruturado por tipo)
+│  ├─ Cria contato em Airtable (se quiser CRM)
+│  ├─ Dispara email sequence (autoresposta)
+│  ├─ Sinaliza Traffic Manager (HOT LEAD para retargeting)
+│  └─ Cria tarefa para Estrategista (follow-up necessário?)
+
+BENEFÍCIO:
+├─ Sem toque manual: Leads chegam ESTRUTURADOS
+├─ Sem gasto extra: Usa plano Free de Make (até 1000 ops/mês)
+├─ Sem perda de dados: Tudo rastreado, nada se perde
+└─ Escalável: Quando crescer, apenas escala para pago
+
+O TRAFFIC MANAGER MONITORA:
+├─ Taxa de conversão ManyChat (% que começam fluxo vs. completam)
+├─ Se houver gargalo: Reporta ao Engajador
+└─ Cria lookalike audiences a partir de leads qualificados
+
+O PUBLICADOR ACOMPANHA:
+├─ Performance de posts que linkam para ManyChat
+├─ Qual call-to-action gera mais leads?
+└─ Otimiza CTAs baseado em dados de Engajador
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 4: DOCUMENTAÇÃO E DASHBOARDS
+═══════════════════════════════════════════════════════════════════════════════
+
+"Dados que não estão documentados = dados que não existem."
+
+O SEU DIFERENCIAL é ter TUDO rastreado, estruturado, acessível.
+
+NOTEBOOKLM — O CÉREBRO DO CLIENTE
+──────────────────────────────────
+O que sobe:
+├─ Briefing inicial (contexto, mercado, oportunidade)
+├─ Plano semestral aprovado (SWOT, Funil, Calendário)
+├─ Relatórios mensais (o que aconteceu, dados, insights)
+├─ Case studies e provas sociais (cliente quer mostrar?)
+└─ Documentação técnica (como ManyChat funciona, por exemplo)
+
+Benefício:
+├─ Cliente acessa tudo (transparência = confiança)
+├─ Você tem TUDO centralizado (não perde documento)
+├─ Head usa para comparar "Prometido vs. Realizado"
+└─ Base IA (conversa com dados, gera insights automáticos)
+
+Estrutura NotebookLM (Pasta):
+├─ 2026-MARÇO-DICASDOFLAVIOG/
+│  ├─ Briefing-Inicial.pdf (contexto do cliente)
+│  ├─ Plano-Semestral-Aprovado.pdf (SWOT, calendário)
+│  ├─ Relatório-Abril.pdf (o que saiu em abril)
+│  ├─ Relatório-Maio.pdf (o que saiu em maio)
+│  ├─ Relatório-Junho.pdf (o que saiu em junho)
+│  └─ Apresentação-Executiva-Semestral.pdf (síntese final)
+
+DASHBOARD DE AÇÕES (Google Sheets)
+──────────────────────────────────
+Quem mantém: PUBLICADOR
+
+| Semana | Tema | Status | Data Publicação | Link | Plataformas | Checklist OK? |
+|--------|------|--------|-----------------|------|-------------|---------------|
+| 1 | Anti-Burrice | Publicado | 31/03 | bit.ly/ab | IG,TK,LI | ✅ |
+| 1 | IA Lógica | Planejado | 02/04 | — | IG,TK | ❌ (esperando arte) |
+
+Benefício:
+├─ Visão clara: o que saiu, o que vem
+├─ Accountability: se algo atrasa, aparece aqui
+├─ Feedback rápido: cliente vê que está acontecendo
+└─ Planejamento: próximas 4 semanas sempre visível
+
+DASHBOARD DE RESULTADOS (Google Sheets)
+────────────────────────────────────────
+Quem mantém: TRAFFIC MANAGER
+
+| Data | Campanhas Ativas | Impressões | Cliques | CPC | Leads | CPL | ROAS | Tendência |
+|------|-----------------|-----------|--------|-----|-------|-----|------|-----------|
+| 31/3 | 6 | 240k | 3.2k | R$1.25 | 320 | R$95 | 3.2x | ↑ (bom) |
+| 7/4 | 6 | 280k | 3.8k | R$1.18 | 420 | R$89 | 3.5x | ↑↑ (excelente) |
+
+Benefício:
+├─ ROI rastreado 100%
+├─ Decisão rápida: escala ou pausa?
+├─ Cliente vê transparência (números reais)
+└─ Head avalia se plano está no caminho
+
+DASHBOARD DE QUALIDADE (Google Sheets)
+───────────────────────────────────────
+Quem mantém: ENGAJADOR
+
+| Semana | Dores Top 3 | Objeções Top 3 | Sentimento | Leads A | Leads B | Leads C |
+|--------|-----------|----------------|-----------|---------|---------|---------|
+| 1 | Estrutura lógica, Falta tempo, Técnico | Caro, Genérico, Tempo | 65%+ / 20% / 15% | 8 | 15 | 12 |
+| 2 | Estrutura lógica, Automação, Técnico | Caro, Prazo, Muito | 70%+ / 18% / 12% | 12 | 18 | 10 |
+
+Benefício:
+├─ Estrategista vê o que REALMENTE o público quer
+├─ Copywriter adapta próximo conteúdo (ataca dores)
+├─ Head monitora sentimento (tá bom? tá ruim?)
+└─ Dados reais > opinião
+
+APRESENTAÇÃO MENSAL (PowerPoint / Google Slides)
+─────────────────────────────────────────────────
+Quem monta: ESTRATEGISTA
+Quem alimenta: Traffic Manager + Publicador + Engajador + Head
+
+Agenda (15-20 min):
+├─ Slide 1: O que planejamos (recap)
+├─ Slide 2-3: Dados de performance (ROI, CPL, leads)
+├─ Slide 4-5: Top 3 conteúdos (mais cliques, mais engajamento)
+├─ Slide 6-7: Principais insights (o público quer X)
+├─ Slide 8-9: Objeções ouvidas (vamos atacar isso)
+├─ Slide 10-11: Próximos passos (escala isso, pausa aquilo)
+└─ Slide 12: Aprovação (cliente aprova pivô ou continua?)
+
+Benefício:
+├─ Cliente sente que está na mão certa
+├─ Transparência = renovação contrato (confiança)
+├─ Feedback direto = ajustes rápidos
+└─ Propósito: convencer cliente a escalar orçamento
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 5: TRAVAS DE SEGURANÇA E RIGOR
+═══════════════════════════════════════════════════════════════════════════════
+
+"Rigor é diferencial. A maioria das agências é sloppy."
+
+ORTOGRAFIA (Trava #1)
+─────────────────────
+Regra: ZERO ERROS em documentos do cliente.
+
+Onde revisar:
+├─ Apresentações (NotebookLM, PowerPoint)
+├─ Legendas de posts (antes de publicar)
+├─ Assuntos de email
+├─ Títulos de anúncios
+└─ Absolutamente TUDO que sai com marca
+
+Como revisar:
+├─ Leia em voz alta (ouvir erro é mais fácil)
+├─ Procure por erros comuns (acentuação, concordância)
+├─ Usar ferramentas: Grammarly, LanguageTool (português)
+├─ Revise 2x SEMPRE
+└─ Se dúvida: Google "dúvida + português" (Dicionário)
+
+Punição:
+├─ Erro em documento do cliente = comentário do Head (construtivo)
+├─ Erro em anúncio = CPC aumenta (plataforma penaliza qualidade)
+├─ Erro repetido = revisão de processo (por que aconteceu?)
+└─ Nunca: acusar, apenas melhorar
+
+CONFRONTO (Trava #2)
+────────────────────
+O HEAD tem autoridade para confrontar 3 tipos de situação:
+
+1. Cliente pede algo que MATA o ROI semestral
+   ├─ Exemplo: "Quer descontar 50% para que chegue mais barato"
+   │  (vai matar a qualidade do conteúdo)
+   ├─ O que Head faz:
+   │  ├─ "Entendo a motivação, mas isso vai prejudicar a estratégia"
+   │  ├─ "Eis por que: com menos orçamento, conteúdo fica meia-boca"
+   │  ├─ "Aqui estão 2 alternativas: A) mantém qualidade, B) ajusta timeline"
+   │  └─ "Qual você prefere?"
+
+2. Squad pede algo que não faz sentido
+   ├─ Exemplo: Copywriter "Vou escrever textão de 5 mil palavras"
+   │  (Instagram mata posts longos)
+   ├─ O que Head faz:
+   │  ├─ "Entendo que tem muita coisa pra dizer"
+   │  ├─ "Mas dados mostram que 150-300 caracteres converte melhor"
+   │  └─ "Vamos condensar? A mensagem fica mais forte mesmo"
+
+3. Dados indicam que plano original não vai funcionar
+   ├─ Exemplo: CPL saiu a R$ 450 (meta era R$ 100)
+   ├─ O que Head faz:
+   │  ├─ "Dados mostram CPL fora do esperado"
+   │  ├─ "Vamos analisar: problema é público, creative ou LP?"
+   │  ├─ "Aqui estão 3 ajustes: A) Muda targeting, B) Testa novo criativo"
+   │  └─ "Qual fazemos primeira?"
+
+Processo de Confronto:
+├─ Empatia: "Entendo sua posição"
+├─ Dados: "Mas os dados indicam que..."
+├─ Alternativa: "Eis 2 opções que funcionam melhor"
+├─ Decisão: "Qual você prefere?"
+└─ Nunca: brigue, acuse, force
+
+CÓDIGO DE FORÇA: SENHA 2202 (Trava #3)
+───────────────────────────────────────
+Algumas mudanças são CRÍTICAS e exigem confirmação.
+
+O que exige 2202:
+├─ Descontos acima de 20% (no contrato original)
+├─ Mudança de público-alvo (pivô completo)
+├─ Cancelamento de campanha (no meio do semestre)
+├─ Promessas contratuais (garantir resultado)
+├─ Aumento de escopo (novos produtos, novas redes)
+└─ Qualquer coisa que mude "Prometido vs. Realizado"
+
+Como funciona:
+├─ Cliente (ou agente) pede mudança crítica
+├─ Head diz: "Vou precisar de uma confirmação"
+├─ Head envia documento (explicando impacto)
+├─ Cliente responde com: "Confirmo com código 2202"
+├─ Só assim: mudança é autorizada
+└─ Benefício: proteção legal (tudo documentado)
+
+Exemplo:
+Cliente: "Quero descontar 30% do contrato"
+Head: "Entendo. Vou precisar de confirmação com código de força.
+       Leia o documento anexo (mostra impacto) e responda com 2202 se quer mesmo."
+Cliente: "Confirmo com 2202. Quer dizer que reduz equipe em 30%?"
+Head: "Sim. Menos conteúdo, menos otimização, menos ROI. Você tem certeza?"
+Cliente: "Sim, confirmo com 2202."
+Head: "Registrado. A partir de hoje você tem X menos conteúdo/mês."
+
+VIGILÂNCIA CONTÍNUA (Trava #4)
+───────────────────────────────
+Head MONITORA:
+├─ Ortografia (revisa apresentações importantes)
+├─ Prazos (alguém tá atrasando?)
+├─ Qualidade (conteúdo tá bom? ruim?)
+├─ Conflito (há desentendimento no squad?)
+├─ Viabilidade (estamos no caminho certo?)
+└─ Segurança (alguém fez algo arriscado?)
+
+Ferramenta: Relatório semanal
+├─ Cada agente manda 2-3 linhas (status + bloqueios)
+├─ Head sintetiza (há pattern? há alerta?)
+└─ Se problema: conversa 1:1 ou standup de 15 min
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 6: EXEMPLO PRÁTICO COMPLETO (Manual Anti-Burrice)
+═══════════════════════════════════════════════════════════════════════════════
+
+Aplicando tudo de uma vez.
+
+CONTEXTO:
+Campanha: Manual Anti-Burrice (Dicasdoflaviog)
+Cliente: Flávio G. (próprio founder)
+Período: Março — Setembro 2026 (6 meses)
+Orçamento: R$ 10.000/mês
+Objetivo: 1.500 leads qualificados de empreendedores
+
+FASE 01: IMERSÃO (Semana 1)
+──────────────────────────
+Estrategista coleta:
+├─ Público: Freelancers, donos de agência, solopreneurs
+├─ Dor: Gastam 30-50h/mês em tarefas que máquina faria em 1h
+├─ Competidor: Cursos genéricos de IA (ensinam prompt)
+├─ Oportunidade: "Ninguém ensina LÓGICA" (o ângulo!)
+└─ Meta: 1.500 leads, R$ 40-50 CPL (viável?)
+
+Head aprova: ✅ Viável, orçamento alinhado, diferencial claro
+
+FASE 02: PLANEJAMENTO (Semana 2-3)
+──────────────────────────────────
+Estrategista monta:
+├─ SWOT
+│  ├─ Strengths: Flávio é expert, tem autoridade, público segue
+│  ├─ Weaknesses: Marca nova, pouco alcance ainda
+│  ├─ Opportunities: IA em alta, freelancers buscam automação
+│  └─ Threats: Cursos baratos de concorrentes, falta de prova social inicial
+│
+├─ FUNIL
+│  ├─ TOPO (Awareness): 100k impressões/mês
+│  │  ├─ Conteúdo: "5 padrões de IA ninguém te conta"
+│  │  ├─ Rede: Instagram, TikTok
+│  │  └─ CTA: "Salva", "Compartilha"
+│  │
+│  ├─ MEIO (Consideration): 10k cliques/mês
+│  │  ├─ Conteúdo: "Como ganhei 12h/semana com estrutura de IA"
+│  │  ├─ Rede: LinkedIn, Anúncios retargetados
+│  │  └─ CTA: "Vem descobrir a estrutura"
+│  │
+│  └─ FUNDO (Conversion): 1.500 leads/mês
+│     ├─ Conteúdo: "Manual Anti-Burrice + 7 dias de email"
+│     ├─ Rede: Landing Page, Email, WhatsApp
+│     └─ CTA: "Compra por R$ 79,90" ou "Entra no grupo"
+│
+└─ CALENDÁRIO
+   ├─ Mês 1-2: Launch (máxima energia, 12 temas novos)
+   ├─ Mês 3-4: Otimização (repete vencedores)
+   └─ Mês 5-6: Escala (amplifica o melhor)
+
+Copywriter contribui: Tom de voz = "Antiguru, direto, prático, zero hype"
+
+Designer Social contribui: Templates A/B/C/D em preto + amarelo (contraste)
+
+Traffic Manager contribui:
+├─ Orçamento: R$ 10k/mês = R$ 3.3k/semana
+├─ Distribuição: 40% Instagram, 35% Google, 25% LinkedIn
+├─ Meta CPL: R$ 40-50
+├─ Meta ROAS: 2.5x minimum
+
+FASE 03: APRESENTAÇÃO & APROVAÇÃO (Semana 3-4)
+───────────────────────────────────────────────
+Estrategista monta apresentação NotebookLM (slides):
+├─ Contexto: "Você gasta 2h/dia em tarefas. Vamos resolver isso."
+├─ Oportunidade: "1.500 leads de empreendedores em 6 meses"
+├─ Plano: Funil topo/meio/fundo
+├─ Investimento: R$ 10k/mês
+├─ ROI esperado: R$ 120k (assumindo R$ 80 ticket médio)
+└─ Próximos passos: Build em abril
+
+Flávio aprova: ✅ "Vamos!"
+
+FASE 04: EXECUÇÃO (Abril — Setembro)
+────────────────────────────────────
+
+ABRIL: BUILD + DEPLOY
+├─ Copywriter escreve 12 legendas (topo/meio/fundo)
+├─ Designer Social cria 12 carrosseis + 3 vídeos (IG/TK/YT)
+├─ UI Designer finaliza Landing Page
+├─ Traffic Manager configura campanhas + pixels
+├─ Engajador setup ManyChat (fluxo de triagem)
+├─ Publicador estrutura Drive, cria calendário
+│
+├─ Segunda semana: Deploy
+│  ├─ Landing Page: AO VIVO
+│  ├─ Anúncios: ATIVADOS (30% do orçamento de teste)
+│  ├─ Conteúdo orgânico: PUBLICADO (3 posts)
+│  ├─ ManyChat: ATIVADO (fluxo de triagem)
+│  └─ Pixels: RASTREANDO
+│
+└─ Resultado: Semana 1-2 = performance ruim (normal), semana 3-4 = ajustes
+
+MAIO: OTIMIZAÇÃO
+├─ Traffic Manager: Análise A/B, pausa criativos ruins, escala vencedores
+├─ Copywriter: Cria variações (baseado em feedback de Engajador)
+├─ Designer: Redesenha slides que não converteram
+├─ Publicador: 6 posts, acompanha performance 24-48h
+├─ Engajador: Qualifica 400+ leads, coleta dores (semanal ao Estrategista)
+│
+└─ Resultado: CPL melhora de R$ 120 → R$ 85, ROAS melhora 1.8x → 2.3x
+
+JUNHO: ESCALA
+├─ Traffic Manager: Aumenta orçamento para R$ 12k (já que funciona)
+├─ Conteúdo: Mantém que funciona (repete 70% do sucesso)
+├─ Novidade: Testa 1 novo ângulo (baseado em dados de Engajador)
+├─ Publicador: 6 posts, mantém ritmo
+│
+└─ Resultado: 250 leads/mês, CPL R$ 48, ROAS 2.8x
+
+JULHO-SETEMBRO: CONSOLIDAÇÃO + INOVAÇÃO
+├─ Mantém máquina funcionando
+├─ Testa 2 novos ângulos (market testing)
+├─ Colhe leads para próximo semestre (retenção é a chave)
+│
+└─ Resultado esperado: 1.800 leads em 6 meses (acima da meta 1.500)
+
+FASE 05: MENSURAÇÃO (Final de semestre)
+─────────────────────────────────────────
+Dashboard consolidado:
+├─ Impressões totais: 650k
+├─ Cliques: 52k
+├─ Leads gerados: 1.800
+├─ CPL médio: R$ 54,55 (dentro da meta R$ 40-50, 8% acima)
+├─ ROAS semestral: 2.6x
+├─ Investimento: R$ 60k
+├─ Receita: R$ 156k (1.800 × R$ 80 ticket médio)
+├─ Lucro: R$ 96k (156k - 60k)
+└─ ROI: 160% (96k / 60k)
+
+Apresentação final ao cliente:
+├─ "Prometido: 1.500 leads"
+├─ "Entregue: 1.800 leads (120% da meta)"
+├─ "Prometido: R$ 40-50 CPL"
+├─ "Entregue: R$ 54 CPL (8% acima, mas compensado em volume)"
+├─ "Prometido: ROI 2x"
+├─ "Entregue: ROI 2.6x (30% acima)"
+└─ Conclusão: "Próximo semestre, escalamos de R$ 10k para R$ 15k?"
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 7: CHECKLIST EXECUTIVO
+═══════════════════════════════════════════════════════════════════════════════
+
+Use este checklist para cada NOVO CLIENTE ou NOVO CICLO.
+
+FASE 01 CHECKLIST: IMERSÃO
+─────────────────────────
+□ Entrevista com cliente feita? (Histórico, objetivos, orçamento, dor)
+□ Análise concorrência feita? (Top 3, conteúdo deles, gap no mercado?)
+□ Análise público feita? (Quem são, onde, dor, nível consciência)
+□ Ângulo fora da curva DEFINIDO? (Criativo, diferente, provocador)
+□ Imersão Report escrito? (3-5 páginas, contexto completo)
+□ HEAD aprovou viabilidade? (Técnica? Financeira? ROI realistic?)
+□ GREEN LIGHT para avançar?
+
+FASE 02 CHECKLIST: PLANEJAMENTO
+────────────────────────────────
+□ SWOT análise feita? (4 quadrantes preenchidos)
+□ Funil definido? (Topo/Meio/Fundo com metas)
+□ Calendário 6 meses montado? (Temas, datas, responsáveis)
+□ Copywriter contribuiu? (Tom de voz, 3 ângulos)
+□ Designer Social contribuiu? (Templates, paleta)
+□ UI Designer contribuiu? (LP estrutura, campos)
+□ Traffic Manager contribuiu? (Orçamento, distribuição, meta)
+□ Engajador contribuiu? (ManyChat, fluxos)
+□ Publicador contribuiu? (Calendário, Drive structure)
+□ HEAD validou tudo? (Se não, volta aos passos anteriores)
+
+FASE 03 CHECKLIST: DOCUMENTAÇÃO
+────────────────────────────────
+□ Apresentação NotebookLM pronta? (15-20 slides)
+□ Ortografia revisada 2x?
+□ Números fazem sentido? (Head validou?)
+□ Cliente apresentado? (Agenda reunião)
+□ Cliente aprovou? (Assinatura SOW)
+□ Pagamento recebido (se necessário)?
+□ Liberado para Build?
+
+FASE 04 CHECKLIST: BUILD
+────────────────────────
+□ Copy pronto? (12 legendas para mês 1)
+□ Artes prontas? (12 carrosseis + vídeos)
+□ Landing Page live? (Teste: formulário funciona?)
+□ Campanhas configuradas? (Públicos, pixels, UTMs)
+□ ManyChat setup? (Fluxos testados)
+□ Drive estruturado? (Pastas criadas, checklist pronto)
+□ Todos os arquivos nomeados? (Consistência)
+□ HEAD validou? (Antes de deploy)
+
+FASE 04 CHECKLIST: DEPLOY
+─────────────────────────
+□ Landing Page monitored? (Velocidade OK? Conversão? Bugs?)
+□ Anúncios ativados? (Primeiros 30% de orçamento)
+□ Conteúdo orgânico publicado? (Primeiros 3 posts)
+□ ManyChat disparando? (Leads chegando no fluxo?)
+□ Pixels rastreando? (Facebook vê conversões?)
+□ Dashboard iniciado? (Primeiras métricas)
+□ Equipe alerta de problemas? (Se algo quebrar, sabe quem avisar)
+
+FASE 05 CHECKLIST: OTIMIZAÇÃO CONTÍNUA
+───────────────────────────────────────
+□ Daily: Traffic Manager otimiza? (Pausa ruins, escala vencedores)
+□ Semanal: Standup 15 min (agentes reportam bloqueios)
+□ Semanal: Engajador envia dores/objeções (Copywriter/Estrategista leem)
+□ Semanal: Publicador publica conteúdo (acompanha 24-48h)
+□ Semanal: Head valida? (Tudo no caminho?)
+□ Mensal: Dashboard consolidado? (Dados compilados)
+□ Mensal: Apresentação ao cliente? (O que funcionou, próximos passos)
+□ Mensal: Head + Squad reúnem? (Aprova pivô ou continua?)
+
+FASE 05 CHECKLIST: FINAL DE SEMESTRE
+──────────────────────────────────────
+□ Todos os dados consolidados? (ROI, CPL, leads, conversão)
+□ Prometido vs. Realizado alinhado?
+□ NotebookLM atualizado? (Relatórios finais subidos)
+□ Apresentação executiva pronta? (Síntese de 6 meses)
+□ Cliente aprovado resultados?
+□ Insights para próximo semestre coletados?
+□ Equipe debriefing? (O que aprendemos?)
+□ Próximo ciclo aprovado?
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 8: FAQ OPERACIONAL
+═══════════════════════════════════════════════════════════════════════════════
+
+P: E se durante a execução descobrirmos que o público é diferente do esperado?
+R: Exatamente por isso temos Fase 05 (mensuração mensal). Ajustamos dados,
+   apresentamos ao cliente, discutimos se pivotamos ou mantemos. Decisão
+   apoiada em dados, não em "achismo".
+
+P: E se a Landing Page não converte?
+R: Head reúne UI Designer, Traffic Manager e Estrategista. Diagnosticam:
+   problema é headline? Form? Copy? Design? Velocidade? Trazem dados
+   (heat maps, session recordings) e testam 1 coisa por vez.
+
+P: E se não batemos a meta de CPL?
+R: Traffic Manager analisa: problema é público (atingindo errado?), criativo
+   (propaganda fraca?), LP (não converte?), timing (saiu na hora errada?).
+   Testa ajuste X, mede resultado. Se não melhora em 2 semanas → escalação
+   ao Head para pivô.
+
+P: E se cliente pede desconto no meio do semestre?
+R: Head confronta com dados. "Seu CPL está R$ 54, meta era R$ 50.
+   Se cortarmos 20% de orçamento, CPL piora para R$ 68. Quer mesmo?"
+   Se insistir: exige código 2202 (documento comprovação de impacto).
+
+P: E se um agente tá falhando?
+R: Head conversa 1:1 (empatia). "Que bloqueio você tá tendo?"
+   Se é falta de clareza: volta o brief. Se é capacidade: oferece treinamento.
+   Se é atitude: pode haver desligamento (raro, mas acontece).
+
+P: E se conteúdo X viraliza inesperadamente?
+R: Publicador alerta. Traffic Manager duplica orçamento para aquele criativo.
+   Copywriter cria variações. Designer adapta. Engajador prepara para avalanche
+   de leads. Ganho de sorte vira escala inteligente.
+
+P: E se cliente quer produto novo no meio da campanha?
+R: Head solicita código 2202. "Novo produto = novo funil = escopo diferente
+   = investimento diferente. Vamos conversar sobre isso?"
+   Se aprovado com 2202: inclui no novo ciclo (próx. semestre).
+
+P: E se o orçamento acaba antes do semestre terminar?
+R: Traffic Manager alerta. Head apresenta opções ao cliente:
+   A) Continua com orçamento menor (menos conteúdo, menos leads)
+   B) Pausa e volta no próximo semestre
+   C) Aumenta orçamento (se ROAS está bom, justifica)
+
+P: Como documentamos tudo?
+R: Tudo em 3 lugares:
+   1. NotebookLM (para cliente ver)
+   2. Google Sheets (para squad acompanhar)
+   3. Drive (arquivos, pastas, checklist)
+   Se não está documentado = não aconteceu.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CONCLUSÃO: O MÉTODO FUNCIONA PORQUE
+
+✅ É REPLICÁVEL
+   └─ Mesmo método para dicasdoflaviog, cliente 1, cliente 2 (adaptado)
+
+✅ É ESCALÁVEL
+   └─ De 1 cliente para 10, o método não muda
+
+✅ É MENSURADO
+   └─ Tudo tem dados. Nada é "achismo"
+
+✅ É DOCUMENTADO
+   └─ NotebookLM + Sheets + Drive = tudo acessível
+
+✅ TEM GUARDRAILS
+   └─ Travas de segurança (ortografia, confronto, código 2202)
+
+✅ RESPONSABILIDADES CRISTALINAS
+   └─ Cada agente sabe exatamente o que fazer
+
+✅ INTEGRADO
+   └─ ManyChat + Make + Dashboard = automação que escala
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Este manual é VIVO. Atualize quando aprender algo novo.
+Quando tudo funciona, mede-se. Quando mede-se, melhora-se.
+
+Sucesso não é sorte. É sistema.
+
+═══════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,27 @@
+📁 05_PERFORMANCE
+════════════════════════════════════════
+QUEM SALVA AQUI: Gestor de Tráfego + Make (automático)
+QUANDO: Semanalmente + após cada post publicado
+
+ARQUIVOS ESPERADOS:
+  dashboard-link.txt
+    → Link do Google Sheets "Daily_Dashboard_dicasdoflaviog_2026"
+    → Abas: Leads | Performance | ROI | Insights
+
+  relatorio-semanal-[data].txt
+    → O que funcionou essa semana
+    → CPL médio, leads capturados, conversões
+    → Próximas ações sugeridas
+
+  relatorio-mensal-[mes]-[ano].txt
+    → Resumo do mês completo
+    → Comparação mês anterior
+
+DADOS PRINCIPAIS A MONITORAR:
+  CPL atual    → Deve estar abaixo de R$ 150
+  Leads/semana → Meta: 20+ leads qualificados
+  Taxa Hot     → Meta: 30%+ dos leads como Hot
+
+ALERTA AUTOMÁTICO (via Make):
+  Se CPL > R$ 200 → email/notificação automática
+════════════════════════════════════════

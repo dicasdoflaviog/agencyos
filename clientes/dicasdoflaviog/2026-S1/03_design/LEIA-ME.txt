@@ -1,0 +1,20 @@
+📁 03_DESIGN
+════════════════════════════════════════
+QUEM SALVA AQUI: Designer Social
+QUANDO: Após copy aprovada pelo HEAD
+
+/pngs/
+  PNGs exportados do Canva (1080×1350px)
+  FORMATO: [tema]-slide-1.png, [tema]-slide-2.png...
+  Exemplo: erros-marketing-slide-1.png
+
+/canva-links/
+  Links dos templates usados/criados
+  FORMATO: canva-links-[tema]-[data].txt
+  Conteúdo: Template | Variação | Link | Status
+
+APROVAÇÃO:
+  HEAD revisa cores, tipografia, safe areas, logo.
+  Se aprovado: "✅ APROVADO — HEAD"
+  Após aprovação, Publicador pega os PNGs aqui.
+════════════════════════════════════════

@@ -1,0 +1,26 @@
+📁 07_APROVACOES
+════════════════════════════════════════
+QUEM SALVA AQUI: HEAD
+QUANDO: A cada rodada de revisão
+
+FINALIDADE:
+  Rastrear o status de aprovação de cada peça.
+  Evita retrabalho e deixa histórico claro.
+
+FORMATO DO ARQUIVO:
+  aprovacao-[tema]-[data].txt
+
+CONTEÚDO:
+  STATUS: ✅ APROVADO | 🔄 REVISÃO | ❌ REPROVADO
+
+  Brief:   [ ] Aprovado em __/__
+  Copy:    [ ] Aprovado em __/__
+  Design:  [ ] Aprovado em __/__
+  Pub:     [ ] Agendado para __/__ às __h
+
+  FEEDBACK (se revisão):
+    - [descrever o que precisa mudar]
+
+FLUXO:
+  HEAD cria esse arquivo → agentes consultam → atualizam → HEAD revisa
+════════════════════════════════════════

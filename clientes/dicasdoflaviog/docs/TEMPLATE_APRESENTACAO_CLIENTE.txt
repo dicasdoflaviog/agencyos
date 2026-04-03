@@ -1,0 +1,439 @@
+════════════════════════════════════════════════════════════════════════════════
+🎬 TEMPLATE: APRESENTAÇÃO AO CLIENTE (Google Slides)
+════════════════════════════════════════════════════════════════════════════════
+
+Marca: Sol — Estrategista Antifrágil | v1.0
+Estrutura: 10 slides + notas no rodapé
+Formato: Google Slides (duplicar do master no Drive: 03_TEMPLATES/)
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 1: CAPA
+════════════════════════════════════════════════════════════════════════════════
+
+Visual:
+├─ Fundo: Branco ou cor primária do cliente
+├─ Logo: Cliente no centro (ou logo dicasdoflaviog)
+├─ Título: "Campanha: [Nome do Cliente] — 2026 S1"
+├─ Subtítulo: "Estratégia de 6 meses, Foco em Conversão"
+└─ Data: [Data de apresentação]
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 2: RESUMO EXECUTIVO (OS NÚMEROS)
+════════════════════════════════════════════════════════════════════════════════
+
+Coloque em caixas coloridas:
+
+┌─────────────────────┐
+│ 🎯 1.500 LEADS      │ (Metas do semestre)
+│ QUALIFICADOS        │
+└─────────────────────┘
+
+┌─────────────────────┐
+│ 💰 R$ 120K          │ (Receita esperada)
+│ EM RECEITA          │
+└─────────────────────┘
+
+┌─────────────────────┐
+│ 📊 R$ 150           │ (Custo por lead)
+│ CUSTO POR LEAD      │
+└─────────────────────┘
+
+┌─────────────────────┐
+│ 🔄 65% CONVERSÃO    │ (Leads que viram clientes)
+│ DE LEADS            │
+└─────────────────────┘
+
+INVESTIMENTO TOTAL: R$ 18.000 (R$ 3.000/mês)
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDES 3-7: CINCO PEÇAS DO CARROSSEL (UMA POR SLIDE)
+════════════════════════════════════════════════════════════════════════════════
+
+PADRÃO VISUAL (cada slide):
+
+LADO ESQUERDO (40%):
+├─ Screenshot/mockup real da peça
+└─ Imagem ocupando todo espaço vertical
+
+LADO DIREITO (60%):
+├─ Título: "PEÇA [N]: [Nome Criativo]"
+├─ Seção DESCRIÇÃO
+│  ├─ Formato: Carrossel Instagram (5 slides)
+│  ├─ Público: [Descrição demográfica]
+│  └─ Duração: [Quantas semanas ao ar]
+│
+├─ Seção OBJETIVO
+│  ├─ O que queremos que aconteça
+│  └─ Principal métrica
+│
+└─ Seção RESULTADO ESPERADO
+   ├─ Número de cliques esperado
+   ├─ Número de comentários
+   ├─ Número de DMs qualificadas
+   └─ Taxa de engajamento esperada
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 3: PEÇA 1 (GANCHO / ABERTURA)
+════════════════════════════════════════════════════════════════════════════════
+
+[CRIATIVO: Screenshot do slide 1 do carrossel]
+├─ Imagem full-bleed
+├─ Texto branco em fundo escuro
+└─ Formato: 1080x1350px
+
+[DESCRIÇÃO]
+Formato: Carrossel Instagram (5 slides)
+Público: [Ex: Freelancers 25-45 anos, sem sistema de captação]
+Duração: 2 semanas ao ar
+
+[OBJETIVO]
+├─ Parar o scroll do feed
+├─ Gerar curiosidade ("como ele fez?")
+└─ Métrica: 50+ cliques
+
+[RESULTADO ESPERADO]
+├─ 50+ cliques no slide
+├─ 10+ comentários perguntando "como?"
+├─ 5+ DMs qualificadas
+└─ Taxa de stop: 45% dos que viram
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 4: PEÇA 2 (CONTEÚDO + PROVA SOCIAL)
+════════════════════════════════════════════════════════════════════════════════
+
+[CRIATIVO: Mockup dos slides 2-3 do carrossel]
+├─ 50% imagem de cliente real
+├─ 50% texto com números (case de sucesso)
+└─ Formato: 1080x1350px
+
+[DESCRIÇÃO]
+Formato: Carrossel (2 slides de conteúdo)
+Público: Mesma audiência (targets warm)
+Duração: 2 semanas ao ar
+
+[OBJETIVO]
+├─ Humanizar (mostrar resultado real)
+├─ Criar confiança (não é teórico)
+├─ Levar para próximo passo (educação)
+└─ Métrica: 35+ cliques
+
+[RESULTADO ESPERADO]
+├─ 35+ cliques
+├─ 8+ comentários (pedindo case completo)
+├─ 3+ DMs (leads mais quentes)
+└─ Taxa de engajamento: 8% (2x melhor)
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 5: PEÇA 3 (EDUCAÇÃO / LISTA)
+════════════════════════════════════════════════════════════════════════════════
+
+[CRIATIVO: Screenshot do slide educativo]
+├─ Números em amarelo (#FFD700)
+├─ Fundo escuro ou branco
+└─ Título grande, legível
+
+[DESCRIÇÃO]
+Formato: 1 slide educativo
+Público: Mesma audiência (pré-qualificada)
+Duração: 2 semanas ao ar
+
+[OBJETIVO]
+├─ Estabelecer autoridade
+├─ Oferecer valor real (não vender direto)
+├─ Preparar para CTA
+└─ Métrica: 25+ cliques
+
+[RESULTADO ESPERADO]
+├─ 25+ cliques
+├─ 12+ comentários (concordando)
+├─ 2+ DMs (perguntas diretas)
+└─ Save rate: 15% (salvam para lembrar)
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 6: PEÇA 4 (REFORÇO / SEGUNDA CHANCE)
+════════════════════════════════════════════════════════════════════════════════
+
+[CRIATIVO: Screenshot do slide de reforço]
+├─ Retoma mensagem principal com novo ângulo
+├─ Design diferente da Peça 1
+└─ Formato: 1080x1350px
+
+[DESCRIÇÃO]
+Formato: 1 slide de reforço
+Público: Pessoas que viram Peças 1-3 (retargeting)
+Duração: 1-2 semanas ao ar
+
+[OBJETIVO]
+├─ Reforçar mensagem (repetição = memorização)
+├─ Oferecer esperança (temos a solução)
+├─ Preparar para CTA final
+└─ Métrica: 20+ cliques
+
+[RESULTADO ESPERADO]
+├─ 20+ cliques
+├─ 6+ comentários (pedindo primeiro passo)
+├─ 3+ DMs (leads hot, prontos para venda)
+└─ Taxa de progresso: 35% avançam para CTA
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 7: PEÇA 5 (CTA / CONVERSÃO)
+════════════════════════════════════════════════════════════════════════════════
+
+[CRIATIVO: Screenshot do CTA slide]
+├─ Headline grande
+├─ Botão amarelo em fundo escuro
+└─ Formato: 1080x1350px
+
+[DESCRIÇÃO]
+Formato: 1 slide final (CTA)
+Público: Leads quentes (dos slides anteriores)
+Duração: 2-3 semanas ao ar
+
+[OBJETIVO]
+├─ Conversão (clique no link ou DM)
+├─ Capturar email ou WhatsApp
+├─ Iniciar pipeline de vendas
+└─ Métrica: 15+ cliques no botão
+
+[RESULTADO ESPERADO]
+├─ 15+ cliques no botão/link
+├─ 10+ DMs pedindo o material
+├─ 8+ cliques em "link na bio"
+├─ 5+ leads capturados neste slide
+└─ TOTAL CARROSSEL: 150+ cliques, 40+ comentários, 23+ DMs
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 8: FLUXO COMPLETO (TIMELINE)
+════════════════════════════════════════════════════════════════════════════════
+
+Semana 1: Imersão & Briefing Estratégico
+  ├─ Entrevista com você (1-2h)
+  ├─ Análise de mercado/concorrentes
+  ├─ Definição do "ângulo fora da curva"
+  └─ ✅ Aprovação do posicionamento
+
+Semana 2-3: Produção (Squad trabalha em paralelo)
+  ├─ Copy (Copywriter) — 2-3 dias
+  ├─ Design (Designer Social) — 2-3 dias
+  └─ Aprovação (HEAD) — 1 dia
+
+Semana 4: Publicação & Ativação
+  ├─ Agendar carrossel (Meta Business Suite)
+  ├─ Ativar tráfego pago Meta/Instagram
+  ├─ Configurar ManyChat (automações)
+  └─ Setup de pixels e rastreio
+
+Semana 5-6+: Otimização Contínua
+  ├─ Monitorar leads/CPL (diário)
+  ├─ A/B testes (novo criativo)
+  ├─ Escalar o que funciona
+  └─ Relatório mensal (ROI)
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 9: INVESTIMENTO + RETORNO (ROI)
+════════════════════════════════════════════════════════════════════════════════
+
+COLUNA 1 - INVESTIMENTO (6 meses):
+├─ Tráfego pago: R$ 18.000 (R$ 3.000/mês)
+├─ Squad: R$ 0 (já incluso no seu plano)
+└─ TOTAL: R$ 18.000
+
+COLUNA 2 - CÁLCULO DE LEADS:
+├─ Investimento: R$ 18.000
+├─ Custo por Lead esperado: R$ 150
+├─ Total de leads: 18.000 ÷ 150 = 120 leads
+├─ Taxa de conversão: 65%
+├─ Total de clientes: 120 × 65% = 78 clientes
+└─ Ticket médio: R$ 1.500
+
+COLUNA 3 - RECEITA & LUCRO:
+├─ Receita bruta: 78 clientes × R$ 1.500 = R$ 117.000
+├─ Menos investimento: R$ 117.000 - R$ 18.000
+└─ LUCRO LÍQUIDO: R$ 99.000
+
+COLUNA 4 - ROI FINAL:
+├─ Fórmula: (Lucro ÷ Investimento) × 100
+├─ Cálculo: (99.000 ÷ 18.000) × 100
+└─ ✅ ROI = 550% (ou 5.5x de retorno)
+
+📊 BENCHMARK: Histórico de clientes similares aponta ROI 600-800%.
+Esses números são CONSERVADORES.
+
+════════════════════════════════════════════════════════════════════════════════
+SLIDE 10: PRÓXIMAS AÇÕES & AGENDAMENTO
+════════════════════════════════════════════════════════════════════════════════
+
+O QUE VOCÊ PRECISA FAZER:
+[ ] Aprova as 5 peças (layout + objetivo)
+[ ] Fornece feedback sobre ângulo/messaging
+[ ] Confirma público-alvo exato
+[ ] Define produto final (Manual? Curso? Mentoria?)
+[ ] Confirma data de início da campanha
+
+O QUE A GENTE FAZ:
+[ ] Criar 16 framesCanva (4 templates × 4 variações)
+[ ] Configurar tráfego Meta (públicos + retargeting)
+[ ] Ativar ManyChat (triagem automática)
+[ ] Montar Dashboard de performance
+[ ] Primeira publicação na semana X
+
+PRÓXIMA REUNIÃO:
+├─ Data: [DIA/MÊS/ANO]
+├─ Horário: [HORA]
+├─ Duração: 30-45 min
+├─ Pauta: Aprovação das peças + perguntas
+├─ Link Meet: [PASTE LINK HERE]
+└─ Responsável: [Nome do Estrategista]
+
+════════════════════════════════════════════════════════════════════════════════
+COMO USAR ESTE TEMPLATE (PASSO A PASSO)
+════════════════════════════════════════════════════════════════════════════════
+
+PASSO 1: Duplicar do Master
+───────────────────────────
+1. Acesse: Google Drive
+2. Navegue: 03_TEMPLATES → Google Slides - Apresentação Cliente
+3. Clique direito → "Make a copy"
+4. Nomeie: "Apresentação [Nome Cliente] 2026-S1"
+5. Abra e comece a editar
+
+PASSO 2: Preencher dados
+─────────────────────────
+Slide 1 (Capa):
+├─ Logo do cliente (ou dicasdoflaviog)
+├─ Nome do cliente
+├─ Data atual
+└─ Período da campanha
+
+Slide 2 (Resumo):
+├─ Números do briefing estratégico
+├─ Total de leads esperado
+├─ ROI estimado
+└─ Investimento total
+
+Slides 3-7 (Peças):
+├─ Adicione screenshot real do criativo
+├─ Preencha descrição (público, formato, duração)
+├─ Preencha objetivo
+├─ Preencha resultado esperado
+└─ IMPORTANTE: Use números reais (não genéricos)
+
+Slide 8 (Timeline):
+├─ Normalmente já pré-preenchido
+├─ Ajuste apenas as datas se necessário
+
+Slide 9 (ROI):
+├─ Números do briefing
+├─ CPL estimado
+├─ Ticket médio
+├─ Cálculos de conversão
+
+Slide 10 (Ações):
+├─ Datas reais da reunião
+├─ Nome do responsável
+├─ Link do Meet
+└─ Checklist atualizado
+
+PASSO 3: Revisar antes de compartilhar
+────────────────────────────────────────
+[ ] HEAD aprova conteúdo e números?
+[ ] Ortografia está perfeita (sem erros)?
+[ ] Números batem com o briefing estratégico?
+[ ] Links e datas estão corretos?
+[ ] Imagens estão claras e em alta qualidade?
+[ ] Visual está clean (sem poluição)?
+[ ] Está pronto para mostrar ao cliente?
+
+PASSO 4: Compartilhar com o Cliente
+────────────────────────────────────
+1. Clique "Share" (canto superior direito)
+2. Cole: email do cliente
+3. Permissão: "Viewer" (não pode editar)
+4. Mensagem (opcional):
+   "Olá [Nome],
+    
+    Segue em anexo a proposta de campanha que discutimos.
+    Essa apresentação detalha as 5 peças que criaremos, 
+    timeline, e projeção de ROI.
+    
+    Quando puder, confirma se aprova e agendamos a próxima reunião.
+    
+    Abs!"
+
+5. Send
+
+════════════════════════════════════════════════════════════════════════════════
+ERROS COMUNS (E COMO EVITAR)
+════════════════════════════════════════════════════════════════════════════════
+
+❌ ERRO: Deixar números genéricos (ex: "50+ leads")
+✅ SOLUÇÃO: Use números do briefing real. Ex: "120 leads em 6 meses"
+
+❌ ERRO: Não explicar o "por quê" de cada peça
+✅ SOLUÇÃO: Sempre vincule ao objetivo. Ex: "Peça 1 para parar o scroll"
+
+❌ ERRO: Slides muito textuais/poluídos
+✅ SOLUÇÃO: Máximo 5 linhas por ponto. Use ícones e caixas coloridas
+
+❌ ERRO: Prometer números impossíveis (ex: "10k leads em 1 mês")
+✅ SOLUÇÃO: Seja realista. Use benchmarks do seu histórico
+
+❌ ERRO: Não mencionar limitações ou riscos
+✅ SOLUÇÃO: Slide extra: "Fatores que afetam performance" (concorrência, seasonalidade)
+
+❌ ERRO: Link de Meet quebrado ou vago
+✅ SOLUÇÃO: Teste o link antes. Adicione horário + timezone
+
+════════════════════════════════════════════════════════════════════════════════
+DICAS PARA IMPRESSIONAR O CLIENTE
+════════════════════════════════════════════════════════════════════════════════
+
+✅ DO (Faça):
+├─ Use screenshots REAIS dos carrosseis (não mockups genéricos)
+├─ Baseie números em dados históricos (mostre o raciocínio)
+├─ Explique o "por quê" de cada peça (ângulo/objetivo/resultado)
+├─ Seja transparente sobre investimento E retorno
+├─ Cite exemplos de clientes similares (sem revelar nomes)
+├─ Use gráficos simples (barras, pizza) para ROI
+├─ Mencione que números são conservadores
+└─ Ofereça contingência ("E se X acontecer, pivotamos para Y")
+
+❌ DON'T (Não faça):
+├─ Prometer números irreais ou impossíveis
+├─ Usar muito jargão técnico (CPL, pixel, UTM sem explicar)
+├─ Deixar slides com muito texto ou imagens pequenas
+├─ Parecer incerto sobre o fluxo (confiança é crítica)
+├─ Esquecer de mencionar limitações (concorrência, sazonalidade)
+├─ Não ter plano B (e se a performance for menor?)
+├─ Usar emojis de "guru" (🚀, 🔥) — parece amador
+└─ Criar apresentação genérica (customize para CADA cliente)
+
+════════════════════════════════════════════════════════════════════════════════
+INTEGRAÇÃO COM OUTROS DOCUMENTOS
+════════════════════════════════════════════════════════════════════════════════
+
+Este template se integra com:
+
+1. GUIA_OPERACIONAL_BRIEFING.txt
+   └─ Use a entrevista para coletar dados da Slide 2 e 9
+
+2. ARQUITETURA_COMPLETA.txt
+   └─ Referência de qual agente faz o quê (Copywriter, Designer, etc)
+
+3. MANUAL_INTEGRACAO_SQUAD_V3.0.txt
+   └─ A timeline (Slide 8) segue as 5 fases do manual
+
+4. INTEGRACAO_DRIVE_PLATAFORMAS.txt
+   └─ Referência para datas de setup (Slide 10)
+
+════════════════════════════════════════════════════════════════════════════════
+FREQUÊNCIA DE USO
+════════════════════════════════════════════════════════════════════════════════
+
+Quando criar uma apresentação ao cliente:
+├─ NOVO CLIENTE: Sempre (Fase 01 do Manual)
+├─ NOVO PROJETO (mesmo cliente): A cada 6 meses
+├─ UPDATE MID-CAMPAIGN: Opcional (se mudança de estratégia)
+└─ FINAL DO SEMESTRE: Não (use "Relatório de Performance" em vez)
+
+════════════════════════════════════════════════════════════════════════════════

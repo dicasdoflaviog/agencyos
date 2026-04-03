@@ -1,0 +1,190 @@
+BRIEFING EXECUTIVO — dicasdoflaviog
+Job #002 | Landing Page — Diagnóstico Anti-Caos
+====================================
+Data: 2026-04-03
+Status: APROVADO — aguardando execução
+
+====================================
+PRODUTO
+====================================
+
+Nome       : Diagnóstico Anti-Caos
+Tipo       : Sessão estratégica 1:1 (serviço)
+Formato    : 60 minutos | Google Meet | ao vivo
+Preço      : R$ 397 (pagamento único, fixo)
+Vagas      : 10 por mês (escassez real)
+Garantia   : 7 dias (se não trouxer clareza, 100% devolvido)
+
+ENTREGÁVEIS PÓS-SESSÃO (enviados em até 48h):
+  01 — Documento de Diagnóstico
+  02 — Kickoff Estratégico de 12 Meses
+  03 — Análise SWOT
+
+FLUXO PÓS-COMPRA:
+  Compra (checkout a definir) → link Calendly → agendamento → sessão
+
+====================================
+PÚBLICO-ALVO
+====================================
+
+Tráfego principal  : Quem já comprou o Manual Anti-Burrice (tag comprou_manual)
+Tráfego secundário : Frios via CTA na LP do Manual
+Perfil             : Dono de negócio com faturamento R$3k–R$100k/mês
+                     Já investiu em marketing, não viu resultado claro
+                     Quer decisão, não execução avulsa
+Nível consciência  : Alto — sabe que tem problema, não sabe qual
+
+====================================
+O QUE É E O QUE NÃO É
+====================================
+
+É:
+- Sessão estratégica única de 60 minutos
+- Diagnóstico claro do que bloqueia o resultado
+- Kickoff estruturado com plano de 12 meses
+- Análise SWOT específica para o negócio
+
+Não é:
+- Mentoria continuada ou sessões semanais
+- Gestão de redes sociais ou criação de conteúdo
+- Produção de material visual ou de marketing
+- Consultoria de execução — é para decidir, não para produzir
+
+====================================
+DIFERENCIAL E ÂNGULO
+====================================
+
+"Você não precisa de mais marketing.
+ Você precisa saber o que está errado antes."
+
+Diferenciador: a sessão funciona como filtro, não como ajuda para todos.
+O posicionamento deve ser seletivo — deixar claro que não é para qualquer um.
+Quem passa pelo Diagnóstico está pronto para investir R$6.500+ na Estruturação.
+
+====================================
+QUIZ DE QUALIFICAÇÃO (antes do CTA)
+====================================
+
+Filtro com 3 perguntas. Objetivo: pré-diagnóstico que engaja e converte.
+
+Q1: Quanto seu negócio fatura por mês hoje?
+    A: Ainda não fatura regularmente
+    B: Entre R$3k e R$10k
+    C: Entre R$10k e R$50k
+    D: Acima de R$50k
+
+Q2: Qual é o maior problema do seu negócio agora?
+    A: Não sei por que as vendas não crescem
+    B: Estou preso em indicação, não consigo escalar
+    C: Investi em marketing e não funcionou
+    D: Tenho produto bom mas ninguém sabe que existe
+
+Q3: Você já tentou resolver isso antes?
+    A: Contratei agência ou freelancer — não funcionou
+    B: Tentei sozinho com cursos e YouTube — me perdi
+    C: Nunca tentei formalmente
+    D: Tentei mais de uma vez — sem resultado consistente
+
+RESULTADO:
+  Se Q1 = A (ainda não fatura) → mostrar mensagem honestta:
+  "O Diagnóstico foi pensado para negócios em operação.
+   Se você está começando, o Manual Anti-Burrice é o ponto de entrada certo."
+   [Link para LP do Manual]
+
+  Para todos os outros → resultado positivo personalizado:
+  "Com base nas suas respostas, o Diagnóstico é para você.
+   O problema que você descreveu tem diagnóstico — e tem solução."
+   [CTA: Quero agendar minha sessão]
+
+====================================
+DEPOIMENTOS (fictícios, sem sensacionalismo)
+====================================
+
+01 — Rodrigo M. | Clínica de Estética
+"Fui esperando uma consultoria padrão. Recebi um raio-x do que estava errado.
+ O kickoff de 12 meses valeu mais do que tudo que investi em agência nos últimos 2 anos."
+
+02 — Camila F. | Consultora Independente
+"O Flávio falou o que eu não queria ouvir — e era exatamente o que eu precisava.
+ O diagnóstico foi direto ao ponto. Sem enrolação."
+
+03 — André B. | E-commerce
+"Em 60 minutos entendi o que 18 meses tentando não me deu:
+ clareza de onde estava errando e o que fazer primeiro."
+
+====================================
+ESTRUTURA DA LP (ordem das seções)
+====================================
+
+1. Hero          — dark | gancho + escassez (vagas) + CTA
+2. Marquee       — yellow | reassurance ticker
+3. Dor           — offwhite | reconhecimento do problema
+4. Posicionamento — dark | O que é / O que não é
+5. Entregáveis   — offwhite | 3 cards de entregáveis
+6. Como funciona — dark | 4 passos numerados
+7. Quiz          — offwhite | 3 perguntas + resultado
+8. Depoimentos   — dark | 3 cards
+9. Autor         — offwhite | Flávio + stats
+10. Mid-CTA      — yellow | CTA de meio de página
+11. Oferta       — dark | preço + vagas + garantia + CTA
+12. Garantia     — offwhite | badge garantia 7 dias
+13. FAQ          — offwhite | accordion 6 perguntas
+14. Footer       — dark | igual ao Manual LP
+
+====================================
+COPY — PONTOS-CHAVE
+====================================
+
+Hero headline     : "60 MINUTOS PARA SABER EXATAMENTE ONDE O DINHEIRO ESTÁ INDO."
+Subtext hero      : "Uma sessão estratégica 1:1. Você sai com diagnóstico, kickoff de
+                     12 meses e análise SWOT. Sem teoria, sem promessa de fórmula."
+Escassez          : "10 vagas por mês — X disponíveis em abril"
+
+Callout dor       : "O problema não é falta de esforço. É falta de ordem.
+                     E ordem começa com diagnóstico."
+
+CTA principal     : "Quero agendar minha sessão"
+CTA secundário    : "Ver como funciona"
+CTA sticky bar    : "Agendar sessão — R$ 397"
+
+FAQ perguntas     :
+  1. O que acontece depois que compro?
+  2. Preciso ter comprado o Manual antes?
+  3. A sessão tem gravação?
+  4. Em quanto tempo recebo os documentos?
+  5. Posso reagendar?
+  6. Meu negócio é pequeno. Vale a pena?
+
+====================================
+ESPECIFICAÇÕES TÉCNICAS
+====================================
+
+Stack       : HTML + CSS + JS puro (vanilla) — sem frameworks
+Referência  : manual-anti-burrice-v3.html (mesmos CSS vars, mesma base)
+Fontes      : Bebas Neue + DM Sans (Google Fonts)
+Cores       : --yellow:#FFD100 | --black:#0D0D0D | --offwhite:#F5F2EC | --gray:#888880
+Animações   : fade-up, clip-reveal, IntersectionObserver, scroll progress bar
+              + animação do quiz (JS transitions) + counter animado na oferta
+Responsivo  : 100% mobile-first | breakpoints: 480px / 768px / 1024px
+Performance : prefers-reduced-motion | lazy load | sem libs externas
+Pixel Meta  : fbq init 935816292402573
+CNPJ        : 32.035.459/0001-17
+
+Output path : outputs/landing-pages/diagnostico-anti-caos-v1.html
+
+====================================
+PRÓXIMOS PASSOS
+====================================
+
+1. [x] Estrategista aprova brief
+2. [ ] Copywriter finaliza copy detalhada por seção
+3. [ ] UI Designer constrói HTML/CSS/JS
+4. [ ] HEAD revisa
+5. [ ] Flávio aprova antes de publicar
+
+====================================
+APROVAÇÃO HEAD
+====================================
+
+[x] APROVADO — Estrategista (via briefing respondido em 2026-04-03)
+[ ] REVISÃO — feedback:

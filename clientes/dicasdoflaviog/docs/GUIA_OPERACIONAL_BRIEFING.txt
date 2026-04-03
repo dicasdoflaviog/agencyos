@@ -1,0 +1,1050 @@
+═══════════════════════════════════════════════════════════════════════════════
+📋 GUIA OPERACIONAL: COMO USAR O BRIEFING (Passo a Passo)
+═══════════════════════════════════════════════════════════════════════════════
+Marca: Sol — Estrategista Antifrágil | Versão: 1.0
+
+"Este documento te mostra EXATAMENTE como coletar dados e colocar tudo pra rodar."
+
+═══════════════════════════════════════════════════════════════════════════════
+ÍNDICE RÁPIDO
+═══════════════════════════════════════════════════════════════════════════════
+1. Estrutura de Briefing Explicada
+2. Como Coletar Dados (Entrevista com Cliente)
+3. Fluxo Completo: Do Cliente até Primeira Publicação
+4. Templates de Briefing Pronto para Usar
+5. Checklist de Uso Semanal/Mensal
+6. Ferramentas Recomendadas
+7. Exemplo Real (do Zero até Live)
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 1: ESTRUTURA DE BRIEFING EXPLICADA
+═══════════════════════════════════════════════════════════════════════════════
+
+O briefing é o COMBUSTÍVEL de todo seu squad. Sem ele, ninguém sabe o que fazer.
+
+NÍVEIS DE BRIEFING (você vai usar 3):
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ NÍVEL 1: BRIEFING DE CLIENTE (Fase 01)                                     │
+│ Responsável: ESTRATEGISTA                                                    │
+│ Quando: Na primeira conversa com o cliente                                  │
+│ Documentação: NotebookLM (cliente vê tudo)                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+O que contém:
+├─ Contexto: "Quem é o cliente? O que faz? Qual é o negócio?"
+├─ Público: "Quem é o cliente ideal? Como ele pensa? Onde está?"
+├─ Mercado: "Qual é a oportunidade? Quem são os competidores?"
+├─ Dor Principal: "Qual é o maior problema que o cliente quer resolver?"
+├─ Objetivo Semestral: "Qual é a meta? (leads, vendas, visibilidade?)"
+├─ Orçamento: "Quanto vai investir em marketing?"
+├─ Histórico: "Tentou algo antes? O que funcionou/não funcionou?"
+└─ Preferências: "Qual é o tom de voz? Quais plataformas quer usar?"
+
+Exemplo estrutura documento:
+```
+BRIEFING DE CLIENTE — Manual Anti-Burrice
+═════════════════════════════════════════
+
+CONTEXTO
+├─ Cliente: Flávio G. (dicasdoflaviog)
+├─ Negócio: Educação em IA + Automação
+├─ Público: Empreendedores, freelancers, donos de agência
+└─ Estágio: Crescimento (já tem autoridade, quer escalar)
+
+PÚBLICO-ALVO
+├─ Quem: Profissionais com 2-10 anos de experiência
+├─ Dor: Gastam 30-50h/mês em tarefas repetitivas
+├─ Plataformas que usam: Instagram, LinkedIn, WhatsApp
+└─ Nível de consciência: Sabem que problema existe, não sabem solução
+
+MERCADO
+├─ Oportunidade: IA em alta, mas cursos genéricos dominam
+├─ Diferencial: Ninguém ensina LÓGICA, só prompt
+└─ Competidores: Cursos baratos (R$ 17-47) sem credibilidade
+
+OBJETIVO
+├─ Meta: 1.500 leads qualificados em 6 meses
+├─ Orçamento: R$ 10.000/mês
+└─ Resultado esperado: R$ 120k em receita (1.500 × R$ 80)
+
+HISTÓRICO
+├─ Tentou: Instagram orgânico (funcionou pouco)
+├─ Não tentou: Google Ads, LinkedIn Ads, Email sequence
+└─ Histórico de vendas: Conversão ~10% de leads interessados
+```
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ NÍVEL 2: BRIEFING ESTRATÉGICO (Fase 02)                                    │
+│ Responsável: ESTRATEGISTA (coordena squad)                                  │
+│ Quando: Após aprovação do cliente                                           │
+│ Documentação: NotebookLM (detalhado para squad)                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+O que contém (expande o Nível 1):
+├─ SWOT (Strengths, Weaknesses, Opportunities, Threats)
+├─ Funil de Vendas (Topo → Meio → Fundo com metas)
+├─ Calendário de 6 meses (temas por semana/mês)
+├─ Ângulo Fora da Curva (a provocação central)
+├─ Distribuição de orçamento (qual % pra cada rede?)
+├─ Público-alvo detalhado (personas, padrões de comportamento)
+├─ KPIs por fase (impressões, cliques, conversão, CPL, ROAS)
+└─ Aprovações e Assinaturas (contrato SOW)
+
+Exemplo estrutura:
+```
+BRIEFING ESTRATÉGICO — Manual Anti-Burrice
+═══════════════════════════════════════════
+
+SWOT ANÁLISE
+├─ Strengths: Expertise claro, comunidade engajada, conteúdo único
+├─ Weaknesses: Marca jovem, baixo volume de seguidores
+├─ Opportunities: IA em alta, demanda por educação prática
+└─ Threats: Cursos baratos, falta de prova social inicial
+
+FUNIL SEMESTRAL
+├─ TOPO (Awareness): 100k impressões/mês
+│  ├─ Conteúdo: "5 padrões de IA ninguém te conta"
+│  ├─ Rede: Instagram, TikTok, Pinterest
+│  └─ CTA: "Salva", "Compartilha"
+│
+├─ MEIO (Consideration): 10k cliques/mês
+│  ├─ Conteúdo: "Como ganhei 12h/semana"
+│  ├─ Rede: LinkedIn, Email, Anúncios retargetados
+│  └─ CTA: "Baixa este recurso"
+│
+└─ FUNDO (Conversion): 1.500 leads/mês
+   ├─ Conteúdo: "Manual Anti-Burrice + 7 dias email"
+   ├─ Rede: Landing Page, WhatsApp
+   └─ CTA: "Compra agora", "Entra no grupo"
+
+CALENDÁRIO (Mês 1)
+├─ Semana 1: "5 padrões de IA" (IG/TK), Email sequence setup
+├─ Semana 2: "Por que prompt falha" (IG/TK/LI), A/B test anúncios
+├─ Semana 3: "Caso de uso real" (IG/TK), Retargeting iniciado
+└─ Semana 4: "Oferta + Urgência" (todas redes), Conversão push
+
+DISTRIBUIÇÃO ORÇAMENTO
+├─ Instagram/Facebook: 40% (R$ 4.000)
+├─ Google Ads: 35% (R$ 3.500)
+├─ LinkedIn: 25% (R$ 2.500)
+└─ Total: R$ 10.000/mês
+
+KPIs MÊS 1
+├─ Impressões: 100k
+├─ CTR (Click-Through Rate): 3%+ (bom)
+├─ Leads: 250+
+├─ CPL (Custo Por Lead): R$ 40
+└─ ROAS: 2x minimum
+```
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ NÍVEL 3: BRIEFING POR PROJETO/TEMA (Semanal)                               │
+│ Responsável: ESTRATEGISTA (para cada conteúdo novo)                         │
+│ Quando: Antes de Copywriter/Designer trabalhar                             │
+│ Documentação: Google Doc ou Notion (squad acessa rápido)                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+O que contém (mini-briefing):
+├─ Objetivo do Projeto: "Venda, Captação, Autoridade?"
+├─ Público e Nível de Consciência: "Quem, onde, qual estágio?"
+├─ Ângulo Fora da Curva: "Qual é a provocação?"
+├─ Estrutura Narrativa: "[GANCHO] → [PROBLEMA] → [SOLUÇÃO] → [CTA]"
+├─ Diretriz para Squad: "Copy: foque em X. Design: use Y. Tráfego: teste Z."
+├─ Potencial de Escala: "Alto/Médio/Baixo (para Traffic Manager)"
+└─ Próximos Passos: "Quem faz o quê? Quando? Prazo?"
+
+Exemplo estrutura:
+```
+BRIEFING DE PROJETO — "IA Para Freelancer"
+═════════════════════════════════════════
+
+OBJETIVO
+Captar 50 leads de freelancers interessados em automação com IA.
+
+PÚBLICO
+├─ Quem: Freelancers de 2-8 anos de experiência
+├─ Dor: Gastam 3h/dia em tarefas manuais (responder email, editar imagem)
+├─ Consciência: Sabem que problema existe, acham IA cara/complexa
+└─ Plataforma: Ativo em Instagram, TikTok, WhatsApp
+
+ÂNGULO
+"IA não é cara. Você que tá gastando 2h em coisa que máquina faz em 2 minutos."
+
+NARRATIVA
+[GANCHO] Quanto você gasta/dia em tarefas idiotas?
+[PROBLEMA] Acredita que IA é cara porque não sabe estruturar
+[INSIGHT] IA + estrutura lógica = 2h economizadas/dia (prova)
+[CTA] "Quer aprender a estrutura?" → Manual Anti-Burrice
+
+DIRETRIZES
+├─ Copy: Ton antifrágil, zero hype. Foca em "economia de tempo" (número)
+├─ Design: Minimalista, preto + amarelo, destaque em CTA
+├─ Tráfego: Teste público "Freelancers Brasil". Potencial escala: ALTO
+└─ Prazo: Entregar tudo até sexta (publicação segunda)
+
+PRÓXIMOS PASSOS
+├─ Copywriter: Escreve legenda + 3 variações de anúncio (hoje)
+├─ Designer: Cria 5 slides (até amanhã)
+├─ Traffic Manager: Setup de audiência (até quarta)
+└─ Publicador: Validação + agendamento (até sexta)
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 2: COMO COLETAR DADOS (Entrevista com Cliente)
+═══════════════════════════════════════════════════════════════════════════════
+
+Quando um NOVO CLIENTE chega, o ESTRATEGISTA faz uma entrevista estruturada.
+
+ROTEIRO DE ENTREVISTA (60-90 minutos)
+─────────────────────────────────────
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ BLOCO 1: CONTEXTO E NEGÓCIO (15 min)                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Perguntas:
+├─ "Conte-me sobre seu negócio. O que exatamente você faz?"
+│  └─ Objetivo: Entender o modelo de negócio
+│
+├─ "Há quanto tempo está no mercado?"
+│  └─ Objetivo: Entender estágio (startup, crescimento, maduro)
+│
+├─ "Qual é seu maior diferencial comparado à concorrência?"
+│  └─ Objetivo: Identificar ponto único (pode virar ângulo)
+│
+└─ "Qual é a maior meta/objetivo para os próximos 6-12 meses?"
+   └─ Objetivo: Entender ambição (vai afetar orçamento e estratégia)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ BLOCO 2: PÚBLICO-ALVO (15 min)                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Perguntas:
+├─ "Descreva seu cliente ideal. Qual é a idade? Profissão? Renda?"
+│  └─ Objetivo: Criar persona detalhada
+│
+├─ "Qual é o maior problema/dor que seu cliente tem?"
+│  └─ Objetivo: Identificar a dor (base do conteúdo)
+│
+├─ "Como seu cliente busca solução hoje? (Google, Instagram, indicação?)"
+│  └─ Objetivo: Saber em que plataformas estão
+│
+├─ "Seu cliente já sabe que ele tem este problema?"
+│  └─ Objetivo: Nível de consciência (inconsciente, consciente, pronto)
+│
+└─ "Qual é o ticket médio de uma venda sua?"
+   └─ Objetivo: Calcular LTV e ROI realista
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ BLOCO 3: MERCADO E COMPETIÇÃO (10 min)                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Perguntas:
+├─ "Quem são seus 3 maiores concorrentes?"
+│  └─ Objetivo: Mapear mercado
+│
+├─ "O que eles estão fazendo bem que você quer aprender?"
+│  └─ Objetivo: Identificar gaps (onde você pode ganhar)
+│
+├─ "O que eles estão fazendo MAL que você pode explorar?"
+│  └─ Objetivo: Encontrar oportunidade única
+│
+└─ "O que torna seu serviço diferente deles?"
+   └─ Objetivo: Confirmar diferencial (ângulo)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ BLOCO 4: HISTÓRICO E TENTATIVAS ANTERIORES (10 min)                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Perguntas:
+├─ "Você já tentou marketing antes? (Ads, conteúdo, influencer?)"
+│  └─ Objetivo: Entender experiência + erros
+│
+├─ "O que funcionou? O que não funcionou?"
+│  └─ Objetivo: Não repetir erros, repetir vencedores
+│
+├─ "Qual foi o melhor resultado que você obteve? Como alcançou?"
+│  └─ Objetivo: Entender padrão de sucesso
+│
+└─ "Por que isso funcionou?"
+   └─ Objetivo: Profundidade (mindset + tática)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ BLOCO 5: ORÇAMENTO E EXPECTATIVA (10 min)                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Perguntas:
+├─ "Qual é seu orçamento total para marketing nos próximos 6 meses?"
+│  └─ Objetivo: Desenhar plano viável
+│
+├─ "Esse orçamento é fixo ou podemos aumentar se funcionar?"
+│  └─ Objetivo: Saber se há flexibilidade (importante para escala)
+│
+├─ "Qual é a meta de leads/vendas que você espera?"
+│  └─ Objetivo: Definir KPI (é realista ou sonho?)
+│
+└─ "Se a gente alcançar essa meta, quanto você fatura?"
+   └─ Objetivo: Calcular ROI (vale a pena investir?)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ BLOCO 6: PREFERÊNCIAS E RESTRIÇÕES (10 min)                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Perguntas:
+├─ "Qual é o tom de voz da sua marca? (Formal, descontraído, técnico?)"
+│  └─ Objetivo: Guardar tom para Copywriter
+│
+├─ "Qual plataforma você quer focar? (IG, TikTok, LinkedIn, Email?)"
+│  └─ Objetivo: Priorizar esforço
+│
+├─ "Há algo que você NÃO quer fazer? (Polêmica, certos públicos, etc?)"
+│  └─ Objetivo: Evitar problemas
+│
+└─ "Qual é a melhor forma de comunicar com você? (Email, Slack, WhatsApp?)"
+   └─ Objetivo: Comunicação fluida
+
+─────────────────────────────────────────────────────────────────────────────
+
+PÓS-ENTREVISTA: O ESTRATEGISTA FAZ
+├─ Resume em documento (Briefing de Cliente)
+├─ Identifica o ÂNGULO FORA DA CURVA
+├─ Monta apresentação NotebookLM
+├─ Envia ao HEAD para validação
+└─ Se OK → avança para planejamento estratégico
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 3: FLUXO COMPLETO (Do Cliente até Primeira Publicação)
+═══════════════════════════════════════════════════════════════════════════════
+
+SEMANA 1: IMERSÃO
+─────────────────
+
+SEGUNDA (Entrevista)
+├─ Estrategista: Coleta dados (60 min com cliente)
+├─ Estrategista: Identifica ângulo + escreve Briefing de Cliente
+├─ Head: Valida viabilidade (15 min)
+└─ Resultado: GREEN LIGHT ou ajuste
+
+TERÇA-QUARTA (Documentação)
+├─ Estrategista: Monta apresentação NotebookLM
+├─ Head: Revisão final (ortografia, números)
+└─ Resultado: Pronto para apresentação
+
+QUINTA (Apresentação)
+├─ Estrategista: Apresenta ao cliente (30 min)
+├─ Client aprova ou pede ajuste
+└─ Resultado: Contrato assinado + pagamento (se necessário)
+
+SEXTA (Kick-off Interno)
+├─ Squad reunido (30 min)
+├─ Estrategista: Passa briefing para todos
+├─ Cada agente entende seu papel
+└─ Resultado: GREEN LIGHT para começar
+
+SEMANA 2-3: PLANEJAMENTO
+────────────────────────
+
+SEGUNDA (Briefing Estratégico)
+├─ Estrategista: Cria SWOT + Funil + Calendário
+├─ Copywriter: Contribui tom de voz
+├─ Designer: Contribui templates
+├─ Traffic Manager: Contribui orçamento
+├─ UI Designer: Contribui LP structure
+├─ Engajador: Contribui fluxos ManyChat
+└─ Head: Valida tudo (conecta?)
+
+TERÇA-QUARTA (Detalhamento)
+├─ UI Designer: Começa rascunho LP
+├─ Designer: Cria templates A/B/C/D
+├─ Copywriter: Prepara tone guidelines
+├─ Traffic Manager: Começa setup de campanhas (não ativa ainda)
+└─ Publicador: Cria estrutura de Drive
+
+QUINTA (Aprovação Final)
+├─ Head: Última revisão (viabilidade OK?)
+├─ Estrategista: Prepara apresentação final para cliente
+└─ Resultado: Pronto para apresentar
+
+SEXTA (Apresentação ao Cliente)
+├─ Estrategista: Apresenta plano 6 meses
+├─ Head: Responde objeções técnicas
+├─ Cliente aprova + autoriza investimento
+└─ Resultado: Contrato assinado + 1º pagamento
+
+SEMANA 4: BUILD (Construir Ativos)
+───────────────────────────────────
+
+SEGUNDA (Copy + Design)
+├─ Copywriter: Escreve 12 legendas (mês 1)
+├─ Designer: Cria 12 carrosseis (mês 1)
+├─ Designer: Cria 3 vídeos (15s, 30s, 60s)
+└─ Ambos trabalham juntos (sync design + copy)
+
+TERÇA (UI Designer + Landing Page)
+├─ UI Designer: Finaliza LP em React/Tailwind
+├─ Setup: Formulário, pixels, CTA
+├─ Teste: Carregamento rápido? Conversão OK?
+└─ Result: LP pronta para deploy
+
+QUARTA (Traffic Manager + Engajador)
+├─ Traffic Manager: Configura campanhas (sem ativar)
+│  ├─ Públicos definidos
+│  ├─ Orçamento alocado
+│  ├─ Pixels instalados
+│  └─ UTMs criados
+├─ Engajador: Setup ManyChat (fluxos testados)
+└─ Ambos: Validam com Head
+
+QUINTA (Publicador + Checklist)
+├─ Publicador: Estrutura Drive (pastas, nomes)
+├─ Publicador: Cria calendário visual
+├─ Publicador: Checklist de segurança pronto
+├─ Head: Valida TUDO (antes de ir ao ar)
+└─ Resultado: 100% pronto para deploy
+
+SEMANA 5: DEPLOY (Ligar os Motores)
+────────────────────────────────────
+
+SEGUNDA (Go Live)
+├─ UI Designer: LP AO VIVO (monitora 2h)
+├─ Traffic Manager: Campanhas ATIVADAS (30% orçamento teste)
+├─ Publicador: Primeiros 3 posts publicados
+├─ Engajador: ManyChat disparando (triagem automática)
+└─ Head: Monitora alertas (algo quebrou?)
+
+TERÇA-SEXTA (Monitoramento 24/7)
+├─ Traffic Manager: Daily optimization
+│  ├─ Monitora CTR, CPC, CPA
+│  ├─ Pausa criativos ruins
+│  └─ Escala vencedores (se houver)
+│
+├─ Publicador: Acompanha 24-48h
+│  ├─ Responde comentários iniciais
+│  ├─ Monitora reach/impressions
+│  └─ Documenta performance
+│
+├─ Engajador: Qualifica leads manualmente
+│  ├─ Triage em DM
+│  ├─ Coleta dores
+│  └─ Documenta interações
+│
+└─ Head: Standup diário (5 min, qualquer bloqueio?)
+
+SEMANA 6+: OPERAÇÃO CONTÍNUA
+────────────────────────────
+
+DIÁRIO:
+├─ Traffic Manager: Otimiza campanhas (30 min)
+├─ Engajador: Qualifica leads (60 min)
+├─ Publicador: Monitora performance (15 min)
+└─ Qualquer problema? → Escalação ao Head
+
+SEMANAL:
+├─ Publicador: Publica 2-3 novos conteúdos
+├─ Engajador: Relatório de dores/objeções (para Copywriter/Estrategista)
+├─ Head: Standup squad (15 min, tudo OK?)
+└─ Copywriter: Cria variações para A/B test
+
+MENSAL:
+├─ Traffic Manager: Relatório consolidado (ROI, CPL, leads)
+├─ Publicador: Analytics por plataforma
+├─ Estrategista: Narrativa "próximos passos"
+├─ Apresentação ao cliente (o que saiu, dados, insights)
+└─ Decision: Escala, mantém ou pivota?
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 4: TEMPLATES DE BRIEFING PRONTO PARA USAR
+═══════════════════════════════════════════════════════════════════════════════
+
+VOCÊ PODE COPIAR E COLAR ESSES TEMPLATES.
+
+TEMPLATE 1: BRIEFING DE CLIENTE
+────────────────────────────────
+
+BRIEFING DE CLIENTE — [NOME DO CLIENTE/PROJETO]
+═════════════════════════════════════════════════
+Data: [DATA]
+Estrategista: [NOME]
+Aprovação do Head: [ ] Sim [ ] Não
+
+CONTEXTO DO CLIENTE
+├─ Nome: 
+├─ Negócio: 
+├─ Estágio: (startup/crescimento/maduro)
+├─ Website/Social: 
+└─ Contato principal: 
+
+PÚBLICO-ALVO DETALHADO
+├─ Descrição: 
+├─ Idade: 
+├─ Profissão/Cargo: 
+├─ Renda média: 
+├─ Problema/Dor: 
+├─ Onde está: (IG/TK/LI/Email/WhatsApp/Google)
+├─ Nível de consciência: (Inconsciente/Consciente/Pronto)
+└─ Como busca solução hoje: 
+
+MERCADO
+├─ Mercado total: 
+├─ Crescimento: 
+├─ Top 3 competidores: 
+├─ O que competidores fazem bem: 
+├─ O que competidores fazem mal (oportunidade): 
+└─ Diferencial do cliente: 
+
+OBJETIVO SEMESTRAL
+├─ Meta (leads/vendas/visibilidade): 
+├─ Orçamento total: 
+├─ Investimento mensal: 
+└─ ROI esperado: 
+
+HISTÓRICO
+├─ Tentou marketing antes: [ ] Sim [ ] Não
+├─ O que funcionou: 
+├─ O que não funcionou: 
+├─ Maior sucesso anterior: 
+└─ Conversão atual: 
+
+PREFERÊNCIAS
+├─ Ton de voz: 
+├─ Plataformas principais: 
+├─ Restrições (não fazer): 
+├─ Melhor comunicação: 
+└─ Disponibilidade para feedback: 
+
+ÂNGULO FORA DA CURVA (Identificado)
+└─ [A provocação única que diferencia este cliente]
+
+PRÓXIMOS PASSOS
+├─ [ ] Apresentação ao cliente
+├─ [ ] Assinatura de contrato
+├─ [ ] Recebimento de pagamento
+└─ [ ] Kick-off com squad
+
+─────────────────────────────────────────────────────────────────────────────
+
+TEMPLATE 2: BRIEFING ESTRATÉGICO
+─────────────────────────────────
+
+BRIEFING ESTRATÉGICO — [NOME DO CLIENTE]
+══════════════════════════════════════════
+Data: [DATA]
+Estrategista: [NOME]
+Aprovação do Head: [ ] Sim [ ] Não
+
+SWOT ANÁLISE
+├─ Strengths (Forças):
+│  ├─ 
+│  └─ 
+├─ Weaknesses (Fraquezas):
+│  ├─ 
+│  └─ 
+├─ Opportunities (Oportunidades):
+│  ├─ 
+│  └─ 
+└─ Threats (Ameaças):
+   ├─ 
+   └─ 
+
+FUNIL DE VENDAS (6 MESES)
+├─ TOPO (Awareness)
+│  ├─ Meta: [META DE IMPRESSÕES]
+│  ├─ Conteúdo: [TIPO DE CONTEÚDO]
+│  ├─ Plataforma: [QUAIS REDES]
+│  └─ CTA: [O QUE VOCÊ QUER QUE FAÇAM]
+│
+├─ MEIO (Consideration)
+│  ├─ Meta: [META DE CLIQUES]
+│  ├─ Conteúdo: [TIPO DE CONTEÚDO]
+│  ├─ Plataforma: [QUAIS REDES]
+│  └─ CTA: [O QUE VOCÊ QUER QUE FAÇAM]
+│
+└─ FUNDO (Conversion)
+   ├─ Meta: [META DE LEADS/VENDAS]
+   ├─ Conteúdo: [TIPO DE CONTEÚDO]
+   ├─ Plataforma: [QUAIS REDES]
+   └─ CTA: [O QUE VOCÊ QUER QUE FAÇAM]
+
+CALENDÁRIO (RESUMIDO 6 MESES)
+├─ Mês 1-2 (Launch):
+│  ├─ Temas novos: 12
+│  ├─ Conteúdo: [TIPO]
+│  └─ Estratégia: máxima energia, testar ângulos
+│
+├─ Mês 3-4 (Otimização):
+│  ├─ Temas novos: 8
+│  ├─ Repete: [O que funcionou em mês 1-2]
+│  └─ Estratégia: elimina o que falhou, amplifica vencedor
+│
+└─ Mês 5-6 (Escala):
+   ├─ Temas novos: 4
+   ├─ Repete: [O que funcionou]
+   └─ Estratégia: amplifica investimento, pronto para próximo ciclo
+
+DISTRIBUIÇÃO ORÇAMENTO
+├─ Rede 1: [REDE] - [% OU R$]
+├─ Rede 2: [REDE] - [% OU R$]
+├─ Rede 3: [REDE] - [% OU R$]
+└─ Total: R$ [VALOR/MÊS]
+
+KPIs ALVO
+├─ Impressões: [META/MÊS]
+├─ CTR: [%]
+├─ CPC: R$ [VALOR]
+├─ Leads: [NÚMERO/MÊS]
+├─ CPL: R$ [VALOR]
+├─ Taxa de Conversão LP: [%]
+├─ ROAS: [MÚLTIPLO]
+└─ LTV: R$ [VALOR (se possível)]
+
+CONTRIBUIÇÕES DO SQUAD
+├─ Copywriter: [O QUE FAZ]
+├─ Designer: [O QUE FAZ]
+├─ UI Designer: [O QUE FAZ]
+├─ Traffic Manager: [O QUE FAZ]
+├─ Engajador: [O QUE FAZ]
+├─ Publicador: [O QUE FAZ]
+└─ Head: [O QUE FAZ]
+
+PRÓXIMOS PASSOS
+├─ [ ] Apresentação ao cliente
+├─ [ ] Aprovação de orçamento
+├─ [ ] Início de BUILD
+└─ [ ] Data de deploy
+
+─────────────────────────────────────────────────────────────────────────────
+
+TEMPLATE 3: BRIEFING DE PROJETO (Semanal)
+──────────────────────────────────────────
+
+BRIEFING DE PROJETO — [NOME DO TEMA/CONTEÚDO]
+═══════════════════════════════════════════════
+Data: [DATA]
+Estrategista: [NOME]
+Deadline: [DATA]
+
+OBJETIVO DO PROJETO
+└─ [1 FRASE CLARA: Captar X leads? Vender? Gerar autoridade?]
+
+PÚBLICO & NÍVEL DE CONSCIÊNCIA
+├─ Quem: [DESCRIÇÃO PERSONA]
+├─ Dor: [PROBLEMA ESPECÍFICO]
+├─ Consciência: (Inconsciente/Consciente/Pronto)
+└─ Plataforma principal: [QUAL REDE]
+
+ÂNGULO FORA DA CURVA
+└─ [A PROVOCAÇÃO CENTRAL — O QUE DIFERENCIA]
+
+ESTRUTURA NARRATIVA
+├─ Gancho: [PRIMEIRA COISA QUE VEEM/OUVEM]
+├─ Problema: [A DOR QUE RESONOA]
+├─ Insight: [O QUE NINGUÉM FALA]
+├─ Solução: [COMO RESOLVER]
+└─ CTA: [AÇÃO CLARA]
+
+DIRETRIZ PARA CADA AGENTE
+├─ Copy:
+│  ├─ Tom: [FORMAL/DESCONTRAÍDO/TÉCNICO/etc]
+│  ├─ Foco em: [PALAVRA-CHAVE/EMOÇÃO/LÓGICA]
+│  └─ Não fazer: [PROIBIÇÕES]
+│
+├─ Design:
+│  ├─ Estilo: [MINIMALISTA/EXTRAVAGANTE/LUXO/etc]
+│  ├─ Cores: [PALETA]
+│  └─ Template: [A/B/C/D]
+│
+└─ Tráfego:
+   ├─ Público: [SEGMENTO ESPECÍFICO]
+   ├─ Potencial escala: (Alto/Médio/Baixo)
+   └─ Teste: [O QUE A/B TESTAR]
+
+PRÓXIMOS PASSOS & RESPONSÁVEIS
+├─ Copywriter: [O QUÊ] até [DATA]
+├─ Designer: [O QUÊ] até [DATA]
+├─ Publicador: [O QUÊ] até [DATA]
+└─ Traffic Manager: [O QUÊ] até [DATA]
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 5: CHECKLIST DE USO SEMANAL/MENSAL
+═══════════════════════════════════════════════════════════════════════════════
+
+SEMANAL (Toda segunda-feira, 30 min):
+────────────────────────────────────
+
+□ Estrategista revisa se briefs da semana estão alinhados com briefing estratégico
+□ Copywriter confirma tom (usando briefing de cliente)
+□ Designer confirma paleta/templates (usando briefing estratégico)
+□ Traffic Manager confirma público/orçamento (usando briefing estratégico)
+□ Publicador confirma calendário (usando briefing estratégico)
+□ Head faz checkpoint: "Estamos no caminho certo?"
+
+MENSAL (Última sexta-feira, 60 min):
+────────────────────────────────────
+
+□ Estrategista coleta dados (Traffic Manager + Publicador + Engajador)
+□ Monta relatório "Prometido vs. Realizado"
+├─ Meta de leads: [PROMETIDO] vs. [REALIZADO]
+├─ Meta de CPL: [PROMETIDO] vs. [REALIZADO]
+├─ Meta de ROAS: [PROMETIDO] vs. [REALIZADO]
+└─ Insights: "O que aprendemos?"
+
+□ Apresentação ao cliente
+├─ O que funcionou
+├─ O que não funcionou
+├─ Próximos ajustes
+└─ Aprovação para continuar/pivotear
+
+□ Briefing estratégico atualizado (para próximo mês)
+└─ Temas novos, ajustes, novas métricas
+
+□ Squad reunido
+├─ Debriefing (o que aprendemos?)
+├─ Problemas resolvidos
+├─ Próximas prioridades
+└─ Energia renovada
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 6: FERRAMENTAS RECOMENDADAS
+═══════════════════════════════════════════════════════════════════════════════
+
+Para armazenar e usar seus briefings:
+
+NOTEBOOKLM (Recomendado para cliente)
+├─ Por quê: Centraliza tudo, cliente vê transparência, IA pode analisar
+├─ O que sube: Briefing de cliente, plano estratégico, relatórios mensais
+├─ Link: notebook.google.com
+└─ Custo: Grátis
+
+GOOGLE DOCS (Para briefing estratégico interno)
+├─ Por quê: Fácil colaboração, todo squad acessa
+├─ O que coloca: Briefing estratégico completo
+└─ Custo: Grátis (com conta Google)
+
+GOOGLE SHEETS (Para tracking semanal)
+├─ Por quê: Dados estruturados, fácil de ver tendências
+├─ O que coloca: 
+│  ├─ Calendário de conteúdo (o que sai quando)
+│  ├─ Dashboard de performance (impressões, cliques, leads)
+│  └─ Checklist de responsabilidades
+└─ Custo: Grátis
+
+NOTION (Alternativa para organização)
+├─ Por quê: Visual, database, colaborativo
+├─ O que coloca: Todos os briefs em um só lugar
+└─ Custo: Grátis (plano básico)
+
+META BUSINESS SUITE (Para campanhas)
+├─ Por quê: Integra Facebook, Instagram, dados de leads
+├─ O que monitora: Campanhas, públicos, pixel data
+└─ Custo: Grátis
+
+FIGMA (Para Designer + UI Designer)
+├─ Por quê: Design colaborativo, components reutilizáveis
+├─ O que coloca: Templates A/B/C/D, design system
+└─ Custo: Grátis (plano básico)
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 7: EXEMPLO REAL (Do Zero até Live)
+═══════════════════════════════════════════════════════════════════════════════
+
+Vamos ver COMO VOCÊ VAI USAR a estrutura com um cliente real.
+
+NOVO CLIENTE: "Agência XYZ" (Criação de websites)
+─────────────────────────────────────────────────
+
+SEGUNDA (Entrevista)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Estrategista coleta dados via Zoom (60 min)                              │
+│                                                                           │
+│ Pergunta: "O que você faz?"                                              │
+│ Resposta: "Crio websites para pequenos negócios. Somos 5 designers."    │
+│                                                                           │
+│ Pergunta: "Qual é seu cliente ideal?"                                    │
+│ Resposta: "Donos de lojas, consultórios, pequenas empresas. Gastam      │
+│           R$ 5-15k em website"                                           │
+│                                                                           │
+│ Pergunta: "Qual é sua maior dor?"                                        │
+│ Resposta: "Conseguir leads qualificados. Muita concorrência de designers │
+│           freelancer baratos. Nosso diferencial é qualidade."           │
+│                                                                           │
+│ Pergunta: "Qual é a meta pra 6 meses?"                                   │
+│ Resposta: "20 leads qualificados por mês. Orçamento: R$ 3k/mês"         │
+│                                                                           │
+│ Pergunta: "Qual é seu tom de marca?"                                     │
+│ Resposta: "Profissional mas amigável. Mostramos o processo, não só      │
+│           resultado final."                                              │
+│                                                                           │
+│ RESULTADO: Estrategista anota tudo + identifica o ÂNGULO                │
+│ ÂNGULO IDENTIFICADO:                                                     │
+│ "A maioria das agências vende resultado. Nós vendemos PROCESSO."        │
+│ (diferenciador: transparência, educação, confiança)                     │
+└──────────────────────────────────────────────────────────────────────────┘
+
+TERÇA (Documentação)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Estrategista monta BRIEFING DE CLIENTE:                                  │
+│                                                                           │
+│ BRIEFING DE CLIENTE — Agência XYZ                                       │
+│ ═══════════════════════════════════════════════════════════════════════ │
+│                                                                           │
+│ CONTEXTO                                                                 │
+│ ├─ Nome: Agência XYZ                                                    │
+│ ├─ Negócio: Criação de websites premium para pequenas empresas          │
+│ ├─ Estágio: Crescimento (5 anos de mercado, quer dobrar faturamento)   │
+│ └─ Instagram: @agenciaxyz (2k seguidores)                               │
+│                                                                           │
+│ PÚBLICO-ALVO                                                            │
+│ ├─ Donos de lojas, consultórios, pequenas empresas (2-50 funcionários) │
+│ ├─ Idade: 28-55 anos                                                   │
+│ ├─ Renda: R$ 5-15k de faturamento mensal                               │
+│ ├─ Dor: "Meu website não vende / Tive site ruim no passado"           │
+│ ├─ Consciência: CONSCIENTE (sabem que precisam, mas não sabem quem faz)│
+│ └─ Plataforma: Google (busca), Instagram, LinkedIn                     │
+│                                                                           │
+│ MERCADO                                                                 │
+│ ├─ Mercado: R$ 500M/ano (websites no Brasil)                          │
+│ ├─ Concorrentes: Freelancers baratos (R$ 1-3k), agências grandes      │
+│ ├─ Gap: Qualidade X Preço (não existe bom e acessível)                │
+│ └─ Diferencial XYZ: "Processo transparente, educamos o cliente"       │
+│                                                                           │
+│ OBJETIVO SEMESTRAL                                                      │
+│ ├─ Meta: 20 leads qualificados por mês (120 total)                    │
+│ ├─ Orçamento: R$ 3.000/mês (R$ 18.000 semestral)                      │
+│ └─ Valor esperado: 120 leads × R$ 10k ticket = R$ 1.2M em receita   │
+│                                                                           │
+│ ÂNGULO FORA DA CURVA                                                    │
+│ └─ "A maioria das agências vende resultado final. Nós vendemos         │
+│    o PROCESSO — você vê como funciona, entende cada decisão."         │
+│                                                                           │
+│ PRÓXIMOS PASSOS                                                         │
+│ ├─ [ ] Apresentação ao cliente (quarta)                               │
+│ ├─ [ ] Assinatura de contrato                                         │
+│ └─ [ ] Kick-off com squad (sexta)                                     │
+└──────────────────────────────────────────────────────────────────────────┘
+
+QUARTA (Apresentação ao Cliente)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Estrategista + Head apresentam ao cliente (30 min)                       │
+│                                                                           │
+│ Slides:                                                                  │
+│ 1. Seu negócio: "Vimos que vocês vendem websites premium para donos"   │
+│ 2. Público: "Seus clientes ideais estão procurando em Google e IG"    │
+│ 3. Oportunidade: "Gap no mercado: qualidade acessível não existe"    │
+│ 4. Ângulo: "Seu diferencial: processo transparente (educar cliente)"  │
+│ 5. Plano: "120 leads em 6 meses. Investimento: R$ 18k"              │
+│ 6. ROI: "R$ 1.2M em receita esperada. ROI: 6.600%"                  │
+│ 7. Próximos passos: "Contrato + Kick-off"                            │
+│                                                                           │
+│ RESULTADO: Cliente aprova 100% ✅                                      │
+└──────────────────────────────────────────────────────────────────────────┘
+
+SEXTA (Kick-off Squad)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Squad reunido (30 min). Estrategista passa briefing.                     │
+│                                                                           │
+│ Estrategista:                                                           │
+│ "Clientes deste cliente são donos de lojas que acham website caro.     │
+│  Nosso ângulo: mostrar o PROCESSO (construir confiança).              │
+│  Próximo passo: planejamento estratégico. Cada um contribui seu ponto."│
+│                                                                           │
+│ Head: "Alguém tem dúvida?"                                            │
+│ Copywriter: "Tom vai ser mais educacional?"                           │
+│ Estrategista: "Sim. Ensinar, não vender."                            │
+│                                                                           │
+│ Designer: "Qual é a paleta de cores?"                                │
+│ Estrategista: "Vamos definir na semana que vem (briefing estratégico)"│
+│                                                                           │
+│ RESULTADO: Tudo claro. Squad sabe o que fazer. ✅                     │
+└──────────────────────────────────────────────────────────────────────────┘
+
+SEMANA 2 (Planejamento Estratégico)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Estrategista cria BRIEFING ESTRATÉGICO completo:                         │
+│                                                                           │
+│ SWOT:                                                                   │
+│ ├─ Strengths: Team pequeno = ágil, portfolio forte, clientes satisfeitos
+│ ├─ Weaknesses: Poucos seguidores, pouca presença online                │
+│ ├─ Opportunities: Google Ads (donos buscam), LinkedIn (B2B)           │
+│ └─ Threats: Freelancers baratos undercutting price                    │
+│                                                                           │
+│ FUNIL:                                                                  │
+│ ├─ TOPO: 50k impressões/mês (Google, Instagram, conteúdo educacional) │
+│ ├─ MEIO: 2k cliques/mês para artigos ("Como escolher agência web")   │
+│ └─ FUNDO: 120 leads/mês (Landing page com case studies)              │
+│                                                                           │
+│ CALENDÁRIO (Simplificado):                                            │
+│ ├─ Mês 1: Lançar 8 temas novos (testar qual converge melhor)        │
+│ ├─ Mês 2-3: Repete vencedor + testa 4 temas novos                   │
+│ └─ Mês 4-6: Amplifica vencedor + minor variations                   │
+│                                                                           │
+│ DISTRIBUIÇÃO ORÇAMENTO:                                               │
+│ ├─ Google Ads: 50% (R$ 1.500) — leads qualificadas (search intent) │
+│ ├─ Instagram Ads: 30% (R$ 900) — awareness + branding               │
+│ └─ LinkedIn Ads: 20% (R$ 600) — B2B (se aplicável)                 │
+│                                                                           │
+│ Cada agente contribui:                                                │
+│ ├─ Copywriter: Tone = educacional, case study heavy, social proof    │
+│ ├─ Designer: Estilo = moderno, clean, mostra processo               │
+│ ├─ UI Designer: LP com 3 case studies, vídeos de processo           │
+│ ├─ Traffic Manager: Google + Instagram focus, test Google             │
+│ ├─ Engajador: ManyChat fluxo "Qual é seu nicho?" → lead scoring    │
+│ └─ Publicador: LinkedIn + Instagram 2x/semana                       │
+│                                                                           │
+│ RESULTADO: Briefing estratégico pronto. Head aprova. ✅              │
+└──────────────────────────────────────────────────────────────────────────┘
+
+SEMANA 3 (Apresentação Final + Contrato)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Apresentação NotebookLM ao cliente (15 min)                             │
+│ Estrategista + Head                                                     │
+│                                                                           │
+│ "Aqui está seu plano completo para 6 meses:                            │
+│  - 120 leads qualificados (meta)                                       │
+│  - R$ 18.000 investimento (seu budget)                                │
+│  - R$ 1.2M receita esperada (resultado)                               │
+│  - Processo transparente (seu diferencial)                            │
+│                                                                           │
+│ Está tudo documentado aqui. Você acessa quando quiser.                │
+│ Começamos segunda que vem?"                                            │
+│                                                                           │
+│ Cliente: "Approved 100%! Vamos lá."                                  │
+│                                                                           │
+│ RESULTADO: Contrato assinado. Primeira parcela paga. ✅              │
+└──────────────────────────────────────────────────────────────────────────┘
+
+SEMANA 4 (Build)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Squad trabalha em paralelo:                                             │
+│                                                                           │
+│ Copywriter: Escreve 8 posts (tema "Como escolher agência web")        │
+│ │ Post 1: "5 perguntas para fazer antes de contratar"                 │
+│ │ Post 2: "Quanto custa um website? Desmistificando preços"           │
+│ │ ... (até 8)                                                          │
+│                                                                           │
+│ Designer: Cria 8 carrosseis + 2 vídeos (15s, 30s)                    │
+│ │ Template: Minimalista, branco + azul (cores XYZ)                    │
+│ │ Cada post mostra PROCESSO (não só resultado)                        │
+│                                                                           │
+│ UI Designer: LP com case studies                                      │
+│ │ Section 1: Headline "Seu website que converte"                      │
+│ │ Section 2: 3 case studies (antes/depois + números)                  │
+│ │ Section 3: Processo em 4 passos (com vídeos)                        │
+│ │ Section 4: Form (nome, email, phone, nicho)                         │
+│                                                                           │
+│ Traffic Manager: Configura campanhas Google + Instagram               │
+│ │ Google: Keyword "website para [nicho]"                              │
+│ │ Instagram: Lookalike audience de clientes exitosos                 │
+│                                                                           │
+│ Engajador: Setup ManyChat                                            │
+│ │ Fluxo: "Qual é seu nicho?" → oferece case study relevante           │
+│                                                                           │
+│ Publicador: Cria Drive estrutura + calendário visual                  │
+│                                                                           │
+│ Head: Valida TUDO dia sexta. Pronto? SIM ✅                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+SEMANA 5 (Deploy)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ SEGUNDA PELA MANHÃ: Tudo vai ao ar                                      │
+│                                                                           │
+│ ✅ Landing Page: AO VIVO (velocidade OK? Form funciona?)               │
+│ ✅ Google Ads: Ativo (50% orçamento inicial = R$ 750)                 │
+│ ✅ Instagram Ads: Ativo (30% orçamento = R$ 450)                     │
+│ ✅ Posts orgânicos: 2 posts no feed (3 per week schedule)             │
+│ ✅ ManyChat: Fluxos disparando (auto-resposta funcionando?)           │
+│ ✅ Pixels: Rastreando conversões                                       │
+│                                                                           │
+│ SEGUNDA À NOITE: Squad monitora 24h                                   │
+│ ├─ Traffic Manager: CTR/CPC OK?                                       │
+│ ├─ UI Designer: LP carregando rápido?                                 │
+│ ├─ Engajador: Leads chegando em ManyChat?                             │
+│ └─ Head: Algo quebrou?                                                │
+│                                                                           │
+│ RESULTADO: Tudo rodando. Pé no acelerador. 🚀                         │
+└──────────────────────────────────────────────────────────────────────────┘
+
+SEMANA 6+ (Operação)
+┌──────────────────────────────────────────────────────────────────────────┐
+│ DAILY (Traffic Manager):                                               │
+│ ├─ Monitora CPL (meta: R$ 150)                                        │
+│ ├─ Se >R$ 200: pausa criativo ruim, testa novo                       │
+│ └─ Se <R$ 120: aumenta orçamento (tá ganhando!)                       │
+│                                                                           │
+│ SEMANAL (Publicador):                                                 │
+│ ├─ Publica 2 novos posts (Instagram + LinkedIn)                      │
+│ ├─ Acompanha 48h (responde comentários iniciais)                     │
+│ └─ Documenta performance (alcance, engajamento)                       │
+│                                                                           │
+│ SEMANAL (Engajador):                                                  │
+│ ├─ Qualifica leads em ManyChat                                       │
+│ ├─ Coleta feedback: "O que mais dúvida?"                             │
+│ └─ Reporta a Copywriter/Estrategista                                 │
+│                                                                           │
+│ MENSAL (Apresentação):                                               │
+│ ├─ Mês 1: 25 leads (meta era 20) ✅                                  │
+│ ├─ CPL: R$ 145 (meta era R$ 150) ✅                                  │
+│ ├─ Principais dores: "Website lindo x conversão", "Prazo curto"      │
+│ └─ Próximo mês: Ataca essas dores com novo conteúdo                  │
+│                                                                           │
+│ MÊS 6: Resultado final                                               │
+│ ├─ 130 leads (meta era 120) ✅✅✅                                    │
+│ ├─ CPL médio: R$ 138 (meta era R$ 150) ✅                            │
+│ ├─ Conversão: 65% dos leads viraram clientes                         │
+│ ├─ Receita esperada: R$ 845k (mínimo)                                │
+│ └─ ROI: 4.690% (investimento R$ 18k)                                 │
+│                                                                           │
+│ CLIENTE: "Vamo dobrar investimento pro próximo semestre?" ✅✅✅    │
+└──────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CONCLUSÃO: COMO VOCÊ VAI USAR A ESTRUTURA
+
+1. CLIENTE CHEGA
+   └─ Entrevista com Estrategista (BRIEFING DE CLIENTE)
+      └─ Identifica ÂNGULO FORA DA CURVA
+         └─ Apresenta ao cliente (NotebookLM)
+            └─ Cliente aprova
+               └─ Squad recebe BRIEFING ESTRATÉGICO
+                  └─ Cada agente sabe exatamente o que fazer
+                     └─ 6 meses de execução + mensuração
+                        └─ Cliente vê resultado transparente
+
+2. DADOS FLUEM
+   └─ Traffic Manager → números de performance
+      └─ Publicador → alcance e engajamento
+         └─ Engajador → dores e objeções reais
+            └─ Tudo alimenta BRIEFING ESTRATÉGICO (ajustado mensalmente)
+               └─ Copywriter cria conteúdo que REALMENTE funciona
+                  └─ Cycle de melhoria contínua
+
+3. DESIGN SOCIAL COM TEMPLATES CANVA (NOVO!)
+   └─ Designer Social recebe copy + imagens
+      └─ Seleciona template apropriado (A/B/C/D)
+         └─ Customiza imagem + texto no Canva
+            └─ Exporta PNG
+               └─ Publicador sobe no Instagram
+
+   EXEMPLO: Carrossel sobre "IA na produtividade"
+   ├─ Slide 1 → Template A (Gancho) → Full-bleed imagem
+   ├─ Slide 2 → Template B (Conteúdo) → 50% imagem + texto
+   ├─ Slide 3 → Template B (Conteúdo) → prova social
+   ├─ Slide 4 → Template C (Educação) → 3 tips numerados
+   └─ Slide 5 → Template D (CTA) → botão amarelo "Clique"
+
+   Tempo por slide: ~5 min (trocar imagem + texto)
+   Total carrossel 5 slides: ~30 min
+   Vs. design do zero: ~4-5h
+
+4. FERRAMENTA: NotebookLM
+   └─ Cliente vê TUDO (transparência)
+      └─ Squad vê TUDO (alinhamento)
+         └─ Head controla TUDO (governança)
+            └─ Dados estruturados → decisões rápidas
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Perguntas? Use este guia como referência toda vez que receber um novo cliente.
+
+Sucesso!

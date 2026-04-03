@@ -1,0 +1,137 @@
+════════════════════════════════════════════════════════════════════════════════
+🎨 CANVA TEMPLATES LINK — dicasdoflaviog (Marca: Sol)
+════════════════════════════════════════════════════════════════════════════════
+
+ESTADO: Especificações prontas | Canva files: Em construção
+
+════════════════════════════════════════════════════════════════════════════════
+INSTRUÇÕES DE ACESSO
+════════════════════════════════════════════════════════════════════════════════
+
+1. LOGIN NO CANVA
+   └─ Acesse: canva.com
+   └─ Faça login com sua conta
+   └─ Ou crie uma nova conta Canva (gratuito)
+
+2. CRIAR PROJETO "Sol Templates A/B/C/D"
+   └─ Clique em "Criar Design" → "Instagram Post" (1080 × 1350px)
+   └─ Nomeie: "Sol Templates A/B/C/D - v1.0"
+
+3. SEGUIR O PASSO A PASSO
+   └─ Consulte: scripts/GUIA_CRIACAO_TEMPLATES_CANVA.txt
+   └─ Crie 4 templates (A/B/C/D) com 4 variações cada = 16 frames
+
+4. COMPARTILHAR COM SQUAD
+   └─ Clique em "Share" → "Can edit"
+   └─ Adicione e-mails:
+      ├─ estrategista@sol.com (ou seu email pessoal)
+      ├─ designer-social@sol.com
+      └─ publicador@sol.com
+
+5. ATUALIZAR ESTE ARQUIVO
+   └─ Após criar e compartilhar, cole o link aqui
+   └─ Formato: https://www.canva.com/design/DAxx[xxxxx]/edit?utm_content=DAxx[xxxxx]&utm_campaign=designshare
+
+════════════════════════════════════════════════════════════════════════════════
+LINK COMPARTILHADO (será preenchido após criação)
+════════════════════════════════════════════════════════════════════════════════
+
+[🔗 Link Canva será adicionado aqui após criação dos templates]
+
+Status: ⏳ Aguardando criação nos próximos passos
+
+════════════════════════════════════════════════════════════════════════════════
+CONTEÚDO DOS TEMPLATES (O que será criado)
+════════════════════════════════════════════════════════════════════════════════
+
+TEMPLATE A — GANCHO / ABERTURA (4 frames)
+├─ A1: Gancho (Light) — Imagem escura + texto white bottom
+├─ A2: Gancho (Dark) — Imagem clara + texto preto bottom
+├─ A3: Gancho (Com Logo) — Idem A1 + logo 40×40px bottom-left
+└─ A4: Gancho (Sem Logo) — Só imagem + texto
+
+TEMPLATE B — CONTEÚDO / HUMANIZAÇÃO (4 frames)
+├─ B1: Conteúdo (Light) — 50% imagem esquerda + 50% branco direita
+├─ B2: Conteúdo (Dark) — 50% imagem esquerda + 50% cinza direita
+├─ B3: Conteúdo (Com Logo) — Idem B1 + logo top-right
+└─ B4: Conteúdo (Imagem Direita) — Invertido (texto esquerda, imagem direita)
+
+TEMPLATE C — EDUCAÇÃO / LISTAS (4 frames)
+├─ C1: Educação (Dark) — Fundo preto + 3 items numerados
+├─ C2: Educação (Light) — Fundo off-white + 3 items
+├─ C3: Educação (5 Items) — Preto + 5 items (mais compacto)
+└─ C4: Educação (Com Logo) — C1 + logo 40×40px top-right
+
+TEMPLATE D — CTA / FECHAMENTO (4 frames)
+├─ D1: CTA (Dark) — Preto + headline grande + botão amarelo
+├─ D2: CTA (Light) — Off-white + headline preto + botão preto
+├─ D3: CTA (Com Círculo) — D1 + círculo decorativo amarelo 5% opacity top-right
+└─ D4: CTA (Minimalista) — Só headline + CTA (sem decoração)
+
+════════════════════════════════════════════════════════════════════════════════
+BRAND KIT NO CANVA (salvar cores + fontes)
+════════════════════════════════════════════════════════════════════════════════
+
+CORES:
+├─ #FFD700 (Amarelo destacado)
+├─ #000000 (Preto)
+├─ #FFFFFF (Branco)
+├─ #F5F5F5 (Off-white)
+└─ #1A1A1A (Cinza escuro)
+
+FONTES:
+├─ Display: Courier New (headlines)
+├─ Body: Courier New (texto corpo)
+└─ Tamanho padrão:
+   ├─ Headline: 32-40px, Bold
+   ├─ Body: 14-18px, Regular
+   └─ Small: 12-14px, Regular
+
+════════════════════════════════════════════════════════════════════════════════
+DOCUMENTAÇÃO DE REFERÊNCIA
+════════════════════════════════════════════════════════════════════════════════
+
+Para criar os templates, consulte:
+├─ scripts/GUIA_CRIACAO_TEMPLATES_CANVA.txt (passo a passo completo)
+├─ scripts/TEMPLATES_CANVA_ESPECIFICACOES.html (specs visuais)
+├─ scripts/ARQUITETURA_COMPLETA.txt (seção 9 - Design System)
+└─ scripts/HIERARQUIA_AGENTES.txt (responsabilidades Designer Social)
+
+════════════════════════════════════════════════════════════════════════════════
+FLUXO DE USO (Após criação)
+════════════════════════════════════════════════════════════════════════════════
+
+1. ESTRATEGISTA envia brief com tema + template sugerido
+   Exemplo: "Template B + Gancho, tema 'IA na produtividade', 5 slides"
+
+2. DESIGNER SOCIAL abre link Canva → seleciona templates
+   Exemplo: Abre B1 (Light), A1 (Gancho), B1 (Conteúdo), C1 (Educação), D1 (CTA)
+
+3. DESIGNER SOCIAL customiza cada frame
+   └─ Clica na imagem → Replace → upload foto
+   └─ Clica no texto → edita headline/body
+   └─ Valida cores, tipografia, safe areas
+
+4. DESIGNER SOCIAL exporta PNGs
+   └─ Download 5 PNGs (um por slide)
+   └─ Nomeia: [tema]-slide-1.png, [tema]-slide-2.png, etc.
+   └─ Salva em /outputs/carrosseis/
+
+5. HEAD revisa PNGs
+   └─ Aprova ou retorna com feedback
+
+6. PUBLICADOR sobe no Instagram
+   └─ Sela caption + hashtags + alt text
+   └─ Agenda publicação
+
+════════════════════════════════════════════════════════════════════════════════
+PRÓXIMOS PASSOS
+════════════════════════════════════════════════════════════════════════════════
+
+[ ] Passo 1: Criar projeto Canva com 16 frames
+[ ] Passo 2: Salvar Brand Kit (cores + fontes)
+[ ] Passo 3: Compartilhar com squad (link abaixo)
+[ ] Passo 4: Atualizar CANVA_LINK.txt com URL
+[ ] Passo 5: Notificar squad que templates estão ready
+
+════════════════════════════════════════════════════════════════════════════════

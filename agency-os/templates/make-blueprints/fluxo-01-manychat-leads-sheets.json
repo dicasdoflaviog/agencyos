@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "name": "01_ManyChat_Leads_to_Google_Sheets",
+    "description": "Quando ManyChat cria um novo lead (lista Leads_Hot), adiciona linha na planilha Daily_Dashboard aba Leads",
+    "version": "1.0"
+  },
+  "flow": [
+    {
+      "step": 1,
+      "type": "trigger",
+      "app": "ManyChat",
+      "module": "Watch Subscribers",
+      "config": {
+        "channel": "Instagram",
+        "list": "Leads_Hot",
+        "polling_interval_minutes": 15
+      }
+    },
+    {
+      "step": 2,
+      "type": "action",
+      "app": "Google Sheets",
+      "module": "Add a Row",
+      "config": {
+        "spreadsheet": "Daily_Dashboard_dicasdoflaviog_2026",
+        "sheet": "Leads",
+        "columns": {
+          "A_Data": "{{now}}",
+          "B_Nome": "{{subscriber.name}}",
+          "C_Email": "{{subscriber.email}}",
+          "D_Numero": "{{subscriber.phone}}",
+          "E_Fonte": "ManyChat Instagram",
+          "F_Status": "novo",
+          "G_Classificacao": "{{subscriber.tag}}"
+        }
+      }
+    }
+  ],
+  "setup_notes": [
+    "1. Em Make.com, crie novo cenário",
+    "2. Adicione módulo ManyChat > Watch Subscribers",
+    "3. Conecte sua conta ManyChat (OAuth)",
+    "4. Selecione canal Instagram e lista Leads_Hot",
+    "5. Adicione módulo Google Sheets > Add a Row",
+    "6. Conecte sua conta Google",
+    "7. Selecione a planilha Daily_Dashboard e aba Leads",
+    "8. Mapeie os campos conforme columns acima",
+    "9. Clique Run Once para testar",
+    "10. Ative o fluxo (Turn On)"
+  ]
+}

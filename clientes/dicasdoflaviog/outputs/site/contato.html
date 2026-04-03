@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato — dicasdoflaviog | Fale com Flávio Guimarães</title>
+  <meta name="description" content="Tem um projeto em mente ou quer entender qual etapa faz sentido para o seu negócio? Fale diretamente com Flávio Guimarães.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="canonical" href="https://dicasdoflaviog.com/contato">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contato — dicasdoflaviog | Fale com Flávio Guimarães">
+  <meta property="og:description" content="Tem um projeto em mente ou quer entender qual etapa faz sentido para o seu negócio? Fale diretamente com Flávio Guimarães.">
+  <meta property="og:url" content="https://dicasdoflaviog.com/contato">
+  <meta property="og:image" content="https://dicasdoflaviog.com/assets/og-contato.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="dicasdoflaviog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contato — dicasdoflaviog | Fale com Flávio Guimarães">
+  <meta name="twitter:description" content="Tem um projeto em mente ou quer entender qual etapa faz sentido para o seu negócio? Fale diretamente com Flávio Guimarães.">
+  <meta name="twitter:image" content="https://dicasdoflaviog.com/assets/og-contato.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:site" content="@dicasdoflaviog">
+  <meta name="twitter:creator" content="@dicasdoflaviog">
+
+  <noscript><img loading="lazy" width="1" height="1" src="https://www.facebook.com/tr?id=935816292402573&ev=PageView&noscript=1" alt="" style="display:none"></noscript>
+  <!-- Google Analytics 4 — substituir G-XXXXXXXXXX pelo Measurement ID real -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XXXXXXXXXX");</script> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"></noscript>
+  <!-- Google Analytics 4 — substituir G-XXXXXXXXXX pelo Measurement ID real -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XXXXXXXXXX");</script> -->
+
+  <style>
+    :root {
+      --yellow: #FFD100;
+      --black: #0D0D0D;
+      --offwhite: #F5F2EC;
+      --gray: #888880;
+      --div-light: #E8E5DF;
+      --font-head: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --section-pad: 96px 0;
+      --container: 860px;
+      --side: 72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--offwhite);color:var(--black);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;}
+    .wrap{width:100%;max-width:var(--container);margin:0 auto;padding:0 var(--side);}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}html{scroll-behavior:auto;}}
+
+    #scroll-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--yellow);z-index:9999;pointer-events:none;}
+
+    .nav{position:sticky;top:0;z-index:900;background:var(--black);border-bottom:1px solid rgba(255,255,255,.07);}
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;}
+    .nav__logo{text-decoration:none;}
+    .nav__logo-text{font-family:var(--font-body);font-size:16px;font-weight:300;color:rgba(245,242,236,.7);letter-spacing:.02em;}
+    .nav__logo-text strong{font-weight:700;color:var(--offwhite);}
+    .nav__links{list-style:none;display:flex;align-items:center;gap:8px;}
+    .nav__link{font-family:var(--font-body);font-size:13px;font-weight:500;color:rgba(245,242,236,.52);text-decoration:none;padding:6px 10px;letter-spacing:.04em;transition:color .2s ease;}
+    .nav__link:hover,.nav__link.is-active{color:var(--offwhite);}
+    .nav__link.is-active{border-bottom:2px solid var(--yellow);padding-bottom:4px;}
+    .nav__cta{font-size:12px;padding:10px 18px;letter-spacing:.06em;white-space:nowrap;}
+    .nav__hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;width:40px;height:40px;justify-content:center;align-items:center;}
+    .nav__hamburger span{display:block;width:22px;height:2px;background:var(--offwhite);transition:transform .3s ease,opacity .3s ease;}
+    .nav-overlay{position:fixed;inset:0;background:var(--black);z-index:950;display:flex;flex-direction:column;justify-content:center;padding:40px var(--side);transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
+    .nav-overlay.is-open{transform:translateX(0);}
+    .nav-overlay__close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--offwhite);font-size:32px;cursor:pointer;line-height:1;padding:8px;}
+    .nav-overlay__links{list-style:none;display:flex;flex-direction:column;gap:24px;}
+    .nav-overlay__links a{font-family:var(--font-head);font-size:clamp(40px,10vw,56px);color:var(--offwhite);text-decoration:none;text-transform:uppercase;transition:color .2s ease;}
+    .nav-overlay__links a:hover{color:var(--yellow);}
+
+    .btn{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:16px 32px;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;line-height:1;}
+    .btn:hover{transform:translateY(-2px);}
+    .btn:active{transform:scale(.98);}
+    .btn--yellow{background:var(--yellow);color:var(--black);}
+    .btn--outline{background:transparent;color:var(--offwhite);border:2px solid rgba(245,242,236,.4);}
+    .btn--outline:hover{border-color:var(--offwhite);}
+    .btn--dark{background:var(--black);color:var(--offwhite);}
+
+    .tag{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.10em;text-transform:uppercase;background:var(--yellow);color:var(--black);padding:5px 12px;margin-bottom:16px;}
+    .tag--dark{background:var(--black);color:var(--offwhite);}
+    .tag--outline{background:transparent;color:var(--yellow);border:1px solid rgba(255,209,0,.4);}
+    h2{font-family:var(--font-head);font-size:clamp(48px,7.5vw,84px);line-height:.93;text-transform:uppercase;letter-spacing:.01em;}
+    h3{font-family:var(--font-head);font-size:clamp(26px,3.8vw,44px);text-transform:uppercase;line-height:1.02;}
+    p{font-family:var(--font-body);font-size:17px;line-height:1.75;}
+
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .fade-up.is-visible{opacity:1;transform:translateY(0);}
+    .fade-up.d1{transition-delay:.10s;}.fade-up.d2{transition-delay:.20s;}.fade-up.d3{transition-delay:.30s;}.fade-up.d4{transition-delay:.40s;}
+
+    .footer{background:var(--black);padding:56px 0 40px;border-top:1px solid rgba(255,255,255,.06);}
+    .footer__top{display:grid;grid-template-columns:1fr auto auto;gap:40px;align-items:start;}
+    .footer__brand{font-family:var(--font-body);font-size:17px;font-weight:300;color:rgba(245,242,236,.5);display:block;margin-bottom:6px;}
+    .footer__brand strong{font-weight:700;color:rgba(245,242,236,.8);}
+    .footer__tagline{font-size:12px;color:rgba(245,242,236,.2);max-width:200px;line-height:1.6;}
+    .footer__nav{display:flex;flex-direction:column;gap:10px;}
+    .footer__nav a{font-size:13px;color:rgba(245,242,236,.38);text-decoration:none;transition:color .2s ease;}
+    .footer__nav a:hover{color:var(--offwhite);}
+    .footer__social{display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+    .footer__social a{font-size:13px;color:rgba(245,242,236,.38);text-decoration:none;transition:color .2s ease;}
+    .footer__social a:hover{color:var(--offwhite);}
+    .footer__divider{height:1px;background:rgba(255,255,255,.06);margin:32px 0;}
+    .footer__bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .footer__bottom p{font-size:11px;color:rgba(245,242,236,.15);line-height:1.7;}
+
+    /* HERO */
+    .hero{background:var(--black);padding:var(--section-pad);}
+    .hero h1{font-family:var(--font-head);font-size:clamp(48px,7.5vw,88px);line-height:.88;text-transform:uppercase;color:var(--offwhite);margin:16px 0 20px;}
+    .hero__sub{font-size:17px;color:rgba(245,242,236,.52);line-height:1.7;max-width:520px;}
+
+    /* CONTACT SECTION */
+    .contact-section{background:var(--offwhite);padding:var(--section-pad);}
+    .contact-layout{display:grid;grid-template-columns:1fr 300px;gap:64px;align-items:start;}
+    .contact-form__heading{font-family:var(--font-head);font-size:28px;text-transform:uppercase;color:var(--black);margin-bottom:28px;}
+    .form-field{margin-bottom:20px;}
+    .form-label{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--black);margin-bottom:8px;}
+    .form-input{width:100%;padding:14px 16px;font-family:var(--font-body);font-size:15px;border:2px solid var(--div-light);background:var(--offwhite);color:var(--black);outline:none;transition:border-color .2s ease;-webkit-appearance:none;}
+    .form-input:focus{border-color:var(--black);}
+    .form-select{width:100%;padding:14px 16px;font-family:var(--font-body);font-size:15px;border:2px solid var(--div-light);background:var(--offwhite);color:var(--black);outline:none;transition:border-color .2s ease;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888880' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
+    .form-select:focus{border-color:var(--black);}
+    .form-textarea{width:100%;padding:14px 16px;font-family:var(--font-body);font-size:15px;border:2px solid var(--div-light);background:var(--offwhite);color:var(--black);outline:none;transition:border-color .2s ease;resize:vertical;min-height:140px;}
+    .form-textarea:focus{border-color:var(--black);}
+    .form-submit{width:100%;padding:18px;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:.07em;text-transform:uppercase;background:var(--yellow);color:var(--black);border:none;cursor:pointer;transition:transform .18s ease,opacity .2s ease;}
+    .form-submit:hover{transform:translateY(-2px);}
+    .form-submit:active{transform:scale(.98);}
+    .form-note{font-size:12px;color:var(--gray);margin-top:12px;line-height:1.6;}
+    .form-success{display:none;background:var(--black);color:var(--offwhite);padding:20px 24px;font-size:15px;line-height:1.65;margin-top:16px;}
+
+    /* CONTACT INFO */
+    .contact-info{display:flex;flex-direction:column;gap:32px;padding-top:8px;}
+    .contact-info__heading{font-family:var(--font-head);font-size:22px;text-transform:uppercase;color:var(--black);margin-bottom:6px;}
+    .contact-info__block{border-left:3px solid var(--yellow);padding-left:20px;}
+    .contact-info__label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:4px;}
+    .contact-info__value{font-size:15px;color:var(--black);line-height:1.6;}
+    .contact-info__value a{color:var(--black);text-decoration:underline;text-underline-offset:3px;transition:color .2s ease;}
+    .contact-info__value a:hover{color:var(--yellow);}
+    .contact-info__note{font-size:12px;color:var(--gray);margin-top:20px;padding:16px;background:var(--div-light);line-height:1.65;}
+
+    /* SOCIAL SECTION */
+    .social-section{background:var(--black);padding:var(--section-pad);}
+    .social-section__header{text-align:center;margin-bottom:48px;}
+    .social-section__header h2{color:var(--offwhite);}
+    .social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+    .social-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:40px 32px;display:flex;flex-direction:column;gap:12px;transition:background .2s ease,border-color .2s ease;}
+    .social-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,209,0,.3);}
+    .social-card__platform{font-family:var(--font-head);font-size:32px;text-transform:uppercase;color:var(--offwhite);line-height:1;}
+    .social-card__handle{font-size:14px;color:rgba(245,242,236,.4);font-family:var(--font-body);}
+    .social-card__link{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--yellow);text-decoration:none;margin-top:8px;transition:opacity .2s ease;}
+    .social-card__link:hover{opacity:.7;}
+
+    @media(max-width:768px){
+      .nav__links,.nav__cta{display:none;}
+      .nav__hamburger{display:flex;}
+      .footer__top{grid-template-columns:1fr;gap:28px;}
+      .footer__social{align-items:flex-start;}
+      .footer__bottom{flex-direction:column;gap:8px;}
+      .contact-layout{grid-template-columns:1fr;}
+      .social-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:680px){
+      :root{--side:20px;--section-pad:64px 0;}
+    }
+    @media(max-width:375px){:root{--side:16px;}}
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" role="navigation">
+  <div class="wrap nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="dicasdoflaviog - início">
+      <span class="nav__logo-text">dicas<strong>do</strong>flaviog</span>
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="index.html" class="nav__link">Home</a></li>
+      <li><a href="sobre.html" class="nav__link">Sobre</a></li>
+      <li><a href="produtos.html" class="nav__link">Produtos</a></li>
+      <li><a href="blog.html" class="nav__link">Blog</a></li>
+      <li><a href="contato.html" class="nav__link">Contato</a></li>
+    </ul>
+    <a href="produtos.html#checklist" class="btn btn--yellow nav__cta">Checklist Grátis</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+  <button class="nav-overlay__close" id="nav-close" aria-label="Fechar menu">&times;</button>
+  <ul class="nav-overlay__links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="sobre.html">Sobre</a></li>
+    <li><a href="produtos.html">Produtos</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <a href="produtos.html#checklist" class="btn btn--yellow" style="width:100%;text-align:center;margin-top:32px;">Checklist Grátis</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="contato-headline">
+  <div class="wrap">
+    <span class="tag tag--outline fade-up">FALE COM O FLÁVIO</span>
+    <h1 id="contato-headline" class="fade-up d1">TEM UM PROJETO?<br>VAMOS CONVERSAR.</h1>
+    <p class="hero__sub fade-up d2">Antes de qualquer proposta, entendo o contexto. Me conta o que está rolando no seu negócio.</p>
+  </div>
+</section>
+
+<!-- FORM + INFO -->
+<section class="contact-section" aria-labelledby="contato-form-heading">
+  <div class="wrap contact-layout">
+    <div class="fade-up">
+      <h2 id="contato-form-heading" class="contact-form__heading">Envie uma mensagem</h2>
+      <form id="contact-form" action="https://formspree.io/f/placeholder" method="POST" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="contact-nome">Nome <span aria-hidden="true">*</span></label>
+          <input type="text" id="contact-nome" name="nome" class="form-input" required autocomplete="name" aria-required="true">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="contact-email">E-mail <span aria-hidden="true">*</span></label>
+          <input type="email" id="contact-email" name="email" class="form-input" required autocomplete="email" aria-required="true">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="contact-assunto">Assunto</label>
+          <select id="contact-assunto" name="assunto" class="form-select" aria-label="Selecione o assunto">
+            <option value="" disabled selected>Selecione o assunto</option>
+            <option value="diagnostico">Diagnóstico Anti-Caos</option>
+            <option value="estruturacao">Estruturação Anti-Caos</option>
+            <option value="parceria">Parceria / Collab</option>
+            <option value="press">Conteúdo / Press</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="contact-mensagem">Mensagem <span aria-hidden="true">*</span></label>
+          <textarea id="contact-mensagem" name="mensagem" class="form-textarea" rows="6" required aria-required="true" placeholder="Me conta o que está acontecendo no seu negócio..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Enviar Mensagem →</button>
+        <p class="form-note">Respondo em até 48h úteis. Sem auto-resposta de robô.</p>
+        <div class="form-success" id="form-success" role="alert" aria-live="polite">
+          Mensagem recebida. Responderei em até 48h úteis.
+        </div>
+      </form>
+    </div>
+
+    <div class="contact-info fade-up d1">
+      <div class="contact-info__block">
+        <div class="contact-info__label">E-mail</div>
+        <div class="contact-info__value">
+          <a href="mailto:contato@dicasdoflaviog.com.br">contato@dicasdoflaviog.com.br</a>
+        </div>
+      </div>
+      <div class="contact-info__block">
+        <div class="contact-info__label">CNPJ</div>
+        <div class="contact-info__value">32.035.459/0001-17</div>
+      </div>
+      <div class="contact-info__block">
+        <div class="contact-info__label">Redes Sociais</div>
+        <div class="contact-info__value">
+          <a href="https://instagram.com/dicasdoflaviog" target="_blank" rel="noopener">Instagram @dicasdoflaviog</a><br>
+          <a href="https://linkedin.com/in/dicasdoflaviog" target="_blank" rel="noopener">LinkedIn /in/dicasdoflaviog</a><br>
+          <a href="https://youtube.com/@dicasdoflaviog" target="_blank" rel="noopener">YouTube @dicasdoflaviog</a>
+        </div>
+      </div>
+      <div class="contact-info__note">
+        Para assuntos urgentes, o Instagram é o canal mais rápido.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REDES SOCIAIS -->
+<section class="social-section" aria-labelledby="social-headline">
+  <div class="wrap">
+    <div class="social-section__header">
+      <h2 id="social-headline" class="fade-up" style="color:var(--offwhite);">ACOMPANHE O CONTEÚDO</h2>
+    </div>
+    <div class="social-grid">
+      <div class="social-card fade-up">
+        <div class="social-card__platform">Instagram</div>
+        <div class="social-card__handle">@dicasdoflaviog</div>
+        <a href="https://instagram.com/dicasdoflaviog" target="_blank" rel="noopener" class="social-card__link" aria-label="Seguir no Instagram">Seguir →</a>
+      </div>
+      <div class="social-card fade-up d1">
+        <div class="social-card__platform">LinkedIn</div>
+        <div class="social-card__handle">/in/dicasdoflaviog</div>
+        <a href="https://linkedin.com/in/dicasdoflaviog" target="_blank" rel="noopener" class="social-card__link" aria-label="Conectar no LinkedIn">Conectar →</a>
+      </div>
+      <div class="social-card fade-up d2">
+        <div class="social-card__platform">YouTube</div>
+        <div class="social-card__handle">@dicasdoflaviog</div>
+        <a href="https://youtube.com/@dicasdoflaviog" target="_blank" rel="noopener" class="social-card__link" aria-label="Inscrever no YouTube">Inscrever →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <span class="footer__brand">dicas<strong>do</strong>flaviog</span>
+        <p class="footer__tagline">Estratégia antes de execução. Clareza antes de velocidade.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Navegação do rodapé">
+        <a href="index.html">Home</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="blog.html">Blog</a>
+        <a href="contato.html">Contato</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </nav>
+      <div class="footer__social">
+        <a href="https://instagram.com/dicasdoflaviog" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+        <a href="https://linkedin.com/in/dicasdoflaviog" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://youtube.com/@dicasdoflaviog" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__bottom">
+      <p>CNPJ 32.035.459/0001-17 · contato@dicasdoflaviog.com.br</p>
+      <p>© 2026 dicasdoflaviog. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','935816292402573');
+fbq('track','PageView');
+fbq('track','ViewContent',{content_name:'Contato'});
+
+const ham=document.getElementById('hamburger'),overlay=document.getElementById('nav-overlay'),nc=document.getElementById('nav-close');
+if(ham){ham.addEventListener('click',()=>{overlay.classList.add('is-open');document.body.style.overflow='hidden';ham.setAttribute('aria-expanded','true');});nc.addEventListener('click',()=>{overlay.classList.remove('is-open');document.body.style.overflow='';ham.setAttribute('aria-expanded','false');});overlay.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{overlay.classList.remove('is-open');document.body.style.overflow='';ham.setAttribute('aria-expanded','false');}));}
+
+const path=window.location.pathname.split('/').pop()||'index.html';
+document.querySelectorAll('.nav__link').forEach(l=>{if(l.getAttribute('href')===path)l.classList.add('is-active');});
+
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduced){const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');obs.unobserve(e.target);}});},{threshold:0.15});document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));}
+else{document.querySelectorAll('.fade-up').forEach(el=>el.classList.add('is-visible'));}
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:reduced?'auto':'smooth'});}});});
+
+const sp=document.getElementById('scroll-progress');
+if(sp){window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;sp.style.width=(window.scrollY/h*100)+'%';},{passive:true});}
+
+// Contact form
+const contactForm=document.getElementById('contact-form');
+const formSuccess=document.getElementById('form-success');
+if(contactForm){
+  contactForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    const nome=document.getElementById('contact-nome').value.trim();
+    const email=document.getElementById('contact-email').value.trim();
+    const mensagem=document.getElementById('contact-mensagem').value.trim();
+    if(!nome||!email||!mensagem){return;}
+    fbq('track','Contact',{content_name:'Formulário Contato'});
+    const btn=this.querySelector('.form-submit');
+    btn.textContent='Enviando...';
+    btn.disabled=true;
+    fetch(contactForm.action,{method:'POST',body:new FormData(contactForm),headers:{Accept:'application/json'}})
+      .then(r=>{
+        if(r.ok){
+          formSuccess.style.display='block';
+          contactForm.reset();
+          btn.textContent='Enviado!';
+        } else {
+          btn.textContent='Enviar Mensagem →';
+          btn.disabled=false;
+        }
+      })
+      .catch(()=>{
+        btn.textContent='Enviar Mensagem →';
+        btn.disabled=false;
+      });
+  });
+}
+// Pre-select assunto from URL param
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  var a = p.get('assunto');
+  if(a){
+    var sel = document.getElementById('contact-assunto');
+    if(sel){
+      for(var i=0;i<sel.options.length;i++){
+        if(sel.options[i].value===a){sel.selectedIndex=i;break;}
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>

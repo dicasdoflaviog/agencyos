@@ -1,0 +1,42 @@
+PRODUTOS & SERVIÇOS — dicasdoflaviog
+=====================================
+Versão: RASCUNHO | Aguardando análise dos PDFs do Manual Antiburro
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STATUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Este arquivo será preenchido após análise dos 16 PDFs do Manual Antiburro.
+Os produtos, mentorias e o ecossistema completo serão mapeados e organizados
+com viabilidade, modelo de precificação e posição no funil.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUTURA ESPERADA (após análise dos PDFs)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. SERVIÇOS DE AGÊNCIA (execução direta)
+   - [preencher após PDFs]
+
+2. MENTORIAS E CONSULTORIA
+   - [preencher após PDFs]
+
+3. PRODUTOS DIGITAIS (infoprodutos, templates, ferramentas)
+   - [preencher após PDFs]
+
+4. SOLUÇÕES COM IA
+   - [preencher após PDFs]
+
+5. ECOSSISTEMA / FUNIL
+   - [entrada → meio → fundo de funil]
+   - [preencher após PDFs]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRÓXIMOS PASSOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] Analisar remessa 1/4 dos PDFs (5 arquivos)
+[ ] Analisar remessa 2/4 dos PDFs (5 arquivos)
+[ ] Analisar remessa 3/4 dos PDFs (4 arquivos)
+[ ] Mapear produtos e viabilidade
+[ ] Definir funil de entrada
+[ ] Preencher este arquivo com o ecossistema final

@@ -1,0 +1,391 @@
+════════════════════════════════════════════════════════════════════════════════
+🔌 GUIA DE INTEGRAÇÃO — DRIVE + PLATAFORMAS EXTERNAS
+════════════════════════════════════════════════════════════════════════════════
+
+Marca: Sol — Estrategista Antifrágil | v1.0
+Objetivo: Conectar seu sistema ao Google Drive, NotebookLM, ManyChat, Meta, Instagram
+
+════════════════════════════════════════════════════════════════════════════════
+RESUMO EXECUTIVO: O QUE VOCÊ PRECISA FAZER
+════════════════════════════════════════════════════════════════════════════════
+
+1. GOOGLE DRIVE - Central de documentação
+   └─ Criar 7 pastas principais (00 a 07)
+   └─ Compartilhar com squad
+   └─ Todos os briefs, copies, designs salvos lá
+
+2. NOTEBOOKLM - IA que entende contexto
+   └─ Upload de todos os docs no Drive
+   └─ HEAD faz perguntas: "Este copy está certo?"
+   └─ IA responde baseado no histórico
+
+3. MANYCHAT - Automação de comentários
+   └─ Responde automaticamente comentários
+   └─ Captura leads
+   └─ Envia para Make/Sheets
+
+4. META - Rastreio de anúncios
+   └─ Pixel rastreia cliques/conversões
+   └─ Data aparece em Dashboard
+   └─ TRAFFIC MANAGER otimiza CPL
+
+5. INSTAGRAM - Publicação automática
+   └─ Agendar posts via Meta Business Suite
+   └─ Verificar Insights
+   └─ Dados vão para Dashboard
+
+6. MAKE - Automação de fluxos
+   └─ Fluxo 1: ManyChat → Sheets (leads)
+   └─ Fluxo 2: Meta → Sheets (performance)
+   └─ Fluxo 3: Alertas automáticos
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 1: ESTRUTURA GOOGLE DRIVE
+════════════════════════════════════════════════════════════════════════════════
+
+Crie essa estrutura no seu Google Drive:
+
+SOL — ESTRATEGISTA ANTIFRÁGIL/
+├── 00_MASTER
+│   ├── Arquitetura Completa
+│   ├── Hierarquia Agentes
+│   ├── Guia Operacional
+│   └── Manual Integração Squad
+│
+├── 01_CLIENTES
+│   ├── dicasdoflaviog/
+│   │   ├── Brand Guidelines (brand-profile, voice, styleguide)
+│   │   ├── Campanhas/
+│   │   │   ├── 2026-S1/
+│   │   │   │   ├── Briefing Estratégico (Google Docs)
+│   │   │   │   ├── Apresentação Cliente (Google Slides)
+│   │   │   │   ├── Projeto 1 - Automação Email
+│   │   │   │   │   ├── Brief (copy-paste de briefs/)
+│   │   │   │   │   ├── Copy (Google Docs)
+│   │   │   │   │   ├── Carrosseis (PNGs)
+│   │   │   │   │   └── Performance (Google Sheets)
+│   │   │   │   └── Projeto 2, 3, N...
+│   │   │   │
+│   │   │   └── 2026-S2/
+│   │   │
+│   │   ├── Dashboard Mensal (Google Sheets)
+│   │   │   ├── Mês 1: Leads, CPL, ROI
+│   │   │   └── Resumo Semestral
+│   │   │
+│   │   └── Arquivo/
+│   │       ├── 2026-03-15 Automação Email
+│   │       ├── 2026-03-22 5 Erros
+│   │       └── Performance real (screenshots)
+│   │
+│   ├── qgdigital/ (próximo cliente)
+│   │   └─ Mesma estrutura
+│   │
+│   └── [Cliente N]/
+│
+├── 02_NOTEBOOKLM
+│   ├── Notebook 1 - dicasdoflaviog 2026-S1
+│   │   └─ Link: https://notebooklm.google.com/...
+│   │   └─ Contém: briefs + copies + diretrizes + histórico
+│   │
+│   └── Notebook N
+│
+├── 03_TEMPLATES
+│   ├── Google Slides - Apresentação Cliente (MASTER)
+│   ├── Google Docs - Brief Estratégico (MASTER)
+│   ├── Google Sheets - Dashboard Mensal (MASTER)
+│   └── Google Sheets - Performance Por Peça (MASTER)
+│
+├── 04_MANYCHAT
+│   ├── Fluxos Automação (screenshots)
+│   ├── Configuração Respostas (docs)
+│   └── Integração Make (docs)
+│
+├── 05_META_INSTAGRAM_FACEBOOK
+│   ├── Business Manager Setup (docs)
+│   ├── Pixel Configuration (docs)
+│   ├── Ad Account Access (docs)
+│   └── Relatórios de Performance
+│
+├── 06_MAKE_AUTOMATION
+│   ├── Fluxo 1 - Lead Qualification (screenshot)
+│   ├── Fluxo 2 - Performance Meta (screenshot)
+│   ├── Fluxo 3 - Alertas CPL (screenshot)
+│   └── Documentação Make (docs)
+│
+└── 07_REFERENCE
+    ├── API Keys (PROTEGIDO - só você)
+    ├── Access Tokens (PROTEGIDO - só você)
+    └── Checklist Setup (compartilhado)
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 2: SETUP DE CADA PLATAFORMA
+════════════════════════════════════════════════════════════════════════════════
+
+2.1 NOTEBOOKLM (IA que entende contexto)
+─────────────────────────────────────────
+
+Vai para: notebooklm.google.com
+Cria: novo notebook "dicasdoflaviog 2026-S1"
+
+Upload tudo que tiver:
+├─ Todos os briefs
+├─ Todos os copies anteriores
+├─ Histórico de performance
+├─ Brand guidelines
+├─ Diretrizes de agentes
+└─ Este guia (INTEGRACAO_DRIVE_PLATAFORMAS.txt)
+
+HEAD usa assim:
+├─ Pergunta: "Este copy 'Descubra os 7 segredos' está alinhado?"
+├─ NotebookLM responde: "Não. 'Segredos' é proibido. Use 'pontos'."
+└─ HEAD aprova/rejeita com confiança
+
+2.2 MANYCHAT (Automação de comentários)
+────────────────────────────────────────
+
+Vai para: manychat.com
+Conecta: sua conta Instagram (@dicasdoflaviog)
+
+Cria 2 fluxos:
+
+FLUXO 1 — Resposta Automática
+   Trigger: Novo comentário
+   Ação: "Oi! 👋 Qual sua maior dúvida sobre [tema]?"
+   Resultado: Capta nome + resposta
+
+FLUXO 2 — Qualificação
+   Se responder "preço"/"custo" → Lead Hot
+   Se responder "dúvida"/"como" → Lead Warm
+   Se responder "legal"/"top" → Lead Cold
+   Resultado: Envia para Make/Sheets
+
+2.3 META + INSTAGRAM
+────────────────────
+
+Meta (business.facebook.com):
+├─ Cria Business Manager
+├─ Conecta: Ad Account, Página FB, Conta IG
+├─ Cria: Pixel (rastreio de cliques)
+├─ Configura: Eventos (Lead, Purchase, etc)
+├─ Gera: API Token (salva em Drive: 07_REFERENCE/)
+
+Instagram (@dicasdoflaviog):
+├─ Converte para conta profissional
+├─ Conecta ao Meta Business Manager
+├─ Publica posts via Meta Business Suite (agendado)
+├─ Monitora Insights (alcance, engajamento)
+└─ Dados fluem para Dashboard
+
+2.4 MAKE (Automação de fluxos)
+───────────────────────────────
+
+Vai para: make.com
+Cria 3 fluxos:
+
+FLUXO 1 — Leads ManyChat → Google Sheets
+   Trigger: ManyChat capta novo lead
+   Ação 1: Google Sheets adiciona linha
+   Ação 2: Slack notifica "@engajador Novo lead!"
+   
+FLUXO 2 — Performance Meta → Google Sheets
+   Trigger: Todo dia às 23h
+   Ação: Meta API puxa dados (impressões, clicks, CPL, leads)
+   Resultado: Google Sheets aba "Performance Meta" atualiza
+
+FLUXO 3 — Alerta CPL Alto
+   Trigger: Se CPL > R$ 200
+   Ação: Slack avisa "🚨 CPL alto! Revisar criativo."
+   Resultado: TRAFFIC MANAGER age rápido
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 3: APRESENTAÇÃO AO CLIENTE (Google Slides)
+════════════════════════════════════════════════════════════════════════════════
+
+Veja documento: TEMPLATE_APRESENTACAO_CLIENTE.txt
+
+Estrutura básica:
+├─ Slide 1: Capa (Logo cliente)
+├─ Slide 2: Objetivo (meta de 6 meses)
+├─ Slides 3-8: Peça por peça
+│   ├─ [CRIATIVO] — Screenshot do carrossel/story
+│   ├─ [DESCRIÇÃO] — Qual é a peça, o que faz
+│   ├─ [OBJETIVO] — Por que criamos assim
+│   ├─ [RESULTADO ESPERADO] — Quantos leads/vendas
+│   └─ [Slide branco] — Para notas/assinatura
+│
+└─ Slide Final: Próximas ações
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 4: FLUXO COMPLETO DE UM JOB
+════════════════════════════════════════════════════════════════════════════════
+
+SEGUNDA — Entrevista (Estrategista + você)
+───────────────────────────────────────────
+Estrategista: "Qual é seu maior problema com marketing?"
+Você: "Não consigo escalar. Gasto muito em tráfego, baixa conversão."
+   ↓
+Estrategista documenta em Google Docs
+   ↓
+Upload tudo no NotebookLM
+   ↓
+HEAD acessa NotebookLM, entende contexto
+
+TERÇA — Briefing (Estrategista + HEAD)
+───────────────────────────────────────
+Estrategista cria: "BRIEF — Automação Email"
+   ├─ Público: Freelancers
+   ├─ Ângulo: "Email não é trabalho. É desperdício."
+   ├─ Estrutura: 5 slides (A/B/C/D)
+   └─ Tom: Direto, anti-guru
+
+Salva em: Drive → 01_CLIENTES/dicasdoflaviog/Campanhas/2026-S1/
+   ↓
+HEAD lê em NotebookLM: "Ângulo está bom?"
+HEAD aprova ou retorna feedback
+
+QUARTA — Produção (Copywriter + Designer)
+──────────────────────────────────────────
+Copywriter:
+   ├─ Lê: Brief + NotebookLM
+   ├─ Escreve copy (5 slides)
+   ├─ Salva: Google Docs no Drive
+   ├─ HEAD revisa (ortografia, tom)
+   └─ ✅ Aprovado
+
+Designer Social:
+   ├─ Lê: Copy + Brief
+   ├─ Abre: Templates Canva A/B/C/D
+   ├─ Customiza: fontes/cores dicasdoflaviog + imagens reais
+   ├─ Exporta: 5 PNGs (1080×1350)
+   ├─ Salva: Drive → Projeto 1/Carrosseis/
+   ├─ HEAD revisa (contraste, safe areas)
+   └─ ✅ Aprovado
+
+QUINTA — Publicação (Publicador)
+─────────────────────────────────
+Publicador:
+   ├─ Abre: Drive → Projeto 1/Carrosseis/
+   ├─ Copia: 5 PNGs
+   ├─ Vai a: Meta Business Suite (business.facebook.com)
+   ├─ Clica: Compose Post → Instagram Feed
+   ├─ Upload: 5 PNGs (carrossel)
+   ├─ Cola: Caption do Copywriter
+   ├─ Adiciona: Hashtags + Alt text
+   ├─ Agenda: 14h (melhor horário)
+   └─ Schedule
+
+   ↓
+Meta Pixel rastreia cliques
+   ↓
+ManyChat capta comentários
+
+SEGUNDA PRÓXIMA — Monitoramento
+────────────────────────────────
+Make fluxos rodam:
+
+FLUXO 1: ManyChat → Google Sheets (leads capturados)
+   Nomes dos leads
+   Perguntas deles
+   Classificação (Hot/Warm/Cold)
+
+FLUXO 2: Meta → Google Sheets (performance)
+   Impressões
+   Clicks
+   CPM (custo por mil)
+   CPL (custo por lead)
+   Total gasto
+
+FLUXO 3: Se CPL > 200, alerta para TRAFFIC MANAGER
+   "🚨 CPL alto! Revisar criativo."
+
+Resultado:
+   ├─ Dashboard atualiza em tempo real
+   ├─ HEAD vê performance
+   ├─ Estrategista analisa em NotebookLM
+   └─ Próximo brief ataca padrão vencedor
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 5: CHECKLIST DE IMPLEMENTAÇÃO
+════════════════════════════════════════════════════════════════════════════════
+
+SEMANA 1 — Setup Drive + NotebookLM
+───────────────────────────────────
+[ ] Criar pasta raiz "SOL — ESTRATEGISTA ANTIFRÁGIL" no Drive
+[ ] Criar 7 subpastas (00 a 07)
+[ ] Compartilhar Drive com squad
+[ ] Criar NotebookLM "dicasdoflaviog 2026-S1"
+[ ] Upload de 15+ documentos no NotebookLM
+[ ] Testar perguntas no NotebookLM
+[ ] Salvar link em Drive: 02_NOTEBOOKLM/
+
+SEMANA 2 — Setup ManyChat + Meta
+────────────────────────────────
+[ ] Criar conta ManyChat
+[ ] Conectar Instagram à ManyChat
+[ ] Criar fluxo resposta automática
+[ ] Criar fluxo qualificação
+[ ] Screenshots salvos em Drive: 04_MANYCHAT/
+[ ] Criar Business Manager (Meta)
+[ ] Adicionar contas (Ad Account, FB, IG)
+[ ] Criar Pixel
+[ ] Gerar API Token (salvo em Drive: 07_REFERENCE/)
+
+SEMANA 3 — Setup Instagram + Make
+──────────────────────────────────
+[ ] Converter Instagram para conta profissional
+[ ] Conectar ao Meta Business Suite
+[ ] Agendar primeiro post
+[ ] Monitorar Insights
+[ ] Criar conta Make
+[ ] Fluxo 1: ManyChat → Sheets
+[ ] Fluxo 2: Meta → Sheets
+[ ] Fluxo 3: Alertas CPL
+[ ] Testar todos os fluxos
+
+SEMANA 4 — Dashboard + Apresentação
+────────────────────────────────────
+[ ] Criar Google Sheets "Dashboard Mensal"
+[ ] Abas: Leads, Performance, ROI, Insights
+[ ] Conectar Make como data source
+[ ] Criar gráficos (visual dashboard)
+[ ] Criar Google Slides "Apresentação Cliente"
+[ ] Template com 10 slides (vejo documento separado)
+[ ] Primeiro job executado (teste real)
+
+════════════════════════════════════════════════════════════════════════════════
+SEGURANÇA — PROTOCOLO CRÍTICO
+════════════════════════════════════════════════════════════════════════════════
+
+CREDENCIAIS SENSÍVEIS:
+├─ Nunca compartilhe em público
+├─ Salve em Drive: 07_REFERENCE/ (protegido)
+├─ Use password manager para senhas
+└─ NUNCA em email ou Slack público
+
+PERMISSÕES NO DRIVE:
+├─ HEAD: Editor
+├─ ESTRATEGISTA: Editor
+├─ COPYWRITER: Viewer
+├─ DESIGNER: Viewer
+├─ PUBLICADOR: Viewer
+├─ ENGAJADOR: Viewer
+└─ TRAFFIC MANAGER: Editor
+
+API KEYS:
+├─ Meta API Token: Salvar em 07_REFERENCE/ (só você)
+├─ Make: Não compartilhar credenciais
+└─ NotebookLM: Não é sensível, pode compartilhar link
+
+════════════════════════════════════════════════════════════════════════════════
+PRÓXIMOS PASSOS
+════════════════════════════════════════════════════════════════════════════════
+
+1. [ ] Leia este arquivo (INTEGRACAO_DRIVE_PLATAFORMAS.txt)
+2. [ ] Leia template apresentação (TEMPLATE_APRESENTACAO_CLIENTE.txt)
+3. [ ] Comece pelo Drive (Semana 1)
+4. [ ] Depois ManyChat + Meta (Semana 2)
+5. [ ] Depois Instagram + Make (Semana 3)
+6. [ ] Monte Dashboard + Apresentação (Semana 4)
+7. [ ] Execute primeiro job completo
+
+════════════════════════════════════════════════════════════════════════════════

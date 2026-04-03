@@ -1,0 +1,248 @@
+# ============================================================
+# ECOSSISTEMA — FILOSOFIA CENTRAL + FUNIL DE PRODUTOS
+# Arquivo: _brand/funil-produtos.txt
+# Arquivo de referência obrigatória para TODOS os agentes.
+# Leia antes de qualquer job, briefing, copy ou decisão.
+# ============================================================
+
+
+## BLOCO 1 — FILOSOFIA CENTRAL (INSTRUÇÃO MESTRE)
+
+Esta é a tese que orienta TODAS as decisões do ecossistema.
+Não é slogan. É o critério de filtro para cada entrega.
+
+TESE CENTRAL
+────────────
+Não vendemos "marketing" ou "horas de design".
+Vendemos organização de decisão e correção de rota.
+
+O cliente que chega aqui perdeu dinheiro por agir sem critério.
+A entrega de valor é devolver a clareza de "o que fazer, em que ordem".
+
+A MOEDA DE TROCA
+────────────────
+O cliente não discute preço. Discute prioridade.
+Quando o problema está bem diagnosticado, o preço se torna consequência.
+Quem paga R$ 6.500 não está comprando horas — está comprando certeza.
+
+O INIMIGO
+─────────
+Execução sem critério.
+Pressa sem ordem.
+Dependência cega de ferramentas (IA, Canva, agências) sem fundamento estratégico.
+"Testar e ver o que acontece" como estratégia de marketing.
+
+O DIFERENCIAL
+─────────────
+A IA acelera a clareza e organiza padrões.
+Mas o critério final e a decisão estratégica pertencem ao especialista (Flávio).
+O ecossistema de agentes executa com velocidade.
+O humano decide com inteligência.
+
+REGRA PARA OS AGENTES
+─────────────────────
+Nenhum agente entrega "uma peça" sem ancoragem estratégica.
+Todo output deve responder: "Isso resolve qual decisão do cliente?"
+Se a resposta for "não sei" — devolva ao Estrategista antes de executar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+## BLOCO 2 — A ESCADA DE SERVIÇOS (SERVICE LADDER)
+
+O funil é **obrigatório e linear**. Nunca pule etapas.
+Cada nível qualifica o cliente para o próximo — e protege o Flávio
+de entregar high ticket para quem ainda não está pronto.
+
+────────────────────────────────────────────────────────────
+NÍVEL 1 — TOPO DE FUNIL (Filtra curiosos, gera consciência)
+────────────────────────────────────────────────────────────
+
+LEAD MAGNET GRATUITO — Checklist Anti-Caos do Negócio
+  Formato  : PDF (download via Google Drive)
+  Preço    : Grátis
+  Função   : Capturar contato. Fazer lead perceber o caos.
+             Plantar semente para Nível 2.
+  Gatilho  : Comentar CHECKLIST no Instagram (fluxo ManyChat)
+  Tag CRM  : checklist_enviado | lead_quente
+
+
+────────────────────────────────────────────────────────────
+NÍVEL 2 — MEIO DE FUNIL (Aprofunda o problema)
+────────────────────────────────────────────────────────────
+
+PRODUTO DIGITAL — Manual Anti-Burrice do Marketing
+  Formato  : Ebook/PDF
+  Preço    : R$ 67
+  Order bump: R$ 37 (Checklist Anti-Caos pago)
+  Função   : Conscientizar sobre os erros mais caros do marketing.
+             Filtrar curiosos. Qualificar para o Diagnóstico.
+  Gatilho  : Comentar MANUAL ou QUERO no Instagram / link de vendas
+  Tag CRM  : comprou_manual
+
+CHECKLIST PAGO — Checklist Anti-Caos (versão premium)
+  Formato  : PDF expandido
+  Preço    : R$ 37 (order bump do Manual)
+  Tag CRM  : comprou_checklist
+
+
+────────────────────────────────────────────────────────────
+NÍVEL 3 — PORTA PREMIUM (Filtro de High Ticket)
+────────────────────────────────────────────────────────────
+
+SERVIÇO — Diagnóstico Anti-Caos
+  Formato  : Sessão estratégica 1:1 (online)
+  Preço    : R$ 397
+  Função   : Identificar o caos e mostrar o custo de não agir.
+             NÃO é para ajudar todo mundo.
+             É para SELECIONAR quem vale a pena avançar.
+             Só passa quem está pronto para investir R$ 6.500+.
+  Gatilho  : Lead quente identificado pelo Engajador / CRM
+  Tag CRM  : comprou_diagnostico
+
+
+────────────────────────────────────────────────────────────
+NÍVEL 4 — HIGH TICKET (Resolve com base sólida)
+────────────────────────────────────────────────────────────
+
+SERVIÇO — Estruturação Anti-Caos / Fundação Estratégica de Marca
+  Formato  : Projeto de estruturação completo (múltiplas sessões)
+  Preço    : R$ 6.500
+  Fases    :
+    Fase 1 — Estrutura (Decisão)
+      Organizar as decisões do negócio. Definir o que fazer,
+      em que ordem, com quais recursos. Eliminar o caos operacional.
+    Fase 2 — Tradução Visual (Design com função)
+      Transformar a decisão estratégica em identidade visual coerente.
+      Design não é estética — é a expressão da decisão.
+    Fase 3 — Roadmap de Execução
+      Definir o caminho de implementação. Quem faz o quê, quando,
+      com quais ferramentas. Saída: plano acionável, não genérico.
+  Gatilho  : Aprovado no Diagnóstico (R$ 397)
+  Tag CRM  : cliente_estruturacao
+
+O funil foi projetado para qualificar progressivamente.
+Nunca pule etapas. Cada produto prepara o cliente para o próximo.
+
+────────────────────────────────────────────────────────────
+NÍVEL 1 — TOPO DE FUNIL (Filtra curiosos)
+────────────────────────────────────────────────────────────
+
+LEAD MAGNET GRATUITO — Checklist Anti-Caos do Negócio
+  Formato  : PDF (download via Google Drive)
+  Preço    : Grátis
+  Objetivo : Capturar e-mail / contato. Fazer lead perceber que
+             tem caos na operação. Plantar semente para Nível 2.
+  Gatilho  : Comentar CHECKLIST no Instagram (fluxo ManyChat)
+  Tag CRM  : checklist_enviado | lead_quente
+
+
+────────────────────────────────────────────────────────────
+NÍVEL 2 — MEIO DE FUNIL (Conscientiza sobre o caos)
+────────────────────────────────────────────────────────────
+
+PRODUTO DIGITAL — Manual Anti-Burrice do Marketing
+  Formato  : Ebook/PDF
+  Preço    : R$ 67 (ou R$ 37 como order bump do checklist pago)
+  Objetivo : Conscientizar sobre os erros mais caros do marketing.
+             Filtrar curiosos. Qualificar para o Diagnóstico.
+  Gatilho  : Comentar MANUAL ou QUERO no Instagram / link de vendas
+  Tag CRM  : comprou_manual
+
+CHECKLIST PAGO — Checklist Anti-Caos (versão premium)
+  Formato  : PDF expandido
+  Preço    : R$ 37
+  Objetivo : Order bump do Manual. Complemento operacional.
+  Tag CRM  : comprou_checklist
+
+
+────────────────────────────────────────────────────────────
+NÍVEL 3 — FUNDO DE FUNIL (Filtro de High Ticket)
+────────────────────────────────────────────────────────────
+
+SERVIÇO — Diagnóstico Anti-Caos
+  Formato  : Sessão estratégica 1:1 (online)
+  Preço    : R$ 397
+  Objetivo : Diagnosticar o negócio do cliente. Decidir se vale
+             a pena avançar para Estruturação. Funciona como
+             FILTRO — só passa quem está pronto para investir
+             R$ 6.500+. Não é venda, é seleção.
+  Gatilho  : Lead quente identificado pelo Engajador / CRM
+  Tag CRM  : comprou_diagnostico
+
+
+────────────────────────────────────────────────────────────
+NÍVEL 4 — HIGH TICKET (Resolve o problema com base sólida)
+────────────────────────────────────────────────────────────
+
+SERVIÇO — Estruturação Anti-Caos
+  Formato  : Projeto de estruturação do negócio (múltiplas sessões)
+  Preço    : R$ 6.500+ (sob consulta)
+  Objetivo : Resolver o problema raiz identificado no Diagnóstico.
+             Implementar processos, sistemas e diretrizes definitivas.
+  Gatilho  : Aprovado no Diagnóstico (R$397)
+  Tag CRM  : cliente_estruturacao
+
+
+## REGRAS DE POSICIONAMENTO
+
+PROIBIDO vender:
+  ❌ "Logo" avulso
+  ❌ "Posts" avulsos
+  ❌ "Gestão de tráfego" sem estratégia
+
+OBRIGATÓRIO vender:
+  ✅ Clareza (saber o que fazer e por quê)
+  ✅ Direção (caminho estruturado, sem tentativa e erro)
+  ✅ Blindagem (decisões que protegem o negócio de erros caros)
+
+PÚBLICO-ALVO:
+  Empreendedores cansados de "tentativa e erro" no marketing.
+  Pessoas que já investiram em ferramentas/agências sem resultado.
+  Dono de negócio que quer decisão, não entrega de peças avulsas.
+
+
+## LÓGICA DE ESCALA
+
+NÃO escalamos:
+  ❌ Contratando mais pessoas cedo demais
+  ❌ Aumentando tráfego antes de validar conversão
+
+ESCALAMOS:
+  ✅ Orquestrando decisões com sistemas
+  ✅ Aumentando tráfego APÓS LP e oferta validadas
+  ✅ Usando automação (ManyChat, Make) para qualificar em escala
+
+MARGEM DE REPASSE (quando houver parceiros):
+  75% para a estratégia (eugência / Flávio)
+  25% para execução (parceiros externos, freelas)
+
+
+## PARA OS AGENTES
+
+Estrategista e Copywriter:
+  → Sempre conectar a dor do lead ao NÍVEL correto do funil.
+  → Não oferecer high ticket para quem ainda não passou pelo
+    Checklist ou Manual (o lead não está qualificado ainda).
+
+Engajador e Publicador:
+  → Usar o funil como guia de resposta automática e triagem.
+  → Lead com tag checklist_enviado → oferecer Manual.
+  → Lead com tag comprou_manual → oferecer Diagnóstico.
+  → Lead aprovado no Diagnóstico → passar para Flávio fechar.
+
+Traffic Manager e Head:
+  → CPL do Checklist: máximo R$ 10 (topo de funil).
+  → CPL do Manual: máximo R$ 30 (meio de funil).
+  → Custo por Diagnóstico agendado: máximo R$ 100.
+  → ROI esperado na Estruturação: mínimo 2x do investimento em ads.
+
+UI Designer e Designer:
+  → Cada nível do funil tem landing page própria com CTA específico.
+  → A linguagem visual muda: Checklist (acessível) → Diagnóstico (premium).
+
+
+## ATUALIZAÇÃO
+
+Responsável: Flávio G. (Estrategista)
+Última atualização: Abril/2026

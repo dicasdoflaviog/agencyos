@@ -1,0 +1,25 @@
+📁 01_BRIEFINGS
+════════════════════════════════════════
+QUEM SALVA AQUI: Estrategista
+QUANDO: Após entrevista/briefing aprovado pelo HEAD
+
+FORMATO DO ARQUIVO:
+  brief-[tema-do-post]-[data].txt
+  Exemplo: brief-erros-marketing-2026-04-01.txt
+
+CONTEÚDO DO ARQUIVO:
+  - Objetivo do conteúdo
+  - Público-alvo
+  - Ângulo / gancho
+  - Estrutura dos slides (quantos, o que cada um diz)
+  - Tom e linguagem
+  - CTA final
+  - Template sugerido (A, B, C ou D)
+  - pillar: (ex: "IA Aplicada" | "Marketing Digital" | etc.)
+  - keywords: ["KEYWORD1", "KEYWORD2", "KEYWORD3"]
+    → Consultar _brand/keywords-diretrizes.txt para opções por pilar
+
+APROVAÇÃO:
+  HEAD revisa e aprova antes do Copywriter começar.
+  Se aprovado, HEAD escreve no final do arquivo: "✅ APROVADO — HEAD"
+════════════════════════════════════════

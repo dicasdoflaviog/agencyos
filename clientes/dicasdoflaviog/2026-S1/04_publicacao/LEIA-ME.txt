@@ -1,0 +1,23 @@
+📁 04_PUBLICACAO
+════════════════════════════════════════
+QUEM SALVA AQUI: Publicador
+QUANDO: Após design aprovado, antes de agendar
+
+ARQUIVOS ESPERADOS:
+  schedule-[mes]-[ano].txt
+    → Calendário de publicações do mês
+    → Formato: Data | Hora | Tema | Status
+
+  checklist-publicacao-[tema].txt
+    → Confirmação de cada etapa antes de publicar:
+       [ ] PNGs prontos em 03_design/pngs/
+       [ ] Caption revisada pelo HEAD
+       [ ] Hashtags adicionadas
+       [ ] Alt text preenchido
+       [ ] Agendado no Meta Business Suite
+       [ ] ManyChat fluxo ativo
+
+APÓS PUBLICAR:
+  Mover os PNGs para 06_arquivo/
+  Registrar resultado em 05_performance/
+════════════════════════════════════════

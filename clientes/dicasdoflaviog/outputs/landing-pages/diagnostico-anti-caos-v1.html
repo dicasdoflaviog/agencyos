@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico Anti-Caos — Flávio Guimarães</title>
+  <meta name="description" content="60 minutos para identificar exatamente onde o seu negócio perde dinheiro. Sessão estratégica 1:1 com Flávio Guimarães. R$397 — vagas limitadas." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Diagnóstico Anti-Caos — Flávio Guimarães" />
+  <meta property="og:description" content="60 minutos para identificar exatamente onde o seu negócio perde dinheiro. Sessão estratégica 1:1. R$397 — vagas limitadas." />
+  <meta property="og:url" content="https://dicasdoflaviog.com/diagnostico" />
+  <meta property="og:image" content="https://dicasdoflaviog.com/og-diagnostico.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://dicasdoflaviog.com/diagnostico" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@dicasdoflaviog" />
+  <meta name="twitter:title" content="Diagn&oacute;stico Anti-Caos — Sess&atilde;o Estrat&eacute;gica 1:1" />
+  <meta name="twitter:description" content="60 minutos para mapear o que est&aacute; bloqueando seu neg&oacute;cio. Diagn&oacute;stico + Roadmap + SWOT. R$397." />
+  <meta name="twitter:image" content="https://dicasdoflaviog.com/og-diagnostico.jpg" />
+  <!-- Facebook Pixel, fbq('init','935816292402573') -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','935816292402573');fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=935816292402573&ev=PageView&noscript=1"/></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" /></noscript>
+  <style>
+    /* === VARIABLES & RESET === */
+    :root {
+      --yellow:#FFD100; --black:#0D0D0D; --offwhite:#F5F2EC; --gray:#888880;
+      --div-light:#E8E5DF; --font-head:'Bebas Neue',sans-serif; --font-body:'DM Sans',sans-serif;
+      --section-pad:96px 0; --container:860px; --side:72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--offwhite);color:var(--black);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;}
+    .wrap{width:100%;max-width:var(--container);margin:0 auto;padding:0 var(--side);}
+
+    /* === SCROLL PROGRESS === */
+    #scroll-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--yellow);z-index:999;transition:width .08s linear;}
+
+    /* === STICKY BAR === */
+    .sticky-bar{position:fixed;bottom:0;left:0;right:0;background:var(--yellow);padding:14px 0;z-index:900;transform:translateY(110%);transition:transform .45s cubic-bezier(.22,1,.36,1);}
+    .sticky-bar.is-visible{transform:translateY(0);}
+    .sticky-bar__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .sticky-bar__text{font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--black);}
+    .sticky-bar__btn{background:var(--black);color:var(--yellow);font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:11px 24px;white-space:nowrap;flex-shrink:0;}
+    @media(max-width:480px){.sticky-bar__text{display:none;}}
+
+    /* === HERO === */
+    .hero{background:var(--black);min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+    .hero__topline{position:absolute;top:0;left:0;right:0;height:3px;background:var(--yellow);transform:scaleX(0);transform-origin:left;transition:transform .95s cubic-bezier(.22,1,.36,1) .1s;}
+    .hero-loaded .hero__topline{transform:scaleX(1);}
+    .hero__bg-num{position:absolute;right:-.04em;bottom:-.16em;font-family:var(--font-head);font-size:clamp(300px,42vw,500px);color:rgba(255,255,255,.025);line-height:1;pointer-events:none;user-select:none;z-index:0;}
+    .hero::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");pointer-events:none;opacity:.4;z-index:0;}
+    .hero__content{position:relative;z-index:1;padding:100px var(--side) 100px;max-width:var(--container);margin:0 auto;width:100%;}
+    .hero__eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:20px;clip-path:inset(0 100% 0 0);transition:clip-path .75s cubic-bezier(.22,1,.36,1) .25s;}
+    .hero-loaded .hero__eyebrow{clip-path:inset(0 0% 0 0);}
+    .hero__eyebrow-dot{width:7px;height:7px;background:var(--yellow);border-radius:50%;flex-shrink:0;animation:blink 2.4s ease-in-out infinite 1.5s;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+    .hero__eyebrow-text{font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,242,236,.35);}
+    .hero__badge{display:inline-block;background:var(--yellow);color:var(--black);font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;margin-bottom:28px;clip-path:inset(0 100% 0 0);transition:clip-path .65s cubic-bezier(.22,1,.36,1) .45s;}
+    .hero-loaded .hero__badge{clip-path:inset(0 0% 0 0);}
+    .hero__headline{font-family:var(--font-head);font-size:clamp(72px,12.5vw,136px);line-height:.91;letter-spacing:.01em;text-transform:uppercase;color:var(--offwhite);margin-bottom:40px;}
+    .hero__headline .line{display:block;overflow:hidden;}
+    .hero__headline .inner{display:block;transform:translateY(110%);transition:transform .8s cubic-bezier(.22,1,.36,1);}
+    .hero-loaded .hero__headline .line:nth-child(1) .inner{transform:translateY(0);transition-delay:.10s;}
+    .hero-loaded .hero__headline .line:nth-child(2) .inner{transform:translateY(0);transition-delay:.20s;}
+    .hero-loaded .hero__headline .line:nth-child(3) .inner{transform:translateY(0);transition-delay:.30s;}
+    .hero-loaded .hero__headline .line:nth-child(4) .inner{transform:translateY(0);transition-delay:.40s;}
+    .hero-loaded .hero__headline .line:nth-child(5) .inner{transform:translateY(0);transition-delay:.50s;}
+    .hero-loaded .hero__headline .line:nth-child(6) .inner{transform:translateY(0);transition-delay:.60s;}
+    .hero__headline .accent{color:var(--yellow);}
+    .hero__sep{width:48px;height:2px;background:var(--yellow);margin-bottom:36px;opacity:0;transform:scaleX(0);transform-origin:left;transition:opacity .4s ease .82s,transform .55s cubic-bezier(.22,1,.36,1) .82s;}
+    .hero-loaded .hero__sep{opacity:1;transform:scaleX(1);}
+    .hero__bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;}
+    .hero__subtext{font-family:var(--font-body);font-size:16px;color:rgba(245,242,236,.40);line-height:1.7;max-width:360px;opacity:0;transform:translateY(18px);transition:opacity .65s ease .95s,transform .65s ease .95s;}
+    .hero-loaded .hero__subtext{opacity:1;transform:translateY(0);}
+    .hero__cta-block{flex-shrink:0;text-align:right;opacity:0;transform:translateY(18px);transition:opacity .65s ease 1.10s,transform .65s ease 1.10s;}
+    .hero-loaded .hero__cta-block{opacity:1;transform:translateY(0);}
+    .hero__cta-note{font-family:var(--font-body);font-size:12px;color:rgba(245,242,236,.20);margin-top:10px;text-align:right;}
+
+    /* === BUTTONS === */
+    .btn{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:15px;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:18px 36px;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .18s ease;line-height:1;}
+    .btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .2s ease;pointer-events:none;}
+    .btn:hover::before{background:rgba(255,255,255,.08);}
+    .btn:hover{transform:translateY(-2px);}
+    .btn:active{transform:scale(.98) translateY(0);}
+    .btn--yellow{background:var(--yellow);color:var(--black);}
+    .btn--black{background:var(--black);color:var(--yellow);}
+    .btn--full{display:block;width:100%;text-align:center;}
+    @keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(255,209,0,0);}60%{box-shadow:0 0 0 14px rgba(255,209,0,.18);}}
+    .btn--pulse{animation:pulse-glow 3.2s ease-in-out infinite;}
+
+    /* === MARQUEE === */
+    .marquee-band{background:var(--yellow);overflow:hidden;padding:11px 0;}
+    .marquee-track{display:flex;animation:marquee-scroll 26s linear infinite;white-space:nowrap;width:max-content;}
+    .marquee-track:hover{animation-play-state:paused;}
+    @keyframes marquee-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    .marquee-item{display:inline-flex;align-items:center;gap:18px;padding:0 24px;font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--black);}
+    .marquee-sep{width:4px;height:4px;background:var(--black);border-radius:50%;opacity:.3;flex-shrink:0;}
+
+    /* === TYPOGRAPHY === */
+    .tag{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.10em;text-transform:uppercase;background:var(--yellow);color:var(--black);padding:5px 12px;margin-bottom:16px;}
+    .tag--dark{background:var(--black);color:var(--offwhite);}
+    h2{font-family:var(--font-head);font-size:clamp(52px,8vw,88px);line-height:.93;text-transform:uppercase;letter-spacing:.01em;}
+    h3{font-family:var(--font-head);font-size:clamp(28px,4vw,48px);text-transform:uppercase;line-height:1.02;}
+    .subhead{font-family:var(--font-body);font-size:16px;color:var(--gray);line-height:1.7;}
+    .subhead--light{color:rgba(245,242,236,.48);}
+    p{font-family:var(--font-body);font-size:17px;line-height:1.75;}
+
+    /* === FADE-UP === */
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .fade-up.is-visible{opacity:1;transform:translateY(0);}
+    .fade-up-d1{transition-delay:.10s;}.fade-up-d2{transition-delay:.20s;}.fade-up-d3{transition-delay:.30s;}
+
+    /* === CLIP REVEALS === */
+    .clip-reveal{clip-path:inset(0 100% 0 0);transition:clip-path .75s cubic-bezier(.22,1,.36,1);}
+    .clip-reveal.is-visible{clip-path:inset(0 0% 0 0);}
+    .clip-reveal-r{clip-path:inset(0 0 0 100%);transition:clip-path .75s cubic-bezier(.22,1,.36,1) .12s;}
+    .clip-reveal-r.is-visible{clip-path:inset(0 0 0 0%);}
+
+    /* === DOR / PAIN === */
+    .pain{background:var(--offwhite);padding:var(--section-pad);}
+    .pain__header{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:60px;}
+    .pain__header-right{max-width:280px;flex-shrink:0;padding-top:12px;}
+    .pain__list{list-style:none;border-top:1px solid var(--div-light);}
+    .pain__list-item{display:grid;grid-template-columns:72px 1fr;gap:32px;align-items:start;padding:32px 0;border-bottom:1px solid var(--div-light);opacity:0;transform:translateX(-24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .pain__list-item.is-visible{opacity:1;transform:translateX(0);}
+    .pain__list-item:nth-child(2){transition-delay:.10s;}
+    .pain__list-item:nth-child(3){transition-delay:.20s;}
+    .pain__list-item:nth-child(4){transition-delay:.30s;}
+    .pain__list-num{font-family:var(--font-head);font-size:52px;color:rgba(13,13,13,.09);line-height:1;padding-top:4px;}
+    .pain__list-text{font-size:17px;color:var(--black);line-height:1.6;padding-top:8px;}
+    .pain__callout{margin-top:48px;background:var(--black);padding:40px var(--side);position:relative;overflow:hidden;}
+    .pain__callout::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--yellow);}
+    .pain__callout p{font-size:19px;color:var(--offwhite);line-height:1.65;max-width:640px;}
+    .pain__callout strong{color:var(--yellow);}
+
+    /* === POSICIONAMENTO === */
+    .pos{background:var(--black);padding:var(--section-pad);position:relative;overflow:hidden;}
+    .pos__decor{position:absolute;left:-.06em;top:50%;transform:translateY(-50%);font-family:var(--font-head);font-size:clamp(180px,26vw,300px);color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;}
+    .pos .wrap{position:relative;z-index:1;}
+    .pos h2{color:var(--offwhite);}
+    .pos__table{margin-top:52px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.07);}
+    .pos-col{padding:40px 36px;}
+    .pos-col--no{background:#111111;}
+    .pos-col--yes{background:#0D0D0D;border-top:2px solid var(--yellow);}
+    .pos-col__label{font-family:var(--font-body);font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:28px;}
+    .pos-col--no .pos-col__label{color:rgba(245,242,236,.22);}
+    .pos-col--yes .pos-col__label{color:var(--yellow);}
+    .pos-col ul{list-style:none;display:flex;flex-direction:column;gap:18px;}
+    .pos-col li{font-size:15px;line-height:1.55;padding-left:22px;position:relative;}
+    .pos-col--no li{color:rgba(245,242,236,.42);}
+    .pos-col--no li::before{content:'—';position:absolute;left:0;color:rgba(245,242,236,.18);}
+    .pos-col--yes li{color:var(--offwhite);}
+    .pos-col--yes li::before{content:'→';position:absolute;left:0;color:var(--yellow);font-weight:700;}
+
+    /* === ENTREGÁVEIS (3 cards grid) === */
+    .del{background:var(--offwhite);padding:var(--section-pad);}
+    .del__header{margin-bottom:52px;}
+    .del__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--div-light);}
+    .del3-card{background:var(--offwhite);padding:40px 32px;border-top:3px solid var(--yellow);opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .del3-card.del3-card--dark{background:var(--black);transition-delay:.12s;}
+    .del3-card:nth-child(3){transition-delay:.24s;}
+    .del3-card.is-visible{opacity:1;transform:translateY(0);}
+    .del3-card__num{font-family:var(--font-body);font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:16px;display:block;}
+    .del3-card--dark .del3-card__num{color:rgba(245,242,236,.28);}
+    .del3-card__title{font-family:var(--font-head);font-size:clamp(24px,3.2vw,34px);text-transform:uppercase;line-height:1.02;color:var(--black);margin-bottom:24px;}
+    .del3-card--dark .del3-card__title{color:var(--offwhite);}
+    .del3-card ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+    .del3-card li{font-size:14px;line-height:1.55;padding-left:18px;position:relative;color:rgba(13,13,13,.65);}
+    .del3-card--dark li{color:rgba(245,242,236,.55);}
+    .del3-card li::before{content:'→';position:absolute;left:0;color:var(--yellow);font-size:13px;line-height:1.6;font-weight:700;}
+
+    /* === COMO FUNCIONA (timeline) === */
+    .how{background:var(--black);padding:var(--section-pad);}
+    .how h2{color:var(--offwhite);}
+    .how__steps{margin-top:52px;display:flex;flex-direction:column;}
+    .how__step{display:grid;grid-template-columns:56px 1fr;gap:28px;align-items:flex-start;padding-bottom:40px;opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .how__step:nth-child(2){transition-delay:.10s;}
+    .how__step:nth-child(3){transition-delay:.20s;}
+    .how__step:nth-child(4){transition-delay:.30s;}
+    .how__step.is-visible{opacity:1;transform:translateY(0);}
+    .how__step:last-child{padding-bottom:0;}
+    .how__step-left{display:flex;flex-direction:column;align-items:center;}
+    .how__step-num{width:44px;height:44px;border-radius:50%;background:var(--yellow);color:var(--black);font-family:var(--font-head);font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;}
+    .how__step-line{width:2px;background:rgba(255,209,0,.2);flex:1;min-height:32px;margin-top:8px;}
+    .how__step:last-child .how__step-line{display:none;}
+    .how__step-content{padding-top:10px;}
+    .how__step-title{font-family:var(--font-head);font-size:clamp(20px,2.8vw,28px);color:var(--offwhite);text-transform:uppercase;line-height:1.05;margin-bottom:10px;}
+    .how__step-desc{font-size:15px;color:rgba(245,242,236,.48);line-height:1.65;}
+
+    /* === QUIZ === */
+    .quiz{background:var(--offwhite);padding:var(--section-pad);}
+    .quiz__header{margin-bottom:48px;}
+    .quiz__card{max-width:600px;margin:0 auto;background:var(--offwhite);border:1px solid var(--div-light);padding:40px 36px;}
+    .quiz__prog-label{font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;}
+    .quiz__prog-bar{height:3px;background:var(--div-light);margin-bottom:32px;overflow:hidden;}
+    .quiz__prog-fill{height:100%;background:var(--yellow);width:33.33%;transition:width .4s cubic-bezier(.22,1,.36,1);}
+    .quiz__step{display:none;}
+    .quiz__step.is-active{display:block;}
+    @keyframes quiz-fade-out{from{opacity:1;transform:translateY(0);}to{opacity:0;transform:translateY(-8px);}}
+    @keyframes quiz-fade-in{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .quiz__step.fade-out{animation:quiz-fade-out .2s ease forwards;}
+    .quiz__step.fade-in{animation:quiz-fade-in .3s ease forwards;}
+    .quiz__q{font-family:var(--font-body);font-size:17px;font-weight:600;color:var(--black);line-height:1.5;margin-bottom:22px;}
+    .quiz__options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+    .quiz__options--1col{grid-template-columns:1fr;}
+    .quiz__option{background:var(--offwhite);border:1.5px solid var(--div-light);padding:14px 16px;font-family:var(--font-body);font-size:14px;color:var(--black);cursor:pointer;text-align:left;line-height:1.45;transition:border-color .15s ease,background .15s ease;}
+    .quiz__option:hover{border-color:rgba(13,13,13,.3);background:#edeae4;}
+    .quiz__option.selected{background:var(--black);color:var(--yellow);border-color:var(--black);}
+    .quiz__result{display:none;text-align:center;padding-top:4px;}
+    .quiz__result.is-active{display:block;animation:quiz-fade-in .4s ease forwards;}
+    .quiz__result-tag{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.10em;text-transform:uppercase;padding:5px 12px;margin-bottom:16px;}
+    .quiz__result-tag--yellow{background:var(--yellow);color:var(--black);}
+    .quiz__result-tag--dark{background:var(--black);color:var(--offwhite);}
+    .quiz__result h3{font-family:var(--font-head);font-size:clamp(22px,4vw,34px);text-transform:uppercase;color:var(--black);line-height:1.05;margin-bottom:14px;}
+    .quiz__result p{font-size:15px;color:rgba(13,13,13,.58);line-height:1.7;margin-bottom:24px;}
+
+    /* === DEPOIMENTOS === */
+    .testimonials{background:var(--black);padding:var(--section-pad);}
+    .testimonials h2{color:var(--offwhite);}
+    .testimonials__grid{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);}
+    .test-card{background:rgba(255,255,255,.04);border-top:2px solid var(--yellow);padding:36px 28px;opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .test-card:nth-child(2){transition-delay:.12s;}
+    .test-card:nth-child(3){transition-delay:.24s;}
+    .test-card.is-visible{opacity:1;transform:translateY(0);}
+    .test-card__quote{font-family:var(--font-head);font-size:72px;color:rgba(255,209,0,.3);line-height:.7;margin-bottom:16px;display:block;}
+    .test-card__text{font-size:15px;color:rgba(245,242,236,.68);line-height:1.7;margin-bottom:20px;}
+    .test-card__name{font-family:var(--font-body);font-weight:700;font-size:14px;color:var(--offwhite);}
+    .test-card__role{font-size:12px;color:rgba(245,242,236,.32);margin-top:3px;}
+
+    /* === AUTOR === */
+    .author{background:var(--offwhite);padding:var(--section-pad);}
+    .author__inner{display:grid;grid-template-columns:1fr auto;gap:64px;align-items:start;}
+    .author__label{font-family:var(--font-body);font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:12px;}
+    .author__name{font-family:var(--font-head);font-size:clamp(52px,7vw,80px);color:var(--black);line-height:.93;text-transform:uppercase;margin-bottom:20px;}
+    .author__bio{font-size:16px;color:rgba(13,13,13,.62);line-height:1.75;max-width:500px;}
+    .author__stats{display:flex;flex-direction:column;gap:40px;align-items:flex-end;padding-top:8px;}
+    .author__stat{text-align:right;}
+    .author__stat-num{font-family:var(--font-head);font-size:64px;color:var(--black);line-height:.9;display:block;}
+    .author__stat-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);display:block;margin-top:4px;}
+    .author__stat-line{width:100%;height:2px;background:var(--yellow);margin-top:8px;transform:scaleX(0);transform-origin:right;transition:transform .7s cubic-bezier(.22,1,.36,1);}
+    .author__stat.is-visible .author__stat-line{transform:scaleX(1);}
+
+    /* === MID-CTA === */
+    .mid-cta{background:var(--yellow);padding:72px 0;}
+    .mid-cta__inner{display:flex;align-items:center;justify-content:space-between;gap:40px;}
+    .mid-cta__text{font-family:var(--font-head);font-size:clamp(40px,6.5vw,72px);color:var(--black);line-height:.93;text-transform:uppercase;}
+    .mid-cta__right{flex-shrink:0;}
+    .mid-cta__sub{font-size:15px;color:rgba(13,13,13,.52);margin-bottom:24px;line-height:1.6;max-width:260px;}
+
+    /* === FILTRO === */
+    .filter{background:var(--black);padding:var(--section-pad);}
+    .filter h2{color:var(--offwhite);}
+    .filter__wrap{margin-top:52px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.07);}
+    .filter-col{padding:40px 36px;}
+    .filter-col--yes{background:var(--black);}
+    .filter-col--no{background:#101010;}
+    .filter-col__head{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
+    .filter-col__label{font-family:var(--font-body);font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;}
+    .filter-col--yes .filter-col__label{color:var(--yellow);}
+    .filter-col--no .filter-col__label{color:rgba(245,242,236,.22);}
+    .filter-col ul{list-style:none;display:flex;flex-direction:column;gap:16px;}
+    .filter-col li{font-size:15px;line-height:1.55;padding-left:22px;position:relative;}
+    .filter-col--yes li{color:var(--offwhite);}
+    .filter-col--yes li::before{content:'✓';position:absolute;left:0;color:var(--yellow);font-weight:700;}
+    .filter-col--no li{color:rgba(245,242,236,.42);}
+    .filter-col--no li::before{content:'✕';position:absolute;left:0;color:rgba(245,242,236,.25);}
+
+    /* === OFERTA === */
+    .offer{background:var(--black);padding:var(--section-pad);position:relative;overflow:hidden;}
+    .offer__decor{position:absolute;right:-.04em;bottom:-.1em;font-family:var(--font-head);font-size:clamp(180px,26vw,340px);color:rgba(255,209,0,.025);line-height:1;pointer-events:none;user-select:none;}
+    .offer .wrap{position:relative;z-index:1;}
+    .offer h2{color:var(--offwhite);}
+    .offer__card{margin-top:52px;max-width:720px;margin-left:auto;margin-right:auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-top:2px solid var(--yellow);padding:48px 44px;}
+    .offer__card-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+    .offer__price-label{font-family:var(--font-body);font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,242,236,.28);margin-bottom:12px;}
+    .offer__price{font-family:var(--font-head);font-size:clamp(80px,14vw,120px);color:var(--offwhite);line-height:.88;margin-bottom:10px;}
+    .offer__price sup{font-family:var(--font-body);font-size:28px;font-weight:700;vertical-align:super;color:rgba(245,242,236,.42);}
+    .offer__price .accent{color:var(--yellow);}
+    .offer__price-note{font-size:13px;color:rgba(245,242,236,.28);margin-bottom:16px;}
+    .offer__badge{display:inline-block;background:var(--yellow);color:var(--black);font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;margin-bottom:24px;}
+    .offer__cta-wrap{margin-bottom:14px;}
+    .offer__after-cta{font-size:12px;color:rgba(245,242,236,.28);line-height:1.6;}
+    .offer__includes-label{font-family:var(--font-body);font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,242,236,.28);margin-bottom:20px;}
+    .offer__includes ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:28px;}
+    .offer__includes li{font-size:15px;color:var(--offwhite);padding-left:20px;position:relative;line-height:1.5;}
+    .offer__includes li::before{content:'✓';position:absolute;left:0;color:var(--yellow);font-weight:700;}
+    .offer__includes-note{padding-top:20px;border-top:1px solid rgba(255,255,255,.07);font-size:13px;color:rgba(245,242,236,.28);line-height:1.65;}
+    @keyframes price-pop{from{opacity:0;transform:scale(.82) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+    .offer__price.is-visible{animation:price-pop .7s cubic-bezier(.22,1,.36,1) forwards;}
+
+    /* === GARANTIA === */
+    .guarantee{background:var(--offwhite);padding:56px 0;}
+    .guarantee__inner{display:flex;align-items:flex-start;gap:28px;border-left:3px solid var(--yellow);padding-left:28px;}
+    .guarantee__badge{flex-shrink:0;margin-top:2px;}
+    .guarantee__title{font-family:var(--font-body);font-weight:700;font-size:17px;color:var(--black);margin-bottom:8px;}
+    .guarantee__desc{font-family:var(--font-body);font-size:15px;color:rgba(13,13,13,.52);line-height:1.65;}
+
+    /* === FAQ === */
+    .faq{background:var(--offwhite);padding:var(--section-pad);}
+    .faq__header{margin-bottom:48px;}
+    .faq__list{border-top:1px solid var(--div-light);}
+    .faq__item{border-bottom:1px solid var(--div-light);}
+    .faq__question{width:100%;background:none;border:none;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;cursor:pointer;text-align:left;}
+    .faq__question:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;}
+    .faq__q-text{font-family:var(--font-body);font-size:16px;font-weight:600;color:var(--black);line-height:1.4;}
+    .faq__icon{width:24px;height:24px;flex-shrink:0;position:relative;}
+    .faq__icon::before,.faq__icon::after{content:'';position:absolute;background:var(--black);border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
+    .faq__icon::before{width:14px;height:2px;top:50%;left:50%;transform:translate(-50%,-50%);}
+    .faq__icon::after{width:2px;height:14px;top:50%;left:50%;transform:translate(-50%,-50%);}
+    .faq__item.is-open .faq__icon::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0;}
+    .faq__answer{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.22,1,.36,1);}
+    .faq__item.is-open .faq__answer{max-height:600px;}
+    .faq__answer-inner{padding:0 0 22px;}
+    .faq__answer-inner p{font-size:15px;color:rgba(13,13,13,.58);line-height:1.7;}
+
+    /* === FOOTER === */
+    .footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);padding:56px 0 40px;}
+    .footer__top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;}
+    .footer__brand{font-family:var(--font-body);font-size:18px;font-weight:300;color:rgba(245,242,236,.48);display:block;margin-bottom:6px;}
+    .footer__brand strong{font-weight:700;color:rgba(245,242,236,.75);}
+    .footer__tagline{font-size:13px;color:rgba(245,242,236,.20);}
+    .footer__contact{text-align:right;}
+    .footer__contact-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,242,236,.18);margin-bottom:4px;}
+    .footer__contact-email{font-size:14px;color:rgba(245,242,236,.42);}
+    .footer__divider{width:100%;height:1px;background:rgba(255,255,255,.07);margin:32px 0;}
+    .footer__trust{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:28px;}
+    .footer__trust-item{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(245,242,236,.28);}
+    .footer__legal{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;}
+    .footer__legal p{font-size:11px;color:rgba(245,242,236,.14);line-height:1.7;}
+    .footer__legal-right{text-align:right;}
+
+    /* === RESPONSIVE === */
+    @media(max-width:768px){
+      .testimonials__grid{grid-template-columns:1fr;}
+    }
+
+    @media(max-width:680px){
+      :root{--side:20px;--section-pad:64px 0;}
+
+      .hero__headline{font-size:clamp(48px,13.5vw,72px);}
+      .hero__bottom{flex-direction:column;align-items:flex-start;gap:28px;}
+      .hero__cta-block{text-align:left;width:100%;}
+      .hero__cta-note{text-align:left;}
+      .hero__content{padding-bottom:100px;}
+      .hero__subtext{max-width:100%;}
+      .btn--full{width:100%;}
+
+      .marquee-track{animation-duration:18s;}
+
+      .pain__header{flex-direction:column;gap:16px;}
+      .pain__header-right{max-width:100%;}
+      .pain__list-item{grid-template-columns:40px 1fr;gap:16px;padding:22px 0;}
+      .pain__list-num{font-size:36px;}
+      .pain__callout{padding:28px var(--side);}
+      .pain__callout p{font-size:16px;}
+
+      .pos__table{grid-template-columns:1fr;}
+      .pos-col{padding:28px 20px;}
+      .pos-col:first-child{border-bottom:1px solid rgba(255,255,255,.07);}
+
+      .del__grid{grid-template-columns:1fr;}
+      .del3-card{padding:28px 20px;}
+      .del3-card.del3-card--dark{transition-delay:0s;}
+
+      .how__step{grid-template-columns:44px 1fr;gap:18px;}
+
+      .quiz__card{padding:28px 20px;}
+      .quiz__options{grid-template-columns:1fr;}
+
+      .mid-cta{padding:52px 0;}
+      .mid-cta__inner{flex-direction:column;gap:28px;}
+      .mid-cta__sub{max-width:100%;}
+
+      .filter__wrap{grid-template-columns:1fr;}
+      .filter-col{padding:28px 20px;}
+      .filter-col:first-child{border-bottom:1px solid rgba(255,255,255,.07);}
+
+      .author__inner{grid-template-columns:1fr;gap:36px;}
+      .author__stats{flex-direction:row;align-items:flex-start;flex-wrap:wrap;gap:24px;}
+      .author__stat{text-align:left;min-width:100px;}
+      .author__stat-line{transform-origin:left;}
+      .author__stat-num{font-size:52px;}
+
+      .offer__card{padding:28px 20px;}
+      .offer__card-inner{grid-template-columns:1fr;gap:32px;}
+      .offer__price{font-size:clamp(68px,20vw,90px);}
+
+      .guarantee__inner{flex-direction:column;gap:16px;}
+      .guarantee__badge{align-self:flex-start;}
+
+      .footer__top{flex-direction:column;gap:20px;}
+      .footer__contact{text-align:left;}
+      .footer__trust{gap:16px;}
+      .footer__legal{flex-direction:column;gap:8px;}
+      .footer__legal-right{text-align:left;}
+
+      .sticky-bar{padding:12px 0;}
+      .sticky-bar__btn{padding:10px 18px;font-size:12px;}
+      #quiz-email-capture form{flex-direction:column;}
+      #quiz-email-capture form button{width:100%;}
+    }
+
+    @media(max-width:400px){
+      :root{--side:16px;}
+      .hero__headline{font-size:clamp(38px,12vw,52px);}
+      h2{font-size:clamp(44px,12vw,60px);}
+      .offer__price{font-size:64px;}
+      .author__stat-num{font-size:44px;}
+      .pos-col,.filter-col{padding:24px 16px;}
+      .del3-card{padding:22px 16px;}
+      .offer__card{padding:24px 16px;}
+    }
+
+    /* === REDUCED MOTION === */
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+      .marquee-track{animation:none;}
+      html{scroll-behavior:auto;}
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- STICKY BAR -->
+<div id="sticky-bar" class="sticky-bar">
+  <div class="sticky-bar__inner wrap">
+    <p class="sticky-bar__text">R$397 &middot; 60 min &middot; Diagn&oacute;stico + Roadmap + SWOT</p>
+    <a href="#oferta" class="sticky-bar__btn" id="sticky-cta" onclick="fbq&&fbq('track','AddToCart')">Ver vagas &rarr;</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__topline"></div>
+  <div class="hero__bg-num" aria-hidden="true">60</div>
+  <div class="hero__content">
+    <div class="hero__eyebrow">
+      <span class="hero__eyebrow-dot"></span>
+      <span class="hero__eyebrow-text">Sess&atilde;o estrat&eacute;gica 1:1 &middot; Diagn&oacute;stico Anti-Caos</span>
+    </div>
+    <div class="hero__badge" id="vagas-badge">10 vagas por m&ecirc;s</div>
+    <h1 class="hero__headline">
+      <span class="line"><span class="inner">Meses</span></span>
+      <span class="line"><span class="inner">tentando</span></span>
+      <span class="line"><span class="inner">crescer.</span></span>
+      <span class="line"><span class="inner">60 minutos</span></span>
+      <span class="line"><span class="inner">para entender</span></span>
+      <span class="line"><span class="inner accent">o porqu&ecirc;.</span></span>
+    </h1>
+    <div class="hero__sep"></div>
+    <div class="hero__bottom">
+      <p class="hero__subtext">Voc&ecirc; j&aacute; sabe que tem um problema. Essa sess&atilde;o identifica qual &eacute;, onde est&aacute;, e o que fazer nos pr&oacute;ximos 12 meses. Com Fl&aacute;vio Guimar&atilde;es, 1:1 via Google Meet.</p>
+      <div class="hero__cta-block">
+        <a href="#oferta" class="btn btn--yellow btn--pulse" onclick="fbq&&fbq('track','AddToCart')">Ver se ainda tem vaga &rarr;</a>
+        <p class="hero__cta-note">10 vagas por m&ecirc;s &middot; Garantia &middot; Google Meet</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">60 minutos<span class="marquee-sep"></span></span>
+    <span class="marquee-item">3 entreg&aacute;veis<span class="marquee-sep"></span></span>
+    <span class="marquee-item">R$397<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Google Meet<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Vagas limitadas<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Garantia de 7 dias<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Diagn&oacute;stico + Roadmap + SWOT<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Sem promessa vazia<span class="marquee-sep"></span></span>
+    <span class="marquee-item">60 minutos<span class="marquee-sep"></span></span>
+    <span class="marquee-item">3 entreg&aacute;veis<span class="marquee-sep"></span></span>
+    <span class="marquee-item">R$397<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Google Meet<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Vagas limitadas<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Garantia de 7 dias<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Diagn&oacute;stico + Roadmap + SWOT<span class="marquee-sep"></span></span>
+    <span class="marquee-item">Sem promessa vazia<span class="marquee-sep"></span></span>
+  </div>
+</div>
+
+<!-- DOR -->
+<section class="pain">
+  <div class="wrap">
+    <div class="pain__header">
+      <div>
+        <span class="tag tag--dark fade-up">Voc&ecirc; se reconhece aqui?</span>
+        <h2 class="fade-up fade-up-d1">O dinheiro foi.<br>A clareza n&atilde;o veio.</h2>
+      </div>
+      <div class="pain__header-right">
+        <p class="subhead fade-up fade-up-d2">Quatro situa&ccedil;&otilde;es que acontecem toda semana com donos de neg&oacute;cio que tentaram crescer e n&atilde;o entenderam o porqu&ecirc; do resultado n&atilde;o aparecer.</p>
+      </div>
+    </div>
+    <ul class="pain__list">
+      <li class="pain__list-item">
+        <span class="pain__list-num">01</span>
+        <p class="pain__list-text">Voc&ecirc; investiu em marketing, n&atilde;o viu retorno &mdash; e ainda n&atilde;o sabe se o problema foi a ag&ecirc;ncia, o produto ou voc&ecirc;.</p>
+      </li>
+      <li class="pain__list-item">
+        <span class="pain__list-num">02</span>
+        <p class="pain__list-text">Seu neg&oacute;cio funciona, mas n&atilde;o cresce. Voc&ecirc; sente isso, mas n&atilde;o consegue nomear o que est&aacute; travando.</p>
+      </li>
+      <li class="pain__list-item">
+        <span class="pain__list-num">03</span>
+        <p class="pain__list-text">Voc&ecirc; tomou decis&otilde;es de marketing no achismo: contratou, cancelou, tentou de novo &mdash; sem crit&eacute;rio.</p>
+      </li>
+      <li class="pain__list-item">
+        <span class="pain__list-num">04</span>
+        <p class="pain__list-text">Voc&ecirc; tem um produto ou servi&ccedil;o que funciona, mas n&atilde;o sabe o que priorizar a seguir &mdash; nem em que ordem.</p>
+      </li>
+    </ul>
+    <div class="pain__callout fade-up">
+      <p>O problema n&atilde;o &eacute; falta de esfor&ccedil;o. &Eacute; falta de ordem.<br>E <strong>ordem come&ccedil;a com diagn&oacute;stico.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- POSICIONAMENTO -->
+<section class="pos">
+  <div class="pos__decor" aria-hidden="true">&ne;</div>
+  <div class="wrap">
+    <span class="tag fade-up">Entenda antes de comprar</span>
+    <h2 class="fade-up fade-up-d1">O que &eacute;.<br>O que n&atilde;o &eacute;.</h2>
+    <p class="subhead subhead--light fade-up fade-up-d2" style="margin-top:12px;">Sem enrola&ccedil;&atilde;o: aqui est&aacute; o que acontece na sess&atilde;o e o que n&atilde;o vai acontecer.</p>
+    <div class="pos__table">
+      <div class="pos-col pos-col--no clip-reveal">
+        <p class="pos-col__label">&mdash; N&atilde;o &eacute; isto</p>
+        <ul>
+          <li>Mentoria continuada com sess&otilde;es semanais</li>
+          <li>Gest&atilde;o de redes sociais ou cria&ccedil;&atilde;o de conte&uacute;do</li>
+          <li>Produ&ccedil;&atilde;o de material visual ou de marketing</li>
+          <li>Receita pronta para copiar sem entender o seu neg&oacute;cio</li>
+        </ul>
+      </div>
+      <div class="pos-col pos-col--yes clip-reveal-r">
+        <p class="pos-col__label">&rarr; &Eacute; isto</p>
+        <ul>
+          <li>Sess&atilde;o estrat&eacute;gica &uacute;nica de 60 minutos com Fl&aacute;vio</li>
+          <li>Diagn&oacute;stico claro de onde o dinheiro est&aacute; sendo perdido</li>
+          <li>Roadmap estruturado com o que fazer, em que ordem, nos pr&oacute;ximos 12 meses</li>
+          <li>An&aacute;lise SWOT espec&iacute;fica para o seu momento atual &mdash; n&atilde;o gen&eacute;rica</li>
+          <li>Clareza sobre qual deve ser o seu pr&oacute;ximo passo &mdash; sem achismo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTREGÁVEIS -->
+<section class="del">
+  <div class="wrap">
+    <div class="del__header">
+      <span class="tag tag--dark fade-up">O que voc&ecirc; recebe</span>
+      <h2 class="fade-up fade-up-d1">Tr&ecirc;s documentos.<br>Uma decis&atilde;o clara.</h2>
+      <p class="subhead fade-up fade-up-d2" style="margin-top:12px;max-width:520px;">Voc&ecirc; n&atilde;o sai da sess&atilde;o com uma grava&ccedil;&atilde;o e uma planilha gen&eacute;rica. Sai com tr&ecirc;s documentos feitos para o seu neg&oacute;cio.</p>
+    </div>
+    <div class="del__grid">
+      <div class="del3-card">
+        <span class="del3-card__num">01 &mdash; Diagn&oacute;stico</span>
+        <h3 class="del3-card__title">Onde est&aacute;<br>o problema</h3>
+        <ul>
+          <li>Identifica&ccedil;&atilde;o dos pontos de vazamento de decis&atilde;o e recurso</li>
+          <li>O que est&aacute; bloqueando o crescimento do neg&oacute;cio</li>
+          <li>Onde o problema realmente est&aacute; &mdash; n&atilde;o onde voc&ecirc; acha que est&aacute;</li>
+        </ul>
+      </div>
+      <div class="del3-card del3-card--dark">
+        <span class="del3-card__num">02 &mdash; Documento de Roadmap</span>
+        <h3 class="del3-card__title">O que fazer<br>e em que ordem</h3>
+        <ul>
+          <li>Plano estruturado com prioridades claras para os pr&oacute;ximos 12 meses</li>
+          <li>O que fazer, em que ordem, com quais recursos dispon&iacute;veis</li>
+          <li>Roadmap acion&aacute;vel &mdash; n&atilde;o gen&eacute;rico, feito para o seu neg&oacute;cio</li>
+        </ul>
+        <p style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,209,0,.15);font-size:13px;color:rgba(245,242,236,.42);line-height:1.65;">Ao final, voc&ecirc; saber&aacute; com clareza se faz sentido avan&ccedil;ar para uma estrutura&ccedil;&atilde;o completa do neg&oacute;cio.</p>
+      </div>
+      <div class="del3-card">
+        <span class="del3-card__num">03 &mdash; An&aacute;lise SWOT</span>
+        <h3 class="del3-card__title">For&ccedil;as, fraquezas<br>e oportunidades</h3>
+        <ul>
+          <li>For&ccedil;as reais que voc&ecirc; precisa usar mais</li>
+          <li>Fraquezas que voc&ecirc; ignora e que custam caro</li>
+          <li>Oportunidades que est&atilde;o na sua frente e voc&ecirc; n&atilde;o viu ainda</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how">
+  <div class="wrap">
+    <span class="tag fade-up">O processo</span>
+    <h2 class="fade-up fade-up-d1">Simples.<br>Sem burocracia.</h2>
+    <div class="how__steps">
+      <div class="how__step">
+        <div class="how__step-left">
+          <div class="how__step-num">01</div>
+          <div class="how__step-line"></div>
+        </div>
+        <div class="how__step-content">
+          <p class="how__step-title">Voc&ecirc; compra a sess&atilde;o</p>
+          <p class="how__step-desc">Acesso imediato ao link de agendamento. Escolhe o dia e hor&aacute;rio que funciona para voc&ecirc; no Calendly.</p>
+        </div>
+      </div>
+      <div class="how__step">
+        <div class="how__step-left">
+          <div class="how__step-num">02</div>
+          <div class="how__step-line"></div>
+        </div>
+        <div class="how__step-content">
+          <p class="how__step-title">Preenche o formul&aacute;rio de pr&eacute;-diagn&oacute;stico</p>
+          <p class="how__step-desc">Antes da sess&atilde;o, voc&ecirc; responde um formul&aacute;rio curto. Fl&aacute;vio j&aacute; chega preparado &mdash; sem improvisos na sess&atilde;o.</p>
+        </div>
+      </div>
+      <div class="how__step">
+        <div class="how__step-left">
+          <div class="how__step-num">03</div>
+          <div class="how__step-line"></div>
+        </div>
+        <div class="how__step-content">
+          <p class="how__step-title">Sess&atilde;o de 60 minutos no Google Meet</p>
+          <p class="how__step-desc">An&aacute;lise do seu neg&oacute;cio. Sem enrola&ccedil;&atilde;o, sem PowerPoint corporativo, sem teoria. Direto para o que importa.</p>
+        </div>
+      </div>
+      <div class="how__step">
+        <div class="how__step-left">
+          <div class="how__step-num">04</div>
+          <div class="how__step-line"></div>
+        </div>
+        <div class="how__step-content">
+          <p class="how__step-title">Recebe os 3 documentos em at&eacute; 48h</p>
+          <p class="how__step-desc">Diagn&oacute;stico, Roadmap de 12 meses e an&aacute;lise SWOT enviados por e-mail. Material feito para voc&ecirc; agir no dia seguinte.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOR -->
+<section class="author">
+  <div class="wrap">
+    <div class="author__inner">
+      <div>
+        <p class="author__label fade-up">Quem conduz a sess&atilde;o</p>
+        <h2 class="author__name fade-up fade-up-d1">Fl&aacute;vio<br>Guimar&atilde;es</h2>
+        <p class="author__bio fade-up fade-up-d2">Estrat&eacute;gista e designer h&aacute; 15 anos. J&aacute; atendeu marcas regionais e nacionais, cometeu todos os erros poss&iacute;veis no marketing &mdash; e parou de comet&ecirc;-los. Hoje ajuda empreendedores a tomar decis&otilde;es com crit&eacute;rio, n&atilde;o com base em promessa de guru ou achismo de ag&ecirc;ncia.</p>
+      </div>
+      <div class="author__stats">
+        <div class="author__stat">
+          <span class="author__stat-num"><span class="counter" data-target="15">0</span>+</span>
+          <span class="author__stat-label">Anos de exp.</span>
+          <div class="author__stat-line"></div>
+        </div>
+        <div class="author__stat">
+          <span class="author__stat-num"><span class="counter" data-target="200">0</span>+</span>
+          <span class="author__stat-label">Projetos</span>
+          <div class="author__stat-line"></div>
+        </div>
+        <div class="author__stat">
+          <span class="author__stat-num"><span class="counter" data-target="10">0</span></span>
+          <span class="author__stat-label">Vagas/m&ecirc;s</span>
+          <div class="author__stat-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+  <div class="wrap">
+    <span class="tag fade-up">O que dizem</span>
+    <h2 class="fade-up fade-up-d1">Sem sensacionalismo.<br>S&oacute; o que foi dito.</h2>
+    <p class="subhead subhead--light fade-up fade-up-d2" style="margin-top:12px;">Tr&ecirc;s pessoas que passaram pela sess&atilde;o. Relatos reais, sem filtro de marketing.</p>
+    <div class="testimonials__grid">
+      <div class="test-card">
+        <span class="test-card__quote">&ldquo;</span>
+        <p class="test-card__text">Fui esperando uma consultoria padr&atilde;o. Recebi um raio-x do que estava errado. O Roadmap de 12 meses valeu mais do que tudo que investi em ag&ecirc;ncia nos &uacute;ltimos 2 anos.</p>
+        <p class="test-card__name">Rodrigo M.</p>
+        <p class="test-card__role">Cl&iacute;nica de Est&eacute;tica</p>
+      </div>
+      <div class="test-card">
+        <span class="test-card__quote">&ldquo;</span>
+        <p class="test-card__text">O Fl&aacute;vio falou o que eu n&atilde;o queria ouvir &mdash; e era exatamente o que eu precisava. O diagn&oacute;stico foi direto ao ponto. Sem enrola&ccedil;&atilde;o.</p>
+        <p class="test-card__name">Camila F.</p>
+        <p class="test-card__role">Consultora Independente</p>
+      </div>
+      <div class="test-card">
+        <span class="test-card__quote">&ldquo;</span>
+        <p class="test-card__text">Em 60 minutos entendi o que 18 meses tentando n&atilde;o me deu: clareza de onde estava errando e o que fazer primeiro.</p>
+        <p class="test-card__name">Andr&eacute; B.</p>
+        <p class="test-card__role">E-commerce</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz">
+  <div class="wrap">
+    <div class="quiz__header">
+      <span class="tag tag--dark fade-up">Antes de decidir</span>
+      <h2 class="fade-up fade-up-d1">Responda 3 perguntas.<br>Veja se faz sentido.</h2>
+      <p class="subhead fade-up fade-up-d2" style="margin-top:12px;max-width:520px;">Esse quiz existe para te poupar tempo &mdash; e para mim chegar preparado se voc&ecirc; decidir agendar.</p>
+    </div>
+    <div class="quiz__card fade-up" aria-live="polite" aria-atomic="false">
+      <p class="quiz__prog-label" id="quiz-prog-label">Pergunta 1 de 3</p>
+      <div class="quiz__prog-bar"><div class="quiz__prog-fill" id="quiz-prog-fill"></div></div>
+
+      <!-- Step 1 -->
+      <div class="quiz__step is-active" id="quiz-step-1">
+        <p class="quiz__q">Quanto seu neg&oacute;cio fatura por m&ecirc;s hoje?</p>
+        <div class="quiz__options" id="quiz-opts-1">
+          <button class="quiz__option" data-step="1" data-idx="0">Ainda n&atilde;o fatura regularmente</button>
+          <button class="quiz__option" data-step="1" data-idx="1">Entre R$3k e R$10k</button>
+          <button class="quiz__option" data-step="1" data-idx="2">Entre R$10k e R$50k</button>
+          <button class="quiz__option" data-step="1" data-idx="3">Acima de R$50k</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="quiz__step" id="quiz-step-2">
+        <p class="quiz__q">H&aacute; quanto tempo voc&ecirc; identificou esse problema sem resolver?</p>
+        <div class="quiz__options quiz__options--1col" id="quiz-opts-2">
+          <button class="quiz__option" data-step="2" data-idx="0">Menos de 3 meses</button>
+          <button class="quiz__option" data-step="2" data-idx="1">Entre 3 e 12 meses</button>
+          <button class="quiz__option" data-step="2" data-idx="2">Mais de 1 ano</button>
+          <button class="quiz__option" data-step="2" data-idx="3">J&aacute; perdi as contas de quanto tempo</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="quiz__step" id="quiz-step-3">
+        <p class="quiz__q">Voc&ecirc; j&aacute; tentou resolver isso antes?</p>
+        <div class="quiz__options quiz__options--1col" id="quiz-opts-3">
+          <button class="quiz__option" data-step="3" data-idx="0">Contratei ag&ecirc;ncia ou freelancer &mdash; n&atilde;o funcionou</button>
+          <button class="quiz__option" data-step="3" data-idx="1">Tentei sozinho com cursos e YouTube &mdash; me perdi</button>
+          <button class="quiz__option" data-step="3" data-idx="2">Nunca tentei formalmente</button>
+          <button class="quiz__option" data-step="3" data-idx="3">Tentei mais de uma vez &mdash; sem resultado consistente</button>
+        </div>
+      </div>
+
+      <!-- Resultado A: não fatura -->
+      <div class="quiz__result" id="quiz-result-a">
+        <span class="quiz__result-tag quiz__result-tag--dark">Um passo antes</span>
+        <h3>O Diagn&oacute;stico &eacute; para neg&oacute;cios em opera&ccedil;&atilde;o.</h3>
+        <p>Se voc&ecirc; est&aacute; construindo o neg&oacute;cio ainda, o ponto de entrada certo &eacute; o Manual Anti-Burrice. L&aacute; voc&ecirc; vai entender o que est&aacute; em jogo antes de investir mais.</p>
+        <div id="quiz-result-a-capture" style="margin-top:24px;">
+          <p style="font-size:13px;color:var(--gray);margin-bottom:12px;line-height:1.6;">Digite seu e-mail e te mandamos o link do Manual assim que disponível — sem spam, só o link.</p>
+          <form id="quiz-result-a-form" style="display:flex;gap:8px;flex-wrap:wrap;" onsubmit="handleResultACapture(event)">
+            <input type="email" id="quiz-result-a-email" placeholder="seu@email.com" required
+              style="flex:1;min-width:200px;padding:14px 16px;background:var(--offwhite);border:1.5px solid var(--div-light);border-radius:4px;font-family:var(--font-body);font-size:14px;color:var(--black);outline:none;"
+              onfocus="this.style.borderColor='var(--black)'"
+              onblur="this.style.borderColor='var(--div-light)'" />
+            <button type="submit"
+              style="padding:14px 24px;background:var(--black);color:var(--yellow);font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:4px;cursor:pointer;white-space:nowrap;">
+              Quero o Manual &rarr;
+            </button>
+          </form>
+          <div id="quiz-result-a-success" style="display:none;margin-top:16px;padding:16px;background:rgba(255,209,0,.12);border-left:3px solid var(--yellow);border-radius:4px;">
+            <p style="font-size:14px;color:var(--black);margin:0;">Anotado. Você receberá o link assim que disponível.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultado B: pronto para agendar -->
+      <div class="quiz__result" id="quiz-result-b">
+        <span class="quiz__result-tag quiz__result-tag--yellow">Diagn&oacute;stico confirmado</span>
+        <h3>Seu neg&oacute;cio est&aacute; no ponto certo para uma sess&atilde;o.</h3>
+        <p>Com base nas suas respostas, o problema que voc&ecirc; descreveu tem diagn&oacute;stico &mdash; e tem caminho identific&aacute;vel. <span id="quiz-result-b-urgency">H&aacute; vagas dispon&iacute;veis este m&ecirc;s.</span></p>
+        <a href="#oferta" class="btn btn--yellow btn--pulse" onclick="fbq&&fbq('track','AddToCart')">Ver se ainda tem vaga &rarr;</a>
+        <div id="quiz-email-capture" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--div-light);">
+          <p style="font-size:13px;color:rgba(13,13,13,.45);margin-bottom:12px;line-height:1.5;">Prefere pensar antes? Receba esse resultado por e-mail.</p>
+          <form id="quiz-email-form" onsubmit="handleQuizEmail(event)" style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="email" id="quiz-email-input" placeholder="seu@email.com" required
+              style="flex:1;min-width:200px;padding:12px 14px;border:1.5px solid var(--div-light);background:var(--offwhite);font-family:var(--font-body);font-size:14px;color:var(--black);outline:none;"
+              onfocus="this.style.borderColor='var(--black)'"
+              onblur="this.style.borderColor='var(--div-light)'"/>
+            <button type="submit"
+              style="padding:12px 20px;background:var(--black);color:var(--yellow);font-family:var(--font-body);font-weight:700;font-size:12px;letter-spacing:.07em;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;">Receber &rarr;</button>
+          </form>
+          <p id="quiz-email-success" style="display:none;font-size:13px;color:var(--black);font-weight:600;margin-top:8px;">Enviado. Verifique sua caixa de entrada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTRO -->
+<section class="filter">
+  <div class="wrap">
+    <span class="tag fade-up">Filtro honesto</span>
+    <h2 class="fade-up fade-up-d1">Para quem &eacute;.<br>Para quem n&atilde;o &eacute;.</h2>
+    <p class="subhead subhead--light fade-up fade-up-d2" style="margin-top:12px;">Isso n&atilde;o &eacute; para todo mundo. Prefiro deixar claro antes.</p>
+    <div class="filter__wrap">
+      <div class="filter-col filter-col--yes clip-reveal">
+        <div class="filter-col__head">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#FFD100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="filter-col__label">&Eacute; para voc&ecirc; se</span>
+        </div>
+        <ul>
+          <li>Voc&ecirc; tem um neg&oacute;cio em opera&ccedil;&atilde;o e n&atilde;o entende por que n&atilde;o est&aacute; crescendo</li>
+          <li>Voc&ecirc; j&aacute; investiu em marketing e n&atilde;o viu retorno claro no caixa</li>
+          <li>Voc&ecirc; precisa de um plano, n&atilde;o de mais execu&ccedil;&atilde;o aleat&oacute;ria</li>
+          <li>Voc&ecirc; est&aacute; disposto a ouvir o que talvez n&atilde;o queira &mdash; mas precisa</li>
+        </ul>
+      </div>
+      <div class="filter-col filter-col--no clip-reveal-r">
+        <div class="filter-col__head">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 6L14 14M14 6L6 14" stroke="rgba(245,242,236,0.25)" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="filter-col__label">N&atilde;o &eacute; para voc&ecirc; se</span>
+        </div>
+        <ul>
+          <li>Voc&ecirc; quer que algu&eacute;m execute o marketing por voc&ecirc; (n&atilde;o &eacute; isso)</li>
+          <li>Voc&ecirc; busca f&oacute;rmula pronta que funcione sem entender o neg&oacute;cio</li>
+          <li>Seu neg&oacute;cio ainda n&atilde;o est&aacute; em opera&ccedil;&atilde;o regular</li>
+          <li>Voc&ecirc; n&atilde;o pretende aplicar o que for identificado na sess&atilde;o</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MID-CTA -->
+<section class="mid-cta">
+  <div class="wrap">
+    <div class="mid-cta__inner">
+      <p class="mid-cta__text fade-up">Chega de adivinhar<br>o que est&aacute; errado.</p>
+      <div class="mid-cta__right fade-up fade-up-d1">
+        <p class="mid-cta__sub">60 minutos &eacute; suficiente para mapear o que est&aacute; bloqueando o resultado do seu neg&oacute;cio.</p>
+        <a href="#oferta" class="btn btn--black btn--pulse" onclick="fbq&&fbq('track','AddToCart')">Ver se ainda tem vaga &mdash; R$397 &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section class="guarantee">
+  <div class="wrap">
+    <div class="guarantee__inner fade-up">
+      <div class="guarantee__badge">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M20 3L24.5 7.5H31.5V14.5L36 19L31.5 23.5V30.5H24.5L20 35L15.5 30.5H8.5V23.5L4 19L8.5 14.5V7.5H15.5L20 3Z" fill="#FFD100" stroke="#FFD100" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M14 20L18 24L27 15" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="guarantee__title">Reembolso se a sess&atilde;o n&atilde;o acontecer</p>
+        <p class="guarantee__desc">Se por qualquer motivo a sess&atilde;o n&atilde;o for realizada, devolvemos 100% do valor &mdash; sem burocracia, sem perguntas. Ap&oacute;s a sess&atilde;o, estou dispon&iacute;vel por 7 dias para tirar d&uacute;vidas sobre o diagn&oacute;stico e os documentos entregues.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="offer" id="oferta">
+  <div class="offer__decor" aria-hidden="true">R$</div>
+  <div class="wrap">
+    <span class="tag fade-up">Sess&atilde;o dispon&iacute;vel</span>
+    <h2 class="fade-up fade-up-d1">Sess&atilde;o completa.<br>Decis&atilde;o clara.</h2>
+    <div class="offer__card fade-up fade-up-d2">
+      <div class="offer__card-inner">
+        <div>
+          <p class="offer__price-label">Investimento &uacute;nico</p>
+          <p class="offer__price"><sup>R$</sup><span class="accent">397</span></p>
+          <p class="offer__price-note">Pagamento &uacute;nico &middot; agendamento imediato</p>
+          <p class="offer__price-note" style="margin-top:8px;color:rgba(245,242,236,.35);font-size:12px;">Menos do que uma reuni&atilde;o com ag&ecirc;ncia &mdash; com crit&eacute;rio e entreg&aacute;vel.</p>
+          <div class="offer__badge" id="vagas-badge-offer">10 vagas por m&ecirc;s</div>
+          <div class="offer__cta-wrap">
+            <a href="#" class="btn btn--yellow btn--full btn--pulse" id="cta-oferta" onclick="fbq&&fbq('track','InitiateCheckout')">Ver se ainda tem vaga &rarr;</a>
+          </div>
+          <p class="offer__after-cta">Ap&oacute;s a compra, voc&ecirc; recebe o link de agendamento imediatamente.</p>
+        </div>
+        <div class="offer__includes">
+          <p class="offer__includes-label">O que est&aacute; inclu&iacute;do</p>
+          <ul>
+            <li>Sess&atilde;o estrat&eacute;gica de 60 minutos via Google Meet</li>
+            <li>Documento de Diagn&oacute;stico (entregue em at&eacute; 48h)</li>
+            <li>Documento de Roadmap de 12 Meses</li>
+            <li>An&aacute;lise SWOT do seu neg&oacute;cio</li>
+            <li>Formul&aacute;rio de pr&eacute;-diagn&oacute;stico antes da sess&atilde;o</li>
+          </ul>
+          <p class="offer__includes-note">Esta sess&atilde;o n&atilde;o promete transforma&ccedil;&atilde;o instant&acirc;nea. Promete clareza sobre o que fazer primeiro &mdash; e o por qu&ecirc;. A execu&ccedil;&atilde;o &eacute; sua.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq__header">
+      <span class="tag tag--dark fade-up">D&uacute;vidas comuns</span>
+      <h2 class="fade-up fade-up-d1">Perguntas que<br>voc&ecirc; provavelmente tem.</h2>
+    </div>
+    <div class="faq__list fade-up">
+
+      <div class="faq__item">
+        <button class="faq__question" aria-expanded="false">
+          <span class="faq__q-text">O que acontece depois que eu compro?</span>
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">
+            <p>Voc&ecirc; recebe imediatamente o link para agendar no Calendly. Escolhe o dia e hor&aacute;rio que funciona para voc&ecirc;. Antes da sess&atilde;o, voc&ecirc; recebe um formul&aacute;rio de pr&eacute;-diagn&oacute;stico para preencher &mdash; isso garante que a sess&atilde;o seja direta ao ponto.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__question" aria-expanded="false">
+          <span class="faq__q-text">Preciso ter comprado o Manual Anti-Burrice antes?</span>
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">
+            <p>N&atilde;o. O Diagn&oacute;stico &eacute; uma sess&atilde;o independente. Mas se voc&ecirc; ainda n&atilde;o leu o Manual, pode ser &uacute;til &mdash; ele prepara o terreno para voc&ecirc; chegar na sess&atilde;o com mais clareza sobre o problema. <a href="https://dicasdoflaviog.com/manual" target="_blank" rel="noopener noreferrer" style="color:var(--black);font-weight:700;text-decoration:underline;text-underline-offset:3px;">Ver o Manual Anti-Burrice &rarr;</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__question" aria-expanded="false">
+          <span class="faq__q-text">A sess&atilde;o tem grava&ccedil;&atilde;o ou replay?</span>
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">
+            <p>N&atilde;o. A sess&atilde;o n&atilde;o &eacute; gravada. Mas voc&ecirc; recebe os 3 documentos (diagn&oacute;stico, Roadmap e SWOT) em at&eacute; 48h ap&oacute;s a conversa &mdash; que s&atilde;o o resumo de tudo o que foi identificado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__question" aria-expanded="false">
+          <span class="faq__q-text">Em quanto tempo recebo os documentos?</span>
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">
+            <p>Em at&eacute; 48h &uacute;teis ap&oacute;s a sess&atilde;o.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__question" aria-expanded="false">
+          <span class="faq__q-text">E se eu precisar reagendar?</span>
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">
+            <p>Voc&ecirc; pode reagendar com at&eacute; 24h de anteced&ecirc;ncia pelo pr&oacute;prio link do Calendly. Sem burocracia.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__question" aria-expanded="false">
+          <span class="faq__q-text">J&aacute; comprei o Manual Anti-Burrice. O Diagn&oacute;stico &eacute; o mesmo conte&uacute;do?</span>
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">
+            <p>N&atilde;o. O Manual &eacute; um guia de conceitos e erros comuns &mdash; voc&ecirc; aprende o que est&aacute; em jogo. O Diagn&oacute;stico &eacute; uma sess&atilde;o 1:1 aplicada ao seu neg&oacute;cio espec&iacute;fico. Quem j&aacute; leu o Manual chega &agrave; sess&atilde;o com mais clareza sobre o problema &mdash; o que torna o Diagn&oacute;stico ainda mais preciso.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__question" aria-expanded="false">
+          <span class="faq__q-text">Meu neg&oacute;cio &eacute; pequeno. Vale a pena para mim?</span>
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer">
+          <div class="faq__answer-inner">
+            <p>O Diagn&oacute;stico foi feito para neg&oacute;cios em opera&ccedil;&atilde;o que n&atilde;o est&atilde;o crescendo da forma esperada. Se voc&ecirc; j&aacute; fatura pelo menos R$3k/m&ecirc;s e tem dificuldade de entender o que est&aacute; bloqueando o resultado, sim &mdash; &eacute; para voc&ecirc;.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <span class="footer__brand">dicas<strong>do</strong>flaviog</span>
+        <p class="footer__tagline">Organiza&ccedil;&atilde;o de decis&atilde;o para empreendedores.</p>
+      </div>
+      <div class="footer__contact">
+        <p class="footer__contact-label">D&uacute;vidas sobre a compra?</p>
+        <p class="footer__contact-email">contato@dicasdoflaviog.com.br</p>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__trust">
+      <div class="footer__trust-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L9.8 5.5H14.5L10.8 8.2L12.2 12.9L8 10.2L3.8 12.9L5.2 8.2L1.5 5.5H6.2L8 1Z" fill="#FFD100"/></svg><span>Reembolso pr&eacute;-sess&atilde;o</span></div>
+      <div class="footer__trust-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="5" width="12" height="9" rx="1" stroke="#888880" stroke-width="1.2"/><path d="M5 5V4a3 3 0 016 0v1" stroke="#888880" stroke-width="1.2"/></svg><span>Pagamento seguro</span></div>
+      <div class="footer__trust-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#888880" stroke-width="1.2"/><path d="M8 5v4l2.5 1.5" stroke="#888880" stroke-width="1.2" stroke-linecap="round"/></svg><span>Entrega imediata</span></div>
+      <div class="footer__trust-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.8 5.5H14L10.9 7.8L12 12L8 9.5L4 12L5.1 7.8L2 5.5H6.2L8 2Z" stroke="#888880" stroke-width="1.2" stroke-linejoin="round"/></svg><span>Vagas limitadas</span></div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__legal">
+      <div>
+        <p>dicasdoflaviog &middot; Fl&aacute;vio Guimar&atilde;es</p>
+        <p>CNPJ: 32.035.459/0001-17</p>
+        <p>Compras online t&ecirc;m direito de cancelamento em at&eacute; 7 dias da data da compra, conforme Art. 49 do CDC, para sess&otilde;es ainda n&atilde;o realizadas.</p>
+      </div>
+      <div class="footer__legal-right">
+        <p><a href="/privacidade" style="color:rgba(245,242,236,.28);text-decoration:underline;text-underline-offset:3px;font-size:11px;">Pol&iacute;tica de Privacidade</a></p>
+        <p>&copy; 2026 dicasdoflaviog. Todos os direitos reservados.</p>
+        <p>Garantia de 7 dias de atendimento p&oacute;s-sess&atilde;o &middot; Reembolso total em caso de sess&atilde;o n&atilde;o realizada.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* === SCROLL PROGRESS + STICKY BAR === */
+  const progressBar = document.getElementById('scroll-progress');
+  const stickyBar   = document.getElementById('sticky-bar');
+  const heroEl      = document.querySelector('.hero');
+  window.addEventListener('scroll', () => {
+    const st = document.documentElement.scrollTop;
+    const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (st / sh * 100) + '%';
+    if (heroEl) {
+      stickyBar.classList.toggle('is-visible', st > heroEl.offsetTop + heroEl.offsetHeight - 80);
+    }
+  }, { passive: true });
+
+  if (typeof fbq !== 'undefined') fbq('track', 'ViewContent');
+
+  (function() {
+    const months = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    const m = months[new Date().getMonth()];
+    const text = '10 vagas disponíveis em ' + m;
+    ['vagas-badge','vagas-badge-offer'].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    });
+  })();
+
+  /* === HERO LOAD === */
+  function triggerHeroLoad() {
+    requestAnimationFrame(() => { document.querySelector('.hero').classList.add('hero-loaded'); });
+  }
+  document.fonts.ready.then(triggerHeroLoad);
+  setTimeout(triggerHeroLoad, 800);
+
+  /* === INTERSECTION OBSERVER (general) === */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      obs.unobserve(target);
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -24px 0px' });
+  document.querySelectorAll('.fade-up,.clip-reveal,.clip-reveal-r,.del3-card,.test-card,.how__step').forEach(el => obs.observe(el));
+
+  /* === PAIN LIST === */
+  const painObs = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      painObs.unobserve(target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.pain__list-item').forEach(el => painObs.observe(el));
+
+  /* === OFFER PRICE POP === */
+  const priceObs = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      priceObs.unobserve(target);
+    });
+  }, { threshold: 0.20 });
+  document.querySelectorAll('.offer__price').forEach(el => priceObs.observe(el));
+
+  /* === COUNTER ANIMATION === */
+  function animCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = target; return;
+    }
+    const dur = 1000, start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(e * target);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      target.querySelectorAll('.counter').forEach(animCounter);
+      statObs.unobserve(target);
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.author__stat').forEach(el => statObs.observe(el));
+
+  /* === QUIZ === */
+  const selectedAnswers = {};
+
+  function updateProgress(step) {
+    document.getElementById('quiz-prog-fill').style.width = ((step / 3) * 100) + '%';
+    document.getElementById('quiz-prog-label').textContent = 'Pergunta ' + step + ' de 3';
+  }
+
+  function showQuizStep(nextStep) {
+    document.querySelectorAll('.quiz__step').forEach(s => s.classList.remove('is-active', 'fade-in', 'fade-out'));
+    const el = document.getElementById('quiz-step-' + nextStep);
+    if (!el) return;
+    el.classList.add('is-active', 'fade-in');
+    setTimeout(() => el.classList.remove('fade-in'), 350);
+    updateProgress(nextStep);
+  }
+
+  function showQuizResult() {
+    document.querySelectorAll('.quiz__step').forEach(s => s.classList.remove('is-active'));
+    document.getElementById('quiz-prog-fill').style.width = '100%';
+    document.getElementById('quiz-prog-label').textContent = 'Resultado';
+    const resultId = selectedAnswers[1] === 0 ? 'quiz-result-a' : 'quiz-result-b';
+    const resultEl = document.getElementById(resultId);
+    resultEl.classList.add('is-active');
+    if (resultId === 'quiz-result-b') {
+        const urgency = selectedAnswers[2];
+        const urgencyEl = document.getElementById('quiz-result-b-urgency');
+        if (urgencyEl) {
+            if (urgency >= 2) {
+                urgencyEl.textContent = 'Você carregou esse problema por tempo demais. Essa sessão existe exatamente para isso.';
+            } else {
+                urgencyEl.textContent = 'Há vagas disponíveis este mês.';
+            }
+        }
+        if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    }
+  }
+
+  document.querySelectorAll('.quiz__option').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const step = parseInt(this.dataset.step, 10);
+      const idx  = parseInt(this.dataset.idx, 10);
+      document.querySelectorAll('[data-step="' + step + '"]').forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedAnswers[step] = idx;
+      const current = document.getElementById('quiz-step-' + step);
+      current.classList.add('fade-out');
+      setTimeout(function () {
+        current.classList.remove('is-active', 'fade-out');
+        if (step < 3) {
+          showQuizStep(step + 1);
+        } else {
+          showQuizResult();
+        }
+      }, 250);
+    });
+  });
+
+  function handleQuizEmail(e) {
+    e.preventDefault();
+    const email = document.getElementById('quiz-email-input').value;
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { content_name: 'quiz_email_capture' });
+    document.getElementById('quiz-email-form').style.display = 'none';
+    document.getElementById('quiz-email-success').style.display = 'block';
+  }
+
+  function handleResultACapture(e) {
+    e.preventDefault();
+    const email = document.getElementById('quiz-result-a-email').value;
+    document.getElementById('quiz-result-a-form').style.display = 'none';
+    document.getElementById('quiz-result-a-success').style.display = 'block';
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', {content_name: 'manual_interesse'});
+    // TODO: integrar com Mailchimp quando disponível
+  }
+
+  /* === FAQ ACCORDION === */
+  document.querySelectorAll('.faq__item').forEach(function (item) {
+    const btn = item.querySelector('.faq__question');
+    btn.addEventListener('click', function () {
+      const isOpen = item.classList.contains('is-open');
+      document.querySelectorAll('.faq__item').forEach(function (i) {
+        i.classList.remove('is-open');
+        i.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+</body>
+</html>

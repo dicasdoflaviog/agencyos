@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — dicasdoflaviog | Estratégia, Posicionamento e Anti-Caos</title>
+  <meta name="description" content="Sem enrolação. Artigos diretos sobre estratégia, posicionamento, branding e IA para empreendedores que já encheram o saco de conteúdo vazio.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="canonical" href="https://dicasdoflaviog.com/blog">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blog — dicasdoflaviog | Estratégia, Posicionamento e Anti-Caos">
+  <meta property="og:description" content="Sem enrolação. Artigos diretos sobre estratégia, posicionamento, branding e IA para empreendedores que já encheram o saco de conteúdo vazio.">
+  <meta property="og:url" content="https://dicasdoflaviog.com/blog">
+  <meta property="og:image" content="https://dicasdoflaviog.com/assets/og-blog.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="dicasdoflaviog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — dicasdoflaviog | Estratégia, Posicionamento e Anti-Caos">
+  <meta name="twitter:description" content="Sem enrolação. Artigos diretos sobre estratégia, posicionamento, branding e IA para empreendedores que já encheram o saco de conteúdo vazio.">
+  <meta name="twitter:image" content="https://dicasdoflaviog.com/assets/og-blog.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:site" content="@dicasdoflaviog">
+  <meta name="twitter:creator" content="@dicasdoflaviog">
+
+  <noscript><img loading="lazy" width="1" height="1" src="https://www.facebook.com/tr?id=935816292402573&ev=PageView&noscript=1" alt="" style="display:none"></noscript>
+  <!-- Google Analytics 4 — substituir G-XXXXXXXXXX pelo Measurement ID real -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XXXXXXXXXX");</script> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"></noscript>
+  <!-- Google Analytics 4 — substituir G-XXXXXXXXXX pelo Measurement ID real -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XXXXXXXXXX");</script> -->
+
+  <style>
+    :root {
+      --yellow: #FFD100;
+      --black: #0D0D0D;
+      --offwhite: #F5F2EC;
+      --gray: #888880;
+      --div-light: #E8E5DF;
+      --font-head: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --section-pad: 96px 0;
+      --container: 860px;
+      --side: 72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--offwhite);color:var(--black);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;}
+    .wrap{width:100%;max-width:var(--container);margin:0 auto;padding:0 var(--side);}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}html{scroll-behavior:auto;}}
+
+    #scroll-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--yellow);z-index:9999;pointer-events:none;}
+
+    .nav{position:sticky;top:0;z-index:900;background:var(--black);border-bottom:1px solid rgba(255,255,255,.07);}
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;}
+    .nav__logo{text-decoration:none;}
+    .nav__logo-text{font-family:var(--font-body);font-size:16px;font-weight:300;color:rgba(245,242,236,.7);letter-spacing:.02em;}
+    .nav__logo-text strong{font-weight:700;color:var(--offwhite);}
+    .nav__links{list-style:none;display:flex;align-items:center;gap:8px;}
+    .nav__link{font-family:var(--font-body);font-size:13px;font-weight:500;color:rgba(245,242,236,.52);text-decoration:none;padding:6px 10px;letter-spacing:.04em;transition:color .2s ease;}
+    .nav__link:hover,.nav__link.is-active{color:var(--offwhite);}
+    .nav__link.is-active{border-bottom:2px solid var(--yellow);padding-bottom:4px;}
+    .nav__cta{font-size:12px;padding:10px 18px;letter-spacing:.06em;white-space:nowrap;}
+    .nav__hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;width:40px;height:40px;justify-content:center;align-items:center;}
+    .nav__hamburger span{display:block;width:22px;height:2px;background:var(--offwhite);transition:transform .3s ease,opacity .3s ease;}
+    .nav-overlay{position:fixed;inset:0;background:var(--black);z-index:950;display:flex;flex-direction:column;justify-content:center;padding:40px var(--side);transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
+    .nav-overlay.is-open{transform:translateX(0);}
+    .nav-overlay__close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--offwhite);font-size:32px;cursor:pointer;line-height:1;padding:8px;}
+    .nav-overlay__links{list-style:none;display:flex;flex-direction:column;gap:24px;}
+    .nav-overlay__links a{font-family:var(--font-head);font-size:clamp(40px,10vw,56px);color:var(--offwhite);text-decoration:none;text-transform:uppercase;transition:color .2s ease;}
+    .nav-overlay__links a:hover{color:var(--yellow);}
+
+    .btn{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:16px 32px;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;line-height:1;}
+    .btn:hover{transform:translateY(-2px);}
+    .btn:active{transform:scale(.98);}
+    .btn--yellow{background:var(--yellow);color:var(--black);}
+    .btn--outline{background:transparent;color:var(--offwhite);border:2px solid rgba(245,242,236,.4);}
+    .btn--outline:hover{border-color:var(--offwhite);}
+    .btn--dark{background:var(--black);color:var(--offwhite);}
+
+    .tag{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.10em;text-transform:uppercase;background:var(--yellow);color:var(--black);padding:5px 12px;margin-bottom:16px;}
+    .tag--dark{background:var(--black);color:var(--offwhite);}
+    .tag--outline{background:transparent;color:var(--yellow);border:1px solid rgba(255,209,0,.4);}
+    h2{font-family:var(--font-head);font-size:clamp(48px,7.5vw,84px);line-height:.93;text-transform:uppercase;letter-spacing:.01em;}
+    h3{font-family:var(--font-head);font-size:clamp(26px,3.8vw,44px);text-transform:uppercase;line-height:1.02;}
+    .subhead{font-family:var(--font-body);font-size:16px;color:var(--gray);line-height:1.7;max-width:480px;}
+    .subhead--light{color:rgba(245,242,236,.48);}
+    p{font-family:var(--font-body);font-size:17px;line-height:1.75;}
+
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .fade-up.is-visible{opacity:1;transform:translateY(0);}
+    .fade-up.d1{transition-delay:.10s;}.fade-up.d2{transition-delay:.20s;}.fade-up.d3{transition-delay:.30s;}.fade-up.d4{transition-delay:.40s;}
+
+    .footer{background:var(--black);padding:56px 0 40px;border-top:1px solid rgba(255,255,255,.06);}
+    .footer__top{display:grid;grid-template-columns:1fr auto auto;gap:40px;align-items:start;}
+    .footer__brand{font-family:var(--font-body);font-size:17px;font-weight:300;color:rgba(245,242,236,.5);display:block;margin-bottom:6px;}
+    .footer__brand strong{font-weight:700;color:rgba(245,242,236,.8);}
+    .footer__tagline{font-size:12px;color:rgba(245,242,236,.2);max-width:200px;line-height:1.6;}
+    .footer__nav{display:flex;flex-direction:column;gap:10px;}
+    .footer__nav a{font-size:13px;color:rgba(245,242,236,.38);text-decoration:none;transition:color .2s ease;}
+    .footer__nav a:hover{color:var(--offwhite);}
+    .footer__social{display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+    .footer__social a{font-size:13px;color:rgba(245,242,236,.38);text-decoration:none;transition:color .2s ease;}
+    .footer__social a:hover{color:var(--offwhite);}
+    .footer__divider{height:1px;background:rgba(255,255,255,.06);margin:32px 0;}
+    .footer__bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .footer__bottom p{font-size:11px;color:rgba(245,242,236,.15);line-height:1.7;}
+
+    /* HERO */
+    .hero{background:var(--black);padding:var(--section-pad);}
+    .hero h1{font-family:var(--font-head);font-size:clamp(44px,7.5vw,88px);line-height:.88;text-transform:uppercase;color:var(--offwhite);margin-bottom:20px;}
+    .hero__sub{font-size:17px;color:rgba(245,242,236,.52);line-height:1.7;max-width:520px;margin-bottom:40px;}
+
+    /* FILTER PILLS */
+    .filter-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px;}
+    .filter-pill{font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:8px 18px;border:2px solid var(--div-light);background:transparent;color:var(--gray);cursor:pointer;transition:all .2s ease;}
+    .filter-pill:hover{border-color:var(--black);color:var(--black);}
+    .filter-pill.is-active{background:var(--black);color:var(--offwhite);border-color:var(--black);}
+
+    /* BLOG GRID */
+    .blog-section{background:var(--offwhite);padding:var(--section-pad);}
+    .blog-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .article-card{background:#fff;border:1px solid var(--div-light);padding:32px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s ease,transform .2s ease;}
+    .article-card:hover{border-color:var(--yellow);transform:translateY(-3px);}
+    .article-card.hidden{display:none;}
+    .article-card__cat{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;padding:4px 10px;}
+    .article-card__cat--estrategia{background:var(--yellow);color:var(--black);}
+    .article-card__cat--branding{background:var(--black);color:var(--offwhite);}
+    .article-card__cat--ia{background:transparent;color:var(--black);border:1px solid var(--div-light);}
+    .article-card__cat--trafego{background:var(--gray);color:var(--offwhite);}
+    .article-card__cat--operacional{background:var(--div-light);color:var(--black);}
+    .article-card__title{font-family:var(--font-head);font-size:24px;color:var(--black);text-transform:uppercase;line-height:1.08;}
+    .article-card__date{font-size:12px;color:var(--gray);}
+    .article-card__desc{font-size:14px;color:var(--gray);line-height:1.65;flex:1;}
+    .article-card__link{font-size:13px;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:.04em;transition:color .2s ease;align-self:flex-start;}
+    .article-card__link:hover{color:var(--yellow);}
+    .article-card__thumb{width:100%;height:140px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:36px;color:rgba(13,13,13,.18);letter-spacing:.05em;text-transform:uppercase;background:var(--div-light);}
+    .article-card__thumb--estrategia{background:#F5E84A;}
+    .article-card__thumb--branding{background:var(--black);color:rgba(255,255,255,.15);}
+    .article-card__thumb--ia{background:#E8F0FE;}
+    .article-card__thumb--trafego{background:#E8E5DF;}
+    .article-card__thumb--operacional{background:#F0EDE7;}
+
+    /* CTA */
+    .blog-cta{background:var(--black);padding:var(--section-pad);text-align:center;}
+    .blog-cta h2{font-family:var(--font-head);font-size:clamp(40px,6vw,72px);color:var(--offwhite);text-transform:uppercase;margin-bottom:16px;}
+    .blog-cta__sub{font-size:16px;color:rgba(245,242,236,.5);line-height:1.7;max-width:480px;margin:0 auto 36px;}
+
+    @media(max-width:768px){
+      .nav__links,.nav__cta{display:none;}
+      .nav__hamburger{display:flex;}
+      .footer__top{grid-template-columns:1fr;gap:28px;}
+      .footer__social{align-items:flex-start;}
+      .footer__bottom{flex-direction:column;gap:8px;}
+      .blog-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:680px){
+      :root{--side:20px;--section-pad:64px 0;}
+    }
+    @media(max-width:375px){:root{--side:16px;}}
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" role="navigation">
+  <div class="wrap nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="dicasdoflaviog - início">
+      <span class="nav__logo-text">dicas<strong>do</strong>flaviog</span>
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="index.html" class="nav__link">Home</a></li>
+      <li><a href="sobre.html" class="nav__link">Sobre</a></li>
+      <li><a href="produtos.html" class="nav__link">Produtos</a></li>
+      <li><a href="blog.html" class="nav__link">Blog</a></li>
+      <li><a href="contato.html" class="nav__link">Contato</a></li>
+    </ul>
+    <a href="produtos.html#checklist" class="btn btn--yellow nav__cta">Checklist Grátis</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+  <button class="nav-overlay__close" id="nav-close" aria-label="Fechar menu">&times;</button>
+  <ul class="nav-overlay__links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="sobre.html">Sobre</a></li>
+    <li><a href="produtos.html">Produtos</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <a href="produtos.html#checklist" class="btn btn--yellow" style="width:100%;text-align:center;margin-top:32px;">Checklist Grátis</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="blog-headline">
+  <div class="wrap">
+    <h1 id="blog-headline" class="fade-up">SEM ENROLAÇÃO.<br>DIRETO PARA O QUE RESOLVE.</h1>
+    <p class="hero__sub fade-up d1">Estratégia, posicionamento e anti-caos para quem já encheu o saco de post sem resultado.</p>
+  </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="blog-section" aria-labelledby="blog-grid-label">
+  <div class="wrap">
+    <h2 id="blog-grid-label" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Artigos do Blog</h2>
+
+    <div class="filter-pills" role="group" aria-label="Filtrar por categoria">
+      <button class="filter-pill is-active" data-filter="todos">Todos</button>
+      <button class="filter-pill" data-filter="estrategia">Estratégia</button>
+      <button class="filter-pill" data-filter="ia">IA + Marketing</button>
+      <button class="filter-pill" data-filter="branding">Branding</button>
+      <button class="filter-pill" data-filter="trafego">Tráfego</button>
+      <button class="filter-pill" data-filter="operacional">Operacional</button>
+    </div>
+
+    <div class="blog-grid" id="blog-grid">
+      <article class="article-card fade-up" data-category="estrategia">
+        <div class="article-card__thumb article-card__thumb--estrategia" aria-hidden="true">BLOG</div>
+        <span class="article-card__cat article-card__cat--estrategia">Estratégia</span>
+        <h3 class="article-card__title">O erro que 90% dos empreendedores cometem antes de contratar uma agência</h3>
+        <span class="article-card__date">15 Abr 2026</span>
+        <p class="article-card__desc">Antes de assinar qualquer contrato, você precisa responder 3 perguntas. A maioria não responde.</p>
+        <a href="blog-post.html" class="article-card__link" aria-label="Ler: O erro que 90% dos empreendedores cometem">Ler →</a>
+      </article>
+
+      <article class="article-card fade-up d1" data-category="ia">
+        <div class="article-card__thumb article-card__thumb--ia" aria-hidden="true">BLOG</div>
+        <span class="article-card__cat article-card__cat--ia">IA + Marketing</span>
+        <h3 class="article-card__title">IA não salva um negócio sem posicionamento</h3>
+        <span class="article-card__date">10 Abr 2026</span>
+        <p class="article-card__desc">Automatizar o caos só produz mais caos, mas mais rápido. Veja a ordem certa.</p>
+        <a href="blog-post.html" class="article-card__link" aria-label="Ler: IA não salva um negócio sem posicionamento">Ler →</a>
+      </article>
+
+      <article class="article-card fade-up d2" data-category="branding">
+        <div class="article-card__thumb article-card__thumb--branding" aria-hidden="true">BLOG</div>
+        <span class="article-card__cat article-card__cat--branding">Branding</span>
+        <h3 class="article-card__title">Por que seu logo bonito não converte</h3>
+        <span class="article-card__date">05 Abr 2026</span>
+        <p class="article-card__desc">Design sem fundamento estratégico é gasto, não investimento.</p>
+        <a href="blog-post.html" class="article-card__link" aria-label="Ler: Por que seu logo bonito não converte">Ler →</a>
+      </article>
+
+      <article class="article-card fade-up d3" data-category="trafego">
+        <div class="article-card__thumb article-card__thumb--trafego" aria-hidden="true">BLOG</div>
+        <span class="article-card__cat article-card__cat--trafego">Tráfego</span>
+        <h3 class="article-card__title">Antes de tráfego pago: as 3 perguntas que você precisa responder</h3>
+        <span class="article-card__date">01 Abr 2026</span>
+        <p class="article-card__desc">Pagar por clique antes de ter oferta clara é jogar dinheiro fora. Aqui estão as 3 perguntas.</p>
+        <a href="blog-post.html" class="article-card__link" aria-label="Ler: Antes de tráfego pago">Ler →</a>
+      </article>
+
+      <article class="article-card fade-up" data-category="estrategia">
+        <div class="article-card__thumb article-card__thumb--estrategia" aria-hidden="true">BLOG</div>
+        <span class="article-card__cat article-card__cat--estrategia">Estratégia</span>
+        <h3 class="article-card__title">O que é um Roadmap que realmente funciona</h3>
+        <span class="article-card__date">28 Mar 2026</span>
+        <p class="article-card__desc">A diferença entre um roadmap que vira PDF e um que vira execução é essa.</p>
+        <a href="blog-post.html" class="article-card__link" aria-label="Ler: O que é um Roadmap que realmente funciona">Ler →</a>
+      </article>
+
+      <article class="article-card fade-up d1" data-category="operacional">
+        <div class="article-card__thumb article-card__thumb--operacional" aria-hidden="true">BLOG</div>
+        <span class="article-card__cat article-card__cat--operacional">Operacional</span>
+        <h3 class="article-card__title">Checklist: seu negócio está pronto para escalar?</h3>
+        <span class="article-card__date">22 Mar 2026</span>
+        <p class="article-card__desc">Antes de acelerar, veja se a base aguenta. 10 perguntas diretas.</p>
+        <a href="blog-post.html" class="article-card__link" aria-label="Ler: Checklist seu negócio está pronto para escalar">Ler →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="blog-cta" aria-labelledby="blog-cta-headline">
+  <div class="wrap">
+    <h2 id="blog-cta-headline" class="fade-up">QUER COMEÇAR COM ALGO PRÁTICO?</h2>
+    <p class="blog-cta__sub fade-up d1">O Checklist Anti-Caos é gratuito e leva 15 minutos para preencher.</p>
+    <a href="produtos.html#checklist" class="btn btn--yellow fade-up d2">Baixar o Checklist →</a>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <span class="footer__brand">dicas<strong>do</strong>flaviog</span>
+        <p class="footer__tagline">Estratégia antes de execução. Clareza antes de velocidade.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Navegação do rodapé">
+        <a href="index.html">Home</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="blog.html">Blog</a>
+        <a href="contato.html">Contato</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </nav>
+      <div class="footer__social">
+        <a href="https://instagram.com/dicasdoflaviog" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+        <a href="https://linkedin.com/in/dicasdoflaviog" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://youtube.com/@dicasdoflaviog" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__bottom">
+      <p>CNPJ 32.035.459/0001-17 · contato@dicasdoflaviog.com.br</p>
+      <p>© 2026 dicasdoflaviog. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','935816292402573');
+fbq('track','PageView');
+fbq('track','ViewContent',{content_name:'Blog'});
+
+const ham=document.getElementById('hamburger'),overlay=document.getElementById('nav-overlay'),nc=document.getElementById('nav-close');
+if(ham){ham.addEventListener('click',()=>{overlay.classList.add('is-open');document.body.style.overflow='hidden';ham.setAttribute('aria-expanded','true');});nc.addEventListener('click',()=>{overlay.classList.remove('is-open');document.body.style.overflow='';ham.setAttribute('aria-expanded','false');});overlay.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{overlay.classList.remove('is-open');document.body.style.overflow='';ham.setAttribute('aria-expanded','false');}));}
+
+const path=window.location.pathname.split('/').pop()||'index.html';
+document.querySelectorAll('.nav__link').forEach(l=>{if(l.getAttribute('href')===path)l.classList.add('is-active');});
+
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduced){const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');obs.unobserve(e.target);}});},{threshold:0.15});document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));}
+else{document.querySelectorAll('.fade-up').forEach(el=>el.classList.add('is-visible'));}
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:reduced?'auto':'smooth'});}});});
+
+const sp=document.getElementById('scroll-progress');
+if(sp){window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;sp.style.width=(window.scrollY/h*100)+'%';},{passive:true});}
+
+// Category filter
+const pills=document.querySelectorAll('.filter-pill');
+const cards=document.querySelectorAll('.article-card');
+pills.forEach(pill=>{
+  pill.addEventListener('click',()=>{
+    pills.forEach(p=>p.classList.remove('is-active'));
+    pill.classList.add('is-active');
+    const filter=pill.getAttribute('data-filter');
+    cards.forEach(card=>{
+      if(filter==='todos'||card.getAttribute('data-category')===filter){
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

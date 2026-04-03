@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates Canva A/B/C/D — Sol Estrategista Antifrágil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --yellow: #FFD700;
+            --black: #000000;
+            --white: #FFFFFF;
+            --offwhite: #F5F5F5;
+            --darkgray: #1A1A1A;
+            --gray-text: #666666;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(135deg, var(--darkgray) 0%, #0a0a0a 100%);
+            color: var(--white);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--yellow);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--black);
+            padding: 6px 12px;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: var(--yellow);
+            color: var(--black);
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .nav-btn.active {
+            background: var(--white);
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .template-card {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .template-preview {
+            width: 100%;
+            aspect-ratio: 9/11.25; /* 1080x1350 ratio */
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--darkgray);
+            transition: all 0.4s ease;
+        }
+
+        .template-preview:hover {
+            border-color: var(--yellow);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .template-label {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .template-label h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-label p {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            font-style: italic;
+        }
+
+        .template-label .variation {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 3px;
+            text-transform: capitalize;
+        }
+
+        /* TEMPLATE A - GANCHO */
+        .template-a {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%);
+            position: relative;
+        }
+
+        .template-a-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .template-a-text {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -1px;
+        }
+
+        .template-a.light .template-a-text {
+            color: var(--white);
+        }
+
+        .template-a.dark .template-a-text {
+            color: var(--black);
+        }
+
+        .template-a.dark {
+            background: linear-gradient(135deg, rgba(245, 245, 245, 0.8) 0%, rgba(200, 200, 200, 0.6) 100%);
+        }
+
+        .template-a .logo {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 2px;
+            opacity: 0.8;
+        }
+
+        /* TEMPLATE B - CONTEÚDO */
+        .template-b {
+            display: flex;
+            align-items: stretch;
+            justify-content: flex-start;
+        }
+
+        .template-b-image {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(100, 100, 100, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--gray-text);
+            position: relative;
+        }
+
+        .template-b-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .template-b-headline {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .template-b-body {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+
+        .template-b.light .template-b-content {
+            background: var(--white);
+        }
+
+        .template-b.light .template-b-headline {
+            color: var(--black);
+        }
+
+        .template-b.light .template-b-body {
+            color: var(--black);
+        }
+
+        .template-b.dark .template-b-content {
+            background: var(--offwhite);
+        }
+
+        .template-b.dark .template-b-headline {
+            color: var(--darkgray);
+        }
+
+        .template-b.dark .template-b-body {
+            color: var(--darkgray);
+        }
+
+        /* TEMPLATE C - EDUCAÇÃO */
+        .template-c {
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .template-c-headline {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .template-c-items {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .template-c-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .template-c-number {
+            font-size: 2rem;
+            font-weight: 700;
+            min-width: 50px;
+            color: var(--yellow);
+        }
+
+        .template-c-text {
+            flex: 1;
+        }
+
+        .template-c-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .template-c-desc {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        .template-c.dark {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .template-c.light {
+            background: var(--offwhite);
+            color: var(--black);
+        }
+
+        /* TEMPLATE D - CTA */
+        .template-d {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .template-d.dark {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .template-d.light {
+            background: var(--offwhite);
+            color: var(--black);
+        }
+
+        .template-d-circle {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            opacity: 0.05;
+            top: -50px;
+            right: -50px;
+        }
+
+        .template-d.dark .template-d-circle {
+            background: var(--yellow);
+        }
+
+        .template-d.light .template-d-circle {
+            background: var(--black);
+        }
+
+        .template-d-headline {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+            max-width: 80%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .template-d-button {
+            background: var(--yellow);
+            color: var(--black);
+            border: none;
+            padding: 12px 30px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-d-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .info-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 40px 0;
+            color: var(--offwhite);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .info-box h4 {
+            color: var(--yellow);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .template-b {
+                flex-direction: column;
+            }
+
+            .template-d {
+                gap: 20px;
+            }
+
+            .template-d-headline {
+                font-size: 1.5rem;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Templates Canva A/B/C/D</h1>
+            <p class="subtitle">Sol — Estrategista Antifrágil</p>
+            <div class="version-badge">v1.0 | Março 2026</div>
+        </header>
+
+        <div class="navigation">
+            <button class="nav-btn active" onclick="showTemplate('all')">Todos (16)</button>
+            <button class="nav-btn" onclick="showTemplate('a')">Template A</button>
+            <button class="nav-btn" onclick="showTemplate('b')">Template B</button>
+            <button class="nav-btn" onclick="showTemplate('c')">Template C</button>
+            <button class="nav-btn" onclick="showTemplate('d')">Template D</button>
+        </div>
+
+        <div class="info-box">
+            <h4>ℹ️ Como Usar</h4>
+            <p>Esta página mostra um preview dos 16 templates. Para criar no Canva, siga o passo a passo em <strong>scripts/GUIA_CRIACAO_TEMPLATES_CANVA.txt</strong></p>
+            <p style="margin-top: 10px;">Dimensões: 1080 × 1350px | Paleta: #FFD700 (destaque) + #000000 + #FFFFFF | Tipografia: Courier New</p>
+        </div>
+
+        <!-- TEMPLATE A -->
+        <div id="section-a">
+            <h2 style="color: var(--yellow); font-size: 2rem; margin: 40px 0 30px 0; text-transform: uppercase; letter-spacing: 2px;">Template A — Gancho / Abertura</h2>
+
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-preview template-a light">
+                        <div class="template-a-content">
+                            <div class="template-a-text">Sua Rotina em Metade do Tempo</div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>A1: Light</h3>
+                        <p>Imagem escura + Texto White</p>
+                        <div class="variation">Variação: Light</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-a dark">
+                        <div class="template-a-content">
+                            <div class="template-a-text">Sua Rotina em Metade do Tempo</div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>A2: Dark</h3>
+                        <p>Imagem clara + Texto Black</p>
+                        <div class="variation">Variação: Dark</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-a light">
+                        <div class="template-a-content">
+                            <div class="template-a-text">Sua Rotina em Metade do Tempo</div>
+                            <div class="logo"></div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>A3: Com Logo</h3>
+                        <p>Light + Logo 40×40px</p>
+                        <div class="variation">Variação: Com Logo</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-a dark">
+                        <div class="template-a-content">
+                            <div class="template-a-text">Sua Rotina em Metade do Tempo</div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>A4: Sem Logo</h3>
+                        <p>Dark minimalista</p>
+                        <div class="variation">Variação: Sem Logo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEMPLATE B -->
+        <div id="section-b" class="hidden">
+            <h2 style="color: var(--yellow); font-size: 2rem; margin: 40px 0 30px 0; text-transform: uppercase; letter-spacing: 2px;">Template B — Conteúdo / Humanização</h2>
+
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-preview template-b light">
+                        <div class="template-b-image">
+                            📸 Imagem
+                        </div>
+                        <div class="template-b-content">
+                            <div class="template-b-headline">Como Ganhar 12h/Semana</div>
+                            <div class="template-b-body">5 freelancers aprenderam a estrutura em 2 semanas e já economizaram...</div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>B1: Light</h3>
+                        <p>50% Imagem + 50% Branco</p>
+                        <div class="variation">Variação: Light</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-b dark">
+                        <div class="template-b-image">
+                            📸 Imagem
+                        </div>
+                        <div class="template-b-content">
+                            <div class="template-b-headline">Como Ganhar 12h/Semana</div>
+                            <div class="template-b-body">5 freelancers aprenderam a estrutura em 2 semanas e já economizaram...</div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>B2: Dark</h3>
+                        <p>50% Imagem + 50% Cinza</p>
+                        <div class="variation">Variação: Dark</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-b light">
+                        <div class="template-b-image">
+                            📸 Imagem
+                        </div>
+                        <div class="template-b-content">
+                            <div class="template-b-headline">Como Ganhar 12h/Semana</div>
+                            <div class="template-b-body">5 freelancers aprenderam a estrutura em 2 semanas e já economizaram...</div>
+                            <div class="logo" style="position: absolute; top: 15px; right: 15px;"></div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>B3: Com Logo</h3>
+                        <p>Light + Logo top-right</p>
+                        <div class="variation">Variação: Com Logo</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-b light">
+                        <div class="template-b-content">
+                            <div class="template-b-headline">Como Ganhar 12h/Semana</div>
+                            <div class="template-b-body">5 freelancers aprenderam a estrutura em 2 semanas e já economizaram...</div>
+                        </div>
+                        <div class="template-b-image" style="border-left: 2px solid rgba(255, 215, 0, 0.3);">
+                            📸 Imagem
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>B4: Invertido</h3>
+                        <p>Texto esquerda + Imagem direita</p>
+                        <div class="variation">Variação: Imagem Direita</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEMPLATE C -->
+        <div id="section-c" class="hidden">
+            <h2 style="color: var(--yellow); font-size: 2rem; margin: 40px 0 30px 0; text-transform: uppercase; letter-spacing: 2px;">Template C — Educação / Listas</h2>
+
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-preview template-c dark">
+                        <div class="template-c-headline">5 Padrões de IA Ninguém Ensina</div>
+                        <div class="template-c-items">
+                            <div class="template-c-item">
+                                <div class="template-c-number">1</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Estrutura Mental</div>
+                                    <div class="template-c-desc">Antes de qualquer prompt...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">2</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Prompt Progressivo</div>
+                                    <div class="template-c-desc">Iteração é a chave...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">3</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Validação Real</div>
+                                    <div class="template-c-desc">Teste antes de usar...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>C1: Dark</h3>
+                        <p>Fundo preto + 3 items numerados</p>
+                        <div class="variation">Variação: Dark</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-c light">
+                        <div class="template-c-headline">5 Padrões de IA Ninguém Ensina</div>
+                        <div class="template-c-items">
+                            <div class="template-c-item">
+                                <div class="template-c-number">1</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Estrutura Mental</div>
+                                    <div class="template-c-desc">Antes de qualquer prompt...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">2</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Prompt Progressivo</div>
+                                    <div class="template-c-desc">Iteração é a chave...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">3</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Validação Real</div>
+                                    <div class="template-c-desc">Teste antes de usar...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>C2: Light</h3>
+                        <p>Fundo off-white + 3 items</p>
+                        <div class="variation">Variação: Light</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-c dark">
+                        <div class="template-c-headline">5 Padrões de IA</div>
+                        <div class="template-c-items">
+                            <div class="template-c-item">
+                                <div class="template-c-number">1</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Estrutura</div>
+                                    <div class="template-c-desc">Mental...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">2</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Prompt</div>
+                                    <div class="template-c-desc">Progressivo...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">3</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Validação</div>
+                                    <div class="template-c-desc">Real...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">4</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Otimização</div>
+                                    <div class="template-c-desc">Contínua...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">5</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Escala</div>
+                                    <div class="template-c-desc">Exponencial...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>C3: 5 Items</h3>
+                        <p>Preto + 5 items compacto</p>
+                        <div class="variation">Variação: 5 Items</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-c dark">
+                        <div class="template-c-headline">5 Padrões de IA Ninguém Ensina</div>
+                        <div class="template-c-items">
+                            <div class="template-c-item">
+                                <div class="template-c-number">1</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Estrutura Mental</div>
+                                    <div class="template-c-desc">Antes de qualquer prompt...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">2</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Prompt Progressivo</div>
+                                    <div class="template-c-desc">Iteração é a chave...</div>
+                                </div>
+                            </div>
+                            <div class="template-c-item">
+                                <div class="template-c-number">3</div>
+                                <div class="template-c-text">
+                                    <div class="template-c-title">Validação Real</div>
+                                    <div class="template-c-desc">Teste antes de usar...</div>
+                                </div>
+                            </div>
+                            <div class="logo" style="position: absolute; top: 15px; right: 15px;"></div>
+                        </div>
+                    </div>
+                    <div class="template-label">
+                        <h3>C4: Com Logo</h3>
+                        <p>Dark + 3 items + logo</p>
+                        <div class="variation">Variação: Com Logo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEMPLATE D -->
+        <div id="section-d" class="hidden">
+            <h2 style="color: var(--yellow); font-size: 2rem; margin: 40px 0 30px 0; text-transform: uppercase; letter-spacing: 2px;">Template D — CTA / Fechamento</h2>
+
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-preview template-d dark">
+                        <div class="template-d-circle"></div>
+                        <div class="template-d-headline">Sua Rotina em Metade do Tempo</div>
+                        <button class="template-d-button">Clique Aqui</button>
+                    </div>
+                    <div class="template-label">
+                        <h3>D1: Dark</h3>
+                        <p>Preto + Headline + Botão Amarelo</p>
+                        <div class="variation">Variação: Dark</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-d light">
+                        <div class="template-d-circle"></div>
+                        <div class="template-d-headline">Sua Rotina em Metade do Tempo</div>
+                        <button class="template-d-button">Clique Aqui</button>
+                    </div>
+                    <div class="template-label">
+                        <h3>D2: Light</h3>
+                        <p>Off-white + Headline Preto + Botão Amarelo</p>
+                        <div class="variation">Variação: Light</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-d dark">
+                        <div class="template-d-circle"></div>
+                        <div class="template-d-headline">Sua Rotina em Metade do Tempo</div>
+                        <button class="template-d-button">Clique Aqui</button>
+                    </div>
+                    <div class="template-label">
+                        <h3>D3: Com Círculo</h3>
+                        <p>Dark + Círculo Decorativo 5% opacity</p>
+                        <div class="variation">Variação: Com Círculo</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview template-d dark">
+                        <div class="template-d-headline">Sua Rotina em Metade do Tempo</div>
+                        <button class="template-d-button">Clique Aqui</button>
+                    </div>
+                    <div class="template-label">
+                        <h3>D4: Minimalista</h3>
+                        <p>Dark simples, sem decorações</p>
+                        <div class="variation">Variação: Minimalista</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 60px; margin-bottom: 40px;">
+            <h4>📝 Próximos Passos</h4>
+            <p><strong>1.</strong> Abra <strong>canva.com</strong> e crie novo projeto "Instagram Post" (1080×1350px)</p>
+            <p><strong>2.</strong> Siga o passo a passo em <strong>scripts/GUIA_CRIACAO_TEMPLATES_CANVA.txt</strong></p>
+            <p><strong>3.</strong> Crie 16 frames (4 templates × 4 variações cada)</p>
+            <p><strong>4.</strong> Compartilhe link com squad (scripts/CANVA_LINK.txt)</p>
+            <p><strong>5.</strong> Designer Social começa a usar para customizar conteúdo</p>
+        </div>
+    </div>
+
+    <script>
+        function showTemplate(template) {
+            // Hide all sections
+            document.getElementById('section-a').classList.add('hidden');
+            document.getElementById('section-b').classList.add('hidden');
+            document.getElementById('section-c').classList.add('hidden');
+            document.getElementById('section-d').classList.add('hidden');
+
+            // Show selected section
+            if (template === 'all') {
+                document.getElementById('section-a').classList.remove('hidden');
+                document.getElementById('section-b').classList.remove('hidden');
+                document.getElementById('section-c').classList.remove('hidden');
+                document.getElementById('section-d').classList.remove('hidden');
+            } else {
+                document.getElementById(`section-${template}`).classList.remove('hidden');
+            }
+
+            // Update button styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

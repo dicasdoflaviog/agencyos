@@ -1,0 +1,226 @@
+BRIEFING — SITE PRINCIPAL dicasdoflaviog.com
+============================================
+Data         : 2026-04-03
+Responsável  : Flávio Guimarães (@dicasdoflaviog)
+Projeto      : Site institucional + hub do ecossistema
+Arquivo      : brief-site-dicasdoflaviog-2026-04-03.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 1 — OBJETIVO E ESTRUTURA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.1 OBJETIVO PRINCIPAL
+    Hub central do ecossistema: apresenta todos os produtos, captura
+    leads no topo do funil e constrói autoridade para Flávio Guimarães.
+
+1.2 PÁGINAS OBRIGATÓRIAS
+    - Home          → Hub principal, funil visual, CTA checklist
+    - Sobre         → Flávio como especialista (15+ anos)
+    - Produtos      → Os 4 níveis do funil com preços visíveis
+    - Blog          → Conteúdo original para SEO + autoridade
+    - Contato       → Formulário simples + redes sociais
+    - (Páginas de produtos existentes: LPs separadas — Manual, Diagnóstico)
+
+1.3 CTA PRINCIPAL DA HOME
+    Checklist Anti-Caos gratuito — máxima entrada no funil (Nível 1)
+
+1.4 BLOG
+    Sim. Conteúdo original criado para o site (SEO + autoridade).
+    Temáticas alinhadas ao ecossistema: estratégia, posicionamento,
+    anti-caos, marketing sem enrolação, IA para pequenos negócios.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 2 — SOBRE FLÁVIO GUIMARÃES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1 IDENTIDADE DO ESPECIALISTA
+    Estrategista digital e branding design specialist com 15+ anos
+    de experiência. Foco em posicionamento, branding e storytelling
+    para marcas que precisam de clareza antes de execução.
+
+    Apaixonado por IA — entusiasta que estuda e aplica inteligência
+    artificial na resolução de problemas reais de negócios, agregando
+    velocidade sem perder critério estratégico.
+
+2.2 ÁREAS DE ATUAÇÃO
+    - Branding e posicionamento de marcas
+    - Estratégia digital (lançamentos físicos e digitais)
+    - Automações e micro-tarefas com IA
+    - Produtos SaaS e infoprodutos
+    - UI/UX Design
+    - Gestão de tráfego pago
+    - Social media e storytelling
+    - Edição de vídeo
+
+2.3 TOM DA BIO
+    Humano. Sem sensacionalismo. Credibilidade por experiência real,
+    não por promessas. Profissional sem ser frio.
+
+    Referência de copy: "15 anos organizando negócios que cresceram
+    rápido demais para o próprio bem. Hoje uso IA para fazer em 2 horas
+    o que antes levava 2 semanas — e entrego decisão, não tarefas."
+
+2.4 FOTO
+    Foto profissional disponível (ensaio realizado).
+
+2.5 LOGOTIPO
+    Sim — disponível no design system (_brand/clientes/dicasdoflaviog/styleguide.txt)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 3 — ECOSSISTEMA DE PRODUTOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1 EXIBIÇÃO DOS PRODUTOS
+    Seção na Home com funil visual (jornada Nível 1→4) +
+    página /produtos com detalhe de cada nível.
+
+3.2 PREÇOS VISÍVEIS
+    Sim — exibir preços na página de produtos para qualificar visita.
+    Gratuito (Checklist) → R$67 (Manual) → R$397 (Diagnóstico) → R$6.500 (Estruturação)
+
+3.3 LINKAGEM
+    Cada produto linka para a LP específica já existente:
+    - Checklist → [link do Google Drive / landing futura]
+    - Manual Anti-Burrice → LP do Manual (já criada)
+    - Diagnóstico Anti-Caos → outputs/landing-pages/diagnostico-anti-caos-v1.html
+    - Estruturação → [página/formulário a criar]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 4 — IDENTIDADE VISUAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.1 ESTÉTICA
+    Sóbrio e profissional — mesmo DNA das LPs.
+    Consistência total com o design system já estabelecido.
+
+4.2 DESIGN SYSTEM (referência obrigatória)
+    Arquivo: _brand/clientes/dicasdoflaviog/styleguide.txt
+
+    Cores:
+    --yellow   : #FFD100
+    --black    : #0D0D0D
+    --offwhite : #F5F2EC
+    --gray     : #888880
+    --div-light: #E8E5DF
+
+    Fontes: Bebas Neue (headlines) + DM Sans (corpo) — APENAS ESTAS DUAS
+
+4.3 HERO DA HOME
+    Layout: texto + foto profissional do Flávio. Sem vídeo.
+
+4.4 DEPOIMENTOS
+    Criar depoimentos representativos (sem sensacionalismo),
+    alinhados às personas do funil (empreendedores que compraram
+    Manual ou fizeram Diagnóstico).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 5 — STACK E INTEGRAÇÕES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1 STACK
+    HTML/CSS/JS puro (vanilla) — mesmo stack das LPs.
+    Sem frameworks. CSS inline em <style>. JS inline antes de </body>.
+
+5.2 HOSPEDAGEM
+    Servidor próprio já configurado.
+    Domínio: dicasdoflaviog.com
+
+5.3 EMAIL MARKETING
+    Mailchimp — integrar formulário de captura do Checklist.
+    Lista principal: lead_quente (tag CRM).
+
+5.4 ANALYTICS
+    Google Analytics 4 — instalar junto com o site.
+    Meta Pixel: 935816292402573 (já em uso nas LPs).
+    Google Search Console — configurar junto.
+
+5.5 REDES SOCIAIS LINKADAS
+    - Instagram: @dicasdoflaviog
+    - LinkedIn: [definir URL]
+    - YouTube: [definir URL do canal]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 6 — ESTRUTURA DE PÁGINAS (WIREFRAME CONCEITUAL)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+HOME (index.html)
+  ├── Header/Nav (sticky) — logo + menu
+  ├── Hero — headline + subline + foto + CTA checklist gratuito
+  ├── Problema — o que o empreendedor vive (3-4 dores principais)
+  ├── Funil Visual — os 4 níveis como jornada (Nível 1→4)
+  ├── Sobre (resumo) — mini-bio do Flávio + link /sobre
+  ├── Depoimentos — 3-4 cards de prova social
+  ├── Blog Preview — últimos 3 artigos
+  ├── CTA Final — Checklist gratuito (repetido)
+  └── Footer — links, CNPJ, redes, privacidade
+
+SOBRE (sobre.html)
+  ├── Hero — foto full + headline de posicionamento
+  ├── Bio completa — experiência, diferencial, filosofia
+  ├── Skillset — o que Flávio resolve
+  ├── Metodologia — como funciona a abordagem Anti-Caos
+  └── CTA — entrar no funil
+
+PRODUTOS (produtos.html)
+  ├── Intro — a escada de serviços explicada
+  ├── Nível 1: Checklist (grátis) — card + CTA download
+  ├── Nível 2: Manual Anti-Burrice (R$67) — card + CTA LP
+  ├── Nível 3: Diagnóstico Anti-Caos (R$397) — card + CTA LP
+  ├── Nível 4: Estruturação Anti-Caos (R$6.500) — card + CTA consulta
+  └── FAQ de posicionamento (diferenças entre níveis)
+
+BLOG (blog.html + artigos individuais)
+  ├── Listagem de artigos — grid de cards
+  ├── Categorias — estratégia, posicionamento, IA, marketing
+  └── Artigo individual (template)
+
+CONTATO (contato.html)
+  ├── Formulário simples (nome, email, assunto)
+  ├── Redes sociais
+  └── CNPJ + endereço legal
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 7 — SEO E PERFORMANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.1 PALAVRAS-CHAVE ALVO (principais)
+    - estrategista digital
+    - branding para pequenas empresas
+    - diagnóstico de marketing
+    - posicionamento de marca
+    - anti-caos marketing
+    - organizar negócio com IA
+
+7.2 REQUISITOS TÉCNICOS
+    - Google Fonts async (media="print" onload) — mesmo padrão das LPs
+    - Imagens em WebP com width/height declarados (CLS < 0.1)
+    - Canonical por página
+    - OG tags completas (1200×630) por página
+    - Twitter Card completo
+    - Schema.org Person (Flávio Guimarães)
+    - Schema.org Organization (dicasdoflaviog)
+    - Sitemap.xml
+    - robots.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOCO 8 — LEGAL E CONFORMIDADE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.1 CNPJ     : 32.035.459/0001-17
+8.2 CONTATO  : contato@dicasdoflaviog.com.br
+8.3 LGPD     : Link para privacidade.html (já criada para LP do Diagnóstico)
+8.4 CDC      : Art. 49 mencionado no footer de páginas com produtos pagos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PENDÊNCIAS (a definir antes da construção)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] URL do canal do YouTube
+[ ] URL do perfil LinkedIn
+[ ] URL do Mailchimp embed form (após configurar conta)
+[ ] Foto profissional no formato WebP (fornecer arquivo)
+[ ] Logo em SVG (confirmar localização no projeto)
+[ ] Link de checkout do Manual Anti-Burrice
+[ ] Link de checkout do Diagnóstico Anti-Caos
+[ ] Pelo menos 1 artigo de blog para popular na inauguração
+[ ] Google Analytics 4 Measurement ID (após criar propriedade)

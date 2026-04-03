@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates Canva A/B/C/D — Sol Estrategista Antifrágil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Cores Dicasdoflaviog */
+            --primary: #FFD700;      /* Amarelo */
+            --dark: #000000;         /* Preto */
+            --light: #FFFFFF;        /* Branco */
+            --gray-light: #F5F5F5;   /* Off-white */
+            --gray-dark: #1A1A1A;    /* Cinza escuro */
+            
+            /* Tipografia */
+            --font-display: 'Courier New', monospace;
+            --font-body: 'Courier New', monospace;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--gray-dark);
+            padding: 40px 20px;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--light);
+            letter-spacing: -2px;
+        }
+
+        .header p {
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .template-section {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 4px;
+            border: 2px solid var(--dark);
+        }
+
+        .template-section h2 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .template-section h2 span {
+            background: var(--primary);
+            color: var(--dark);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 2px;
+        }
+
+        .template-info {
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.8;
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
+            color: var(--gray-dark);
+        }
+
+        .template-preview {
+            background: var(--gray-light);
+            aspect-ratio: 1080 / 1350;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .template-specs {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid var(--primary);
+        }
+
+        .template-specs h3 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .specs-list {
+            list-style: none;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--gray-dark);
+        }
+
+        .specs-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .specs-list li:before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Template A Preview */
+        .template-a {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            position: relative;
+        }
+
+        .template-a::before {
+            content: "Imagem Full-Bleed";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            width: 100%;
+            text-align: center;
+        }
+
+        .template-a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.9));
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Template B Preview */
+        .template-b {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: var(--light);
+        }
+
+        .template-b-image {
+            background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0,0,0,0.3);
+            font-size: 14px;
+        }
+
+        .template-b-content {
+            background: var(--light);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .template-b-content p {
+            font-size: 12px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        /* Template C Preview */
+        .template-c {
+            background: var(--dark);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            color: var(--light);
+        }
+
+        .template-c-item {
+            padding: 15px 20px;
+            border-left: 3px solid var(--primary);
+            font-size: 12px;
+        }
+
+        /* Template D Preview */
+        .template-d {
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-d::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .template-d-headline {
+            position: relative;
+            z-index: 2;
+            color: var(--light);
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .template-d-cta {
+            position: relative;
+            z-index: 2;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 15px 40px;
+            border-radius: 2px;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .template-d-cta:hover {
+            transform: scale(1.05);
+        }
+
+        /* Dimensões Instagram */
+        .dimensions {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 2px;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Versões Light/Dark */
+        .variations {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid var(--primary);
+        }
+
+        .variations h4 {
+            font-family: var(--font-display);
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .variation-note {
+            font-size: 12px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Documentação */
+        .documentation {
+            background: var(--light);
+            padding: 40px;
+            margin-top: 60px;
+            border: 2px solid var(--dark);
+            border-radius: 4px;
+        }
+
+        .documentation h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .doc-section {
+            margin-bottom: 40px;
+        }
+
+        .doc-section h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 10px;
+        }
+
+        .doc-section p {
+            color: var(--gray-dark);
+            line-height: 1.8;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .doc-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .doc-section ul li {
+            color: var(--gray-dark);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .doc-section ul li:before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .code-block {
+            background: var(--gray-light);
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--dark);
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+
+        .footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .footer h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .footer p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Templates Canva A/B/C/D</h1>
+            <p>Sol — Estrategista Antifrágil | v1.0</p>
+            <p style="margin-top: 15px; font-size: 14px; color: #999;">Especificações e Guia de Implementação</p>
+        </div>
+
+        <!-- Templates -->
+        <div class="templates-grid">
+            <!-- Template A -->
+            <div class="template-section">
+                <h2><span>A</span> Gancho / Abertura</h2>
+                
+                <div class="template-info">
+                    <strong>Propósito:</strong> Parar o scroll. Gancho visual + mínimo texto para gerar curiosidade.
+                </div>
+
+                <div class="template-preview template-a"></div>
+
+                <div class="dimensions">1080 × 1350 px</div>
+
+                <div class="template-specs">
+                    <h3>Especificações</h3>
+                    <ul class="specs-list">
+                        <li><strong>Layout:</strong> Imagem full-bleed (100% largura/altura)</li>
+                        <li><strong>Texto:</strong> 5-10 palavras MAX (overlay no topo ou bottom)</li>
+                        <li><strong>Posição Texto:</strong> Bottom com gradiente escuro (100% legível)</li>
+                        <li><strong>CTA Implícito:</strong> "Vê mais" (swipe para próximo slide)</li>
+                        <li><strong>Cores:</strong> Dependem da imagem (branco texto em gradiente)</li>
+                        <li><strong>Uso:</strong> SEMPRE primeiro slide de carrossel</li>
+                    </ul>
+                </div>
+
+                <div class="variations">
+                    <h4>Versões</h4>
+                    <div class="variation-note">
+                        ✓ <strong>Versão com Logo:</strong> Canto inferior esquerdo (20px), tamanho 60×60px<br>
+                        ✓ <strong>Versão Sem Logo:</strong> Apenas imagem + texto<br>
+                        ✓ <strong>Versão com Overlay:</strong> Fundo preto semi-transparente (60% opacity) para garantir legibilidade
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template B -->
+            <div class="template-section">
+                <h2><span>B</span> Conteúdo + Humanização</h2>
+                
+                <div class="template-info">
+                    <strong>Propósito:</strong> Equilibrar imagem (pessoa ou produto) com texto (prova, story, insight).
+                </div>
+
+                <div class="template-preview template-b">
+                    <div class="template-b-image">Imagem (50%)</div>
+                    <div class="template-b-content">
+                        <p><strong>Título</strong><br><br>Conteúdo em texto, máx 100 caracteres, destaca insight ou prova social.</p>
+                    </div>
+                </div>
+
+                <div class="dimensions">1080 × 1350 px</div>
+
+                <div class="template-specs">
+                    <h3>Especificações</h3>
+                    <ul class="specs-list">
+                        <li><strong>Layout:</strong> 50% imagem (esquerda) + 50% texto (direita)</li>
+                        <li><strong>Imagem:</strong> Foto real ou IA estilizada (mostra pessoa, produto, resultado)</li>
+                        <li><strong>Texto:</strong> 15-25 palavras, máx 100 caracteres</li>
+                        <li><strong>Tipografia:</strong> Título 24px bold, body 14px regular</li>
+                        <li><strong>Fundo Texto:</strong> Branco puro (ou off-white se imagem exigir contraste)</li>
+                        <li><strong>Padding:</strong> 30px em todas margens do texto</li>
+                        <li><strong>Uso:</strong> Slides 2-4 do carrossel (conteúdo + prova)</li>
+                    </ul>
+                </div>
+
+                <div class="variations">
+                    <h4>Versões</h4>
+                    <div class="variation-note">
+                        ✓ <strong>Imagem Esquerda:</strong> Padrão (imagem 50% esquerda, texto direita)<br>
+                        ✓ <strong>Imagem Direita:</strong> Variação (inverte posições)<br>
+                        ✓ <strong>Com Logo:</strong> Logo 40×40px canto superior direito do texto<br>
+                        ✓ <strong>Sem Logo:</strong> Apenas imagem + texto<br>
+                        ✓ <strong>Fundo Escuro:</strong> Fundo cinza (para contraste com imagem clara)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template C -->
+            <div class="template-section">
+                <h2><span>C</span> Educação / Listas</h2>
+                
+                <div class="template-info">
+                    <strong>Propósito:</strong> Apresentar informação estruturada (listas, rankings, conselhos).
+                </div>
+
+                <div class="template-preview template-c">
+                    <div class="template-c-item">▪ Item 1: Descrição breve</div>
+                    <div class="template-c-item">▪ Item 2: Descrição breve</div>
+                    <div class="template-c-item">▪ Item 3: Descrição breve</div>
+                </div>
+
+                <div class="dimensions">1080 × 1350 px</div>
+
+                <div class="template-specs">
+                    <h3>Especificações</h3>
+                    <ul class="specs-list">
+                        <li><strong>Layout:</strong> Fundo sólido (preto ou off-white) + texto estruturado</li>
+                        <li><strong>Estrutura:</strong> 3-5 itens com bullet points ou números</li>
+                        <li><strong>Tipografia:</strong> Headline 28px bold, items 16px regular</li>
+                        <li><strong>Spacing:</strong> 30px entre itens verticalmente</li>
+                        <li><strong>Cor Texto:</strong> Branco (se fundo escuro), preto (se fundo claro)</li>
+                        <li><strong>Destaque:</strong> Usar amarelo (#FFD700) para números ou keywords</li>
+                        <li><strong>Uso:</strong> Conteúdo técnico, listas, rankings, comparações</li>
+                    </ul>
+                </div>
+
+                <div class="variations">
+                    <h4>Versões</h4>
+                    <div class="variation-note">
+                        ✓ <strong>Fundo Preto:</strong> Texto branco, destaque amarelo<br>
+                        ✓ <strong>Fundo Off-White:</strong> Texto preto, destaque amarelo<br>
+                        ✓ <strong>Com Números:</strong> Números grandes em amarelo, texto pequeno<br>
+                        ✓ <strong>Com Bullets:</strong> Bullets em amarelo, texto alinhado<br>
+                        ✓ <strong>Com Título:</strong> Headline ocupando 30% topo, items abaixo
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template D -->
+            <div class="template-section">
+                <h2><span>D</span> CTA / Fechamento</h2>
+                
+                <div class="template-info">
+                    <strong>Propósito:</strong> Conversão. Destaque máximo no botão/ação. Urgência + clareza.
+                </div>
+
+                <div class="template-preview template-d">
+                    <div class="template-d-headline">Sua Rotina em Metade do Tempo</div>
+                    <div class="template-d-cta">Clique aqui</div>
+                </div>
+
+                <div class="dimensions">1080 × 1350 px</div>
+
+                <div class="template-specs">
+                    <h3>Especificações</h3>
+                    <ul class="specs-list">
+                        <li><strong>Layout:</strong> Minimalista. Fundo escuro (preto) + elemento destaque</li>
+                        <li><strong>Headline:</strong> 32-40px bold, branco, máx 20 palavras</li>
+                        <li><strong>Botão CTA:</strong> Background amarelo (#FFD700), texto preto bold</li>
+                        <li><strong>Tamanho Botão:</strong> 200px wide × 50px height (approx)</li>
+                        <li><strong>Padding Vertical:</strong> 15px em cima/baixo do texto</li>
+                        <li><strong>Efeito Visual:</strong> Elemento geométrico fundo (círculo ou linha)</li>
+                        <li><strong>Uso:</strong> SEMPRE último slide de carrossel</li>
+                    </ul>
+                </div>
+
+                <div class="variations">
+                    <h4>Versões</h4>
+                    <div class="variation-note">
+                        ✓ <strong>Botão Amarelo:</strong> Background #FFD700, texto preto (padrão)<br>
+                        ✓ <strong>Botão Branco:</strong> Background branco, texto preto<br>
+                        ✓ <strong>Com Urgência:</strong> Adiciona "Hoje" ou "Ofertas limitadas" acima<br>
+                        ✓ <strong>Com Logo:</strong> Logo 80×80px acima do headline<br>
+                        ✓ <strong>Fundo com Padrão:</strong> Padrão geométrico sutil ao fundo
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentação -->
+        <div class="documentation">
+            <h2>Guia de Implementação Canva</h2>
+
+            <div class="doc-section">
+                <h3>1. Como Usar os Templates no Canva</h3>
+                <p>Cada template deve ser criado como um "frame" reutilizável no Canva. Aqui está o passo a passo:</p>
+                <ul>
+                    <li><strong>Criar novo design:</strong> 1080 × 1350 px (Instagram Post)</li>
+                    <li><strong>Adicionar background:</strong> Cor sólida, gradiente ou imagem</li>
+                    <li><strong>Adicionar elemento:</strong> Imagem, texto, botão conforme template</li>
+                    <li><strong>Salvar como template:</strong> Nome: "Template A - Gancho", etc</li>
+                    <li><strong>Duplicar para variações:</strong> Claro/escuro, com/sem logo</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h3>2. Sistema de Cores</h3>
+                <p><strong>Paleta Principal:</strong></p>
+                <ul>
+                    <li>Primário: #FFD700 (Amarelo vibrante)</li>
+                    <li>Dark: #000000 (Preto puro)</li>
+                    <li>Light: #FFFFFF (Branco puro)</li>
+                    <li>Gray Light: #F5F5F5 (Off-white)</li>
+                    <li>Gray Dark: #1A1A1A (Cinza escuro)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Uso:</strong> Amarelo apenas para destaque (CTA, números, keywords). Preto e branco para contrast.</p>
+            </div>
+
+            <div class="doc-section">
+                <h3>3. Tipografia</h3>
+                <ul>
+                    <li><strong>Display Font:</strong> Courier New (monospace, geométrica)</li>
+                    <li><strong>Body Font:</strong> Courier New ou Verdana</li>
+                    <li><strong>Headline:</strong> 28-40px, bold, letter-spacing -1px a -2px</li>
+                    <li><strong>Body Text:</strong> 14-18px, regular, line-height 1.4-1.6</li>
+                    <li><strong>Small Text:</strong> 12-14px, regular, line-height 1.5</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h3>4. Grid & Spacing</h3>
+                <ul>
+                    <li><strong>Safe Area:</strong> Deixe 40px de padding em todas as bordas (evita corte em mobile)</li>
+                    <li><strong>Espaço entre elementos:</strong> Múltiplos de 10px (10, 20, 30, 40)</li>
+                    <li><strong>Alinhamento:</strong> Use grid de 10px para alinhar elementos</li>
+                    <li><strong>Respiro Visual:</strong> Não aglomere. Prefira espaço em branco a densidade</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h3>5. Checklist de Qualidade (Antes de Usar)</h3>
+                <ul>
+                    <li>☐ Dimensões corretas (1080 × 1350px)?</li>
+                    <li>☐ Texto legível (16px mínimo para body)?</li>
+                    <li>☐ Contraste OK (WCAG AA, mínimo 4.5:1 ratio)?</li>
+                    <li>☐ Sem safe area violations (40px padding)?</li>
+                    <li>☐ Cores alinhadas com brand (#FFD700 destaque)?</li>
+                    <li>☐ Tipografia consistente (Courier New)?</li>
+                    <li>☐ Sem poluição visual (menos é mais)?</li>
+                    <li>☐ CTA claro e acionável (Template D)?</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h3>6. Criação de Variações</h3>
+                <p>Para cada template, crie pelo menos estas variações:</p>
+                <ul>
+                    <li><strong>Versão 1:</strong> Fundo claro + com logo branded</li>
+                    <li><strong>Versão 2:</strong> Fundo escuro + com logo branded</li>
+                    <li><strong>Versão 3:</strong> Fundo claro + sem logo (para clientes que customizam)</li>
+                    <li><strong>Versão 4:</strong> Fundo escuro + sem logo (para clientes que customizam)</li>
+                </ul>
+                <p style="margin-top: 15px;">Total: 4 templates × 4 variações = <strong>16 frames</strong> no Canva.</p>
+            </div>
+
+            <div class="doc-section">
+                <h3>7. Fluxo de Trabalho (Designer Social)</h3>
+                <ol style="margin-left: 20px; color: var(--gray-dark); font-size: 14px;">
+                    <li style="margin-bottom: 10px;">Receber brief do Estrategista (qual template? Qual mensagem?)</li>
+                    <li style="margin-bottom: 10px;">Escolher template correspondente (A/B/C/D)</li>
+                    <li style="margin-bottom: 10px;">Customizar: imagem, texto, cores (se necessário)</li>
+                    <li style="margin-bottom: 10px;">Validar: checklist de qualidade acima</li>
+                    <li style="margin-bottom: 10px;">Enviar ao Publicador para agendamento</li>
+                </ol>
+            </div>
+
+            <div class="doc-section">
+                <h3>8. Link para Canva</h3>
+                <div class="code-block">
+                    canva.com/design/[PROJECT_ID]/[EDIT_TOKEN]<br><br>
+                    Templates estão em:<br>
+                    → Brand Kit: dicasdoflaviog (cores, fonts salvas)<br>
+                    → Folder: "Templates A/B/C/D"<br>
+                    → Acesso: Compartilhado com Squad
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>Templates Prontos para Usar</h3>
+            <p>Criar no Canva seguindo as especificações acima.<br>
+            Compartilhar com squad via Canva link de edição.<br>
+            Atualizar README + ARQUITETURA quando criados.</p>
+        </div>
+    </div>
+</body>
+</html>

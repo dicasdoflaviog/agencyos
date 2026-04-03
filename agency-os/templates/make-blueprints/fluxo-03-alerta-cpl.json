@@ -1,0 +1,65 @@
+{
+  "_meta": {
+    "name": "03_CPL_Alert",
+    "description": "Às 8h, verifica se CPL está acima de R$200. Se sim, envia alerta por email.",
+    "version": "1.0"
+  },
+  "flow": [
+    {
+      "step": 1,
+      "type": "trigger",
+      "app": "Make Schedule",
+      "module": "Every Day",
+      "config": {
+        "time": "08:00",
+        "timezone": "America/Sao_Paulo"
+      }
+    },
+    {
+      "step": 2,
+      "type": "action",
+      "app": "Google Sheets",
+      "module": "Get Cell Value",
+      "config": {
+        "spreadsheet": "Daily_Dashboard_dicasdoflaviog_2026",
+        "sheet": "Performance",
+        "cell": "H2",
+        "notes": "Ajuste para a célula que contém o CPL do dia anterior (última linha da coluna H)"
+      }
+    },
+    {
+      "step": 3,
+      "type": "filter",
+      "label": "CPL acima do limite?",
+      "condition": {
+        "value_a": "{{step2.value}}",
+        "operator": "greater_than",
+        "value_b": 200
+      },
+      "notes": "Se CPL <= 200, o fluxo para aqui. Se > 200, continua para o alerta."
+    },
+    {
+      "step": 4,
+      "type": "action",
+      "app": "Gmail",
+      "module": "Send an Email",
+      "config": {
+        "to": "dicasdoflaviog@gmail.com",
+        "subject": "🚨 ALERTA: CPL acima de R$200 — Revisar criativo!",
+        "body": "Bom dia!\n\nO CPL de ontem foi R$ {{step2.value}}.\n\nAção necessária:\n1. Acesse o Meta Ads Manager\n2. Pause o criativo com menor CTR\n3. Teste novo ângulo de copy\n\nDashboard: [link do Google Sheets]\n\nAtenciosamente,\nSistema de Monitoramento — Sol Estrategista Antifrágil"
+      }
+    }
+  ],
+  "setup_notes": [
+    "1. Crie cenário '03_CPL_Alert' no Make",
+    "2. Trigger: Schedule > Every Day > 08:00 São Paulo",
+    "3. Ação: Google Sheets > Get Cell (última linha da coluna CPL)",
+    "4. Filtro: Se valor > 200, continua",
+    "5. Ação: Gmail > Send Email (configure seu Gmail no Make)",
+    "6. Personalize o email com seu link do Google Sheets",
+    "7. Ative o fluxo",
+    "",
+    "OPCIONAL: Trocar Gmail por Slack se tiver workspace ativo.",
+    "AJUSTE: O limite de R$200 pode ser alterado na condição do step 3."
+  ]
+}

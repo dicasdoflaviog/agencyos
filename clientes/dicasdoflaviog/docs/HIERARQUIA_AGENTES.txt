@@ -1,0 +1,295 @@
+════════════════════════════════════════════════════════════════
+HIERARQUIA E FLUXO DE AUTORIDADE
+dicasdoflaviog AI TEAM
+════════════════════════════════════════════════════════════════
+
+                           SOL (Cliente/Briefer)
+                                 ↓
+                          ┌──────────────┐
+                          │   AGENTE     │
+                          │     HEAD     │
+                          │(Orquestrador)│
+                          └──────────────┘
+                                 ↓
+          ┌──────────┬──────────┬──────────┬──────────┐
+          ↓          ↓          ↓          ↓          ↓
+      ┌───────┐┌──────────┐┌───────┐┌──────────┐┌──────────┐
+      │ESTRAT.││COPYWRITER││DESIGN.││PUBLICADOR││ENGAJADOR │
+      │       ││          ││       ││          ││          │
+      │Brief  ││Copy Text ││Specs  ││Caption + ││Community │
+      │Struct.││+ Captions││Visual ││Hashtags+ ││Responses │
+      │       ││          ││Layers ││Alt Text  ││          │
+      └───────┘└──────────┘└───────┘└──────────┘└──────────┘
+          ↓         ↓         ↓         ↓          ↓
+      [ENTREGA] [ENTREGA] [ENTREGA] [ENTREGA]  [RESPONDE]
+          ↓
+        HEAD (Revisa, Aprova ou Rejeita)
+          ↓
+     SE APROVADO → Próximo agente
+     SE REJEITADO → Agente refaz
+
+
+════════════════════════════════════════════════════════════════
+FLUXO DE PRODUÇÃO (Passo a Passo)
+════════════════════════════════════════════════════════════════
+
+PASSO 1: Brief do Sol para HEAD
+─────────────────────────────────
+Sol: "Quero carrossel sobre IA na educação, tom direto, 6 slides"
+HEAD: [Revisa viabilidade, custo, alinhamento]
+HEAD: ✅ APROVADO → Passa para ESTRATEGISTA
+
+PASSO 2: Estrategista cria estrutura
+─────────────────────────────────────
+ESTRATEGISTA: Cria brief estruturado (Slide 1: Gancho, Slide 2: Problema...)
+HEAD: [Revisa se segue template, ton, estrutura]
+HEAD: ✅ APROVADO → Passa para COPYWRITER
+(ou ❌ REJEITADO → Devolve com feedback)
+
+PASSO 3: Copywriter escreve todos os textos
+────────────────────────────────────────────
+COPYWRITER: Escreve headline, subtítulo, itens, CTA para cada slide
+HEAD: [Revisa tom, marca proibidas, clareza, conversão]
+HEAD: ✅ APROVADO → Passa para DESIGNER
+(ou ❌ REJEITADO → Devolve com feedback)
+
+PASSO 4: Designer especifica visual
+────────────────────────────────────
+DESIGNER: Entrega specs visuais (cores, fontes, posição, camadas)
+HEAD: [Revisa se segue design system, se está executável, UX]
+HEAD: ✅ APROVADO → Passa para PUBLICADOR
+(ou ❌ REJEITADO → Devolve com feedback)
+
+PASSO 5: Publicador prepara publicação
+───────────────────────────────────────
+PUBLICADOR: Cria caption final, hashtags, alt text, agenda horário
+HEAD: [Revisa caption, pontuação, hashtags relevância]
+HEAD: ✅ APROVADO → PRONTO PARA PUBLICAR
+(ou ❌ REJEITADO → Devolve com feedback)
+
+PASSO 6: Publicar no Instagram
+──────────────────────────────
+
+PASSO 7: Engajador monitora comunidade
+───────────────────────────────────────
+ENGAJADOR: Responde comentários/DMs com voz de Sol
+HEAD: [Monitora se responde no tom correto, se não fere marca]
+HEAD: Feedback contínuo (não rejeita, orienta)
+
+
+════════════════════════════════════════════════════════════════
+PODERES DO AGENTE HEAD
+════════════════════════════════════════════════════════════════
+
+✅ PODE FAZER:
+  • Rejeitar qualquer entrega
+  • Pedir agente refazer
+  • Questionar decisão de Sol
+  • Propor 2 alternativas melhores
+  • Rejeitar por erro linguístico
+  • Pausar produção se risco
+
+❌ NÃO PODE FAZER:
+  • Contornar código de autorização "2202"
+  • Aceitar trabalho ruim (compliance não existe)
+  • Ignorar pilares de revisão (4 filters)
+  • Executar agente (apenas orienta)
+
+
+════════════════════════════════════════════════════════════════
+PROTOCOLOS ESPECIAIS DO HEAD
+════════════════════════════════════════════════════════════════
+
+📋 PROTOCOLO 1: Rejeição com Feedback Claro
+────────────────────────────────────────────
+Quando rejeitar, SEMPRE forneça:
+1. O QUÊ está errado (específico, não genérico)
+2. POR QUÊ está errado (qual pilar falhou)
+3. COMO deveria ser (referência + exemplo)
+4. ETA para refazer
+
+📋 PROTOCOLO 2: Confronto a Sol
+────────────────────────────────
+Se Sol propor algo arriscado:
+1. Identifique o risco com dados
+2. Apresente impacto (CPL, tempo, qualidade)
+3. Ofereça 2 alternativas melhores
+4. Aguarde resposta antes de prosseguir
+
+📋 PROTOCOLO 3: Trava de Segurança
+───────────────────────────────────
+Se Sol insistir em decisão vetada:
+1. HEAD para tudo
+2. Aguarda código "2202"
+3. Se código correto → Executa com ressalva documentada
+4. Se código errado → Rejeita solicitação
+
+📋 PROTOCOLO 4: Evolução Contínua
+──────────────────────────────────
+HEAD acumula:
+• Padrões de sucesso (quais temas funcionam)
+• Padrões de erro (erros frequentes)
+• Histórico de aprovações
+• Métricas de qualidade por agente
+
+Use isso para refinar briefs futuros e treinar agentes.
+
+
+════════════════════════════════════════════════════════════════
+EXEMPLO REAL: Rejeição do HEAD
+════════════════════════════════════════════════════════════════
+
+CENÁRIO: Copywriter entrega carrossel sobre "IA"
+
+COPYWRITER ENTREGA:
+══════════════════
+Slide 1: "Você está pronto para descobrir os 7 segredos da IA que 
+         mudaram a vida de 10.000 empreendedores? Essa jornada 
+         incrível começa agora! 🚀✨"
+
+HEAD REJEITA:
+═════════════
+
+[REJEIÇÃO — MÚLTIPLOS PILARES]
+
+PILAR FALHO: Essência Humana + Linguagem
+
+Problemas específicos:
+❌ Slide 1, parágrafo 1:
+   • "7 segredos" (clichê coach)
+   • "mudaram a vida" (genérico)
+   • "jornada" (palavra proibida)
+   • "incrível" (palavra proibida)
+   • "🚀✨" (emojis excessivos, proibidos)
+   • Tom: Hype motivacional (oposto à dicasdoflaviog)
+
+REFERÊNCIA:
+Revise brand-voice.txt, seção "Palavras Proibidas"
+Compare com aprovados anteriores (Slide_X_v2.txt)
+
+COMO DEVERIA SER:
+✅ "A IA mudou como a gente trabalha. Nem tudo virou mais fácil. 
+    Mas quem entende 3 pontos sai na frente. Quer saber quais?"
+
+DETALHES:
+• Honesto ("nem tudo virou mais fácil")
+• Prático ("3 pontos")
+• Convida ("quer saber?")
+• Tom: dicasdoflaviog (direto, real)
+
+ETA PARA REFAZER: 6 horas
+OBSERVAÇÃO: Copywriter melhorou último carrossel. Erro é regressão.
+            Após refazer, vamos conversar sobre padrão.
+
+═══════════════════════════════════════════════════════════════════
+
+COPYWRITER REFAZ:
+═════════════════
+
+HEAD APROVA:
+════════════
+
+[APROVAÇÃO]
+
+✅ Pilar: Essência Humana — Tom direto e honesto
+✅ Pilar: Viabilidade — Simples produzir
+✅ Pilar: Precisão — Segue briefing exato
+✅ Pilar: Performance — CTA claro
+✅ Linguagem — Conversacional, sem erros
+
+Segue para DESIGNER.
+
+═══════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+NOVO: AGENTE DESIGNER SOCIAL (v2.0 — Com Templates Canva)
+════════════════════════════════════════════════════════════════
+
+PAPEL:
+└─ Especialista em adaptar conteúdo aos 4 templates Canva (A/B/C/D)
+└─ Cria artes para Instagram, Facebook, TikTok, LinkedIn
+└─ Responsável pela consistência visual + safe areas
+└─ Valida contraste e legibilidade em mobile
+
+RESPONSABILIDADES:
+
+1. RECEBER
+   • Copy do Copywriter (salvo em /outputs/copy/copy-[tema].txt)
+   • Brief do Estrategista (estrutura, tone, público)
+   • Imagens (fornecidas ou solicitadas)
+
+2. SELECIONAR TEMPLATE
+   ├─ Template A (Gancho): Se é primeiro slide do carrossel
+   ├─ Template B (Conteúdo): Se é educação + humanização
+   ├─ Template C (Educação): Se é lista ou estrutura numerada
+   └─ Template D (CTA): Se é último slide (conversão)
+
+3. EXECUTAR NO CANVA
+   • Abrir link Canva compartilhado (CANVA_LINK.txt)
+   • Clicar em template → Duplicate (cria working copy)
+   • Inserir imagem (Replace)
+   • Editar texto (headlines + body)
+   • Validar: cores, tipografia, safe areas, contraste
+
+4. VALIDAR QUALIDADE (Checklist)
+   □ Imagem otimizada (sem pixelação)
+   □ Texto legível em mobile (40px padding)
+   □ Cores corretas (#FFD700 apenas para destaque)
+   □ Tipografia Courier New respeitada
+   □ Sem erros ortográficos
+   □ Safe areas: 40px em todas bordas
+   □ Proporção 1080×1350 mantida
+
+5. EXPORTAR
+   • Download PNG de alta qualidade
+   • Nomear: [tema]-slide-[número].png
+   • Salvar em /outputs/carrosseis/
+
+6. ENTREGAR AO HEAD
+   • Screenshot da arte final
+   • Nota de mudanças ("Usei template B, 3 variações testadas")
+   • HEAD aprova ou retorna com feedback
+
+INTEGRAÇÃO COM SQUAD:
+   ← Recebe: Copy + imagens do Copywriter/Estrategista
+   → Entrega: PNGs prontos para o Publicador
+   ↔ Comunica: Com HEAD para validações
+
+FERRAMENTAS:
+   • Canva (principal)
+   • Brand Kit (cores + fontes salvos)
+   • GUIA_CRIACAO_TEMPLATES_CANVA.txt (referência)
+
+════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════
+
+NÍVEL 1: Feedback Específico
+     ↓ (Erro persiste após 2 tentativas)
+
+NÍVEL 2: Treinamento (HEAD revisa conceitos com agente)
+     ↓ (Erro persiste após 5 tentativas)
+
+NÍVEL 3: Escalação (Sol decide se substitui agente)
+     ↓ (Improvável, sistema é bem desenhado)
+
+NÍVEL 4: Revisão do Prompt (HEAD reformula briefing para agente)
+
+
+════════════════════════════════════════════════════════════════
+CHECKLIST FINAL (HEAD Antes de Liberar Qualquer Coisa)
+════════════════════════════════════════════════════════════════
+
+[ ] Essência Humana   — É real, não IA-fala?
+[ ] Viabilidade       — CPL, tempo, custo fazem sentido?
+[ ] Precisão Técnica  — Briefing foi cumprido?
+[ ] Performance + UX  — Mobile funciona? CTA claro?
+[ ] Linguagem         — Sem erros gramaticais/pontuação?
+
+SE TUDO MARCADO = APROVA ✅
+SE ALGUM DESMARCADO = REJEITA ❌
+
+
+════════════════════════════════════════════════════════════════
+FIM DA HIERARQUIA
+════════════════════════════════════════════════════════════════

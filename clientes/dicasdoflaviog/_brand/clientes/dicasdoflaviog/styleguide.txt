@@ -1,0 +1,144 @@
+STYLE GUIDE — dicasdoflaviog
+=============================
+Versão: 1.0 | Uso interno — agentes criativos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. IDENTIDADE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Nome da marca : dicasdoflaviog
+Handle        : @dicasdoflaviog
+Formato       : sempre minúsculo, sem espaço, sem hífen, sem variações
+Uso em copy   : "dicas do flaviog" (conversacional apenas — nunca como logo)
+Posicionamento: Facilitador e organizador de informações com IA para empreendedores
+                saturados de agências que não entregam resultado real.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. CORES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Amarelo Acento  : #FFD100 — destaque, CTA, energia | máx. 15% por slide
+Preto Profundo  : #0D0D0D — autoridade, peso visual, fundo dark | ~35%
+Off-White       : #F5F2EC — fundo principal, limpeza, sofisticação | ~50%
+Cinza Silêncio  : #888880 — metadados, captions, textos secundários
+
+COMBINAÇÕES PERMITIDAS:
+  Fundo off-white  + texto preto  + acento amarelo → slide padrão claro
+  Fundo preto      + texto off-white + acento amarelo → slide de impacto
+  Fundo amarelo    + texto preto                    → máx. 1 slide por carrossel
+  Nenhuma outra combinação é permitida.
+
+REGRA: Nunca dois slides consecutivos com o mesmo fundo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. TIPOGRAFIA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Fontes permitidas: Bebas Neue + DM Sans — APENAS ESTAS DUAS.
+
+Bebas Neue → headlines de impacto, números grandes, título de capa
+DM Sans    → corpo, subtítulos, captions, tags, rodapé, listas
+
+HIERARQUIA (tamanhos em px no slide 1080×1350):
+  Hero    : Bebas Neue | 120–200px | headline de capa | máx. 6 palavras
+  H1      : DM Sans 700 | 60–80px  | título de conteúdo
+  H2      : DM Sans 500 | 40–52px  | subtítulo / contexto
+  Body    : DM Sans 400 | 28–36px  | corpo | máx. 3 linhas por slide
+  Caption : DM Sans 400 | 22–26px  | metadados, categorias
+  Tag     : DM Sans 700 | 18–22px  | uppercase | labels
+  Rodapé  : DM Sans 300+700 | 20–24px | assinatura da marca
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. GRID E ESPAÇAMENTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Formato         : 1080 × 1350px (4:5 retrato — Instagram feed)
+Margem lateral  : 72px
+Margem superior : 80px
+Margem inferior : 80px
+Área segura     : 936 × 1190px (todo conteúdo principal fica aqui)
+Gap entre blocos: 32–48px mínimo
+
+RODAPÉ OBRIGATÓRIO (em 100% dos slides):
+  Esquerda : dicasdoflaviog (DM Sans Light + Bold no "do")
+  Direita  : @dicasdoflaviog
+  Separador: linha 0.5px em #E8E5DF
+  Altura   : 80px reservados
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. TEMPLATES DE SLIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TEMPLATE A — Capa Editorial [sempre no slide 1]
+  Topo      : marca + numeração (01/05) — DM Sans Light/Bold 22px | cinza
+  Acento    : tag de categoria — DM Sans Bold 18px uppercase | fundo amarelo
+  Principal : headline Bebas Neue 120–160px | máx. 6 palavras | preto
+  Destaque  : palavra-chave em reverse (fundo preto, texto amarelo)
+  Subtítulo : DM Sans 400 32px | cinza | máx. 2 linhas
+  Rodapé    : marca + "arrasta →" | obrigatório
+
+TEMPLATE B — Foto Pessoal + Headline [estratégico, não em todo carrossel]
+  Topo      : seta + categoria — DM Sans Bold 20px uppercase | amarelo
+  Foto      : ocupa 55–60% da altura | ângulo criativo obrigatório
+  Label foto: badge amarelo sobre a foto — canto inferior esquerdo
+  Headline  : Bebas Neue 80–100px | preto | máx. 4 linhas
+  Subtítulo : DM Sans 400 28px | cinza
+  Rodapé    : obrigatório
+
+TEMPLATE C — Conteúdo / Lista [slides internos 2, 3, 4]
+  Topo      : tag de contexto — DM Sans 18px uppercase | opacidade 45%
+  Headline  : Bebas Neue 80–120px | preto | máx. 5 palavras
+  Items     : numeração Bebas Neue + texto DM Sans 500 24px | 3–5 itens
+  Decorativo: número grande 200px | opacidade 10% | background
+  Rodapé    : marca + numeração | obrigatório
+
+TEMPLATE D — CTA / Encerramento [sempre no último slide]
+  Topo      : linha 2px amarela + categoria DM Sans 20px | amarelo
+  Headline  : Bebas Neue 100–140px | off-white | palavra-chave em amarelo
+  CTA       : fundo amarelo | DM Sans Bold 22px uppercase | seta →
+  Rodapé    : marca + handle | fundo preto | obrigatório
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. ESTRUTURA DO CARROSSEL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Slide 1 [Template A] → gancho — headline que para o scroll
+Slide 2 [Template C] → problema — a dor que o leitor reconhece
+Slide 3 [Template C] → conteúdo principal — lista, conceito ou dado
+Slide 4 [Template C ou B] → aprofundamento ou foto pessoal com insight
+Slide 5 [Template D] → CTA — próximo passo direto e sem rodeio
+
+Mínimo: 4 slides | Máximo: 7 slides
+Alternar fundos entre slides consecutivos (obrigatório)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. CATEGORIAS DE CONTEÚDO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Negócios & Empreendedorismo   → 2× por semana | Templates A+C
+2. IA Aplicada                   → 2× por semana | Templates A+C
+3. Branding & Design             → 1× por semana | Templates A+C ou B
+4. Marketing Digital             → 1× por semana | Templates A+C
+5. Produtos Digitais & Soluções  → 2× por mês   | Templates A+B+D
+6. Bastidores & Processo         → 1× por semana | Templates B+D
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. COMPONENTES VISUAIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Badges:
+  Principal : fundo #FFD100 | texto #0D0D0D | sem border-radius
+  Dark      : fundo #0D0D0D | texto #F5F2EC | sem border-radius
+  Sucesso   : fundo #EAF3DE | texto #27500A | borda #97C459
+  Aviso     : fundo #FAEEDA | texto #633806 | borda #EF9F27
+  Erro      : fundo #FCEBEB | texto #791F1F | borda #F09595
+
+Callouts (borda esquerda 3px):
+  Brand : borda #FFD100 | fundo #F5F2EC
+  Dark  : borda #FFD100 | fundo #0D0D0D
+  Erro  : borda #A32D2D | fundo #FCEBEB
+
+Divisores:
+  Padrão  : 0.5px | #E8E5DF
+  Amarelo : 2px   | #FFD100
+  Preto   : 2px   | #0D0D0D

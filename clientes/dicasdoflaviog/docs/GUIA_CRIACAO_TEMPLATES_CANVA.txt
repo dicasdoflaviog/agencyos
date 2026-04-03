@@ -1,0 +1,390 @@
+═══════════════════════════════════════════════════════════════════════════════
+🎨 GUIA PRÁTICO: CRIAR TEMPLATES A/B/C/D NO CANVA
+═══════════════════════════════════════════════════════════════════════════════
+Marca: Sol — Estrategista Antifrágil | v1.0
+
+"Passo a passo para criar 4 templates + 4 variações cada = 16 frames totais"
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 1: PREPARAÇÃO INICIAL (15 min)
+═══════════════════════════════════════════════════════════════════════════════
+
+PASSO 1: Criar Novo Projeto no Canva
+────────────────────────────────────
+1. Acesse canva.com (já logado?)
+2. Clique em "Criar Design"
+3. Selecione "Instagram Post" (1080 × 1350 px)
+4. Nomeie: "Sol Templates A/B/C/D - [DATA]"
+5. Clique em "Brand Kit" (adicione as cores)
+
+PASSO 2: Setup Brand Kit (Cores + Fontes)
+──────────────────────────────────────────
+No Canva, vá para Brand Kit e adicione:
+
+CORES:
+├─ Primário: #FFD700 (Amarelo vibrante) — USE PARA DESTAQUE
+├─ Dark: #000000 (Preto puro) — FUNDO OU TEXTO ESCURO
+├─ Light: #FFFFFF (Branco puro) — FUNDO OU TEXTO CLARO
+├─ Gray Light: #F5F5F5 (Off-white) — FUNDO ALTERNATIVO
+└─ Gray Dark: #1A1A1A (Cinza escuro) — FUNDO ALTERNATIVO
+
+TIPOGRAFIA:
+├─ Display: Courier New (ou Courier) — HEADLINES
+├─ Body: Verdana ou Courier New — TEXTO CORPO
+└─ Tamanho padrão:
+   ├─ Headline: 32-40px, Bold, Letter-spacing -2px
+   ├─ Body: 16-18px, Regular, Line-height 1.5
+   └─ Small: 12-14px, Regular, Line-height 1.5
+
+RESULTADO: Brand Kit salvo (1-2 min por nova página)
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 2: CRIAR TEMPLATE A (Gancho / Abertura) — 20 min
+═══════════════════════════════════════════════════════════════════════════════
+
+TEMPLATE A = Imagem Full-Bleed + Texto Mínimo
+
+PASSO 1: Criar novo frame
+────────────────────────
+1. Clique em "+" → "Frame"
+2. Dimensões: 1080 × 1350 (já preenchidas)
+3. Nomeie: "A - Gancho (Light)"
+
+PASSO 2: Adicionar fundo (imagem exemplo)
+──────────────────────────────────────────
+1. Clique em "Uploads" ou "Photos" → escolha imagem
+2. Faça upload ou selecione do Canva Stock
+3. Resize para ocupar 100% do frame (Image Fill)
+4. Sem padding (full-bleed mesmo)
+
+NOTA: No uso real, Designer Social vai trocar a imagem.
+Agora é só exemplo visual.
+
+PASSO 3: Adicionar overlay gradiente (opcional)
+───────────────────────────────────────────────
+1. Clique em "+" → "Shape" → "Retângulo"
+2. Tamanho: 1080 × 1350 (preenche tudo)
+3. Cor: Preto com 60% opacity
+4. Posição: Sobrepõe imagem
+5. Alinha no topo (começa do top)
+
+RESULTADO: Imagem escurece levemente no bottom (mais legível)
+
+PASSO 4: Adicionar texto (Headline)
+───────────────────────────────────
+1. Clique em "+" → "Texto"
+2. Escreva: "Sua Rotina em Metade do Tempo" (exemplo)
+3. Fonte: Courier New, 40px, Bold, Branco
+4. Alinhamento: Center
+5. Posição: Bottom (40px acima da borda)
+6. Largura: 900px (deixa respiro nas laterais)
+
+RESULTADO: Texto branco legível no bottom da imagem
+
+PASSO 5: Adicionar logo (opcional)
+──────────────────────────────────
+1. Clique em "+" → "Uploads" → logo dicasdoflaviog
+2. Resize: 60 × 60px
+3. Posição: Bottom-left corner (20px margins)
+4. Opacity: 80% (não compete com texto)
+
+RESULTADO: Logo presente mas discreto
+
+PASSO 6: Duplicar para "A - Gancho (Dark)"
+──────────────────────────────────────────
+1. Frame inteiro → clique direito → "Duplicate"
+2. Nomeie: "A - Gancho (Dark)"
+3. Mude fundo para imagem escura (ou use overlay 80% preto)
+4. Mantém texto e logo iguais
+
+RESULTADO: 2 variações de Template A criadas ✅
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 3: CRIAR TEMPLATE B (Conteúdo + Humanização) — 20 min
+═══════════════════════════════════════════════════════════════════════════════
+
+TEMPLATE B = 50% Imagem (esquerda) + 50% Texto (direita)
+
+PASSO 1: Criar novo frame
+────────────────────────
+1. Clique em "+" → "Frame"
+2. Nomeie: "B - Conteúdo (Light)"
+
+PASSO 2: Adicionar imagem (esquerda 50%)
+────────────────────────────────────────
+1. Clique em "+" → "Uploads" → escolha imagem
+2. Faça resize: 540px wide × 1350px tall (metade esquerda)
+3. Posição: X=0, Y=0 (canto superior esquerdo)
+4. Sem padding
+
+PASSO 3: Adicionar fundo texto (direita 50%)
+─────────────────────────────────────────────
+1. Clique em "+" → "Shape" → "Retângulo"
+2. Cor: Branco (#FFFFFF)
+3. Tamanho: 540px wide × 1350px tall
+4. Posição: X=540, Y=0 (lado direito)
+
+RESULTADO: Tela dividida 50/50
+
+PASSO 4: Adicionar headline (direita)
+─────────────────────────────────────
+1. Clique em "+" → "Texto"
+2. Escreva: "Como Economizar 10h/Semana" (exemplo)
+3. Fonte: Courier New, 24px, Bold, Preto
+4. Posição: Direita, padding 30px
+5. Y = 80px (20% do topo)
+
+PASSO 5: Adicionar body text (direita)
+──────────────────────────────────────
+1. Clique em "+" → "Texto"
+2. Escreva: "5 freelancers aprenderam a estrutura..." (max 100 chars)
+3. Fonte: Courier New, 14px, Regular, Preto (opacity 70%)
+4. Posição: Direita, padding 30px
+5. Y = 150px (abaixo do headline)
+
+RESULTADO: Imagem left + texto right harmonizados
+
+PASSO 6: Duplicar para variações
+───────────────────────────────
+1. Frame → clique direito → Duplicate 3x
+2. Variação 1: "B - Conteúdo (Dark)" — troca fundo direita para #F5F5F5
+3. Variação 2: "B - Conteúdo (Com Logo)" — adiciona logo 40×40px no top-right
+4. Variação 3: "B - Conteúdo (Imagem Direita)" — inverte: imagem direita, texto esquerda
+
+RESULTADO: 4 variações de Template B criadas ✅
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 4: CRIAR TEMPLATE C (Educação / Listas) — 20 min
+═══════════════════════════════════════════════════════════════════════════════
+
+TEMPLATE C = Fundo Sólido + Lista Estruturada
+
+PASSO 1: Criar novo frame
+────────────────────────
+1. Clique em "+" → "Frame"
+2. Nomeie: "C - Educação (Dark)"
+
+PASSO 2: Adicionar fundo preto
+──────────────────────────────
+1. Frame → Background → cor: #000000 (Preto)
+2. Sem imagem, só cor sólida
+
+PASSO 3: Adicionar headline
+───────────────────────────
+1. Clique em "+" → "Texto"
+2. Escreva: "5 Padrões de IA Ninguém Ensina" (exemplo)
+3. Fonte: Courier New, 32px, Bold, Branco
+4. Alinhamento: Center
+5. Y = 100px (top)
+
+PASSO 4: Adicionar primeiro item (com número destacado)
+───────────────────────────────────────────────────────
+1. Clique em "+" → "Texto"
+2. Escreva: "1" (número)
+3. Cor: #FFD700 (Amarelo)
+4. Fonte: 48px, Bold
+5. Posição: X=120, Y=250
+
+1b. Clique em "+" → "Texto"
+2. Escreva: "Estrutura Mental" (título item)
+3. Fonte: Courier New, 20px, Bold, Branco
+4. Posição: X=200 (direita do número), Y=250
+
+1c. Clique em "+" → "Texto"
+2. Escreva: "Antes de qualquer prompt..." (descrição)
+3. Fonte: Courier New, 14px, Regular, Branco (opacity 70%)
+4. Posição: X=200, Y=290 (abaixo do título)
+
+PASSO 5: Duplicar item 2 e 3
+────────────────────────────
+1. Selecionar os 3 textos do item 1
+2. Clique direito → Group
+3. Duplicate 2x
+4. Renomear números pra 2, 3
+5. Mudar Y position pra Y=450 (item 2), Y=650 (item 3)
+6. Mudar textos de cada item
+
+RESULTADO: 3 items com número + título + descrição
+
+PASSO 6: Duplicar para "C - Educação (Light)"
+──────────────────────────────────────────────
+1. Frame → clique direito → Duplicate
+2. Nomeie: "C - Educação (Light)"
+3. Background → cor: #F5F5F5 (Off-white)
+4. Textos: números continuam amarelo, resto muda pra preto
+
+RESULTADO: 2 variações de Template C criadas ✅
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 5: CRIAR TEMPLATE D (CTA / Fechamento) — 20 min
+═══════════════════════════════════════════════════════════════════════════════
+
+TEMPLATE D = Fundo Escuro + Headline Grande + Botão Destaque
+
+PASSO 1: Criar novo frame
+────────────────────────
+1. Clique em "+" → "Frame"
+2. Nomeie: "D - CTA (Dark)"
+
+PASSO 2: Adicionar fundo preto
+──────────────────────────────
+1. Frame → Background → cor: #000000 (Preto)
+
+PASSO 3: Adicionar elemento geométrico (background decoration)
+───────────────────────────────────────────────────────────────
+1. Clique em "+" → "Shape" → "Círculo"
+2. Tamanho: 400 × 400px
+3. Cor: #FFD700 (Amarelo)
+4. Opacity: 5% (bem discreto, só pra textura)
+5. Posição: Top-right corner, fora do bounds um pouco
+
+RESULTADO: Círculo amarelo discreto no background
+
+PASSO 4: Adicionar headline
+───────────────────────────
+1. Clique em "+" → "Texto"
+2. Escreva: "Sua Rotina em Metade do Tempo" (exemplo)
+3. Fonte: Courier New, 36px, Bold, Branco
+4. Alinhamento: Center
+5. Y = 400px (meio da tela)
+6. Width: 800px (máx)
+
+PASSO 5: Adicionar botão CTA
+────────────────────────────
+1. Clique em "+" → "Shape" → "Retângulo"
+2. Cor: #FFD700 (Amarelo)
+3. Tamanho: 200px wide × 50px tall
+4. Border-radius: 2px (quase quadrado)
+5. Y = 550px (abaixo do headline)
+6. Align center (X = (1080-200)/2 = 440)
+
+PASSO 6: Adicionar texto do botão
+──────────────────────────────────
+1. Clique em "+" → "Texto"
+2. Escreva: "Clique aqui"
+3. Fonte: Courier New, 14px, Bold, Preto
+4. Alinhamento: Center
+5. Posição: Sobrepõe o retângulo (Y=550)
+
+RESULTADO: Botão amarelo com texto preto destaca
+
+PASSO 7: Duplicar para "D - CTA (Light)"
+────────────────────────────────────────
+1. Frame → clique direito → Duplicate
+2. Nomeie: "D - CTA (Light)"
+3. Background → cor: #F5F5F5 (Off-white)
+4. Headline e botão: cores invertem
+   - Headline: Preto
+   - Botão: Preto background, texto branco
+   - Círculo background: Preta 5% opacity
+
+RESULTADO: 2 variações de Template D criadas ✅
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 6: ORGANIZAÇÃO E FINALIZAÇÃO (10 min)
+═══════════════════════════════════════════════════════════════════════════════
+
+ORGANIZAR NO CANVA:
+───────────────────
+1. Criar "Folder" chamada "Templates A/B/C/D"
+2. Arrastar todos os frames para a pasta
+3. Ordem: A1, A2, B1, B2, B3, B4, C1, C2, D1, D2
+
+COMPARTILHAR COM SQUAD:
+──────────────────────
+1. Clique em "Share" (topo direita)
+2. Selecione "Can edit"
+3. Adicione e-mails:
+   - strategist@sol.com (Estrategista)
+   - designer@sol.com (Designer Social)
+   - publicador@sol.com (Publicador)
+4. Envie link
+
+CHECKLIST FINAL:
+────────────────
+□ 16 frames criados? (4 templates × 4 variações)
+□ Dimensões 1080 × 1350px? (Verificar cada um)
+□ Brand colors usadas corretamente?
+   - Amarelo (#FFD700) apenas para destaque
+   - Preto/branco para contrast
+□ Tipografia consistente? (Courier New)
+□ Safe area OK? (40px margins)
+□ Nomes claros? (Template A/B/C/D + Light/Dark/Com Logo)
+□ Compartilhado com squad?
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 7: COMO USAR OS TEMPLATES (Fluxo Real)
+═══════════════════════════════════════════════════════════════════════════════
+
+QUANDO O DESIGNER SOCIAL RECEBER BRIEF:
+
+1. Estrategista manda:
+   "Template B + Gancho - Conteúdo (Light)
+    Tema: Como ganhei 12h/semana
+    Imagem: Foto de freelancer trabalhando"
+
+2. Designer Social faz:
+   a) Abre Canva → Template B (Light)
+   b) Clica na imagem → "Replace"
+   c) Faz upload da foto de freelancer
+   d) Clica no texto → altera headline/body
+   e) Valida: checklist de qualidade
+   f) Download PNG
+   g) Envia ao Publicador
+
+3. Publicador:
+   a) Recebe PNG
+   b) Agendia no Meta Business Suite
+   c) Acompanha performance
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 8: TROUBLESHOOTING (Erros Comuns)
+═══════════════════════════════════════════════════════════════════════════════
+
+PROBLEMA: "Texto ficou cortado nas laterais"
+SOLUÇÃO: Adicione 40px padding em todos lados. Canva pode cortar se estiver no extremo.
+
+PROBLEMA: "Imagem ficou pixelada"
+SOLUÇÃO: Upload foto em 1080p ou maior. Canva comprime, mas precisa qualidade base.
+
+PROBLEMA: "Cores não bateram com brand"
+SOLUÇÃO: Use Brand Kit. Não insira cores manualmente (#FFD700). Pega do kit.
+
+PROBLEMA: "Alinhamento desigual entre frames"
+SOLUÇÃO: Use "Align" tool (Canva). Seleciona 2 elementos → Align Center/Left/etc.
+
+PROBLEMA: "Esqueci de salvar"
+SOLUÇÃO: Canva auto-save. Mas clique em "Download" quando terminar pra ter backup.
+
+═══════════════════════════════════════════════════════════════════════════════
+PARTE 9: PRÓXIMOS PASSOS
+═══════════════════════════════════════════════════════════════════════════════
+
+Após criar os 16 frames no Canva:
+
+1. ✅ Atualizar ARQUITETURA_COMPLETA.txt
+   └─ Adicionar seção "DESIGN SYSTEM: Templates Canva v1.0"
+   └─ Link do Canva
+   └─ Descrição dos 4 templates
+
+2. ✅ Atualizar HIERARQUIA_AGENTES.txt
+   └─ Seção "DESIGNER SOCIAL": agora tem templates prontos
+
+3. ✅ Atualizar README.txt
+   └─ Seção "ASSETS": adicionar Templates Canva
+
+4. ✅ Atualizar GUIA_OPERACIONAL_BRIEFING.txt (Parte 7 - Exemplo Prático)
+   └─ Quando Designer usa Template B em exemplo real
+
+5. ✅ Criar documento no Drive:
+   └─ "CANVA_LINK.txt" com link edição compartilhado
+
+═══════════════════════════════════════════════════════════════════════════════
+
+SUCESSO! 🎉
+
+16 Templates Canva criados e prontos para usar.
+Designer Social usa eles pra customizar conteúdo.
+Sistema escalável: mudar imagem/texto = 30 segundos.
+
+Vamo pro próximo passo?

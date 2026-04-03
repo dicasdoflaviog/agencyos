@@ -1,0 +1,65 @@
+ASSETS INFO — dicasdoflaviog
+==============================
+Versão: 1.0 | Atualizar conforme novos assets forem criados
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FONTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Bebas Neue   → Google Fonts | fonts.google.com/specimen/Bebas+Neue
+DM Sans      → Google Fonts | fonts.google.com/specimen/DM+Sans
+              Pesos usados: 300 (Light), 400 (Regular), 500 (Medium), 700 (Bold)
+              Variante: Italic 400 (copy de destaque)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CORES (valores para uso em ferramentas)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Amarelo Acento  : HEX #FFD100 | RGB 255, 209, 0   | CMYK 0, 18, 100, 0
+Preto Profundo  : HEX #0D0D0D | RGB 13, 13, 13    | CMYK 0, 0, 0, 95
+Off-White       : HEX #F5F2EC | RGB 245, 242, 236 | CMYK 0, 1, 4, 4
+Cinza Silêncio  : HEX #888880 | RGB 136, 136, 128 | CMYK 0, 0, 6, 47
+Cinza Claro     : HEX #E8E5DF | RGB 232, 229, 223 | (bordas e divisores)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMATOS DE SAÍDA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Feed carrossel  : 1080 × 1350px | 4:5 | RGB | 72dpi | JPG/PNG
+Stories         : 1080 × 1920px | 9:16 | RGB | 72dpi | JPG/PNG
+Feed quadrado   : 1080 × 1080px | 1:1 | RGB | 72dpi | JPG/PNG (eventual)
+Reels cover     : 1080 × 1920px | 9:16 | RGB | 72dpi | JPG/PNG
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGOTIPO (especificações para recriação)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Texto         : dicasdoflaviog
+Fonte         : DM Sans
+Peso "dicas"  : Light (300)
+Peso "do"     : Bold (700) — diferenciação visual que é a assinatura
+Peso "flaviog": Light (300)
+Cor principal : #0D0D0D sobre #F5F2EC
+Cor invertida : #F5F2EC sobre #0D0D0D
+Cor acento    : #F5F2EC + "do" em #FFD100 sobre #0D0D0D
+
+Variações permitidas:
+  1. Escuro  : dicasdoflaviog em #F5F2EC sobre #0D0D0D (principal)
+  2. Claro   : dicasdoflaviog em #0D0D0D sobre #F5F2EC (secundário)
+  3. Amarelo : dicasdoflaviog em #0D0D0D sobre #FFD100 (acento)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TEMPLATES (localização quando criados)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Template A (Capa)          : [adicionar link Canva quando criado]
+Template B (Foto + headline): [adicionar link Canva quando criado]
+Template C (Conteúdo/Lista) : [adicionar link Canva quando criado]
+Template D (CTA/Encerramento): [adicionar link Canva quando criado]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HANDLES E LINKS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Instagram : @dicasdoflaviog
+[outros canais: preencher conforme forem criados]

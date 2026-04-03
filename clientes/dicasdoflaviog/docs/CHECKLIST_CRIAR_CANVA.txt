@@ -1,0 +1,353 @@
+════════════════════════════════════════════════════════════════════════════════
+✅ CHECKLIST: CRIAR TEMPLATES NO CANVA (PASSO A PASSO FINAL)
+════════════════════════════════════════════════════════════════════════════════
+
+Marca: Sol — Estrategista Antifrágil | v1.0
+Tempo total estimado: ~2-3 horas (16 frames)
+
+════════════════════════════════════════════════════════════════════════════════
+PREPARAÇÃO (10 min)
+════════════════════════════════════════════════════════════════════════════════
+
+[ ] Login no Canva (canva.com)
+[ ] Clique em "Criar Design"
+[ ] Selecione "Instagram Post" (1080 × 1350 px)
+[ ] Nome do projeto: "Sol Templates A/B/C/D - v1.0"
+
+CORES PARA ADICIONAR (Brand Kit):
+────────────────────────────────
+[ ] #FFD700 (Amarelo destacado)
+[ ] #000000 (Preto puro)
+[ ] #FFFFFF (Branco puro)
+[ ] #F5F5F5 (Off-white)
+[ ] #1A1A1A (Cinza escuro)
+
+FONTES PARA ADICIONAR (Brand Kit):
+──────────────────────────────────
+[ ] Courier New (display/headlines)
+[ ] Courier New (body/text corpo)
+
+════════════════════════════════════════════════════════════════════════════════
+TEMPLATE A — GANCHO (20 min para 4 frames)
+════════════════════════════════════════════════════════════════════════════════
+
+Descrição: Imagem full-bleed + texto mínimo no bottom
+
+FRAME A1 — Gancho (Light)
+─────────────────────────
+[ ] Novo frame no Canva
+[ ] Nome: "A1 - Gancho (Light)"
+[ ] Fundo: Clique em Background
+    └─ Selecione "Imagem" → escolha imagem de exemplo escura
+    └─ Image Fill (preenche 100%)
+[ ] Adicionar overlay (opcional): Shape > Retângulo
+    └─ Cor: #000000, Opacity: 60%
+    └─ Tamanho: 1080 × 1350 (full)
+    └─ Posição: Top
+[ ] Adicionar texto (headline):
+    └─ Texto: "Sua Rotina em Metade do Tempo"
+    └─ Fonte: Courier New, 40px, Bold, Branco
+    └─ Alinhamento: Center
+    └─ Posição: Bottom (40px acima da borda)
+    └─ Largura: 900px (respiro nas laterais)
+[ ] Validação:
+    ├─ Texto legível em mobile?
+    ├─ Contraste branco vs fundo escuro OK?
+    ├─ Safe areas (40px) mantidas?
+    └─ Proporção 1080×1350 OK?
+
+FRAME A2 — Gancho (Dark)
+────────────────────────
+[ ] Duplicar A1 (clique direito no frame)
+[ ] Renomear: "A2 - Gancho (Dark)"
+[ ] Mudar fundo:
+    └─ Selecione imagem atual → Replace
+    └─ Escolha imagem mais clara
+[ ] Ajustar overlay: Opacity 30% (mais claro)
+[ ] Ajustar texto:
+    └─ Cor: Mudar para #000000 (preto)
+    └─ Tamanho: Mesma proporção
+
+FRAME A3 — Gancho (Com Logo)
+────────────────────────────
+[ ] Duplicar A1
+[ ] Renomear: "A3 - Gancho (Com Logo)"
+[ ] Adicionar logo:
+    └─ Upload logo dicasdoflaviog
+    └─ Resize: 40 × 40px
+    └─ Posição: Bottom-left (20px margins)
+    └─ Opacity: 80%
+
+FRAME A4 — Gancho (Sem Logo)
+────────────────────────────
+[ ] Duplicar A2
+[ ] Renomear: "A4 - Gancho (Sem Logo)"
+[ ] Remover qualquer logo
+[ ] Deixar só imagem + texto
+
+════════════════════════════════════════════════════════════════════════════════
+TEMPLATE B — CONTEÚDO (20 min para 4 frames)
+════════════════════════════════════════════════════════════════════════════════
+
+Descrição: 50% esquerda (imagem) + 50% direita (texto)
+
+FRAME B1 — Conteúdo (Light)
+───────────────────────────
+[ ] Novo frame
+[ ] Nome: "B1 - Conteúdo (Light)"
+[ ] Adicionar imagem (esquerda 50%):
+    └─ Insert Image → escolha imagem
+    └─ Resize: 540 × 1350 (metade)
+    └─ Posição: X=0, Y=0 (canto superior esquerdo)
+[ ] Adicionar fundo (direita 50%):
+    └─ Shape > Retângulo
+    └─ Cor: #FFFFFF (branco)
+    └─ Tamanho: 540 × 1350
+    └─ Posição: X=540, Y=0
+[ ] Adicionar headline (direita):
+    └─ Texto: "Como Ganhar 12h/Semana"
+    └─ Fonte: Courier New, 24px, Bold, #000000
+    └─ Posição: Direita, padding 30px, Y=80px
+[ ] Adicionar body text (direita):
+    └─ Texto: "5 freelancers aprenderam a estrutura..."
+    └─ Fonte: Courier New, 14px, Regular, #000000 (opacity 70%)
+    └─ Posição: Direita, padding 30px, Y=150px
+[ ] Validação:
+    ├─ 50/50 split exato?
+    ├─ Texto preto legível em branco?
+    ├─ Safe areas mantidas?
+    └─ Imagem não pixelada?
+
+FRAME B2 — Conteúdo (Dark)
+──────────────────────────
+[ ] Duplicar B1
+[ ] Renomear: "B2 - Conteúdo (Dark)"
+[ ] Mudar fundo direita:
+    └─ Selecione retângulo branco
+    └─ Cor: #F5F5F5 (cinza claro)
+
+FRAME B3 — Conteúdo (Com Logo)
+───────────────────────────────
+[ ] Duplicar B1
+[ ] Renomear: "B3 - Conteúdo (Com Logo)"
+[ ] Adicionar logo:
+    └─ Insert Image → logo dicasdoflaviog
+    └─ Resize: 40 × 40px
+    └─ Posição: Top-right (15px margins)
+    └─ Opacity: 80%
+
+FRAME B4 — Conteúdo (Invertido)
+───────────────────────────────
+[ ] Duplicar B1
+[ ] Renomear: "B4 - Conteúdo (Imagem Direita)"
+[ ] Inverter:
+    └─ Mover imagem para X=540 (lado direito)
+    └─ Mover fundo/texto para X=0 (lado esquerdo)
+
+════════════════════════════════════════════════════════════════════════════════
+TEMPLATE C — EDUCAÇÃO (20 min para 4 frames)
+════════════════════════════════════════════════════════════════════════════════
+
+Descrição: Fundo sólido + Lista estruturada com números
+
+FRAME C1 — Educação (Dark)
+──────────────────────────
+[ ] Novo frame
+[ ] Nome: "C1 - Educação (Dark)"
+[ ] Background: #000000 (preto sólido)
+[ ] Adicionar headline:
+    └─ Texto: "5 Padrões de IA Ninguém Ensina"
+    └─ Fonte: Courier New, 32px, Bold, Branco
+    └─ Alinhamento: Center
+    └─ Y=100px
+[ ] Adicionar item 1 (número):
+    └─ Texto: "1"
+    └─ Cor: #FFD700 (amarelo)
+    └─ Tamanho: 48px, Bold
+    └─ Posição: X=120, Y=250
+[ ] Adicionar item 1 (título):
+    └─ Texto: "Estrutura Mental"
+    └─ Cor: Branco
+    └─ Tamanho: 20px, Bold
+    └─ Posição: X=200, Y=250 (direita do número)
+[ ] Adicionar item 1 (descrição):
+    └─ Texto: "Antes de qualquer prompt..."
+    └─ Cor: Branco, Opacity 70%
+    └─ Tamanho: 14px, Regular
+    └─ Posição: X=200, Y=290
+[ ] Duplicar (número + título + descrição) 2x para itens 2 e 3
+    └─ Item 2: Y=450
+    └─ Item 3: Y=650
+    └─ Mudar números para 2, 3
+    └─ Mudar textos
+[ ] Validação:
+    ├─ Números em amarelo?
+    ├─ Espaçamento 200px entre items?
+    ├─ Fundo totalmente preto (sem textura)?
+    └─ Legível em mobile?
+
+FRAME C2 — Educação (Light)
+───────────────────────────
+[ ] Duplicar C1
+[ ] Renomear: "C2 - Educação (Light)"
+[ ] Background: #F5F5F5 (off-white)
+[ ] Mudar cores dos textos:
+    └─ Headline: #000000 (preto)
+    └─ Título: #000000 (preto)
+    └─ Descrição: #333333 (cinza escuro, opacity 70%)
+[ ] Números: Manter #FFD700 (amarelo)
+
+FRAME C3 — Educação (5 Items)
+─────────────────────────────
+[ ] Duplicar C1
+[ ] Renomear: "C3 - Educação (5 Items)"
+[ ] Duplicar items 2 e 3 mais 2x
+    └─ Item 4: Y=800
+    └─ Item 5: Y=950
+[ ] Compactar espaçamento (reduzir 200px para 150px)
+
+FRAME C4 — Educação (Com Logo)
+───────────────────────────────
+[ ] Duplicar C1
+[ ] Renomear: "C4 - Educação (Com Logo)"
+[ ] Adicionar logo:
+    └─ Insert Image → logo
+    └─ Resize: 40 × 40px
+    └─ Posição: Top-right (15px)
+    └─ Opacity: 80%
+
+════════════════════════════════════════════════════════════════════════════════
+TEMPLATE D — CTA (20 min para 4 frames)
+════════════════════════════════════════════════════════════════════════════════
+
+Descrição: Fundo escuro + Headline + Botão destacado
+
+FRAME D1 — CTA (Dark)
+────────────────────
+[ ] Novo frame
+[ ] Nome: "D1 - CTA (Dark)"
+[ ] Background: #000000 (preto sólido)
+[ ] Adicionar círculo decorativo (background):
+    └─ Shape > Círculo
+    └─ Cor: #FFD700 (amarelo)
+    └─ Tamanho: 400 × 400px
+    └─ Opacity: 5% (bem discreto)
+    └─ Posição: Top-right, parcialmente fora do bounds
+[ ] Adicionar headline:
+    └─ Texto: "Sua Rotina em Metade do Tempo"
+    └─ Fonte: Courier New, 36px, Bold, Branco
+    └─ Alinhamento: Center
+    └─ Y=400px (meio da tela)
+[ ] Adicionar botão:
+    └─ Shape > Retângulo
+    └─ Cor: #FFD700 (amarelo)
+    └─ Tamanho: 200 × 50px
+    └─ Border-radius: 2px
+    └─ Posição: Y=550px, X=440 (centered)
+[ ] Adicionar texto botão:
+    └─ Texto: "Clique aqui"
+    └─ Cor: #000000 (preto)
+    └─ Fonte: Courier New, 14px, Bold
+    └─ Alinhamento: Center
+    └─ Sobrepõe o retângulo
+
+FRAME D2 — CTA (Light)
+─────────────────────
+[ ] Duplicar D1
+[ ] Renomear: "D2 - CTA (Light)"
+[ ] Background: #F5F5F5 (off-white)
+[ ] Mudar colors:
+    └─ Círculo: #000000, opacity 5%
+    └─ Headline: #000000 (preto)
+    └─ Botão: #000000 (preto)
+    └─ Texto botão: #FFFFFF (branco)
+
+FRAME D3 — CTA (Com Círculo)
+────────────────────────────
+[ ] Duplicar D1
+[ ] Renomear: "D3 - CTA (Com Círculo)"
+[ ] Deixar círculo visível (já está em D1)
+[ ] Sem mudanças adicionais
+
+FRAME D4 — CTA (Minimalista)
+────────────────────────────
+[ ] Duplicar D1
+[ ] Renomear: "D4 - CTA (Minimalista)"
+[ ] Remover círculo decorativo
+[ ] Deixar só: Headline + Botão
+
+════════════════════════════════════════════════════════════════════════════════
+ORGANIZAÇÃO FINAL (5 min)
+════════════════════════════════════════════════════════════════════════════════
+
+[ ] Verificar que todos os 16 frames existem:
+    ├─ A1, A2, A3, A4 (4 frames)
+    ├─ B1, B2, B3, B4 (4 frames)
+    ├─ C1, C2, C3, C4 (4 frames)
+    └─ D1, D2, D3, D4 (4 frames)
+
+[ ] Verificar nomes (exatamente como acima)
+
+[ ] Criar pasta "Sol Templates" (opcional)
+    └─ Arrastar todos os 16 frames para a pasta
+
+[ ] Compartilhar projeto:
+    └─ Clique em "Share" (top right)
+    └─ "Can edit"
+    └─ Adicione e-mails:
+       ├─ seu-email@dicasdoflaviog.com (Estrategista)
+       ├─ designer-social@dicasdoflaviog.com
+       └─ publicador@dicasdoflaviog.com
+
+[ ] Copiar link compartilhado
+
+════════════════════════════════════════════════════════════════════════════════
+PASSO FINAL: ATUALIZAR CANVA_LINK.txt
+════════════════════════════════════════════════════════════════════════════════
+
+[ ] Abra scripts/CANVA_LINK.txt
+[ ] Procure por: "[🔗 Link Canva será adicionado aqui após criação dos templates]"
+[ ] Substitua por: O link que você copiou do Canva
+[ ] Mude "Status: ⏳ Aguardando criação" para "Status: ✅ Templates prontos"
+[ ] Salve
+
+════════════════════════════════════════════════════════════════════════════════
+VALIDAÇÃO FINAL (Checklist por Template)
+════════════════════════════════════════════════════════════════════════════════
+
+TEMPLATE A (Gancho):
+────────────────────
+[ ] Texto legível em fundo escuro?
+[ ] Imagens não estão pixeladas?
+[ ] Safe areas 40px em todas bordas?
+[ ] Proporção 1080×1350 mantida?
+
+TEMPLATE B (Conteúdo):
+─────────────────────
+[ ] 50/50 split é exato?
+[ ] Texto preto legível em fundo claro?
+[ ] Imagem não tem distorção?
+[ ] Respiro visual entre conteúdo?
+
+TEMPLATE C (Educação):
+──────────────────────
+[ ] Números em #FFD700?
+[ ] Espaçamento entre items uniforme?
+[ ] Fundo sólido sem textura?
+[ ] Todos os 3 items têm número + título + desc?
+
+TEMPLATE D (CTA):
+─────────────────
+[ ] Botão bem visível?
+[ ] Headline centralizado?
+[ ] Círculo decorativo não atrapalha?
+[ ] CTAs texto claro ("Clique", "Baixar", etc)?
+
+════════════════════════════════════════════════════════════════════════════════
+✅ SUCESSO!
+
+Todos os 16 templates criados e compartilhados.
+Designer Social já pode começar a usar.
+Próximo passo: Primeiro carrossel de produção.
+
+════════════════════════════════════════════════════════════════════════════════

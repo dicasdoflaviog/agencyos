@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency OS — Escopo Completo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+:root {
+  --y: #FFD100; --bk: #0D0D0D; --ow: #F5F2EC;
+  --gr: #888880; --bd: #E8E5DF; --dk: #111110; --dk2: #191917;
+  --green: #4CAF50; --blue: #378ADD; --purple: #7C6FCD; --coral: #D85A30;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--dk); color:var(--ow); }
+
+/* NAV */
+nav {
+  position: sticky; top:0; z-index:100;
+  background: rgba(17,17,16,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 64px;
+  display: flex; align-items: center; gap: 32px; height: 52px;
+}
+.nav-logo { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:300; margin-right:auto; }
+.nav-logo b { font-weight:700; }
+.nav-link {
+  font-size:12px; font-weight:500; color:var(--gr);
+  text-decoration:none; letter-spacing:0.5px;
+  transition: color 0.2s;
+  cursor:pointer;
+}
+.nav-link:hover { color:var(--ow); }
+
+/* HERO */
+.hero {
+  padding: 80px 64px 64px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: end;
+}
+.hero-eyebrow {
+  font-size:11px; font-weight:700; letter-spacing:3px;
+  color:var(--y); text-transform:uppercase; margin-bottom:20px;
+}
+.hero h1 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:96px; line-height:0.88; letter-spacing:-1px;
+}
+.hero h1 em { color:var(--y); font-style:normal; }
+.hero-sub {
+  margin-top:24px; font-size:16px; color:var(--gr);
+  line-height:1.7; max-width:520px;
+}
+.hero-meta { text-align:right; }
+.meta-row {
+  display:flex; justify-content:flex-end; align-items:center;
+  gap:12px; padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.meta-row:first-child { border-top:1px solid rgba(255,255,255,0.06); }
+.meta-label { font-size:11px; color:var(--gr); font-weight:400; }
+.meta-val { font-size:13px; color:var(--ow); font-weight:500; }
+.meta-badge {
+  font-size:10px; font-weight:700; letter-spacing:1.5px;
+  padding:3px 8px; border-radius:2px;
+}
+.mb-green { background:rgba(76,175,80,0.15); color:#97C459; }
+.mb-yellow { background:rgba(255,209,0,0.15); color:var(--y); }
+.mb-blue { background:rgba(55,138,221,0.15); color:#85B7EB; }
+
+/* SECTION */
+.section { padding: 56px 64px; border-bottom:1px solid rgba(255,255,255,0.05); }
+.sec-label {
+  font-size:10px; font-weight:700; letter-spacing:3px; color:var(--gr);
+  text-transform:uppercase; margin-bottom:28px;
+  display:flex; align-items:center; gap:14px;
+}
+.sec-label::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.06); }
+
+/* PERFIS */
+.roles { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.role {
+  border-radius:4px; padding:24px;
+  border:1px solid rgba(255,255,255,0.07);
+}
+.role.admin { background:rgba(255,209,0,0.04); border-color:rgba(255,209,0,0.18); }
+.role.team  { background:rgba(255,255,255,0.02); }
+.role.client{ background:rgba(255,255,255,0.01); border-style:dashed; }
+.role-tag {
+  display:inline-block; margin-bottom:14px;
+  font-size:10px; font-weight:700; letter-spacing:2px;
+  padding:3px 8px; border-radius:2px; text-transform:uppercase;
+}
+.rt-admin  { background:var(--y); color:var(--bk); }
+.rt-team   { background:rgba(255,255,255,0.08); color:var(--ow); }
+.rt-client { background:rgba(255,255,255,0.04); color:var(--gr); border:1px solid rgba(255,255,255,0.1); }
+.role h3 { font-size:18px; font-weight:700; margin-bottom:16px; }
+.role-list { list-style:none; }
+.role-list li {
+  font-size:13px; color:var(--gr); padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  display:flex; align-items:center; gap:8px;
+}
+.role-list li:last-child { border:none; }
+.role-list li::before { content:'→'; color:var(--y); font-size:11px; flex-shrink:0; }
+
+/* FASES */
+.phases { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:40px; }
+.phase {
+  border-radius:4px; overflow:hidden;
+  border:1px solid rgba(255,255,255,0.07);
+}
+.phase.mvp { border-color:rgba(255,209,0,0.2); }
+.phase-head {
+  padding:14px 20px;
+  background:rgba(255,255,255,0.03);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.phase.mvp .phase-head { background:rgba(255,209,0,0.06); border-color:rgba(255,209,0,0.12); }
+.ph-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
+.phase.mvp .ph-label { color:var(--y); }
+.ph-label.p2 { color:#85B7EB; }
+.ph-label.p3 { color:#97C459; }
+.ph-label.future { color:var(--gr); }
+.ph-time { font-size:11px; color:var(--gr); }
+.phase-body { padding:20px; }
+.phase-body h3 { font-size:14px; font-weight:700; margin-bottom:14px; }
+.feat-list { list-style:none; }
+.feat-list li {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:13px; color:var(--gr); line-height:1.4;
+}
+.feat-list li:last-child { border:none; }
+.feat-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
+.feat-body-inner {}
+.feat-title { color:var(--ow); font-weight:500; font-size:13px; }
+.feat-desc { font-size:12px; color:var(--gr); margin-top:2px; line-height:1.5; }
+.feat-tags { display:flex; gap:5px; margin-top:5px; flex-wrap:wrap; }
+.ft {
+  font-size:10px; font-weight:600; letter-spacing:0.5px;
+  padding:2px 6px; border-radius:2px;
+}
+.ft-y  { background:rgba(255,209,0,0.12); color:var(--y); }
+.ft-b  { background:rgba(55,138,221,0.12); color:#85B7EB; }
+.ft-g  { background:rgba(76,175,80,0.12);  color:#97C459; }
+.ft-p  { background:rgba(124,111,205,0.12);color:#A89FDE; }
+.ft-gr { background:rgba(255,255,255,0.06);color:var(--gr); }
+
+/* INTEGRAÇÕES */
+.integrations { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.integ {
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:4px; padding:20px;
+  background:rgba(255,255,255,0.02);
+}
+.integ-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.integ-icon { font-size:20px; }
+.integ-name { font-size:14px; font-weight:700; }
+.integ-phase { font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.integ p { font-size:12px; color:var(--gr); line-height:1.6; }
+
+/* SCHEMA */
+.schema-table { width:100%; border-collapse:collapse; }
+.schema-table th {
+  text-align:left; font-size:11px; font-weight:700; letter-spacing:1px;
+  text-transform:uppercase; color:var(--gr);
+  padding:10px 14px; border-bottom:2px solid rgba(255,255,255,0.08);
+}
+.schema-table td {
+  padding:10px 14px; font-size:13px; color:var(--gr);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  vertical-align:top; line-height:1.5;
+}
+.schema-table td:first-child { color:var(--ow); font-weight:500; font-family:monospace; font-size:12px; }
+.schema-table td code {
+  background:rgba(255,255,255,0.06); padding:1px 5px;
+  border-radius:2px; font-size:11px; color:#85B7EB;
+}
+.schema-table tr:last-child td { border:none; }
+.schema-group {
+  background:rgba(255,209,0,0.04);
+  border-left:3px solid var(--y);
+  padding:4px 14px 4px 12px;
+}
+.schema-group td { color:var(--y) !important; font-weight:700 !important; font-size:11px !important; letter-spacing:1px; text-transform:uppercase; }
+
+/* STACK */
+.stack { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.stack-layer {
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:4px; overflow:hidden;
+}
+.stack-head {
+  padding:12px 20px; font-size:11px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.stack-head.fe { background:rgba(255,209,0,0.06); color:var(--y); }
+.stack-head.be { background:rgba(55,138,221,0.06); color:#85B7EB; }
+.stack-head.db { background:rgba(76,175,80,0.06);  color:#97C459; }
+.stack-head.ai { background:rgba(124,111,205,0.06);color:#A89FDE; }
+.stack-item {
+  display:flex; gap:12px; padding:12px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.stack-item:last-child { border:none; }
+.stack-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.fe .stack-dot { background:var(--y); }
+.be .stack-dot { background:#85B7EB; }
+.db .stack-dot { background:#97C459; }
+.ai .stack-dot { background:#A89FDE; }
+.si-name { font-size:13px; font-weight:500; color:var(--ow); }
+.si-desc { font-size:12px; color:var(--gr); margin-top:2px; line-height:1.5; }
+
+/* METRICS */
+.metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.metric {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:4px; padding:20px; text-align:center;
+}
+.metric-num { font-family:'Bebas Neue',sans-serif; font-size:52px; color:var(--ow); line-height:1; }
+.metric-num span { color:var(--y); }
+.metric-label { font-size:12px; color:var(--gr); margin-top:6px; line-height:1.4; }
+
+/* DECISÃO */
+.decision {
+  background:var(--y); border-radius:4px; padding:40px 48px;
+  display:grid; grid-template-columns:auto 1px 1fr;
+  gap:0 40px; align-items:center;
+}
+.dec-title {
+  font-family:'Bebas Neue',sans-serif; font-size:64px;
+  color:var(--bk); line-height:0.88; white-space:nowrap;
+}
+.dec-div { background:rgba(0,0,0,0.15); align-self:stretch; }
+.dec-body p { font-size:15px; color:rgba(13,13,13,0.75); line-height:1.7; margin-bottom:12px; }
+.dec-body p:last-child { margin:0; }
+.dec-body strong { color:var(--bk); }
+
+/* FOOTER */
+footer {
+  padding:28px 64px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.f-logo { font-size:18px; font-weight:300; }
+.f-logo b { font-weight:700; }
+.f-meta { font-size:12px; color:var(--gr); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">dicas<b>do</b>flaviog</div>
+  <span class="nav-link">Perfis</span>
+  <span class="nav-link">Fases</span>
+  <span class="nav-link">Integrações</span>
+  <span class="nav-link">Schema</span>
+  <span class="nav-link">Stack</span>
+  <span class="nav-link">Métricas</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">Documento de Escopo — v1.0</div>
+    <h1>AGENCY<br><em>OS</em></h1>
+    <p class="hero-sub">Painel central de operação da eugência. Gerencia clientes, aciona agentes, aprova criativos, conecta Instagram, WhatsApp, ManyChat, Meta Ads e Figma. Portal de aprovação para o cliente. Dashboard financeiro. CMS para blog e sites.</p>
+  </div>
+  <div class="hero-meta">
+    <div class="meta-row">
+      <span class="meta-label">Stack</span>
+      <span class="meta-val">Next.js 14 + Supabase + Vercel</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Clientes gerenciados</span>
+      <span class="meta-val">dicasdoflaviog + QG Digital + terceiros</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Acionamento agentes</span>
+      <span class="meta-val">Misto — manual p/ clientes, auto p/ marca</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Aprovação cliente</span>
+      <span class="meta-val">Portal com link seguro</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Idiomas</span>
+      <span class="meta-val">PT-BR agora → EN futuro (white-label)</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Potencial SaaS</span>
+      <span class="meta-val">Sim — se funcionar bem, vira produto</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Custo MVP</span>
+      <span class="meta-val"><span class="meta-badge mb-green">R$ 0</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- PERFIS DE ACESSO -->
+<div class="section" id="perfis">
+  <div class="sec-label">Perfis de acesso</div>
+  <div class="roles">
+    <div class="role admin">
+      <span class="role-tag rt-admin">Admin</span>
+      <h3>Flávio G.</h3>
+      <ul class="role-list">
+        <li>Acesso total — todos os módulos</li>
+        <li>Cria e gerencia clientes</li>
+        <li>Aciona agentes manualmente ou por agenda</li>
+        <li>Aprova criativos antes de ir ao cliente</li>
+        <li>Acessa CRM de leads e financeiro</li>
+        <li>Publica posts no blog / sites</li>
+        <li>Configura integrações e webhooks</li>
+        <li>Gera links de acesso para clientes</li>
+      </ul>
+    </div>
+    <div class="role team">
+      <span class="role-tag rt-team">Colaborador</span>
+      <h3>Joane + equipe futura</h3>
+      <ul class="role-list">
+        <li>Acesso por cliente atribuído</li>
+        <li>Solicita e acompanha jobs</li>
+        <li>Visualiza e comenta em criativos</li>
+        <li>Não acessa CRM, financeiro ou config</li>
+        <li>Não exclui projetos ou clientes</li>
+        <li>Recebe notificações de jobs atribuídos</li>
+      </ul>
+    </div>
+    <div class="role client">
+      <span class="role-tag rt-client">Visualizador</span>
+      <h3>QG Digital + clientes</h3>
+      <ul class="role-list">
+        <li>URL única sem login obrigatório</li>
+        <li>Vê só os próprios materiais</li>
+        <li>Aprova ou pede ajuste por peça</li>
+        <li>Comenta diretamente no criativo</li>
+        <li>Vê calendário editorial do mês</li>
+        <li>Acessa relatório mensal de entregas</li>
+        <li>Nunca vê outros clientes</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FASES -->
+<div class="section" id="fases">
+  <div class="sec-label">Fases e funcionalidades</div>
+  <div class="phases">
+
+    <!-- FASE 1 -->
+    <div class="phase mvp">
+      <div class="phase-head">
+        <span class="ph-label">Fase 1 — MVP</span>
+        <span class="ph-time">Semana 1</span>
+      </div>
+      <div class="phase-body">
+        <h3>Operação básica funcionando</h3>
+        <ul class="feat-list">
+          <li>
+            <span class="feat-icon">🏢</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Cadastro de clientes</div>
+              <div class="feat-desc">Nome, logo, nicho, status. Upload de design system, brand voice, fontes, produtos. Isolamento RLS por cliente.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-b">RLS Supabase</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">⚡</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Formulário de solicitação de job</div>
+              <div class="feat-desc">Cliente, tipo (carrossel/stories/blog/copy/proposta), pilar, tema, keywords, template. Aceita imagem e arquivo de referência.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-b">Anthropic API</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">🤖</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Acionamento automático dos agentes</div>
+              <div class="feat-desc">Submit do formulário dispara Estrategista → Copywriter → Designer via API. Status atualizado em tempo real.</div>
+              <div class="feat-tags"><span class="ft ft-g">Recomendado</span><span class="ft ft-b">Anthropic API</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">🗂️</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Kanban de status dos jobs</div>
+              <div class="feat-desc">Solicitado → Produção → Aguardando aprovação → Aprovado → Publicado. Sync com Notion via API.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-b">Notion API</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">🖼️</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Galeria de aprovação (sua visão)</div>
+              <div class="feat-desc">Grade de slides gerados. Preview ampliado. Editor de copy inline. Aprovar / Pedir ajuste / Rejeitar por peça.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-g">Recomendado</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">🔐</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Autenticação (admin + colaborador)</div>
+              <div class="feat-desc">Login seguro. Roles separados. Supabase Auth. Cada colaborador vê só os clientes atribuídos.</div>
+              <div class="feat-tags"><span class="ft ft-g">Recomendado</span><span class="ft ft-b">Supabase Auth</span></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="phase">
+      <div class="phase-head">
+        <span class="ph-label p2">Fase 2 — Portal</span>
+        <span class="ph-time">Semana 2</span>
+      </div>
+      <div class="phase-body">
+        <h3>Cliente entra no fluxo</h3>
+        <ul class="feat-list">
+          <li>
+            <span class="feat-icon">🔗</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Portal do cliente — link seguro</div>
+              <div class="feat-desc">URL única por cliente com token. Sem login. Vê só os próprios materiais. Você revoga quando quiser.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">✅</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Aprovação e comentários pelo cliente</div>
+              <div class="feat-desc">Aprova individualmente. Comenta na peça. Você recebe notificação push + email na hora.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">📊</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Relatório mensal de entregas</div>
+              <div class="feat-desc">Total de peças entregues, aprovadas e publicadas. Justifica o valor do contrato visualmente.</div>
+              <div class="feat-tags"><span class="ft ft-g">Recomendado</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">🎯</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">CRM de leads</div>
+              <div class="feat-desc">Pipeline visual. Temperatura, produto de interesse, histórico. Webhook ManyChat → lead entra automaticamente.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-b">ManyChat webhook</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">📅</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Agendamento automático de conteúdo</div>
+              <div class="feat-desc">Toda segunda o agente gera o carrossel da semana para dicasdoflaviog. Clientes: manual. Sua marca: automático.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-g">Recomendado</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">💰</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Dashboard financeiro básico</div>
+              <div class="feat-desc">Receita recorrente, contratos ativos, cobranças pendentes por cliente. Simples e funcional.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="phase">
+      <div class="phase-head">
+        <span class="ph-label p3">Fase 3 — Completo</span>
+        <span class="ph-time">Semana 3+</span>
+      </div>
+      <div class="phase-body">
+        <h3>Operação em escala + SaaS ready</h3>
+        <ul class="feat-list">
+          <li>
+            <span class="feat-icon">✍️</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Blog / CMS headless</div>
+              <div class="feat-desc">Editor de posts. Agente gera, você revisa, publica. API pública para dicasdoflaviog.com e QG Digital consumirem.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-g">Recomendado</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">📈</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Métricas de Instagram por cliente</div>
+              <div class="feat-desc">Alcance, engajamento, seguidores. Conecta via Instagram Graph API. Dashboard por cliente.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-b">Instagram API</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">💸</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Métricas de tráfego pago</div>
+              <div class="feat-desc">CPL, ROAS, investimento por campanha. Conecta ao Meta Ads Manager via API.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-b">Meta Ads API</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">📉</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Métricas da eugência</div>
+              <div class="feat-desc">Jobs entregues, tempo médio de aprovação, receita recorrente, clientes ativos. Visão de negócio.</div>
+              <div class="feat-tags"><span class="ft ft-y">Você pediu</span><span class="ft ft-g">Recomendado</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">🌐</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">White-label + multi-idioma (EN)</div>
+              <div class="feat-desc">Portal do cliente com logo do cliente. Interface em inglês. Base para vender como SaaS para outras agências.</div>
+              <div class="feat-tags"><span class="ft ft-g">Recomendado</span><span class="ft ft-p">SaaS ready</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="feat-icon">🔔</span>
+            <div class="feat-body-inner">
+              <div class="feat-title">Notificações push + email</div>
+              <div class="feat-desc">Job pronto, cliente aprovou, cliente comentou. Integração opcional com Telegram como canal extra.</div>
+              <div class="feat-tags"><span class="ft ft-g">Recomendado</span></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTEGRAÇÕES -->
+<div class="section" id="integrações">
+  <div class="sec-label">Integrações externas</div>
+  <div class="integrations">
+    <div class="integ">
+      <div class="integ-head">
+        <span class="integ-icon">📸</span>
+        <div>
+          <div class="integ-name">Instagram</div>
+          <div class="integ-phase ft ft-b">Fase 3 — Graph API</div>
+        </div>
+      </div>
+      <p>Publicação de posts e stories diretamente do painel. Métricas de alcance, engajamento e seguidores por cliente. Requer Meta Business account.</p>
+    </div>
+    <div class="integ">
+      <div class="integ-head">
+        <span class="integ-icon">💬</span>
+        <div>
+          <div class="integ-name">WhatsApp Business</div>
+          <div class="integ-phase ft ft-p">Fase 3 — Cloud API</div>
+        </div>
+      </div>
+      <p>Envio de link de aprovação para cliente via WhatsApp. Follow-up automático de leads do CRM. Integra via Meta Cloud API.</p>
+    </div>
+    <div class="integ">
+      <div class="integ-head">
+        <span class="integ-icon">🤖</span>
+        <div>
+          <div class="integ-name">ManyChat</div>
+          <div class="integ-phase ft ft-b">Fase 2 — Webhook</div>
+        </div>
+      </div>
+      <p>Webhook recebe leads do Instagram automaticamente. Lead comenta CHECKLIST → entra no CRM com tag, origem e produto de interesse.</p>
+    </div>
+    <div class="integ">
+      <div class="integ-head">
+        <span class="integ-icon">💰</span>
+        <div>
+          <div class="integ-name">Meta Ads Manager</div>
+          <div class="integ-phase ft ft-p">Fase 3 — Marketing API</div>
+        </div>
+      </div>
+      <p>CPL, ROAS e investimento por campanha e por cliente. Dashboard de tráfego pago integrado ao painel. Sem precisar abrir o Ads Manager.</p>
+    </div>
+    <div class="integ">
+      <div class="integ-head">
+        <span class="integ-icon">🎨</span>
+        <div>
+          <div class="integ-name">Figma</div>
+          <div class="integ-phase ft ft-y">MVP — REST API</div>
+        </div>
+      </div>
+      <p>Agente Designer lê templates e design system diretamente do Figma. Fonte da verdade visual. Tokens de cor, tipografia e componentes.</p>
+    </div>
+    <div class="integ">
+      <div class="integ-head">
+        <span class="integ-icon">📋</span>
+        <div>
+          <div class="integ-name">Notion</div>
+          <div class="integ-phase ft ft-y">MVP — API</div>
+        </div>
+      </div>
+      <p>Sync bidirecional do kanban de jobs. Status atualizado automaticamente no Notion quando muda no painel. CRM pode espelhar também.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEMA DO BANCO -->
+<div class="section" id="schema">
+  <div class="sec-label">Schema do banco de dados (Supabase / Postgres)</div>
+  <table class="schema-table">
+    <thead>
+      <tr>
+        <th>Tabela</th>
+        <th>Campos principais</th>
+        <th>Relação</th>
+        <th>Fase</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="schema-group"><td colspan="4">CORE — clientes e usuários</td></tr>
+      <tr><td>users</td><td>id, email, name, role (<code>admin|collaborator</code>), avatar</td><td>—</td><td><span class="ft ft-y">MVP</span></td></tr>
+      <tr><td>clients</td><td>id, name, slug, logo_url, niche, status (<code>active|paused</code>), contract_value, created_by</td><td>users</td><td><span class="ft ft-y">MVP</span></td></tr>
+      <tr><td>client_users</td><td>client_id, user_id, role — controla quem acessa qual cliente</td><td>clients + users</td><td><span class="ft ft-y">MVP</span></td></tr>
+      <tr><td>client_assets</td><td>id, client_id, type (<code>logo|styleguide|brandvoice|font|product</code>), file_url, name</td><td>clients</td><td><span class="ft ft-y">MVP</span></td></tr>
+      <tr><td>client_tokens</td><td>id, client_id, token (uuid), expires_at, revoked — para portal sem login</td><td>clients</td><td><span class="ft ft-b">Fase 2</span></td></tr>
+
+      <tr class="schema-group"><td colspan="4">JOBS — produção de conteúdo</td></tr>
+      <tr><td>jobs</td><td>id, client_id, type (<code>carousel|story|blog|copy|proposal</code>), pillar, theme, keywords[], template, status, reference_files[], created_by</td><td>clients</td><td><span class="ft ft-y">MVP</span></td></tr>
+      <tr><td>job_outputs</td><td>id, job_id, slide_index, png_url, copy_text, status (<code>pending|approved|rejected</code>), version</td><td>jobs</td><td><span class="ft ft-y">MVP</span></td></tr>
+      <tr><td>job_comments</td><td>id, job_id, output_id, author_type (<code>admin|client</code>), content, created_at</td><td>jobs + job_outputs</td><td><span class="ft ft-y">MVP</span></td></tr>
+      <tr><td>job_schedule</td><td>id, job_id, scheduled_for, recurrence (<code>weekly|monthly|once</code>), trigger (<code>manual|auto</code>)</td><td>jobs</td><td><span class="ft ft-b">Fase 2</span></td></tr>
+
+      <tr class="schema-group"><td colspan="4">CRM — leads e financeiro</td></tr>
+      <tr><td>leads</td><td>id, client_id, name, handle, source (<code>manychat|manual</code>), product_interest, temperature, stage, notes, created_at</td><td>clients</td><td><span class="ft ft-b">Fase 2</span></td></tr>
+      <tr><td>contracts</td><td>id, client_id, value, billing (<code>monthly|project</code>), start_date, status (<code>active|paused|ended</code>)</td><td>clients</td><td><span class="ft ft-b">Fase 2</span></td></tr>
+      <tr><td>invoices</td><td>id, contract_id, amount, due_date, paid_at, status</td><td>contracts</td><td><span class="ft ft-b">Fase 2</span></td></tr>
+
+      <tr class="schema-group"><td colspan="4">CMS — blog e posts</td></tr>
+      <tr><td>posts</td><td>id, client_id, title, slug, content (markdown), status (<code>draft|review|published</code>), published_at, author_id</td><td>clients</td><td><span class="ft ft-p">Fase 3</span></td></tr>
+
+      <tr class="schema-group"><td colspan="4">MÉTRICAS — analytics</td></tr>
+      <tr><td>ig_metrics</td><td>id, client_id, date, followers, reach, impressions, engagement_rate, synced_at</td><td>clients</td><td><span class="ft ft-p">Fase 3</span></td></tr>
+      <tr><td>ads_metrics</td><td>id, client_id, campaign_id, spend, cpl, roas, impressions, date</td><td>clients</td><td><span class="ft ft-p">Fase 3</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- STACK -->
+<div class="section" id="stack">
+  <div class="sec-label">Stack técnica completa</div>
+  <div class="stack">
+    <div class="stack-layer">
+      <div class="stack-head fe">Front-end</div>
+      <div class="stack-item fe">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Next.js 14 (App Router)</div><div class="si-desc">React + TypeScript. SSR para portal do cliente. Rotas protegidas por role. Mesmo padrão do QG Digital.</div></div>
+      </div>
+      <div class="stack-item fe">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Tailwind CSS + shadcn/ui</div><div class="si-desc">Design system da dicasdoflaviog aplicado via CSS variables. Componentes base customizados.</div></div>
+      </div>
+      <div class="stack-item fe">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Vercel</div><div class="si-desc">Deploy automático a cada push. HTTPS incluso. Free tier suficiente para o MVP inteiro.</div></div>
+      </div>
+    </div>
+    <div class="stack-layer">
+      <div class="stack-head be">Back-end / API</div>
+      <div class="stack-item be">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Next.js API Routes</div><div class="si-desc">Endpoints para acionar agentes, processar webhooks ManyChat/Instagram, chamar Playwright.</div></div>
+      </div>
+      <div class="stack-item be">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Playwright (server-side)</div><div class="si-desc">Renderiza HTML dos slides → exporta PNG 1080×1350. Roda em API Route no Vercel.</div></div>
+      </div>
+      <div class="stack-item be">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Anthropic API</div><div class="si-desc">Integração com os 5 agentes. Passa contexto visual (imagens, arquivos, design system) direto pela API.</div></div>
+      </div>
+    </div>
+    <div class="stack-layer">
+      <div class="stack-head db">Banco / Storage</div>
+      <div class="stack-item db">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Supabase (Postgres)</div><div class="si-desc">Banco relacional com RLS por role. Free tier: 500MB. Realtime subscriptions para status de jobs.</div></div>
+      </div>
+      <div class="stack-item db">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Supabase Storage</div><div class="si-desc">Upload de logos, PDFs, design systems, PNGs gerados. Organizado por client_id. CDN incluso.</div></div>
+      </div>
+      <div class="stack-item db">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Supabase Auth</div><div class="si-desc">Autenticação de admin e colaboradores. Tokens de acesso para portal do cliente sem login.</div></div>
+      </div>
+    </div>
+    <div class="stack-layer">
+      <div class="stack-head ai">IA + Automação</div>
+      <div class="stack-item ai">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Claude claude-sonnet-4-6 (Anthropic API)</div><div class="si-desc">Modelo principal de todos os agentes. Suporte nativo a imagem, PDF e arquivos no contexto.</div></div>
+      </div>
+      <div class="stack-item ai">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Figma REST API</div><div class="si-desc">Agente Designer lê templates em tempo real. Design tokens sempre atualizados da fonte.</div></div>
+      </div>
+      <div class="stack-item ai">
+        <div class="stack-dot"></div>
+        <div><div class="si-name">Vercel Cron Jobs</div><div class="si-desc">Agendamento automático. Toda segunda aciona o agente para gerar conteúdo da dicasdoflaviog.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MÉTRICAS DO ESCOPO -->
+<div class="section" id="métricas">
+  <div class="sec-label">Dimensão do projeto</div>
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-num">3<span>+</span></div>
+      <div class="metric-label">perfis de acesso<br>admin, colaborador, cliente</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num"><span>7</span></div>
+      <div class="metric-label">módulos principais<br>clientes, jobs, galeria, portal, CRM, financeiro, CMS</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">6<span>+</span></div>
+      <div class="metric-label">integrações externas<br>Instagram, WhatsApp, ManyChat, Meta Ads, Figma, Notion</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num"><span>R$</span>0</div>
+      <div class="metric-label">custo de infraestrutura<br>até escalar — Vercel + Supabase free</div>
+    </div>
+  </div>
+</div>
+
+<!-- DECISÃO -->
+<div class="section">
+  <div class="dec-wrapper">
+    <div class="decision">
+      <div class="dec-title">PRONTO<br>PARA<br>CODAR</div>
+      <div class="dec-div"></div>
+      <div class="dec-body">
+        <p><strong>O escopo está fechado.</strong> Você tem 3 perfis definidos, 7 módulos mapeados, 6 integrações especificadas, schema do banco desenhado e a stack confirmada — a mesma do QG Digital.</p>
+        <p><strong>MVP em uma semana:</strong> cadastro de clientes, formulário de job, acionamento dos agentes, kanban de status e galeria de aprovação. Você sai do fragmentado na semana 1.</p>
+        <p><strong>Potencial SaaS real:</strong> a arquitetura já prevê multi-tenancy, white-label e internacionalização. Se funcionar para sua eugência, você tem um produto vendável para outras agências sem reescrever nada.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">dicas<b>do</b>flaviog</div>
+  <div class="f-meta">Agency OS — Documento de Escopo v1.0 — ©2026</div>
+</footer>
+
+</body>
+</html>

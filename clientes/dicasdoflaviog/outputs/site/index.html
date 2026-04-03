@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dicasdoflaviog — Estratégia Anti-Caos para Empreendedores</title>
+  <meta name="description" content="Flávio Guimarães — estrategista digital com 15 anos de experiência. Clareza, posicionamento e Anti-Caos para negócios que crescem sem estrutura.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="canonical" href="https://dicasdoflaviog.com/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="dicasdoflaviog — Estratégia Anti-Caos para Empreendedores">
+  <meta property="og:description" content="Flávio Guimarães — estrategista digital com 15 anos de experiência. Clareza, posicionamento e Anti-Caos para negócios que crescem sem estrutura.">
+  <meta property="og:url" content="https://dicasdoflaviog.com/">
+  <meta property="og:image" content="https://dicasdoflaviog.com/assets/og-home.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="dicasdoflaviog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="dicasdoflaviog — Estratégia Anti-Caos para Empreendedores">
+  <meta name="twitter:description" content="Flávio Guimarães — estrategista digital com 15 anos de experiência. Clareza, posicionamento e Anti-Caos para negócios que crescem sem estrutura.">
+  <meta name="twitter:image" content="https://dicasdoflaviog.com/assets/og-home.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:site" content="@dicasdoflaviog">
+  <meta name="twitter:creator" content="@dicasdoflaviog">
+
+  <noscript><img loading="lazy" width="1" height="1" src="https://www.facebook.com/tr?id=935816292402573&ev=PageView&noscript=1" alt="" style="display:none"></noscript>
+  <!-- Google Analytics 4 — substituir G-XXXXXXXXXX pelo Measurement ID real -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XXXXXXXXXX");</script> -->
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"dicasdoflaviog","url":"https://dicasdoflaviog.com","description":"Estratégia Anti-Caos para empreendedores que cansaram de tentativa e erro."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Flávio Guimarães","url":"https://dicasdoflaviog.com/sobre","jobTitle":"Estrategista Digital","description":"Estrategista digital e branding design specialist com 15+ anos de experiência.","sameAs":["https://instagram.com/dicasdoflaviog","https://linkedin.com/in/dicasdoflaviog","https://youtube.com/@dicasdoflaviog"]}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"></noscript>
+  <!-- Google Analytics 4 — substituir G-XXXXXXXXXX pelo Measurement ID real -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XXXXXXXXXX");</script> -->
+
+  <style>
+    :root {
+      --yellow: #FFD100;
+      --black: #0D0D0D;
+      --offwhite: #F5F2EC;
+      --gray: #888880;
+      --div-light: #E8E5DF;
+      --font-head: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --section-pad: 96px 0;
+      --container: 860px;
+      --side: 72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--offwhite);color:var(--black);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;}
+    .wrap{width:100%;max-width:var(--container);margin:0 auto;padding:0 var(--side);}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}html{scroll-behavior:auto;}}
+
+    /* SCROLL PROGRESS */
+    #scroll-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--yellow);z-index:9999;pointer-events:none;}
+
+    /* NAVBAR */
+    .nav{position:sticky;top:0;z-index:900;background:var(--black);border-bottom:1px solid rgba(255,255,255,.07);}
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;}
+    .nav__logo{text-decoration:none;}
+    .nav__logo-text{font-family:var(--font-body);font-size:16px;font-weight:300;color:rgba(245,242,236,.7);letter-spacing:.02em;}
+    .nav__logo-text strong{font-weight:700;color:var(--offwhite);}
+    .nav__links{list-style:none;display:flex;align-items:center;gap:8px;}
+    .nav__link{font-family:var(--font-body);font-size:13px;font-weight:500;color:rgba(245,242,236,.52);text-decoration:none;padding:6px 10px;letter-spacing:.04em;transition:color .2s ease;}
+    .nav__link:hover,.nav__link.is-active{color:var(--offwhite);}
+    .nav__link.is-active{border-bottom:2px solid var(--yellow);padding-bottom:4px;}
+    .nav__cta{font-size:12px;padding:10px 18px;letter-spacing:.06em;white-space:nowrap;}
+    .nav__hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;width:40px;height:40px;justify-content:center;align-items:center;}
+    .nav__hamburger span{display:block;width:22px;height:2px;background:var(--offwhite);transition:transform .3s ease,opacity .3s ease;}
+    .nav-overlay{position:fixed;inset:0;background:var(--black);z-index:950;display:flex;flex-direction:column;justify-content:center;padding:40px var(--side);transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
+    .nav-overlay.is-open{transform:translateX(0);}
+    .nav-overlay__close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--offwhite);font-size:32px;cursor:pointer;line-height:1;padding:8px;}
+    .nav-overlay__links{list-style:none;display:flex;flex-direction:column;gap:24px;}
+    .nav-overlay__links a{font-family:var(--font-head);font-size:clamp(40px,10vw,56px);color:var(--offwhite);text-decoration:none;text-transform:uppercase;transition:color .2s ease;}
+    .nav-overlay__links a:hover{color:var(--yellow);}
+
+    /* BUTTONS */
+    .btn{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:16px 32px;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;line-height:1;}
+    .btn:hover{transform:translateY(-2px);}
+    .btn:active{transform:scale(.98);}
+    .btn--yellow{background:var(--yellow);color:var(--black);}
+    .btn--outline{background:transparent;color:var(--offwhite);border:2px solid rgba(245,242,236,.4);}
+    .btn--outline:hover{border-color:var(--offwhite);}
+    .btn--dark{background:var(--black);color:var(--offwhite);}
+
+    /* MARQUEE */
+    .marquee-band{background:var(--yellow);overflow:hidden;padding:12px 0;}
+    .marquee-track{display:flex;animation:marquee-scroll 28s linear infinite;white-space:nowrap;width:max-content;}
+    .marquee-track:hover{animation-play-state:paused;}
+    @keyframes marquee-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    .marquee-item{display:inline-flex;align-items:center;gap:16px;padding:0 20px;font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--black);}
+    .marquee-sep{width:4px;height:4px;background:rgba(13,13,13,.3);border-radius:50%;flex-shrink:0;}
+
+    /* TYPOGRAPHY */
+    .tag{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.10em;text-transform:uppercase;background:var(--yellow);color:var(--black);padding:5px 12px;margin-bottom:16px;}
+    .tag--dark{background:var(--black);color:var(--offwhite);}
+    .tag--outline{background:transparent;color:var(--yellow);border:1px solid rgba(255,209,0,.4);}
+    h2{font-family:var(--font-head);font-size:clamp(48px,7.5vw,84px);line-height:.93;text-transform:uppercase;letter-spacing:.01em;}
+    h3{font-family:var(--font-head);font-size:clamp(26px,3.8vw,44px);text-transform:uppercase;line-height:1.02;}
+    .subhead{font-family:var(--font-body);font-size:16px;color:var(--gray);line-height:1.7;max-width:480px;}
+    .subhead--light{color:rgba(245,242,236,.48);}
+    p{font-family:var(--font-body);font-size:17px;line-height:1.75;}
+
+    /* FADE-UP */
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+    .fade-up.is-visible{opacity:1;transform:translateY(0);}
+    .fade-up.d1{transition-delay:.10s;}.fade-up.d2{transition-delay:.20s;}.fade-up.d3{transition-delay:.30s;}.fade-up.d4{transition-delay:.40s;}
+
+    /* FOOTER */
+    .footer{background:var(--black);padding:56px 0 40px;border-top:1px solid rgba(255,255,255,.06);}
+    .footer__top{display:grid;grid-template-columns:1fr auto auto;gap:40px;align-items:start;}
+    .footer__brand{font-family:var(--font-body);font-size:17px;font-weight:300;color:rgba(245,242,236,.5);display:block;margin-bottom:6px;}
+    .footer__brand strong{font-weight:700;color:rgba(245,242,236,.8);}
+    .footer__tagline{font-size:12px;color:rgba(245,242,236,.2);max-width:200px;line-height:1.6;}
+    .footer__nav{display:flex;flex-direction:column;gap:10px;}
+    .footer__nav a{font-size:13px;color:rgba(245,242,236,.38);text-decoration:none;transition:color .2s ease;}
+    .footer__nav a:hover{color:var(--offwhite);}
+    .footer__social{display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+    .footer__social a{font-size:13px;color:rgba(245,242,236,.38);text-decoration:none;transition:color .2s ease;}
+    .footer__social a:hover{color:var(--offwhite);}
+    .footer__divider{height:1px;background:rgba(255,255,255,.06);margin:32px 0;}
+    .footer__bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .footer__bottom p{font-size:11px;color:rgba(245,242,236,.15);line-height:1.7;}
+    .footer__cdc{font-size:11px;color:rgba(245,242,236,.15);margin-top:8px;max-width:540px;line-height:1.65;}
+
+    /* HERO */
+    .hero{background:var(--black);padding:var(--section-pad);position:relative;}
+    .hero__inner{display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:center;}
+    .hero__headline{font-family:var(--font-head);font-size:clamp(52px,8.5vw,96px);line-height:.88;text-transform:uppercase;letter-spacing:.01em;color:var(--offwhite);margin:16px 0 24px;}
+    .hero__sub{font-family:var(--font-body);font-size:18px;color:rgba(245,242,236,.6);line-height:1.7;max-width:480px;margin-bottom:36px;}
+    .hero__ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+    .hero__note{font-size:12px;color:rgba(245,242,236,.28);letter-spacing:.04em;}
+    .hero__photo{width:280px;height:360px;background:rgba(255,209,0,.06);border:2px solid var(--yellow);display:flex;align-items:center;justify-content:center;color:rgba(255,209,0,.4);font-size:13px;letter-spacing:.06em;flex-shrink:0;}
+
+    /* PAIN SECTION */
+    .pain{background:var(--offwhite);padding:var(--section-pad);}
+    .pain__header{margin-bottom:56px;}
+    .pain__list{display:grid;gap:0;}
+    .pain__item{display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;padding:32px 0;border-bottom:1px solid var(--div-light);}
+    .pain__item:first-child{border-top:1px solid var(--div-light);}
+    .pain__num{font-family:var(--font-head);font-size:56px;color:var(--div-light);line-height:1;}
+    .pain__text{font-size:17px;line-height:1.75;color:var(--black);padding-top:8px;}
+    .pain__callout{background:var(--black);color:var(--offwhite);border-left:4px solid var(--yellow);padding:32px 36px;margin-top:56px;font-size:17px;line-height:1.7;}
+    .pain__callout strong{color:var(--yellow);}
+
+    /* FUNNEL */
+    .funnel{background:var(--black);padding:var(--section-pad);}
+    .funnel__header{text-align:center;margin-bottom:56px;}
+    .funnel__header h2{color:var(--offwhite);}
+    .funnel__header .subhead{margin:16px auto 0;text-align:center;}
+    .funnel__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+    .funnel__card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:32px 24px;display:flex;flex-direction:column;gap:12px;transition:background .2s ease,border-color .2s ease;}
+    .funnel__card:hover{background:rgba(255,255,255,.06);border-color:rgba(255,209,0,.3);}
+    .funnel__level{font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--yellow);}
+    .funnel__name{font-family:var(--font-head);font-size:22px;color:var(--offwhite);text-transform:uppercase;line-height:1.1;}
+    .funnel__price{font-family:var(--font-head);font-size:32px;color:var(--yellow);letter-spacing:.01em;}
+    .funnel__desc{font-size:14px;color:rgba(245,242,236,.48);line-height:1.65;flex:1;}
+    .funnel__cta{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--yellow);text-decoration:none;margin-top:8px;transition:opacity .2s ease;}
+    .funnel__cta:hover{opacity:.7;}
+
+    /* ABOUT MINI */
+    .about-mini{background:var(--offwhite);padding:var(--section-pad);}
+    .about-mini__inner{display:grid;grid-template-columns:240px 1fr;gap:56px;align-items:center;}
+    .about-mini__photo{width:240px;height:280px;background:var(--div-light);border:2px solid var(--div-light);display:flex;align-items:center;justify-content:center;color:var(--gray);font-size:13px;letter-spacing:.04em;flex-shrink:0;}
+    .about-mini__bio{font-size:17px;line-height:1.75;color:var(--black);margin:16px 0 24px;}
+    .about-mini__link{font-size:15px;font-weight:600;color:var(--black);text-decoration:underline;text-underline-offset:4px;transition:color .2s ease;}
+    .about-mini__link:hover{color:var(--yellow);}
+
+    /* TESTIMONIALS */
+    .test{background:var(--black);padding:var(--section-pad);}
+    .test__header{margin-bottom:56px;}
+    .test__header h2{color:var(--offwhite);}
+    .test__grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .test__card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:32px;}
+    .test__quote{font-size:16px;line-height:1.75;color:rgba(245,242,236,.72);margin-bottom:20px;font-style:italic;}
+    .test__author{font-size:13px;font-weight:700;color:var(--offwhite);letter-spacing:.02em;}
+    .test__meta{font-size:12px;color:rgba(245,242,236,.28);margin-top:4px;}
+
+    /* BLOG PREVIEW */
+    .blog-prev{background:var(--offwhite);padding:var(--section-pad);}
+    .blog-prev__header{margin-bottom:48px;}
+    .blog-prev__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px;}
+    .blog-prev__card{background:#fff;border:1px solid var(--div-light);padding:28px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s ease,transform .2s ease;}
+    .blog-prev__card:hover{border-color:var(--yellow);transform:translateY(-3px);}
+    .blog-prev__cat{font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;background:var(--yellow);color:var(--black);padding:3px 10px;display:inline-block;}
+    .blog-prev__title{font-family:var(--font-head);font-size:21px;color:var(--black);text-transform:uppercase;line-height:1.1;}
+    .blog-prev__date{font-size:12px;color:var(--gray);}
+    .blog-prev__desc{font-size:14px;color:var(--gray);line-height:1.65;flex:1;}
+    .blog-prev__link{font-size:13px;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:.04em;transition:color .2s ease;}
+    .blog-prev__link:hover{color:var(--yellow);}
+    .blog-prev__more{text-align:center;}
+
+    /* CAPTURE FORM */
+    .capture{background:var(--yellow);padding:var(--section-pad);}
+    .capture__inner{text-align:center;max-width:580px;margin:0 auto;}
+    .capture h2{font-family:var(--font-head);font-size:clamp(36px,5.5vw,64px);color:var(--black);line-height:.95;text-transform:uppercase;margin-bottom:16px;}
+    .capture__sub{font-size:16px;color:rgba(13,13,13,.65);line-height:1.7;margin-bottom:36px;}
+    .capture-form__row{display:flex;gap:0;max-width:480px;margin:0 auto 12px;}
+    .capture-form__input{flex:1;padding:16px 20px;font-family:var(--font-body);font-size:15px;border:2px solid rgba(13,13,13,.2);border-right:none;background:#fff;color:var(--black);outline:none;transition:border-color .2s ease;}
+    .capture-form__input:focus{border-color:var(--black);}
+    .capture-form__btn{white-space:nowrap;border-radius:0;}
+    .capture-form__note{font-size:12px;color:rgba(13,13,13,.45);text-align:center;}
+
+    /* MOBILE */
+    @media(max-width:768px){
+      .nav__links,.nav__cta{display:none;}
+      .nav__hamburger{display:flex;}
+      .footer__top{grid-template-columns:1fr;gap:28px;}
+      .footer__social{align-items:flex-start;}
+      .footer__bottom{flex-direction:column;gap:8px;}
+      .hero__inner{grid-template-columns:1fr;gap:40px;}
+      .hero__photo{width:100%;height:240px;}
+      .funnel__grid{grid-template-columns:1fr 1fr;gap:2px;}
+      .about-mini__inner{grid-template-columns:1fr;gap:32px;}
+      .about-mini__photo{width:100%;height:200px;}
+      .test__grid{grid-template-columns:1fr;}
+      .blog-prev__grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:680px){
+      :root{--side:20px;--section-pad:64px 0;}
+      .funnel__grid{grid-template-columns:1fr;}
+      .hero__ctas{flex-direction:column;align-items:flex-start;}
+      .capture-form__row{flex-direction:column;}
+      .capture-form__input{border-right:2px solid rgba(13,13,13,.2);border-bottom:none;}
+    }
+    @media(max-width:375px){:root{--side:16px;}}
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" role="navigation">
+  <div class="wrap nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="dicasdoflaviog - início">
+      <span class="nav__logo-text">dicas<strong>do</strong>flaviog</span>
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="index.html" class="nav__link">Home</a></li>
+      <li><a href="sobre.html" class="nav__link">Sobre</a></li>
+      <li><a href="produtos.html" class="nav__link">Produtos</a></li>
+      <li><a href="blog.html" class="nav__link">Blog</a></li>
+      <li><a href="contato.html" class="nav__link">Contato</a></li>
+    </ul>
+    <a href="produtos.html#checklist" class="btn btn--yellow nav__cta">Checklist Grátis</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+  <button class="nav-overlay__close" id="nav-close" aria-label="Fechar menu">&times;</button>
+  <ul class="nav-overlay__links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="sobre.html">Sobre</a></li>
+    <li><a href="produtos.html">Produtos</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <a href="produtos.html#checklist" class="btn btn--yellow" style="width:100%;text-align:center;margin-top:32px;">Checklist Grátis</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" aria-label="Apresentação">
+  <div class="wrap hero__inner">
+    <div class="hero__content">
+      <span class="tag tag--outline fade-up">15+ anos de estratégia</span>
+      <h1 class="hero__headline fade-up d1">CHEGA DE GASTAR SEM SABER ONDE O DINHEIRO SE PERDE</h1>
+      <p class="hero__sub fade-up d2">Flávio Guimarães organiza o caos do seu negócio. 15 anos convertendo confusão operacional em decisão clara.</p>
+      <div class="hero__ctas fade-up d3">
+        <a href="produtos.html#checklist" class="btn btn--yellow">Pegar o Checklist Grátis →</a>
+        <a href="produtos.html" class="btn btn--outline">Ver os Produtos →</a>
+      </div>
+      <p class="hero__note fade-up d4">Grátis. Sem cartão. Download imediato.</p>
+    </div>
+    <div class="hero__photo fade-up d2" aria-hidden="true">
+      <span>Foto Flávio</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">CLAREZA ANTES DE VELOCIDADE<span class="marquee-sep"></span></span>
+    <span class="marquee-item">DIAGNÓSTICO ANTES DE EXECUÇÃO<span class="marquee-sep"></span></span>
+    <span class="marquee-item">DECISÃO ANTES DE FERRAMENTA<span class="marquee-sep"></span></span>
+    <span class="marquee-item">CRITÉRIO ANTES DE CRIATIVIDADE<span class="marquee-sep"></span></span>
+    <span class="marquee-item">ESTRATÉGIA ANTES DE TRÁFEGO<span class="marquee-sep"></span></span>
+    <span class="marquee-item">ORDEM ANTES DE ESCALA<span class="marquee-sep"></span></span>
+    <span class="marquee-item">CLAREZA ANTES DE VELOCIDADE<span class="marquee-sep"></span></span>
+    <span class="marquee-item">DIAGNÓSTICO ANTES DE EXECUÇÃO<span class="marquee-sep"></span></span>
+    <span class="marquee-item">DECISÃO ANTES DE FERRAMENTA<span class="marquee-sep"></span></span>
+    <span class="marquee-item">CRITÉRIO ANTES DE CRIATIVIDADE<span class="marquee-sep"></span></span>
+    <span class="marquee-item">ESTRATÉGIA ANTES DE TRÁFEGO<span class="marquee-sep"></span></span>
+    <span class="marquee-item">ORDEM ANTES DE ESCALA<span class="marquee-sep"></span></span>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section class="pain" aria-labelledby="pain-headline">
+  <div class="wrap">
+    <div class="pain__header fade-up">
+      <span class="tag">SE VOCÊ ESTÁ AQUI</span>
+      <h2 id="pain-headline">VOCÊ RECONHECE PELO MENOS UM DESSES</h2>
+      <p class="subhead" style="margin-top:16px;">Empreendedores bem-intencionados, sem estrutura. O problema não é esforço — é ordem.</p>
+    </div>
+    <div class="pain__list" role="list">
+      <div class="pain__item fade-up" role="listitem">
+        <span class="pain__num" aria-hidden="true">01</span>
+        <p class="pain__text">Investe em tráfego pago mas não sabe se o dinheiro está sendo bem gasto — e continua pagando assim mesmo.</p>
+      </div>
+      <div class="pain__item fade-up d1" role="listitem">
+        <span class="pain__num" aria-hidden="true">02</span>
+        <p class="pain__text">Já contratou agência, freela, designer, copywriter. Cada um fez sua parte. Ninguém conectou tudo.</p>
+      </div>
+      <div class="pain__item fade-up d2" role="listitem">
+        <span class="pain__num" aria-hidden="true">03</span>
+        <p class="pain__text">Tem ideia do que quer, mas não sabe por onde começar sem gastar mais um real em algo que não vai funcionar.</p>
+      </div>
+      <div class="pain__item fade-up d3" role="listitem">
+        <span class="pain__num" aria-hidden="true">04</span>
+        <p class="pain__text">Trabalha muito, fatura razoável, mas não consegue crescer porque tudo depende de você resolvendo na hora.</p>
+      </div>
+    </div>
+    <div class="pain__callout fade-up">
+      O problema não é falta de esforço. É falta de critério para decidir o que fazer primeiro. <strong>Essa é a diferença entre crescer e girar em falso.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- FUNIL -->
+<section class="funnel" aria-labelledby="funnel-headline">
+  <div class="wrap">
+    <div class="funnel__header">
+      <span class="tag fade-up">A ESCADA ANTI-CAOS</span>
+      <h2 id="funnel-headline" class="fade-up d1" style="color:var(--offwhite);">DO CAOS PARA A CLAREZA — EM 4 ETAPAS</h2>
+      <p class="subhead subhead--light fade-up d2" style="margin:16px auto 0;text-align:center;">Cada nível prepara você para o próximo. Não pule.</p>
+    </div>
+    <div class="funnel__grid">
+      <div class="funnel__card fade-up">
+        <span class="funnel__level">Nível 1</span>
+        <div class="funnel__name">CHECKLIST ANTI-CAOS</div>
+        <div class="funnel__price">Grátis</div>
+        <p class="funnel__desc">Identifique o caos no seu negócio antes de gastar qualquer real.</p>
+        <a href="produtos.html#checklist" class="funnel__cta">Baixar Grátis →</a>
+      </div>
+      <div class="funnel__card fade-up d1">
+        <span class="funnel__level">Nível 2</span>
+        <div class="funnel__name">MANUAL ANTI-BURRICE</div>
+        <div class="funnel__price">R$ 67</div>
+        <p class="funnel__desc">Entenda os erros mais caros do marketing. Para de repetir.</p>
+        <a href="produtos.html#manual" class="funnel__cta">Ver o Manual →</a>
+      </div>
+      <div class="funnel__card fade-up d2">
+        <span class="funnel__level">Nível 3</span>
+        <div class="funnel__name">DIAGNÓSTICO ANTI-CAOS</div>
+        <div class="funnel__price">R$ 397</div>
+        <p class="funnel__desc">Sessão 1:1 de 60 min. Roadmap do que está bloqueando seu negócio.</p>
+        <a href="produtos.html#diagnostico" class="funnel__cta">Ver o Diagnóstico →</a>
+      </div>
+      <div class="funnel__card fade-up d3">
+        <span class="funnel__level">Nível 4</span>
+        <div class="funnel__name">ESTRUTURAÇÃO ANTI-CAOS</div>
+        <div class="funnel__price">R$ 6.500</div>
+        <p class="funnel__desc">Projeto completo: Estrutura + Design + Roadmap. Para quem está pronto.</p>
+        <a href="contato.html" class="funnel__cta">Falar sobre →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MINI -->
+<section class="about-mini" aria-labelledby="about-mini-headline">
+  <div class="wrap about-mini__inner">
+    <div class="about-mini__photo fade-up" aria-label="Foto de Flávio Guimarães">
+      <span>Foto Flávio</span>
+    </div>
+    <div class="fade-up d1">
+      <span class="tag">SOBRE O FLÁVIO</span>
+      <h2 id="about-mini-headline">15 ANOS ORGANIZANDO O QUE NINGUÉM SABIA NOMEAR</h2>
+      <p class="about-mini__bio">Designer que virou estrategista. Não porque deixou o design de lado — mas porque entendeu que sem decisão clara, o design mais bonito não resolve nada. Hoje usa IA para fazer em horas o que antes levava semanas. Entrega clareza, não tarefas.</p>
+      <a href="sobre.html" class="about-mini__link">Conhecer o Flávio →</a>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="test" aria-labelledby="test-headline">
+  <div class="wrap">
+    <div class="test__header">
+      <span class="tag fade-up">QUEM JÁ PASSOU AQUI</span>
+      <h2 id="test-headline" class="fade-up d1" style="color:var(--offwhite);">SEM SENSACIONALISMO.<br>SEM PROMESSA ABSURDA.</h2>
+    </div>
+    <div class="test__grid">
+      <div class="test__card fade-up">
+        <p class="test__quote">"Comprei o Manual esperando mais uma lista de dicas. Em vez disso, entendi por que cada real que eu gastava em anúncio estava sendo desperdiçado. Nunca ninguém tinha explicado isso de forma tão direta."</p>
+        <div class="test__author">Camila R.</div>
+        <div class="test__meta">Consultora de RH, São Paulo · comprou Manual</div>
+      </div>
+      <div class="test__card fade-up d1">
+        <p class="test__quote">"Cheguei na sessão achando que meu problema era falta de tráfego. Saí com um diagnóstico claro: eu não tinha uma oferta definida. Em 60 minutos entendi mais sobre meu negócio do que em 3 anos tentando sozinho."</p>
+        <div class="test__author">Rodrigo M.</div>
+        <div class="test__meta">Dono de academia, MG · Diagnóstico</div>
+      </div>
+      <div class="test__card fade-up d2">
+        <p class="test__quote">"Antes da Estruturação, minha empresa faturava mas não sabia para onde ia. Depois do processo, temos posicionamento claro, identidade coerente e um roadmap que minha equipe consegue seguir."</p>
+        <div class="test__author">Fernanda T.</div>
+        <div class="test__meta">Diretora de agência, RJ · Estruturação</div>
+      </div>
+      <div class="test__card fade-up d3">
+        <p class="test__quote">"Só de acompanhar o perfil por 3 meses, mudei como apresento meu serviço para clientes. Parei de oferecer tudo para todo mundo. Hoje cobro mais e trabalho melhor."</p>
+        <div class="test__author">Marcus P.</div>
+        <div class="test__meta">Fotógrafo comercial, RS · Instagram</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG PREVIEW -->
+<section class="blog-prev" aria-labelledby="blog-prev-headline">
+  <div class="wrap">
+    <div class="blog-prev__header">
+      <span class="tag fade-up">CONTEÚDO</span>
+      <h2 id="blog-prev-headline" class="fade-up d1">SEM ENROLAÇÃO. DIRETO PARA O QUE RESOLVE.</h2>
+      <p class="subhead fade-up d2" style="margin-top:16px;">Estratégia, posicionamento e anti-caos para quem já encheu o saco de post sem resultado.</p>
+    </div>
+    <div class="blog-prev__grid">
+      <article class="blog-prev__card fade-up">
+        <span class="blog-prev__cat">Estratégia</span>
+        <h3 class="blog-prev__title">O erro que 90% dos empreendedores cometem antes de contratar uma agência</h3>
+        <span class="blog-prev__date">15 Abr 2026</span>
+        <p class="blog-prev__desc">Antes de assinar qualquer contrato, você precisa responder 3 perguntas. A maioria não sabe.</p>
+        <a href="blog-post.html" class="blog-prev__link">Ler →</a>
+      </article>
+      <article class="blog-prev__card fade-up d1">
+        <span class="blog-prev__cat">IA + Marketing</span>
+        <h3 class="blog-prev__title">IA não salva um negócio sem posicionamento</h3>
+        <span class="blog-prev__date">10 Abr 2026</span>
+        <p class="blog-prev__desc">Automatizar o caos é só ter caos mais rápido. Veja a ordem certa.</p>
+        <a href="blog-post.html" class="blog-prev__link">Ler →</a>
+      </article>
+      <article class="blog-prev__card fade-up d2">
+        <span class="blog-prev__cat">Branding</span>
+        <h3 class="blog-prev__title">Por que seu logo bonito não converte</h3>
+        <span class="blog-prev__date">05 Abr 2026</span>
+        <p class="blog-prev__desc">Design bonito sem fundamento estratégico é gasto, não investimento.</p>
+        <a href="blog-post.html" class="blog-prev__link">Ler →</a>
+      </article>
+    </div>
+    <div class="blog-prev__more fade-up">
+      <a href="blog.html" class="btn btn--dark">Ver todos os artigos →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="capture" aria-labelledby="capture-headline">
+  <div class="wrap capture__inner">
+    <h2 id="capture-headline" class="fade-up">PRIMEIRA COISA A FAZER: PEGAR O CHECKLIST.</h2>
+    <p class="capture__sub fade-up d1">Lista de verificação gratuita para identificar onde seu negócio está perdendo dinheiro. PDF. Download imediato.</p>
+    <form class="capture-form fade-up d2" id="home-capture" action="#" method="post" novalidate>
+      <div class="capture-form__row">
+        <input type="email" name="email" placeholder="seu@email.com.br" required aria-label="Seu melhor e-mail" class="capture-form__input">
+        <button type="submit" class="btn btn--dark capture-form__btn">Baixar Grátis →</button>
+      </div>
+      <p class="capture-form__note">Sem spam. Cancelamento em 1 clique.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <span class="footer__brand">dicas<strong>do</strong>flaviog</span>
+        <p class="footer__tagline">Estratégia antes de execução. Clareza antes de velocidade.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Navegação do rodapé">
+        <a href="index.html">Home</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="blog.html">Blog</a>
+        <a href="contato.html">Contato</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </nav>
+      <div class="footer__social">
+        <a href="https://instagram.com/dicasdoflaviog" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+        <a href="https://linkedin.com/in/dicasdoflaviog" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://youtube.com/@dicasdoflaviog" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__bottom">
+      <p>CNPJ 32.035.459/0001-17 · contato@dicasdoflaviog.com.br</p>
+      <p>© 2026 dicasdoflaviog. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','935816292402573');
+fbq('track','PageView');
+fbq('track','ViewContent',{content_name:'Home'});
+
+const ham=document.getElementById('hamburger'),overlay=document.getElementById('nav-overlay'),nc=document.getElementById('nav-close');
+if(ham){ham.addEventListener('click',()=>{overlay.classList.add('is-open');document.body.style.overflow='hidden';ham.setAttribute('aria-expanded','true');});nc.addEventListener('click',()=>{overlay.classList.remove('is-open');document.body.style.overflow='';ham.setAttribute('aria-expanded','false');});overlay.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{overlay.classList.remove('is-open');document.body.style.overflow='';ham.setAttribute('aria-expanded','false');}));}
+
+const path=window.location.pathname.split('/').pop()||'index.html';
+document.querySelectorAll('.nav__link').forEach(l=>{if(l.getAttribute('href')===path)l.classList.add('is-active');});
+
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduced){const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');obs.unobserve(e.target);}});},{threshold:0.15});document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));}
+else{document.querySelectorAll('.fade-up').forEach(el=>el.classList.add('is-visible'));}
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:reduced?'auto':'smooth'});}});});
+
+const sp=document.getElementById('scroll-progress');
+if(sp){window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;sp.style.width=(window.scrollY/h*100)+'%';},{passive:true});}
+
+const captureForm=document.getElementById('home-capture');
+if(captureForm){captureForm.addEventListener('submit',function(e){e.preventDefault();fbq('track','Lead',{content_name:'Checklist',content_category:'checklist'});const btn=this.querySelector('button');btn.textContent='Enviado!';btn.disabled=true;});}
+</script>
+</body>
+</html>

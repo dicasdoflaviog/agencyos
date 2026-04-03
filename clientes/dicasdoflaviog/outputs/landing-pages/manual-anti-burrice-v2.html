@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual Anti-Burrice do Marketing Digital — Flávio Guimarães</title>
+  <meta name="description" content="Pare de perder dinheiro com marketing. Um manual direto ao ponto para quem já tentou, se frustrou e não quer errar de novo." />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Manual Anti-Burrice do Marketing Digital" />
+  <meta property="og:description" content="Pare de perder dinheiro com marketing. Manual direto ao ponto — R$ 67. Acesso imediato." />
+  <meta property="og:url"         content="https://dicasdoflaviog.com/manual" />
+  <meta property="og:image"       content="https://dicasdoflaviog.com/og-manual.jpg" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','935816292402573');
+    fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=935816292402573&ev=PageView&noscript=1"/></noscript>
+
+  <!-- Bebas Neue + DM Sans — únicas fontes permitidas pelo styleguide -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       TOKENS — styleguide dicasdoflaviog v1.0
+    ───────────────────────────────────────── */
+    :root {
+      /* Cores do sistema */
+      --yellow:    #FFD100;   /* acento, CTA, energia */
+      --black:     #0D0D0D;   /* autoridade, peso visual */
+      --offwhite:  #F5F2EC;   /* fundo principal, limpeza */
+      --gray:      #888880;   /* metadados, textos secundários */
+
+      /* Badges / callouts */
+      --badge-success-bg:  #EAF3DE; --badge-success-txt: #27500A; --badge-success-bdr: #97C459;
+      --badge-warn-bg:     #FAEEDA; --badge-warn-txt:   #633806; --badge-warn-bdr:   #EF9F27;
+      --badge-err-bg:      #FCEBEB; --badge-err-txt:    #791F1F; --badge-err-bdr:    #F09595;
+
+      /* Divisores */
+      --div-light:  #E8E5DF;
+      --div-yellow: #FFD100;
+      --div-dark:   #0D0D0D;
+
+      /* Tipografia */
+      --font-head:  'Bebas Neue', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+
+      /* Espaçamento base */
+      --section-pad: 96px 0;
+      --container:   860px;
+      --side:        72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--offwhite);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* ─── CONTAINER ─── */
+    .wrap {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--side);
+    }
+
+    /* ─── SEÇÕES ─── */
+    .sec           { padding: var(--section-pad); }
+    .sec--black    { background: var(--black); color: var(--offwhite); }
+    .sec--offwhite { background: var(--offwhite); }
+    .sec--yellow   { background: var(--yellow); color: var(--black); }
+
+    /* ─── TIPOGRAFIA ─── */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 5px 12px;
+      margin-bottom: 20px;
+    }
+    .tag--dark {
+      background: var(--black);
+      color: var(--offwhite);
+    }
+    .tag--outline {
+      background: transparent;
+      border: 1px solid var(--gray);
+      color: var(--gray);
+    }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(72px, 11vw, 120px);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(52px, 8vw, 90px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    h3 {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 5vw, 56px);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .subhead {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+    .subhead--light { color: rgba(245,242,236,0.55); }
+
+    p {
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    /* ─── DIVISOR ─── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--div-light);
+      margin: 48px 0;
+    }
+    .divider--yellow { background: var(--yellow); height: 2px; }
+    .divider--dark   { background: var(--div-dark); height: 2px; }
+
+    /* ─── BOTÃO CTA ─── */
+    .btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 36px;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s, transform 0.12s;
+      line-height: 1;
+    }
+    .btn:hover  { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn--yellow  { background: var(--yellow); color: var(--black); }
+    .btn--black   { background: var(--black);  color: var(--yellow); }
+    .btn--full    { display: block; width: 100%; text-align: center; }
+
+    .btn-arrow::after {
+      content: ' →';
+      font-weight: 400;
+    }
+
+
+    /* ═══════════════════════════════════════
+       HERO — fundo preto
+    ═══════════════════════════════════════ */
+    .hero {
+      background: var(--black);
+      padding: 100px 0 88px;
+    }
+    .hero__label {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero h1 { color: var(--offwhite); }
+    .hero h1 .accent {
+      color: var(--yellow);
+    }
+    .hero .subhead {
+      margin-top: 24px;
+      color: rgba(245,242,236,0.55);
+    }
+    .hero__cta {
+      margin-top: 48px;
+    }
+    .hero__rule {
+      width: 48px;
+      height: 2px;
+      background: var(--yellow);
+      margin-top: 72px;
+    }
+
+
+    /* ═══════════════════════════════════════
+       FILTRO DE DOR
+    ═══════════════════════════════════════ */
+    .pain { background: var(--offwhite); padding: var(--section-pad); }
+    .pain__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+      background: var(--div-light);
+      border: 1px solid var(--div-light);
+    }
+    .pain__item {
+      background: var(--offwhite);
+      padding: 28px 28px 28px 24px;
+      border-left: 3px solid var(--yellow);
+    }
+    .pain__item p {
+      font-size: 15px;
+      color: var(--black);
+      line-height: 1.55;
+    }
+    .pain__item .num {
+      font-family: var(--font-head);
+      font-size: 38px;
+      color: rgba(13,13,13,0.08);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .pain__callout {
+      margin-top: 40px;
+      background: var(--black);
+      padding: 36px var(--side);
+    }
+    .pain__callout p {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--offwhite);
+      line-height: 1.65;
+      max-width: 640px;
+    }
+    .pain__callout strong { color: var(--yellow); font-weight: 700; }
+
+
+    /* ═══════════════════════════════════════
+       POSICIONAMENTO — O QUE É / NÃO É
+    ═══════════════════════════════════════ */
+    .pos { background: var(--black); padding: var(--section-pad); }
+    .pos h2 { color: var(--offwhite); }
+    .pos .subhead { margin-top: 12px; }
+
+    .pos__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .pos-card {
+      padding: 36px 32px;
+    }
+    .pos-card--no  { background: #141414; }
+    .pos-card--yes { background: #0D0D0D; border-left: 2px solid var(--yellow); }
+
+    .pos-card__label {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .pos-card--no  .pos-card__label { color: rgba(245,242,236,0.30); }
+    .pos-card--yes .pos-card__label { color: var(--yellow); }
+
+    .pos-card ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .pos-card li {
+      font-size: 15px;
+      color: rgba(245,242,236,0.65);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .pos-card--no  li::before { content: '—'; position: absolute; left: 0; color: rgba(245,242,236,0.20); }
+    .pos-card--yes li::before { content: '→'; position: absolute; left: 0; color: var(--yellow); font-weight: 700; }
+    .pos-card--yes li { color: var(--offwhite); }
+
+
+    /* ═══════════════════════════════════════
+       ENTREGÁVEIS — fundo off-white
+    ═══════════════════════════════════════ */
+    .del { background: var(--offwhite); padding: var(--section-pad); }
+
+    .del__index {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+      background: var(--div-light);
+      border: 1px solid var(--div-light);
+    }
+    .del-card {
+      background: var(--offwhite);
+      padding: 32px 28px;
+      position: relative;
+    }
+    .del-card::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--yellow);
+      margin-bottom: 20px;
+    }
+    .del-card__num {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+    .del-card h3 {
+      font-family: var(--font-head);
+      font-size: 28px;
+      color: var(--black);
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    .del-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .del-card li {
+      font-size: 14px;
+      color: var(--black);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+      opacity: 0.7;
+    }
+    .del-card li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* Kit Operacional: dark */
+    .del-card--dark {
+      background: var(--black);
+    }
+    .del-card--dark::before { background: var(--yellow); }
+    .del-card--dark .del-card__num { color: rgba(245,242,236,0.30); }
+    .del-card--dark h3            { color: var(--offwhite); }
+    .del-card--dark li            { color: var(--offwhite); opacity: 0.65; }
+
+
+    /* ═══════════════════════════════════════
+       FILTRO — PARA QUEM É / NÃO É
+    ═══════════════════════════════════════ */
+    .filter { background: var(--black); padding: var(--section-pad); }
+    .filter h2 { color: var(--offwhite); }
+    .filter .subhead { margin-top: 12px; }
+
+    .filter__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+      background: rgba(255,255,255,0.08);
+    }
+    .filter-card {
+      padding: 36px 32px;
+    }
+    .filter-card--yes { background: var(--black); border-left: 2px solid var(--yellow); }
+    .filter-card--no  { background: #141414; }
+
+    .filter-card__title {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .filter-card--yes .filter-card__title { color: var(--yellow); }
+    .filter-card--no  .filter-card__title { color: rgba(245,242,236,0.30); }
+
+    .filter-card ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .filter-card li {
+      font-size: 15px;
+      color: rgba(245,242,236,0.65);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .filter-card--yes li::before { content: '✓'; position: absolute; left: 0; color: var(--yellow); font-weight: 700; }
+    .filter-card--no  li::before { content: '✕'; position: absolute; left: 0; color: var(--gray); }
+    .filter-card--yes li { color: var(--offwhite); }
+
+
+    /* ═══════════════════════════════════════
+       OFERTA / CTA FINAL — fundo amarelo
+    ═══════════════════════════════════════ */
+    .offer { background: var(--yellow); padding: var(--section-pad); }
+    .offer h2 { color: var(--black); }
+
+    .offer__box {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: rgba(13,13,13,0.12);
+    }
+
+    .offer__price-block {
+      background: var(--black);
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .offer__label {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+    .offer__price {
+      font-family: var(--font-head);
+      font-size: 100px;
+      color: var(--yellow);
+      line-height: 0.9;
+    }
+    .offer__price sup {
+      font-family: var(--font-body);
+      font-size: 28px;
+      font-weight: 700;
+      vertical-align: super;
+    }
+    .offer__note {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 12px;
+    }
+
+    .offer__includes-block {
+      background: var(--offwhite);
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .offer__includes-block h4 {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    .offer__includes-block ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .offer__includes-block li {
+      font-size: 15px;
+      color: var(--black);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .offer__includes-block li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .offer__cta {
+      margin-top: 40px;
+    }
+    .offer__disclaimer {
+      margin-top: 20px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: rgba(13,13,13,0.45);
+      letter-spacing: 0.01em;
+    }
+
+
+    /* ═══════════════════════════════════════
+       FOOTER — fundo preto
+    ═══════════════════════════════════════ */
+    .footer {
+      background: var(--black);
+      padding: 28px 0;
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer__brand {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: rgba(245,242,236,0.30);
+      font-weight: 300;
+    }
+    .footer__brand strong { font-weight: 700; color: rgba(245,242,236,0.50); }
+    .footer__handle {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(245,242,236,0.20);
+      letter-spacing: 0.02em;
+    }
+
+
+    /* ═══════════════════════════════════════
+       CALLOUT COMPONENT
+    ═══════════════════════════════════════ */
+    .callout {
+      border-left: 3px solid var(--yellow);
+      background: var(--offwhite);
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+    .callout p { font-size: 16px; color: var(--black); }
+    .callout--dark { background: #141414; }
+    .callout--dark p { color: var(--offwhite); }
+
+
+    /* ═══════════════════════════════════════
+       MICRO ANIMAÇÕES
+    ═══════════════════════════════════════ */
+
+    /* Fade-in base — aplicado a todos os elementos animáveis */
+    .anim {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.55s cubic-bezier(0.22,1,0.36,1);
+    }
+    .anim.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Delay progressivo para elementos em grade */
+    .anim-d1 { transition-delay: 0.08s; }
+    .anim-d2 { transition-delay: 0.16s; }
+    .anim-d3 { transition-delay: 0.24s; }
+    .anim-d4 { transition-delay: 0.32s; }
+
+    /* Slide da esquerda — para cards laterais */
+    .anim-left {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .anim-left.is-visible { opacity: 1; transform: translateX(0); }
+
+    .anim-right {
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .anim-right.is-visible { opacity: 1; transform: translateX(0); }
+
+    /* ── Pulse suave no CTA ── */
+    @keyframes pulse-yellow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,209,0,0); }
+      50%       { box-shadow: 0 0 0 12px rgba(255,209,0,0.20); }
+    }
+    .btn--pulse { animation: pulse-yellow 3s ease-in-out infinite; }
+
+    /* ── Underline animado no hero ── */
+    .hero h1 .accent {
+      position: relative;
+      display: inline-block;
+    }
+    .hero h1 .accent::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 4px;
+      background: var(--yellow);
+      transition: width 0.9s cubic-bezier(0.22,1,0.36,1) 0.5s;
+    }
+    .hero-ready .hero h1 .accent::after { width: 100%; }
+
+    /* ── Borda esquerda + hover nos pain items ── */
+    .pain__item {
+      border-left: 3px solid transparent;
+      transition: border-color 0.45s ease, background 0.25s ease;
+    }
+    .pain__item.is-visible { border-left-color: var(--yellow); }
+    .pain__item:hover { background: #EFECE4; }
+    .pain__item .num {
+      transition: color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+    .pain__item:hover .num {
+      color: rgba(255,209,0,0.35);
+      transform: translateX(5px);
+    }
+
+    /* ── Hover nos cards de entregável com lift ── */
+    .del-card {
+      transition: transform 0.25s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.25s ease;
+    }
+    .del-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.13);
+    }
+    .del-card--dark:hover {
+      box-shadow: 0 16px 40px rgba(255,209,0,0.10);
+    }
+    .del-card:hover .del-card__num { color: var(--yellow); transition: color 0.2s; }
+    .del-card::before {
+      transition: width 0.4s ease;
+      width: 32px;
+    }
+    .del-card:hover::before { width: 64px; }
+
+    /* ── Tag hover ── */
+    .tag { transition: letter-spacing 0.3s ease; }
+    .tag:hover { letter-spacing: 0.12em; }
+
+    /* ── Hover nos pos-cards e filter-cards ── */
+    .pos-card, .filter-card {
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .filter-card--yes:hover { background: #0a0a0a; }
+    .pos-card--yes:hover    { background: #0f0f0f; }
+
+    /* ── Ripple shimmer no btn ── */
+    .btn { position: relative; overflow: hidden; }
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background 0.2s ease;
+    }
+    .btn:hover::after { background: rgba(255,255,255,0.09); }
+
+    /* ── Grid stagger ── */
+    .grid-stagger > * {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .grid-stagger.is-visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
+    .grid-stagger.is-visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.10s; }
+    .grid-stagger.is-visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.18s; }
+    .grid-stagger.is-visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.26s; }
+
+    /* ── Preço entra com scale ── */
+    @keyframes price-in {
+      from { opacity:0; transform: scale(0.86) translateY(14px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+    .offer__price.is-visible { animation: price-in 0.65s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+    /* ── Linha amarela cresce sobre o offer box ── */
+    .offer__box { position: relative; }
+    .offer__box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--yellow);
+      transition: width 1.4s cubic-bezier(0.22,1,0.36,1) 0.2s;
+    }
+    .offer__box.is-visible::before { width: 100%; }
+
+    /* ─── STICKY BAR ─── */
+    .sticky-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255,209,0,0.25);
+      padding: 12px 0;
+      z-index: 900;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .sticky-bar.is-visible { transform: translateY(0); }
+    .sticky-bar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .sticky-bar__text {
+      font-size: 14px;
+      color: rgba(245,242,236,0.55);
+      line-height: 1;
+    }
+    .sticky-bar__text strong { color: var(--yellow); }
+    .sticky-bar__btn { padding: 10px 22px; font-size: 13px; }
+    @media (max-width: 480px) { .sticky-bar__text { display: none; } }
+
+    /* ─── SCROLL PROGRESS ─── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--yellow);
+      z-index: 999;
+      transition: width 0.1s linear;
+    }
+
+    /* ═══════════════════════════════════════
+       NOISE TEXTURE NO HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    .hero .wrap { position: relative; z-index: 1; }
+
+    /* ═══════════════════════════════════════
+       MID-PAGE CTA — após entregáveis
+    ═══════════════════════════════════════ */
+    .mid-cta {
+      background: var(--black);
+      padding: 72px 0;
+      text-align: center;
+      border-top: 2px solid var(--yellow);
+    }
+    .mid-cta__text {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 5vw, 52px);
+      color: var(--offwhite);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .mid-cta__text em {
+      color: var(--yellow);
+      font-style: normal;
+    }
+    .mid-cta__sub {
+      font-size: 16px;
+      color: rgba(245,242,236,0.40);
+      margin-bottom: 36px;
+    }
+
+    /* ═══════════════════════════════════════
+       AUTOR — credibilidade antes da oferta
+    ═══════════════════════════════════════ */
+    .author {
+      background: var(--offwhite);
+      padding: var(--section-pad);
+      border-top: 1px solid var(--div-light);
+    }
+    .author__inner {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .author__avatar {
+      width: 200px;
+      height: 200px;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .author__avatar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--yellow);
+    }
+    .author__avatar-initials {
+      font-family: var(--font-head);
+      font-size: 72px;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .author__label {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+    .author__name {
+      font-family: var(--font-head);
+      font-size: clamp(40px, 5vw, 64px);
+      color: var(--black);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .author__bio {
+      font-size: 16px;
+      color: var(--black);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 32px;
+      opacity: 0.75;
+    }
+    .author__stats {
+      display: flex;
+      gap: 32px;
+    }
+    .author__stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .author__stat-num {
+      font-family: var(--font-head);
+      font-size: 40px;
+      color: var(--black);
+      line-height: 0.95;
+    }
+    .author__stat-num .counter { display: inline-block; }
+    .author__stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* ═══════════════════════════════════════
+       UPSELL — próximo passo (Diagnóstico)
+    ═══════════════════════════════════════ */
+    .upsell {
+      background: var(--black);
+      padding: var(--section-pad);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .upsell__eyebrow {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+    .upsell h2 { color: var(--offwhite); }
+    .upsell__sub {
+      font-size: 17px;
+      color: rgba(245,242,236,0.45);
+      margin-top: 12px;
+      max-width: 520px;
+    }
+    .upsell__box {
+      margin-top: 48px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-left: 3px solid var(--yellow);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .upsell__box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(255,209,0,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .upsell__box-title {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 4vw, 48px);
+      color: var(--offwhite);
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 16px;
+    }
+    .upsell__box-desc {
+      font-size: 16px;
+      color: rgba(245,242,236,0.55);
+      line-height: 1.70;
+      max-width: 540px;
+      margin-bottom: 28px;
+    }
+    .upsell__price-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .upsell__price-val {
+      font-family: var(--font-head);
+      font-size: 56px;
+      color: var(--yellow);
+      line-height: 0.9;
+    }
+    .upsell__price-val sup {
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-weight: 700;
+      vertical-align: super;
+    }
+    .upsell__price-note {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.55;
+    }
+    .upsell__cta {
+      margin-top: 28px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 680px) {
+      :root { --side: 24px; }
+
+      .pain__grid,
+      .pos__cols,
+      .del__index,
+      .filter__cols,
+      .offer__box { grid-template-columns: 1fr; }
+
+      h1 { font-size: 64px; }
+      h2 { font-size: 48px; }
+
+      .hero { padding: 72px 0 64px; }
+      .sec, .pain, .pos, .del, .filter, .offer, .author, .upsell { padding: 64px 0; }
+
+      .footer__inner { flex-direction: column; gap: 8px; text-align: center; }
+      .author__inner { grid-template-columns: 1fr; gap: 32px; }
+      .author__avatar { width: 120px; height: 120px; }
+      .author__avatar-initials { font-size: 48px; }
+      .author__stats { gap: 20px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="scroll-progress"></div>
+
+<!-- ═══════════════════════════════════════
+     STICKY CTA BAR — aparece após o hero
+═══════════════════════════════════════ -->
+<div id="sticky-bar" class="sticky-bar">
+  <div class="sticky-bar__inner wrap">
+    <p class="sticky-bar__text">Manual Anti-Burrice do Marketing — <strong>R$ 67</strong></p>
+    <a href="#oferta"
+       class="btn btn--yellow btn-arrow sticky-bar__btn"
+       onclick="fbq&&fbq('track','InitiateCheckout')">
+      Acessar o manual
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     HERO — fundo preto
+═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="hero__label anim">Sem guru · Sem promessa · R$ 67</p>
+
+    <h1 class="anim anim-d1">
+      Pare de perder<br>
+      dinheiro com<br>
+      <span class="accent">marketing.</span>
+    </h1>
+
+    <p class="subhead subhead--light anim anim-d2">
+      Um manual direto ao ponto para quem já tentou marketing,
+      se frustrou e não quer errar de novo.
+    </p>
+
+    <div class="hero__cta anim anim-d3">
+      <a href="#oferta" class="btn btn--yellow btn-arrow btn--pulse"
+         onclick="fbq&&fbq('track','InitiateCheckout')">
+        Quero parar de perder dinheiro com marketing
+      </a>
+    </div>
+
+    <div class="hero__rule"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     FILTRO DE DOR — fundo off-white
+═══════════════════════════════════════ -->
+<section class="pain">
+  <div class="wrap">
+    <span class="tag tag--dark anim">Você se reconhece aqui?</span>
+    <h2 class="anim anim-d1">O dinheiro saiu.<br>O resultado não veio.</h2>
+
+    <div class="pain__grid grid-stagger">
+      <div class="pain__item">
+        <p class="num">01</p>
+        <p>Contratou agência ou freelancer, pagou em dia — e não viu resultado nenhum no caixa.</p>
+      </div>
+      <div class="pain__item">
+        <p class="num">02</p>
+        <p>Impulsionou post no Instagram, gastou centenas de reais em anúncios — e as vendas não vieram.</p>
+      </div>
+      <div class="pain__item">
+        <p class="num">03</p>
+        <p>Tentou fazer o marketing sozinho, assistiu vídeos no YouTube — e se perdeu no meio de conteúdo contraditório.</p>
+      </div>
+      <div class="pain__item">
+        <p class="num">04</p>
+        <p>Ouviu promessas bonitas demais: "escala automática", "funil que vende sozinho" — e no fim não funcionou.</p>
+      </div>
+    </div>
+
+    <div class="pain__callout">
+      <p>
+        O problema <strong>não é você</strong>.<br>
+        O problema é que o jogo é mal explicado — e quem deveria explicar tem interesse em te manter no escuro.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     POSICIONAMENTO — fundo preto
+═══════════════════════════════════════ -->
+<section class="pos">
+  <div class="wrap">
+    <span class="tag anim">Entenda antes de comprar</span>
+    <h2 class="anim anim-d1">O que é.<br>O que não é.</h2>
+    <p class="subhead subhead--light anim anim-d2">
+      Sem rodeio: aqui está o que você vai ter em mãos e o que não vai encontrar neste material.
+    </p>
+
+    <div class="pos__cols">
+      <div class="pos-card pos-card--no anim-left">
+        <p class="pos-card__label">— Não é isto</p>
+        <ul>
+          <li>Um curso de marketing com horas de vídeo-aula para você se tornar expert.</li>
+          <li>Um treinamento técnico em tráfego pago, SEO ou algoritmo de redes sociais.</li>
+          <li>Uma fórmula milagrosa que vai escalar seu negócio em 30 dias.</li>
+          <li>Mais uma promessa de resultado automático sem esforço ou critério da sua parte.</li>
+        </ul>
+      </div>
+
+      <div class="pos-card pos-card--yes anim-right anim-d1">
+        <p class="pos-card__label">→ É isto</p>
+        <ul>
+          <li>Um <strong>manual de decisão</strong>: entenda o jogo antes de investir mais um real.</li>
+          <li>Um <strong>filtro contra erros</strong>: saiba o que perguntar e o que cobrar de qualquer prestador.</li>
+          <li>Um <strong>atalho financeiro</strong>: pare de pagar pela curva de aprendizado de quem deveria trabalhar por você.</li>
+          <li>Material objetivo. Lido em uma tarde. Aplicado no dia seguinte.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     ENTREGÁVEIS — fundo off-white
+═══════════════════════════════════════ -->
+<section class="del">
+  <div class="wrap">
+    <span class="tag tag--dark anim">O que você recebe</span>
+    <h2 class="anim anim-d1">Dois blocos.<br>Um objetivo.</h2>
+
+    <div class="del__index grid-stagger">
+      <!-- Manual Principal -->
+      <div class="del-card anim anim-d2">
+        <p class="del-card__num">01 — Manual Principal</p>
+        <h3>Onde o dinheiro é perdido e por quê</h3>
+        <ul>
+          <li>Os pontos exatos onde empreendedores jogam dinheiro fora no marketing digital</li>
+          <li>Por que "marketing bonito" não vende — e o que vende de verdade</li>
+          <li>Como avaliar se uma estratégia faz sentido para o seu modelo de negócio</li>
+          <li>O que todo prestador de marketing deveria provar antes de você contratar</li>
+          <li>Como interpretar métricas sem ser enrolado por relatórios coloridos</li>
+        </ul>
+      </div>
+
+      <!-- Kit Operacional -->
+      <div class="del-card del-card--dark anim anim-d3">
+        <p class="del-card__num">02 — Kit Operacional</p>
+        <h3>Ferramentas para usar agora</h3>
+        <ul>
+          <li><strong style="color:var(--yellow)">Script de WhatsApp</strong> — abordagem direta para converter contatos em clientes</li>
+          <li><strong style="color:var(--yellow)">Checklist Anti-Enganação</strong> — 18 perguntas que você faz antes de contratar qualquer agência</li>
+          <li><strong style="color:var(--yellow)">Modelo de Proposta Objetiva</strong> — estrutura pronta para apresentar seu serviço com clareza</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     MID-PAGE CTA — após entregáveis
+═══════════════════════════════════════ -->
+<section class="mid-cta">
+  <div class="wrap">
+    <p class="mid-cta__text anim">
+      Chega de perder<br><em>dinheiro com achismo.</em>
+    </p>
+    <p class="mid-cta__sub anim anim-d1">
+      O manual custa menos do que uma hora de qualquer consultor de marketing.
+    </p>
+    <a href="#oferta"
+       class="btn btn--yellow btn-arrow btn--pulse anim anim-d2"
+       onclick="fbq&&fbq('track','InitiateCheckout')">
+      Ver o material — R$ 67
+    </a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     FILTRO — fundo preto
+═══════════════════════════════════════ -->
+<section class="filter">
+  <div class="wrap">
+    <span class="tag anim">Filtro honesto</span>
+    <h2 class="anim anim-d1">Para quem é.<br>Para quem não é.</h2>
+    <p class="subhead subhead--light anim anim-d2">
+      Isso não é para todo mundo. Prefiro deixar claro antes.
+    </p>
+
+    <div class="filter__cols">
+      <div class="filter-card filter-card--yes anim-left">
+        <p class="filter-card__title">→ É para você se</p>
+        <ul>
+          <li>Você já tentou marketing digital, não teve retorno e quer entender o porquê antes de investir de novo.</li>
+          <li>Você está cansado de jargão e quer clareza real sobre o que funciona para o seu negócio.</li>
+          <li>Você vai contratar alguém para fazer seu marketing e quer saber o que cobrar e como avaliar.</li>
+          <li>Você quer tomar decisões com critério — não com base em promessa de guru.</li>
+        </ul>
+      </div>
+
+      <div class="filter-card filter-card--no anim-right anim-d1">
+        <p class="filter-card__title">— Não é para você se</p>
+        <ul>
+          <li>Você busca uma fórmula que funcione sem esforço da sua parte.</li>
+          <li>Você quer se tornar especialista técnico em marketing, tráfego ou redes sociais.</li>
+          <li>Você não tem intenção de aplicar o que vai aprender.</li>
+          <li>Você ainda acredita que existe segredo escondido que os gurus não te contam.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     AUTOR — credibilidade antes da oferta
+═══════════════════════════════════════ -->
+<section class="author">
+  <div class="wrap">
+    <div class="author__inner">
+      <div class="author__avatar anim">
+        <span class="author__avatar-initials">FG</span>
+      </div>
+      <div>
+        <p class="author__label anim">Quem escreveu isso</p>
+        <h2 class="author__name anim anim-d1">Flávio<br>Guimarães</h2>
+        <p class="author__bio anim anim-d2">
+          Designer e marqueteiro há 15 anos. Já atendeu marcas regionais e nacionais,
+          cometeu todos os erros possíveis no marketing e parou de cometê-los.
+          Hoje ajuda empreendedores a tomar decisões com critério —
+          não com base em promessa de guru ou achismo de agência.
+        </p>
+        <div class="author__stats anim anim-d3">
+          <div class="author__stat">
+            <span class="author__stat-num"><span class="counter" data-target="15">0</span>+</span>
+            <span class="author__stat-label">Anos de experiência</span>
+          </div>
+          <div class="author__stat">
+            <span class="author__stat-num"><span class="counter" data-target="200">0</span>+</span>
+            <span class="author__stat-label">Projetos entregues</span>
+          </div>
+          <div class="author__stat">
+            <span class="author__stat-num"><span class="counter" data-target="67">0</span></span>
+            <span class="author__stat-label">Reais para parar de errar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     OFERTA + CTA — fundo amarelo
+═══════════════════════════════════════ -->
+<section class="offer" id="oferta">
+  <div class="wrap">
+    <span class="tag tag--dark anim">Acesso imediato</span>
+    <h2 class="anim anim-d1">Material completo.<br>Investimento único.</h2>
+
+    <div class="offer__box">
+      <!-- Preço -->
+      <div class="offer__price-block anim anim-d2">
+        <div>
+          <p class="offer__label">Valor de acesso</p>
+          <p class="offer__price anim"><sup>R$</sup>67</p>
+          <p class="offer__note">Pagamento único · acesso vitalício</p>
+        </div>
+        <div style="margin-top: 40px;">
+          <a href="#" class="btn btn--yellow btn--full btn-arrow"
+             onclick="fbq&&fbq('track','InitiateCheckout')">
+            Quero parar de perder dinheiro com marketing
+          </a>
+          <p class="offer__note" style="margin-top: 14px; text-align: center;">
+            Entrega imediata após confirmação de pagamento.
+          </p>
+        </div>
+      </div>
+
+      <!-- O que inclui -->
+      <div class="offer__includes-block anim anim-d3">
+        <div>
+          <h4>O que está incluído</h4>
+          <ul>
+            <li>Manual: onde o dinheiro é perdido e por quê</li>
+            <li>Script de WhatsApp para conversão direta</li>
+            <li>Checklist Anti-Enganação (18 perguntas)</li>
+            <li>Modelo de Proposta Objetiva</li>
+            <li>PDF — leia em qualquer dispositivo</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 32px; border-top: 1px solid var(--div-light); padding-top: 24px;">
+          <p style="font-size: 14px; color: var(--gray); line-height: 1.65;">
+            Este material não promete vendas imediatas.<br>
+            Promete a interrupção do erro.<br>
+            As vendas são a consequência natural de decisões melhores.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     PRÓXIMO PASSO — Diagnóstico Anti-Caos
+═══════════════════════════════════════ -->
+<section class="upsell">
+  <div class="wrap">
+    <p class="upsell__eyebrow anim">Para quem quer ir além do manual</p>
+    <h2 class="upsell__title anim anim-d1" style="font-family:var(--font-head);font-size:clamp(48px,7vw,80px);color:var(--offwhite);text-transform:uppercase;line-height:0.95;">O próximo<br>passo existe.</h2>
+    <p class="upsell__sub anim anim-d2">
+      Se depois da leitura você perceber que o caos no seu negócio é maior do que um manual resolve,
+      existe uma sessão 1:1 para isso.
+    </p>
+
+    <div class="upsell__box anim anim-d3">
+      <h3 class="upsell__box-title">Diagnóstico Anti-Caos</h3>
+      <p class="upsell__box-desc">
+        Uma sessão estratégica onde analisamos seu negócio, identificamos exatamente onde
+        o dinheiro está sendo perdido e definimos a ordem correta das próximas decisões.
+      </p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+        <li style="font-size:15px;color:rgba(245,242,236,0.65);padding-left:20px;position:relative;line-height:1.55;">
+          <span style="position:absolute;left:0;color:var(--yellow);font-weight:700;">→</span>
+          Mapeamento completo das decisões pendentes do negócio
+        </li>
+        <li style="font-size:15px;color:rgba(245,242,236,0.65);padding-left:20px;position:relative;line-height:1.55;">
+          <span style="position:absolute;left:0;color:var(--yellow);font-weight:700;">→</span>
+          Identificação dos gargalos que bloqueiam resultado
+        </li>
+        <li style="font-size:15px;color:rgba(245,242,236,0.65);padding-left:20px;position:relative;line-height:1.55;">
+          <span style="position:absolute;left:0;color:var(--yellow);font-weight:700;">→</span>
+          Plano de ação com prioridade definida — sem achismo
+        </li>
+      </ul>
+      <div class="upsell__price-row">
+        <div class="upsell__price-val"><sup>R$</sup>397</div>
+        <p class="upsell__price-note">
+          Sessão única, online.<br>
+          Vagas limitadas por mês — agendamento após compra do manual.
+        </p>
+      </div>
+      <div class="upsell__cta">
+        <a href="https://instagram.com/dicasdoflaviog" target="_blank"
+           class="btn btn--yellow btn-arrow">
+          Quero agendar o Diagnóstico
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     GARANTIA — fundo off-white
+═══════════════════════════════════════ -->
+<section class="guarantee">
+  <div class="wrap">
+    <div class="guarantee__inner anim">
+      <div class="guarantee__badge">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 3L24.5 7.5H31.5V14.5L36 19L31.5 23.5V30.5H24.5L20 35L15.5 30.5H8.5V23.5L4 19L8.5 14.5V7.5H15.5L20 3Z" fill="#FFD100" stroke="#FFD100" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M14 20L18 24L27 15" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="guarantee__text">
+        <p class="guarantee__title">Garantia de 7 dias</p>
+        <p class="guarantee__desc">Se você ler o material e achar que não valeu, devolvemos 100% do valor. Sem burocracia, sem perguntas. Basta enviar um e-mail em até 7 dias após a compra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     FOOTER PROFISSIONAL — fundo preto
+═══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="wrap">
+
+    <!-- Linha superior: marca + contato -->
+    <div class="footer__top">
+      <div class="footer__brand-block">
+        <span class="footer__brand">dicas<strong>do</strong>flaviog</span>
+        <p class="footer__tagline">Organização de decisão para empreendedores.</p>
+      </div>
+      <div class="footer__contact">
+        <p class="footer__contact-label">Dúvidas sobre a compra?</p>
+        <p class="footer__contact-email">contato@dicasdoflaviog.com.br</p>
+      </div>
+    </div>
+
+    <div class="footer__divider"></div>
+
+    <!-- Linha de confiança -->
+    <div class="footer__trust">
+      <div class="footer__trust-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L9.8 5.5H14.5L10.8 8.2L12.2 12.9L8 10.2L3.8 12.9L5.2 8.2L1.5 5.5H6.2L8 1Z" fill="#FFD100"/></svg>
+        <span>Garantia de 7 dias</span>
+      </div>
+      <div class="footer__trust-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="5" width="12" height="9" rx="1" stroke="#888880" stroke-width="1.2"/><path d="M5 5V4a3 3 0 016 0v1" stroke="#888880" stroke-width="1.2"/></svg>
+        <span>Pagamento 100% seguro</span>
+      </div>
+      <div class="footer__trust-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#888880" stroke-width="1.2"/><path d="M8 5v4l2.5 1.5" stroke="#888880" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <span>Entrega imediata</span>
+      </div>
+      <div class="footer__trust-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.8 5.5H14L10.9 7.8L12 12L8 9.5L4 12L5.1 7.8L2 5.5H6.2L8 2Z" stroke="#888880" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <span>Acesso vitalício</span>
+      </div>
+    </div>
+
+    <div class="footer__divider"></div>
+
+    <!-- Linha legal -->
+    <div class="footer__legal">
+      <div class="footer__legal-left">
+        <p>dicasdoflaviog · Flávio Guimarães</p>
+        <p>CNPJ: 32.035.459/0001-17</p>
+        <p>Política de Privacidade &nbsp;·&nbsp; Termos de Uso</p>
+      </div>
+      <div class="footer__legal-right">
+        <p>© 2026 dicasdoflaviog. Todos os direitos reservados.</p>
+        <p>Produto digital entregue em formato PDF.</p>
+        <p>Garantia de 7 dias conforme CDC Art. 49.</p>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+<style>
+  /* ─── GUARANTEE SECTION ─── */
+  .guarantee {
+    background: var(--offwhite);
+    border-top: 1px solid var(--div-light);
+    border-bottom: 1px solid var(--div-light);
+    padding: 48px 0;
+  }
+  .guarantee__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    background: var(--white, #fff);
+    border: 1px solid var(--div-light);
+    border-left: 3px solid var(--yellow);
+    padding: 36px 32px;
+  }
+  .guarantee__badge { flex-shrink: 0; margin-top: 2px; }
+  .guarantee__title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--black);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .guarantee__desc {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.65;
+  }
+
+  /* ─── FOOTER PROFISSIONAL ─── */
+  .footer {
+    background: var(--black);
+    padding: 56px 0 40px;
+  }
+
+  .footer__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .footer__brand-block {}
+  .footer__brand {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(245,242,236,0.55);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .footer__brand strong { font-weight: 700; color: rgba(245,242,236,0.80); }
+  .footer__tagline {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(245,242,236,0.25);
+    line-height: 1.5;
+  }
+
+  .footer__contact {
+    text-align: right;
+    margin-top: 4px;
+  }
+  .footer__contact-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(245,242,236,0.25);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .footer__contact-email {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(245,242,236,0.50);
+    letter-spacing: 0.01em;
+  }
+
+  .footer__divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 32px 0;
+  }
+
+  /* Trust bar */
+  .footer__trust {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(245,242,236,0.35);
+  }
+
+  /* Legal row */
+  .footer__legal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer__legal p {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(245,242,236,0.18);
+    line-height: 1.7;
+  }
+  .footer__legal-right { text-align: right; }
+
+  @media (max-width: 680px) {
+    .footer__top { flex-direction: column; gap: 24px; }
+    .footer__contact { text-align: left; margin-top: 8px; }
+    .footer__legal { flex-direction: column; }
+    .footer__legal-right { text-align: left; }
+    .footer__trust { gap: 16px; }
+    .guarantee__inner { flex-direction: column; gap: 16px; }
+  }
+</style>
+
+
+<script>
+  /* ─── SCROLL PROGRESS BAR ─── */
+  const progressBar = document.getElementById('scroll-progress');
+  const stickyBar   = document.getElementById('sticky-bar');
+  const heroSection = document.querySelector('.hero');
+
+  window.addEventListener('scroll', () => {
+    const scrollTop  = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (scrollTop / scrollHeight * 100) + '%';
+
+    // Sticky bar aparece após o hero
+    if (heroSection) {
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+      stickyBar.classList.toggle('is-visible', scrollTop > heroBottom - 60);
+    }
+  }, { passive: true });
+
+  /* ─── OBSERVER PRINCIPAL — fade-in, slides, pain items ─── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      observer.unobserve(target);
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -32px 0px' });
+
+  document.querySelectorAll(
+    '.anim, .anim-left, .anim-right, .pain__item'
+  ).forEach(el => observer.observe(el));
+
+  /* ─── OBSERVER PARA GRIDS STAGGER ─── */
+  const staggerObs = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      staggerObs.unobserve(target);
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.grid-stagger').forEach(el => staggerObs.observe(el));
+
+  /* ─── OBSERVER PARA OFFER BOX e PREÇO ─── */
+  const offerObs = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      offerObs.unobserve(target);
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.offer__box, .offer__price').forEach(el => offerObs.observe(el));
+
+  /* ─── COUNTER ANIMATION — seção do autor ─── */
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 900;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      el.textContent = Math.floor(ease * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.querySelectorAll('.counter').forEach(animateCounter);
+      counterObs.unobserve(target);
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.author__stats').forEach(el => counterObs.observe(el));
+
+  /* ─── Underline hero ─── */
+  requestAnimationFrame(() => {
+    document.documentElement.classList.add('hero-ready');
+  });
+</script>
+
+</body>
+</html>

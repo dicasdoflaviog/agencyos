@@ -1,0 +1,102 @@
+════════════════════════════════════════════════════════
+🗺️  MAPA DO PROJETO — dicasdoflaviog 2026-S1
+════════════════════════════════════════════════════════
+Última atualização: março 2026 | v1.0
+
+════════════════════════════════════════════════════════
+ESTRUTURA DE PASTAS (o que vai onde)
+════════════════════════════════════════════════════════
+
+clientes/dicasdoflaviog/2026-S1/
+│
+├── 01_briefings/     ← Estrategista salva briefs aprovados pelo HEAD
+│                        brief-[tema]-[data].txt
+│
+├── 02_copy/          ← Copywriter salva textos + captions + hashtags
+│                        copy-[tema]-[data].txt
+│
+├── 03_design/
+│   ├── pngs/         ← Designer salva PNGs exportados do Canva (1080×1350)
+│   │                    [tema]-slide-1.png, [tema]-slide-2.png...
+│   └── canva-links/  ← Links dos templates Canva usados/criados
+│                        canva-links-[tema]-[data].txt
+│
+├── 04_publicacao/    ← Publicador salva calendário + checklist
+│                        schedule-[mes]-[ano].txt
+│
+├── 05_performance/   ← Métricas + link do Dashboard Google Sheets
+│                        relatorio-semanal-[data].txt
+│
+├── 06_arquivo/       ← Posts já publicados (mover após publicar)
+│                        [data]-[tema]/
+│
+└── 07_aprovacoes/    ← HEAD registra status de cada peça
+                         aprovacao-[tema]-[data].txt
+
+════════════════════════════════════════════════════════
+FLUXO DE UM POST (do zero à publicação)
+════════════════════════════════════════════════════════
+
+  1. Você define tema
+         ↓
+  2. Estrategista → cria brief → salva em 01_briefings/
+         ↓
+  3. HEAD → revisa brief → registra em 07_aprovacoes/
+         ↓
+  4. Copywriter → cria copy → salva em 02_copy/
+         ↓
+  5. HEAD → revisa copy → atualiza 07_aprovacoes/
+         ↓
+  6. Designer → cria PNGs no Canva → salva em 03_design/pngs/
+         ↓
+  7. HEAD → revisa design → atualiza 07_aprovacoes/
+         ↓
+  8. Publicador → agenda no Meta Business Suite
+         ↓
+  9. Post vai ao ar → ManyChat captura comentários
+         ↓
+ 10. Make registra leads + performance no Google Sheets
+         ↓
+ 11. Publicador → move arquivos para 06_arquivo/
+         ↓
+ 12. Gestor de Tráfego → salva relatório em 05_performance/
+
+════════════════════════════════════════════════════════
+ONDE FICAM OS SYSTEM-PROMPTS DOS AGENTES
+════════════════════════════════════════════════════════
+
+  agentes/head/system-prompt.txt           ← Orquestrador + Revisor
+  agentes/estrategista/system-prompt.txt   ← Brief estratégico
+  agentes/copywriter/system-prompt.txt     ← Textos + captions
+  agentes/designer/system-prompt.txt       ← PNGs + Canva
+  agentes/publicador/system-prompt.txt     ← Agendamento + Meta
+  agentes/engajador/system-prompt.txt      ← Comentários + ManyChat
+  agentes/traffic-manager/system-prompt.txt ← ROI + Anúncios
+  agentes/ui-designer/system-prompt.txt    ← Landing pages React
+
+════════════════════════════════════════════════════════
+FERRAMENTAS EXTERNAS (configuração pendente)
+════════════════════════════════════════════════════════
+
+  [ ] Google Drive    → Espelha esta estrutura de pastas na nuvem
+  [ ] NotebookLM      → Upload de todos os docs de /scripts e /agentes
+  [ ] ManyChat        → Conectar @dicasdoflaviog + criar 2 fluxos
+  [ ] Meta Business   → Criar BM + Pixel + Ad Account
+  [ ] Make.com        → 3 fluxos: Leads→Sheets, Meta→Sheets, Alerta CPL
+  [ ] Google Sheets   → Dashboard (Leads | Performance | ROI | Insights)
+  [ ] Canva           → 16 templates A/B/C/D prontos
+
+  Guia completo de setup: scripts/INTEGRACAO_COMPLETA_DRIVE_FLUXO.txt
+  Checklist semana a semana: scripts/INTEGRACAO_DRIVE_PLATAFORMAS.txt
+
+════════════════════════════════════════════════════════
+PRIMEIRO JOB RECOMENDADO
+════════════════════════════════════════════════════════
+
+  Tema: "O erro mais caro que empreendedores cometem ao contratar marketing"
+  Pilar: ERROS DO MARKETING
+  Por quê: Maior conversão para o Manual Antiburrice (produto âncora)
+
+  Para executar: peça ao Estrategista para criar o brief.
+
+════════════════════════════════════════════════════════

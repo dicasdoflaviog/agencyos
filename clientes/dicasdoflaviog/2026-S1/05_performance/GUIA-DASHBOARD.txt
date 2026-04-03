@@ -1,0 +1,197 @@
+════════════════════════════════════════════════════════════════
+📊 DASHBOARD DIÁRIO — dicasdoflaviog 2026
+Guia completo de criação no Google Sheets
+════════════════════════════════════════════════════════════════
+
+NOME DO ARQUIVO: Daily_Dashboard_dicasdoflaviog_2026
+ONDE SALVAR:     Drive → 01_CLIENTES/dicasdoflaviog/2026-S1/05_performance/
+COMPARTILHAR:    Editor para você | Viewer para o time
+
+════════════════════════════════════════════════════════════════
+PASSO 1 — CRIAR O ARQUIVO
+════════════════════════════════════════════════════════════════
+
+1. Acesse: sheets.google.com
+2. Clique: "+ Planilha em branco"
+3. Nome: Daily_Dashboard_dicasdoflaviog_2026
+4. Mova para: Drive → 01_CLIENTES/dicasdoflaviog/2026-S1/05_performance/
+
+════════════════════════════════════════════════════════════════
+PASSO 2 — CRIAR AS 4 ABAS
+════════════════════════════════════════════════════════════════
+
+Clique no "+" no rodapé para criar abas. Nomeie assim:
+  Aba 1: Leads
+  Aba 2: Performance
+  Aba 3: ROI
+  Aba 4: Insights
+
+════════════════════════════════════════════════════════════════
+ABA 1 — LEADS
+(Make alimenta automaticamente via ManyChat)
+════════════════════════════════════════════════════════════════
+
+Linha 1 (cabeçalho) — cole nas células A1 até H1:
+
+  A1: Data
+  B1: Nome
+  C1: Email
+  D1: Telefone
+  E1: Fonte
+  F1: Classificação
+  G1: Status
+  H1: Observação
+
+Formatação do cabeçalho:
+  - Selecione linha 1 → Fundo: #000000 (preto) → Texto: #FFFFFF (branco)
+  - Negrito | Centralizado
+
+Validação da coluna F (Classificação):
+  - Selecione F2:F1000
+  - Dados → Validação de dados → Lista de itens:
+    Hot,Warm,Cold
+  
+Validação da coluna G (Status):
+  - Selecione G2:G1000
+  - Dados → Validação de dados → Lista de itens:
+    novo,em contato,qualificado,convertido,perdido
+
+Formatação condicional coluna F:
+  - F = "Hot"  → fundo #FF0000 (vermelho) | texto branco
+  - F = "Warm" → fundo #FFA500 (laranja)  | texto branco
+  - F = "Cold" → fundo #4A90D9 (azul)     | texto branco
+
+════════════════════════════════════════════════════════════════
+ABA 2 — PERFORMANCE
+(Make alimenta automaticamente via Meta Graph API todo dia às 23h)
+════════════════════════════════════════════════════════════════
+
+Linha 1 (cabeçalho) — cole nas células A1 até H1:
+
+  A1: Data
+  B1: Impressões
+  C1: Cliques
+  D1: Alcance
+  E1: Gasto (R$)
+  F1: CPM (R$)
+  G1: CPC (R$)
+  H1: CPL (R$)
+
+Fórmula do CPL (cole em H2 e arraste para baixo):
+  =SE(CONT.SE(Leads!A:A,TEXTO(A2,"dd/mm/yyyy"))=0,"–",E2/CONT.SE(Leads!A:A,TEXTO(A2,"dd/mm/yyyy")))
+
+  Explicação: Gasto do dia ÷ leads capturados naquele dia = CPL
+
+Formatação condicional coluna H (CPL):
+  - H < 100  → fundo #00C853 (verde)   | texto branco → ÓTIMO
+  - H < 200  → fundo #FFD600 (amarelo) | texto preto  → OK
+  - H >= 200 → fundo #FF1744 (vermelho)| texto branco → ALERTA
+
+Linha de totais (coloque na linha 2 de uma aba separada ou no final):
+  Total Impressões: =SOMA(B:B)
+  Total Cliques:    =SOMA(C:C)
+  Total Gasto:      =SOMA(E:E)
+  CPL Médio:        =MÉDIA(H2:H1000)
+
+════════════════════════════════════════════════════════════════
+ABA 3 — ROI
+(Atualização semanal manual ou via fórmula)
+════════════════════════════════════════════════════════════════
+
+Linha 1 (cabeçalho):
+
+  A1: Semana
+  B1: Gasto (R$)
+  C1: Leads
+  D1: Clientes
+  E1: Receita (R$)
+  F1: Lucro (R$)
+  G1: ROI (%)
+
+Fórmulas (cole a partir de A2):
+  E2 (Receita):  =D2*1500        ← ajuste o ticket médio (R$1.500 padrão)
+  F2 (Lucro):    =E2-B2
+  G2 (ROI %):    =SE(B2=0,"–",(F2/B2)*100)
+
+Formatação condicional coluna G (ROI):
+  - G >= 200 → fundo verde  → excelente
+  - G >= 100 → fundo amarelo → ok
+  - G < 100  → fundo vermelho → revisar
+
+Resumo no topo (células J1:K5 por exemplo):
+  J1: Total Investido  | K1: =SOMA(B:B)
+  J2: Total Clientes   | K2: =SOMA(D:D)
+  J3: Total Receita    | K3: =SOMA(E:E)
+  J4: Lucro Total      | K4: =SOMA(F:F)
+  J5: ROI Geral %      | K5: =SE(K1=0,"–",(K4/K1)*100)
+
+════════════════════════════════════════════════════════════════
+ABA 4 — INSIGHTS
+(Texto livre — Estrategista atualiza semanalmente)
+════════════════════════════════════════════════════════════════
+
+Estrutura sugerida (texto nas células, sem fórmulas):
+
+  A1: Semana de [data]
+  
+  A3: ✅ O QUE FUNCIONOU
+  A4: (escrever aqui)
+  
+  A6: ❌ O QUE NÃO FUNCIONOU
+  A7: (escrever aqui)
+  
+  A9: 🎯 PRÓXIMAS AÇÕES
+  A10: (escrever aqui)
+  
+  A12: 📊 NÚMEROS DA SEMANA
+  A13: Melhor horário de publicação:
+  A14: Tipo de copy mais eficaz:
+  A15: Público que mais engajou:
+  A16: Criativo com maior CTR:
+
+════════════════════════════════════════════════════════════════
+PASSO 3 — GRÁFICOS RECOMENDADOS
+════════════════════════════════════════════════════════════════
+
+Gráfico 1 — CPL ao longo do tempo:
+  Aba Performance → Selecione colunas A e H
+  Inserir → Gráfico → Tipo: Linha
+  Título: "CPL Diário (meta: abaixo de R$150)"
+
+Gráfico 2 — Leads por semana:
+  Aba Leads → Selecione coluna A (datas)
+  Inserir → Gráfico → Tipo: Barras
+  Título: "Leads Capturados por Semana"
+
+Gráfico 3 — ROI por semana:
+  Aba ROI → Selecione colunas A e G
+  Inserir → Gráfico → Tipo: Barras
+  Título: "ROI Semanal (%)"
+
+════════════════════════════════════════════════════════════════
+PASSO 4 — CONGELAR CABEÇALHO (em todas as abas)
+════════════════════════════════════════════════════════════════
+
+  Em cada aba: Selecione linha 1 → Exibir → Congelar → 1 linha
+  Assim o cabeçalho sempre aparece ao rolar a planilha.
+
+════════════════════════════════════════════════════════════════
+CHECKLIST FINAL
+════════════════════════════════════════════════════════════════
+
+[ ] Arquivo criado e nomeado corretamente
+[ ] 4 abas criadas (Leads, Performance, ROI, Insights)
+[ ] Cabeçalhos formatados (preto + branco + negrito)
+[ ] Fórmula CPL em H2 da aba Performance
+[ ] Fórmulas ROI na aba ROI (E, F, G)
+[ ] Validação de dados em Leads (Classificação + Status)
+[ ] Formatação condicional aplicada (verde/amarelo/vermelho)
+[ ] 3 gráficos inseridos
+[ ] Cabeçalho congelado em todas as abas
+[ ] Arquivo movido para 05_performance/ no Drive
+[ ] Link do arquivo salvo em 05_performance/dashboard-link.txt
+
+════════════════════════════════════════════════════════════════
+Depois de criar o Dashboard, copie o link e salve em:
+clientes/dicasdoflaviog/2026-S1/05_performance/dashboard-link.txt
+════════════════════════════════════════════════════════════════

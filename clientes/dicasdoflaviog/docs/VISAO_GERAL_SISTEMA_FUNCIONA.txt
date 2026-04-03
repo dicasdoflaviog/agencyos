@@ -1,0 +1,543 @@
+════════════════════════════════════════════════════════════════════════════════
+📊 VISÃO GERAL: COMO O SISTEMA FUNCIONA (Visual)
+════════════════════════════════════════════════════════════════════════════════
+
+Marca: Sol — Estrategista Antifrágil | v1.0
+
+Este documento mostra visualmente como todas as partes trabalham juntas,
+desde o briefing inicial até o relatório final ao cliente.
+
+════════════════════════════════════════════════════════════════════════════════
+FLUXO 1: DA ENTRADA DE DADOS ATÉ A PUBLICAÇÃO
+════════════════════════════════════════════════════════════════════════════════
+
+                        ┌─────────────────────────────────┐
+                        │  CLIENTE ENTRA EM CONTATO       │
+                        │  (Email, WhatsApp, etc)         │
+                        └─────────────┬───────────────────┘
+                                      │
+                                      ▼
+                        ┌─────────────────────────────────┐
+                        │ FASE 1: IMERSÃO & BRIEFING      │
+                        │ (Estrategista faz entrevista)   │
+                        │                                 │
+                        │ Tempo: 45 min                   │
+                        │ Output: Briefing_Estrategico.   │
+                        │ Salvo em: Drive → 01_BRIEFING/  │
+                        └─────────────┬───────────────────┘
+                                      │
+                                      ▼
+                        ┌─────────────────────────────────┐
+                        │ APROVAÇÃO NO NOTEBOOKLM         │
+                        │ (HEAD verifica se está OK)      │
+                        │                                 │
+                        │ Pergunta: "Alinhado com nós?"   │
+                        │ Resposta: NotebookLM lê docs    │
+                        │ Tempo: 15 min                   │
+                        └─────────────┬───────────────────┘
+                                      │
+                        ┌─────────────▼───────────────────┐
+                        │ APRESENTAÇÃO AO CLIENTE         │
+                        │ (Google Slides, 10 slides)      │
+                        │                                 │
+                        │ Showroom: 5 peças               │
+                        │ Previsão de ROI                 │
+                        │ Timeline de execução            │
+                        │ Compartilha: Via email          │
+                        └─────────────┬───────────────────┘
+                                      │
+                                      ▼
+                        ┌─────────────────────────────────┐
+                        │ CLIENTE APROVA (Email: "OK")    │
+                        │                                 │
+                        │ Ou solicita feedback            │
+                        │ (Iterate até estar 100% happy)  │
+                        └─────────────┬───────────────────┘
+                                      │
+                    ┌─────────────────┴────────────────┐
+                    │                                  │
+                    ▼                                  ▼
+        ┌──────────────────────┐        ┌──────────────────────┐
+        │  FASE 2: COPYWRITING │        │  FASE 3: DESIGN      │
+        │  (Paralelo)          │        │  (Paralelo)          │
+        │                      │        │                      │
+        │ Copywriter cria:     │        │ Designer Social:     │
+        │ ├─ Carrossel copy    │        │ ├─ Adapta templates  │
+        │ ├─ Roteiro de vídeo  │        │ ├─ Adiciona brand    │
+        │ └─ Headlines variados│        │ └─ Gera PNGs         │
+        │                      │        │                      │
+        │ Tempo: 2-3 dias      │        │ Tempo: 2-3 dias      │
+        │ Output: Salvo em:    │        │ Output: Links Canva  │
+        │ 02_CREATIVE/Copy/    │        │ Salvo em:            │
+        │                      │        │ 02_CREATIVE/Design/  │
+        └──────────┬───────────┘        └──────────┬───────────┘
+                   │                               │
+                   └───────────┬───────────────────┘
+                               │
+                               ▼
+                   ┌──────────────────────────────┐
+                   │ APROVAÇÃO NO NOTEBOOKLM      │
+                   │ (HEAD: Copy + Design OK?)    │
+                   │                              │
+                   │ Tempo: 1 dia                 │
+                   │ Se rejeitado: Volta para     │
+                   │ Copywriter/Designer          │
+                   │ Se aprovado: Prossiga        │
+                   └──────────┬───────────────────┘
+                              │
+                              ▼
+                   ┌──────────────────────────────┐
+                   │ FASE 4: PUBLICAÇÃO           │
+                   │ (Publicador coordena tudo)   │
+                   │                              │
+                   │ Tarefas:                     │
+                   │ ├─ Agenda posts Instagram    │
+                   │ ├─ Ativa tráfego Meta        │
+                   │ ├─ Configura ManyChat        │
+                   │ └─ Monitora primeira hora    │
+                   │                              │
+                   │ Tempo: 2-4 horas             │
+                   │ Salvo em: Drive →            │
+                   │ 03_PUBLICATION/              │
+                   │                              │
+                   │ 🟢 PRIMEIRA PUBLICAÇÃO!      │
+                   └──────────┬───────────────────┘
+                              │
+                              ▼
+                   ┌──────────────────────────────┐
+                   │ FASE 5: MONITORAMENTO        │
+                   │ (Runs 24/7 automaticamente)  │
+                   │                              │
+                   │ Make fluxos alimentam:       │
+                   │ ├─ Leads ManyChat            │
+                   │ ├─ Dados Meta                │
+                   │ ├─ Google Sheets Dashboard   │
+                   │ └─ Alertas CPL               │
+                   │                              │
+                   │ Você monitora diariamente    │
+                   │ (5 min por dia)              │
+                   └──────────┬───────────────────┘
+                              │
+                              ▼
+                   ┌──────────────────────────────┐
+                   │ OTIMIZAÇÃO CONTÍNUA          │
+                   │ (Semana 2-6)                 │
+                   │                              │
+                   │ Cada 2 semanas:              │
+                   │ ├─ Analisa CPL              │
+                   │ ├─ Testa novo criativo       │
+                   │ ├─ Escalates o que funciona  │
+                   │ └─ Documenta learnings       │
+                   │                              │
+                   │ Salvo em: Drive →            │
+                   │ 04_PERFORMANCE/              │
+                   └──────────┬───────────────────┘
+                              │
+                              ▼
+                   ┌──────────────────────────────┐
+                   │ RELATÓRIO FINAL (Semana 6+)  │
+                   │ (Estrategista compila)       │
+                   │                              │
+                   │ Inclui:                      │
+                   │ ├─ Total de leads capturados │
+                   │ ├─ CPL final                 │
+                   │ ├─ Taxa de conversão         │
+                   │ ├─ ROI alcançado             │
+                   │ ├─ Melhores peças/horários   │
+                   │ ├─ Principais learnings      │
+                   │ └─ Recomendações para S2     │
+                   │                              │
+                   │ Apresenta ao cliente        │
+                   │ (Google Slides ou PDF)       │
+                   └──────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════════
+FLUXO 2: CAPTURA DE LEADS (Instagram + ManyChat)
+════════════════════════════════════════════════════════════════════════════════
+
+                    🟢 USUÁRIO VÊ CARROSSEL
+                           │
+                           ▼
+                ┌──────────────────────────┐
+                │ CARROSSEL APARECE        │
+                │ (5 slides)               │
+                │                          │
+                │ Slide 1: Gancho          │
+                │ Slide 2-3: Conteúdo      │
+                │ Slide 4: Educação        │
+                │ Slide 5: CTA "DM aqui"   │
+                └────────────┬─────────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+         Clica no        Comenta no
+         CTA             slide
+              │                    │
+              ▼                    ▼
+        ┌──────────────┐   ┌──────────────┐
+        │ ENVIA DM     │   │ MANYCHAT     │
+        │              │   │ DETECTA      │
+        │ Mensagem:    │   │ COMENTÁRIO   │
+        │ "Quero o     │   │              │
+        │ manual"      │   │ Trigga: "como?│
+        │              │   │              │
+        │              │   └────────┬──────┘
+        │              │            │
+        └─────────┬────┘            ▼
+                  │          ┌──────────────────────┐
+                  │          │ MANYCHAT RESPONDE    │
+                  │          │ AUTOMATICAMENTE      │
+                  │          │                      │
+                  │          │ "Hey! Toma o        │
+                  │          │ primeiro passo aqui" │
+                  │          │                      │
+                  │          │ + Tag: "interested"  │
+                  │          │ + Add List: "Warm"   │
+                  │          └────────┬─────────────┘
+                  │                   │
+                  ▼                   ▼
+        ┌─────────────────────────────────────┐
+        │ MANYCHAT FLUXO 2: TRIAGEM           │
+        │ (Quando usuário envia OUTRA mensagem)│
+        │                                      │
+        │ ManyChat: "Você é freelancer?"       │
+        │ Usuário: Sim / Não (botões)          │
+        │                                      │
+        │ Se: Freelancer + Sem email marketing │
+        │ Então: TAG "HOT_LEAD"                │
+        │ + ENVIE: Link do manual              │
+        │ + ADD LIST: "Leads_Hot"              │
+        └────────────┬─────────────────────────┘
+                     │
+                     ▼
+        ┌─────────────────────────────────────┐
+        │ MAKE FLUXO 1 EXECUTA                │
+        │ (A cada 15 min)                     │
+        │                                      │
+        │ Pega dados de: Leads_Hot (ManyChat) │
+        │ Adiciona em: Google Sheets →         │
+        │             Daily_Dashboard →       │
+        │             Aba "Leads"              │
+        │                                      │
+        │ Resultado: Lead aparece em          │
+        │ planilha em tempo real              │
+        └─────────────────────────────────────┘
+                     │
+                     ▼
+        ┌─────────────────────────────────────┐
+        │ VOCÊ VÊ NO DASHBOARD                │
+        │ (drive.google.com)                   │
+        │                                      │
+        │ Coluna A: Data | 2026-03-31         │
+        │ Coluna B: Nome | João Silva         │
+        │ Coluna C: Email| joao@gmail.com    │
+        │ Coluna D: Nº   | 11999999999       │
+        │ Coluna E: Status| "novo"            │
+        │                                      │
+        │ 🟢 Lead capturado!                  │
+        └─────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════════
+FLUXO 3: PERFORMANCE (Meta Ads → Dashboard)
+════════════════════════════════════════════════════════════════════════════════
+
+                    ⏰ DIARIAMENTE ÀS 23H
+                           │
+                           ▼
+        ┌──────────────────────────────────┐
+        │ META ADS FECHA O DIA              │
+        │                                   │
+        │ Calcula:                          │
+        │ ├─ Impressões: 12.500             │
+        │ ├─ Cliques: 450                   │
+        │ ├─ Gasto: R$ 1.500                │
+        │ ├─ CPC: R$ 3,33                   │
+        │ └─ CPL: R$ 150 (1.500 ÷ 10)      │
+        └────────────┬──────────────────────┘
+                     │
+                     ▼
+        ┌──────────────────────────────────┐
+        │ MAKE FLUXO 2 ATIVA                │
+        │ (Agendado para 23h01)             │
+        │                                   │
+        │ Conecta ao: Meta Graph API        │
+        │ Puxa dados de: Ad Account         │
+        │ Processa com: Fórmulas            │
+        │ Envia para: Google Sheets         │
+        └────────────┬──────────────────────┘
+                     │
+                     ▼
+        ┌──────────────────────────────────┐
+        │ DADOS APARECEM NO DASHBOARD       │
+        │ (drive.google.com)                 │
+        │                                   │
+        │ Daily_Dashboard.sheet             │
+        │ Aba "Performance"                 │
+        │                                   │
+        │ Linha: 2026-03-31                 │
+        │ ├─ Impressões: 12.500             │
+        │ ├─ Cliques: 450                   │
+        │ ├─ Gasto: R$ 1.500                │
+        │ ├─ CPL: R$ 150                    │
+        │ └─ Taxa Conv: 65%                 │
+        │                                   │
+        │ Gráficos se atualizam             │
+        │ automaticamente                   │
+        └──────────────────────────────────┘
+                     │
+                     ▼
+        ┌──────────────────────────────────┐
+        │ VOCÊ MONITORA DE MANHÃ (8h)       │
+        │                                   │
+        │ Abre Dashboard                    │
+        │ Verifica: "CPL ok?"               │
+        │ ├─ Se R$ 150: ✅ Perfeito        │
+        │ ├─ Se < R$ 100: 💰 Escala!       │
+        │ └─ Se > R$ 200: ⚠️ Reduz         │
+        │                                   │
+        │ Tempo: 5 min                      │
+        └──────────────────────────────────┘
+                     │
+                     ▼
+        ┌──────────────────────────────────┐
+        │ FAÇA AJUSTE (se necessário)       │
+        │                                   │
+        │ Se CPL > R$ 200:                  │
+        │ ├─ Reduz orçamento em 20%         │
+        │ ├─ Muda público-alvo              │
+        │ ├─ Testa novo copy                │
+        │ └─ Espera 48h para ver resultado  │
+        │                                   │
+        │ Documenta em: Drive →             │
+        │ 04_PERFORMANCE/Weekly_Reports     │
+        └──────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════════
+FLUXO 4: ALERTA DE CPL ALTO (Make → Slack/Email)
+════════════════════════════════════════════════════════════════════════════════
+
+                  MAKE FLUXO 3 ATIVA
+                  (Diariamente 08h)
+                         │
+                         ▼
+            ┌────────────────────────┐
+            │ LÊ VALOR DE CPL        │
+            │ (Do Dashboard)          │
+            │                         │
+            │ CPL do dia: R$ 210     │
+            └────────────┬────────────┘
+                         │
+                    ┌────▼─────┐
+                    │  IF CPL > │
+                    │  R$ 200?  │
+                    └────┬──────┘
+                         │
+        ┌────────────────┴────────────────┐
+        │                                  │
+      NÃO                                SIM
+        │                                  │
+        ▼                                  ▼
+    STOP                    ┌──────────────────────────┐
+                            │ ENVIA ALERTA             │
+                            │ (Email ou Slack)         │
+                            │                          │
+                            │ Assunto:                 │
+                            │ "⚠️ CPL ALTO: R$ 210"    │
+                            │                          │
+                            │ Corpo:                   │
+                            │ "CPL ultrapassou limite  │
+                            │  Recomendação: Reduzir   │
+                            │  orçamento em 15%"       │
+                            │                          │
+                            │ Você recebe em segundos! │
+                            └──────────────────────────┘
+                                         │
+                                         ▼
+                            ┌──────────────────────────┐
+                            │ VOCÊ TOMA AÇÃO           │
+                            │ (Rápido!)                │
+                            │                          │
+                            │ Opções:                  │
+                            │ ├─ Reduz orçamento       │
+                            │ ├─ Pausa anúncio ruim    │
+                            │ ├─ Testa novo público    │
+                            │ └─ Documenta ação        │
+                            └──────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════════
+ESTRUTURA VISÍVEL NO GOOGLE DRIVE
+════════════════════════════════════════════════════════════════════════════════
+
+Quando você abre o Drive, vê:
+
+Sol - Estrategista Antifrágil/
+│
+├─ 00_MASTER/
+│  └─ [Documentos de referência]
+│
+├─ 01_CLIENTS/
+│  └─ dicasdoflaviog/
+│     └─ 2026-S1/
+│        ├─ 01_BRIEFING/
+│        │  ├─ Briefing_Estrategico.docx      ← Você preenche
+│        │  └─ SWOT_Analysis.sheet             ← Você preenche
+│        │
+│        ├─ 02_CREATIVE/
+│        │  ├─ Copy/
+│        │  │  └─ Carrossel_Copy.docx          ← Copywriter preenche
+│        │  ├─ Design/
+│        │  │  └─ Canva_Links.sheet            ← Designer preenche
+│        │  └─ Approval/
+│        │     └─ HEAD_Feedback.docx           ← HEAD aprova
+│        │
+│        ├─ 03_PUBLICATION/
+│        │  ├─ Instagram_Schedule.sheet        ← Publicador preenche
+│        │  └─ Meta_Ads_Setup.docx             ← Tráfego preenche
+│        │
+│        ├─ 04_PERFORMANCE/  ⭐ MAIS IMPORTANTE
+│        │  └─ Daily_Dashboard.sheet           ← Make alimenta
+│        │                    (abas: Leads, Performance, ROI)
+│        │
+│        └─ 05_REFERENCE/
+│           ├─ Instagram_Account_Info.docx
+│           ├─ Meta_Pixel_ID.txt
+│           └─ Make_API_Tokens.docx (🔒 Confidencial)
+│
+├─ 03_TEMPLATES/
+│  ├─ Google Slides - Apresentação Cliente    ← Duplica este
+│  └─ Google Sheet - Dashboard Template        ← Duplica este
+│
+├─ 04_MANYCHAT/
+│  └─ [Screenshots de fluxos]
+│
+├─ 05_NOTEBOOKLM/
+│  └─ Guia_NotebookLM.docx
+│
+├─ 06_MAKE/
+│  └─ [Screenshots de fluxos]
+│
+└─ 07_REFERENCE/
+   └─ [Credenciais e links]
+
+════════════════════════════════════════════════════════════════════════════════
+COMO VOCÊ USA TUDO ISSO DIARIAMENTE
+════════════════════════════════════════════════════════════════════════════════
+
+⏰ 08h00 - CHECK DIÁRIO (5 min)
+────────────────────────────
+1. Abre: Drive → 04_PERFORMANCE/Daily_Dashboard
+2. Verifica:
+   ├─ Aba "Leads": Quantos novos? Estão bons?
+   ├─ Aba "Performance": CPL está OK?
+   └─ Aba "ROI": Está no alvo de 5.5x?
+3. Se algo está errado → Toma ação (reduz orçamento, muda copy)
+4. Documenta em: Weekly_Reports (1x/semana)
+
+📧 Quando recebe ALERTA (CPL > R$ 200)
+───────────────────────────────────
+1. Recebe email/notificação Make
+2. Avalia a situação
+3. Toma ação rápida (15 min):
+   ├─ Reduz orçamento em 15-20%
+   ├─ Pausa público com pior performance
+   └─ Acelera teste de novo copy
+4. Monitora resultado nas próximas 12-24h
+
+📊 1x/Semana - RELATÓRIO (30 min)
+─────────────────────────────────
+1. Abre Dashboard
+2. Cria resumo: "Semana de [X-Y]"
+   ├─ Total de leads: X
+   ├─ CPL médio: R$ Y
+   ├─ Melhores dias: [dias]
+   └─ Próximas ações: [lista]
+3. Salva em: Drive → 04_PERFORMANCE/Weekly_Reports
+4. Compartilha com cliente (resumido)
+
+📈 Mensalmente - GRANDE RELATÓRIO (2 horas)
+──────────────────────────────────────────
+Estrategista compila tudo:
+├─ Total de leads acumulado
+├─ Custo total gasto
+├─ ROI alcançado até agora
+├─ Quais temas geraram mais leads
+├─ Melhor dia/hora para publicar
+├─ Recomendações para próximo mês
+└─ Cria apresentação ao cliente (Google Slides)
+
+════════════════════════════════════════════════════════════════════════════════
+NÚMEROS EM TEMPO REAL (Exemplo)
+════════════════════════════════════════════════════════════════════════════════
+
+DASHBOARD EM TEMPO REAL:
+
+Daily_Dashboard (Aberto agora: 2026-03-31 14:30)
+
+┌──────────────────────────────────────────────────────────┐
+│ ABA: LEADS                                               │
+├──────────────────────────────────────────────────────────┤
+│ Data       | Nome           | Email          | Status    │
+├──────────────────────────────────────────────────────────┤
+│ 2026-03-31 | João Silva     | joao@...       | novo      │ ← Apareceu hoje
+│ 2026-03-31 | Maria Santos   | maria@...      | novo      │ ← Novo
+│ 2026-03-30 | Pedro Costa    | pedro@...      | qualificado│ ← Acompanhado
+│ 2026-03-29 | Ana Lima       | ana@...        | cliente    │ ← Convertido!
+│                                                            │
+│ Total março: 23 leads                                     │
+│ Conversion rate: 65% (15 viraram cliente)                │
+└──────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────┐
+│ ABA: PERFORMANCE                                         │
+├──────────────────────────────────────────────────────────┤
+│ Data       | Impressões | Cliques | Gasto   | CPL        │
+├──────────────────────────────────────────────────────────┤
+│ 2026-03-31 | 12.500     | 450     | R$ 1500 | R$ 150     │ ← Hoje
+│ 2026-03-30 | 11.200     | 380     | R$ 1580 | R$ 165     │
+│ 2026-03-29 | 10.800     | 420     | R$ 1400 | R$ 133     │ ← Melhor dia!
+│                                                            │
+│ Semana: 50.300 impressões                                │
+│ Semana: 1.850 cliques                                    │
+│ Semana: R$ 7.500 investido                               │
+│ CPL MÉDIO: R$ 153 (Alvo: R$ 150) ✅ OK!                  │
+└──────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────┐
+│ ABA: ROI                                                 │
+├──────────────────────────────────────────────────────────┤
+│ Semana | Gasto    | Leads | Clientes | Receita   | Lucro  │
+├──────────────────────────────────────────────────────────┤
+│ Semana 1│ R$ 3000 │ 20    │ 13       │ R$ 19.500 │R$ 16.500│
+│ Semana 2│ R$ 3000 │ 22    │ 14       │ R$ 21.000 │R$ 18.000│
+│ Semana 3│ R$ 3000 │ 19    │ 12       │ R$ 18.000 │R$ 15.000│
+│                                                            │
+│ ACUMULADO:                                                │
+│ Total gasto: R$ 9.000                                    │
+│ Total leads: 61                                          │
+│ Total clientes: 39                                       │
+│ Total receita: R$ 58.500                                 │
+│ LUCRO: R$ 49.500                                         │
+│ ROI: (49.500 / 9.000) × 100 = 550% ✅                    │
+└──────────────────────────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════════
+CONCLUSÃO: O QUE VOCÊ GANHOU
+════════════════════════════════════════════════════════════════════════════════
+
+Antes (sem sistema):
+├─ Entrada manual de dados (3h/semana)
+├─ Sem visibilidade em tempo real
+├─ Não sabe qual copy funciona
+├─ Não sabe qual horário é melhor
+└─ Sem rastreio de ROI exato
+
+Depois (com sistema):
+├─ ✅ Automação 99% (apenas lê resultados)
+├─ ✅ Dados em tempo real (a cada 15 min)
+├─ ✅ Sabe exatamente qual copy gera leads
+├─ ✅ Sabe qual horário publicar
+├─ ✅ ROI rastreado com precisão de centavos
+├─ ✅ Escalável para 10+ clientes
+└─ ✅ Tempo para focar em estratégia (não admin)
+
+════════════════════════════════════════════════════════════════════════════════

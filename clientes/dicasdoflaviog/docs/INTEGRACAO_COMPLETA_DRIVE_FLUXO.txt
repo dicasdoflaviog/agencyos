@@ -1,0 +1,760 @@
+════════════════════════════════════════════════════════════════════════════════
+🔗 INTEGRAÇÃO COMPLETA: DRIVE + PLATAFORMAS + FLUXO OPERACIONAL
+════════════════════════════════════════════════════════════════════════════════
+
+Marca: Sol — Estrategista Antifrágil | v1.0
+
+Objetivo: Conectar Google Drive, NotebookLM, ManyChat, Meta, Instagram, Make
+          em um fluxo único e automatizado. Resultado: Zero entrada de dados manual.
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 1: ESTRUTURA DO GOOGLE DRIVE (Fundação)
+════════════════════════════════════════════════════════════════════════════════
+
+Crie esta estrutura na sua conta Google (dicasdoflaviog@gmail.com):
+
+📁 Sol - Estrategista Antifrágil (MASTER)
+│
+├─ 00_MASTER (Documentos de Referência)
+│  ├─ ARQUITETURA_COMPLETA.pdf
+│  ├─ HIERARQUIA_AGENTES.pdf
+│  ├─ MANUAL_INTEGRACAO_SQUAD_V3.0.pdf
+│  ├─ GUIA_OPERACIONAL_BRIEFING.pdf
+│  └─ README.pdf
+│
+├─ 01_CLIENTS (Pastas por Cliente)
+│  ├─ dicasdoflaviog/
+│  │  ├─ 2026-S1/
+│  │  │  ├─ 01_BRIEFING/
+│  │  │  │  ├─ Briefing_Estrategico.docx
+│  │  │  │  ├─ SWOT_Analysis.sheet
+│  │  │  │  └─ Interview_Notes.docx
+│  │  │  │
+│  │  │  ├─ 02_CREATIVE/
+│  │  │  │  ├─ Copy/
+│  │  │  │  │  ├─ Carrossel_Copy.docx
+│  │  │  │  │  ├─ Roteiro_Video.docx
+│  │  │  │  │  └─ Headlines_Variations.sheet
+│  │  │  │  │
+│  │  │  │  ├─ Design/
+│  │  │  │  │  ├─ Canva_Links.sheet
+│  │  │  │  │  ├─ Final_PNGs/ (quando pronto)
+│  │  │  │  │  └─ Brand_Guidelines/
+│  │  │  │  │
+│  │  │  │  └─ Approval/
+│  │  │  │     ├─ HEAD_Feedback.docx
+│  │  │  │     └─ Final_Versions/
+│  │  │  │
+│  │  │  ├─ 03_PUBLICATION/
+│  │  │  │  ├─ Instagram_Schedule.sheet
+│  │  │  │  ├─ Meta_Ads_Setup.docx
+│  │  │  │  └─ ManyChat_Flows.sheet
+│  │  │  │
+│  │  │  ├─ 04_PERFORMANCE/
+│  │  │  │  ├─ Daily_Dashboard.sheet
+│  │  │  │  │  ├─ Abas: Leads, Performance, CPL, ROI
+│  │  │  │  │  └─ (Alimentado automaticamente pelo Make)
+│  │  │  │  │
+│  │  │  │  ├─ Weekly_Reports.sheet
+│  │  │  │  └─ Monthly_Summary.docx
+│  │  │  │
+│  │  │  └─ 05_REFERENCE/
+│  │  │     ├─ Instagram_Account_Info.docx
+│  │  │     ├─ Meta_Business_Manager_ID.docx
+│  │  │     ├─ Meta_Pixel_ID.docx
+│  │  │     ├─ NotebookLM_Link.sheet
+│  │  │     └─ Make_API_Tokens.docx (🔒 CONFIDENCIAL)
+│  │  │
+│  │  └─ 2026-S2/ (próximo semestre)
+│  │
+│  └─ [Cliente 2]/
+│     └─ (mesma estrutura)
+│
+├─ 02_CAMPAIGNS (Campanha Arquivadas)
+│  ├─ 2025-Q4/
+│  │  └─ dicasdoflaviog/
+│  │
+│  └─ 2026-S1/
+│     └─ (cópia de 01_CLIENTS quando semestre termina)
+│
+├─ 03_TEMPLATES (Reutilizáveis)
+│  ├─ Google Slides - Apresentação Cliente
+│  ├─ Google Doc - Briefing Template
+│  ├─ Google Sheet - Dashboard Template
+│  ├─ Canva - Link + Organize
+│  └─ ManyChat - Flow Templates
+│
+├─ 04_MANYCHAT (Automações)
+│  ├─ Fluxo_01_Resposta_Automatica.png
+│  ├─ Fluxo_02_Qualificacao.png
+│  ├─ Fluxo_03_Mensagem_Atrasada.png
+│  ├─ API_Token.txt
+│  └─ Webhook_Setup.docx
+│
+├─ 05_NOTEBOOKLM (Contexto do HEAD)
+│  ├─ Guia_NotebookLM.docx
+│  ├─ Docs_Uploaded.sheet
+│  │  ├─ Arquitetura
+│  │  ├─ Diretrizes dos Agentes
+│  │  ├─ Briefings Anteriores
+│  │  ├─ Copies Aprovadas
+│  │  └─ Histórico de Performance
+│  │
+│  └─ Sample_Questions.sheet
+│
+├─ 06_MAKE (Automações de Dados)
+│  ├─ Fluxo_01_Leads_to_Sheets.png
+│  │  └─ [Screenshot do fluxo]
+│  │
+│  ├─ Fluxo_02_Meta_Performance_to_Sheets.png
+│  │  └─ [Screenshot do fluxo]
+│  │
+│  ├─ Fluxo_03_CPL_Alert.png
+│  │  └─ [Screenshot do fluxo]
+│  │
+│  ├─ API_Tokens.docx (🔒 CONFIDENCIAL)
+│  └─ Webhook_URLs.docx
+│
+└─ 07_REFERENCE (Links & Credenciais)
+   ├─ Instagram_Professional_Account_Info.docx
+   ├─ Meta_Business_Manager.docx
+   ├─ Canva_Team_Link.txt
+   ├─ NotebookLM_Workspace_Link.txt
+   ├─ ManyChat_Workspace_Link.txt
+   ├─ Make_Workspace_Link.txt
+   └─ Security_Checklist.docx
+
+════════════════════════════════════════════════════════════════════════════════
+PASSO 1: CRIAR ESTRUTURA DO DRIVE (30 min)
+════════════════════════════════════════════════════════════════════════════════
+
+[ ] 1. Acesse: drive.google.com
+[ ] 2. Clique: "+ New Folder"
+[ ] 3. Nome: "Sol - Estrategista Antifrágil"
+[ ] 4. Abra a pasta e crie as 7 pastas principais:
+      00_MASTER, 01_CLIENTS, 02_CAMPAIGNS, 03_TEMPLATES, 
+      04_MANYCHAT, 05_NOTEBOOKLM, 06_MAKE, 07_REFERENCE
+
+[ ] 5. Dentro de 01_CLIENTS, crie pasta "dicasdoflaviog" → "2026-S1"
+[ ] 6. Dentro de "2026-S1", crie as 5 subpastas:
+      01_BRIEFING, 02_CREATIVE, 03_PUBLICATION, 04_PERFORMANCE, 05_REFERENCE
+
+[ ] 7. IMPORTANTE: Compartilhe com seu time
+      ├─ Clique em "Share"
+      ├─ Emails: [Team members]
+      ├─ Permissões: Editor (podem editar)
+      └─ Notificar: Sim
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 2: NOTEBOOKLM (O Cérebro do HEAD)
+════════════════════════════════════════════════════════════════════════════════
+
+NotebookLM = IA que lê todos seus documentos e responde perguntas
+Objetivo: HEAD não precisa lembrar tudo. Pergunta ao NotebookLM.
+
+PASSO 1: Criar Notebook (10 min)
+─────────────────────────────────
+[ ] 1. Acesse: notebooklm.google.com
+[ ] 2. Clique: "+ New Notebook"
+[ ] 3. Nome: "Sol - Estrategista Antifrágil - dicasdoflaviog 2026-S1"
+[ ] 4. Descrição: "Espaço de conhecimento para aprovações do HEAD"
+[ ] 5. Criar
+
+PASSO 2: Upload de Documentos (30 min)
+──────────────────────────────────────
+Dentro do Notebook, clique "+ Add sources" e faça upload:
+
+Core Documentos:
+├─ ARQUITETURA_COMPLETA.txt (Design system)
+├─ HIERARQUIA_AGENTES.txt (Quem aprova o quê)
+├─ MANUAL_INTEGRACAO_SQUAD_V3.0.txt (5 fases)
+└─ GUIA_OPERACIONAL_BRIEFING.txt (Como fazer entrevista)
+
+Diretrizes dos Agentes:
+├─ [Arquivo] agentes/head/ (completo)
+├─ [Arquivo] agentes/estrategista/ (completo)
+├─ [Arquivo] agentes/copywriter/ (completo)
+├─ [Arquivo] agentes/designer/ (completo)
+├─ [Arquivo] agentes/engajador/ (completo)
+└─ [Arquivo] agentes/publicador/ (completo)
+
+Histórico (conforme projetos avançam):
+├─ Briefings anteriores (2-3 últimos)
+├─ Copies aprovadas (2-3 melhores)
+├─ Canva templates criados
+├─ Performance reports (mensal)
+└─ Feedback de clientes (compilado)
+
+[ ] Sempre que terminar uma peça, faça upload do "Final Approval" aqui
+
+PASSO 3: Testar NotebookLM (15 min)
+───────────────────────────────────
+HEAD faz estas perguntas de teste:
+
+1. "O copywriter pode usar emojis de guru tipo 🚀?"
+   ✓ Resposta esperada: "Não, proibido. Deve evitar parecer amador"
+
+2. "Qual é a responsabilidade do Designer Social?"
+   ✓ Resposta esperada: "Adaptar templates para brand guidelines do cliente"
+
+3. "Qual é o CPL máximo aceitável?"
+   ✓ Resposta esperada: "R$ 150 por lead (conforme GUIA_OPERACIONAL)"
+
+4. "Posso aprovar copy se não souber o público-alvo?"
+   ✓ Resposta esperada: "Não. HEAD deve revisar briefing estratégico primeiro"
+
+Se as respostas forem precisas, NotebookLM está funcionando.
+
+PASSO 4: Salvar Link (1 min)
+──────────────────────────────
+[ ] Clique "Share"
+[ ] Copie o link
+[ ] Cole em: Drive → 05_NOTEBOOKLM → Link_Notebook.txt
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 3: MANYCHAT (Automação de Comentários + Leads)
+════════════════════════════════════════════════════════════════════════════════
+
+ManyChat = Bot que responde comentários automaticamente
+Objetivo: Capturar leads de forma automática, 24/7
+
+PASSO 1: Criar Conta ManyChat (5 min)
+─────────────────────────────────────
+[ ] 1. Acesse: manychat.com
+[ ] 2. Clique: "Sign Up"
+[ ] 3. Email: dicasdoflaviog@gmail.com
+[ ] 4. Confirme
+[ ] 5. Dashboard aberto
+
+PASSO 2: Conectar Instagram (10 min)
+────────────────────────────────────
+[ ] 1. Em ManyChat, clique: "Channels" (lado esquerdo)
+[ ] 2. Clique: "Instagram" → "Connect"
+[ ] 3. Faça login na sua conta Instagram Professional
+[ ] 4. Autorize o acesso
+[ ] 5. Selecione: dicasdoflaviog (ou cliente)
+[ ] 6. Connected! ✅
+
+PASSO 3: Criar Fluxo 1 - Resposta Automática (20 min)
+──────────────────────────────────────────────────────
+
+Objetivo: Quando alguém comenta "Como?" no carrossel, responde automaticamente
+
+[ ] 1. Em ManyChat, clique: "Flows" → "Create Flow"
+[ ] 2. Nome: "01_Resposta_Automatica_Carrossel"
+[ ] 3. Trigger: "Keyword" → "como"
+[ ] 4. Ação 1: Send Message
+│     Mensagem: "Hey! 👋 Fico feliz com sua curiosidade. 
+│               O passo 1 é simple: você só precisa de 15 minutos.
+│               Quer que eu mostre exatamente o que fazer?
+│               Responde aqui ou envia DM!"
+│
+[ ] 5. Ação 2: Delay (1 segundo)
+│
+[ ] 6. Ação 3: Add to List
+│     Lista: "Leads_Warm" (cria se não existir)
+│
+[ ] 7. Ação 4: Tag
+│     Tag: "commented_interested"
+│
+[ ] 8. Salve e Ative (botão "Publish")
+
+PASSO 4: Criar Fluxo 2 - Triagem (30 min)
+────────────────────────────────────────────
+
+Objetivo: Quando alguém envia DM, qualificar se é cliente potencial
+
+[ ] 1. Em ManyChat, clique: "Flows" → "Create Flow"
+[ ] 2. Nome: "02_Triagem_Lead_DM"
+[ ] 3. Trigger: "Message Received" (DM)
+[ ] 4. Ação 1: Send Message (Boas-vindas)
+│     "Opa! Recebi sua mensagem. 
+│      Para te colocar na prioridade certa, preciso saber:
+│      1. Você é freelancer ou agência?
+│      2. Usa algum sistema de email marketing hoje?"
+│
+[ ] 5. Ação 2: Create Button (para capturar respostas)
+│     Botão 1: "Freelancer"
+│     Botão 2: "Agência"
+│     (E depois pergunte sobre email marketing)
+│
+[ ] 6. Ação 3: Conditional (se respondeu "Freelancer" + "Não usa email")
+│     Então: Tag "Hot_Lead" + Adicione à lista "Leads_Hot"
+│
+[ ] 7. Ação 4: Envie link do lead magnet
+│     "Ótimo! Baixa esse manual: [Link encurtado]"
+│
+[ ] 8. Salve e Ative
+
+PASSO 5: Conectar ao Google Sheets (15 min)
+──────────────────────────────────────────────
+
+Objetivo: ManyChat envia leads automáticamente para planilha
+
+[ ] 1. Em ManyChat, clique: "Subscribers" (lado esquerdo)
+[ ] 2. Clique: "Lists" → "Leads_Hot"
+[ ] 3. Clique: "Export" → "Google Sheets"
+[ ] 4. Autorize acesso ao Google
+[ ] 5. Folha será criada automaticamente em: Drive → 04_MANYCHAT/
+[ ] 6. Renomeie para: "ManyChat_Leads_Exportados.sheet"
+
+RESULTADO:
+Toda vez que um lead hot é criado no ManyChat, 
+automaticamente aparece na planilha Google Sheets.
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 4: META BUSINESS MANAGER + INSTAGRAM (O Fluxo de Tráfego)
+════════════════════════════════════════════════════════════════════════════════
+
+Meta Business Manager = Centro de controle para Instagram + Facebook Ads
+
+PASSO 1: Criar Business Manager (20 min)
+────────────────────────────────────────
+[ ] 1. Acesse: business.facebook.com
+[ ] 2. Clique: "Create Account"
+[ ] 3. Preencha:
+      Business Name: "Sol - Estrategista Antifrágil"
+      Email: dicasdoflaviog@gmail.com
+      Country: Brasil
+      Timezone: São Paulo
+
+[ ] 4. Confirme email
+[ ] 5. Business Manager criado ✅
+
+PASSO 2: Adicionar Instagram (10 min)
+─────────────────────────────────────
+[ ] 1. Em Business Manager, clique: "Accounts" → "Instagram Accounts"
+[ ] 2. Clique: "Add"
+[ ] 3. Selecione: Sua conta Instagram (dicasdoflaviog)
+[ ] 4. Autorize
+[ ] 5. Linked! ✅
+
+PASSO 3: Criar Pixel (10 min)
+──────────────────────────────
+Pixel = Rastreador que monitora cliques, visualizações, conversões
+
+[ ] 1. Em Business Manager, clique: "Events Manager" (Ferramentas)
+[ ] 2. Clique: "+ Create" → "Web Pixel"
+[ ] 3. Nome: "dicasdoflaviog_pixel_2026"
+[ ] 4. Website URL: dicasdoflaviog.com (ou será copiado em Make)
+[ ] 5. Create
+[ ] 6. Copie o Pixel ID
+[ ] 7. Cole em: Drive → 05_REFERENCE/Meta_Pixel_ID.txt
+
+PASSO 4: Criar Ad Account (5 min)
+─────────────────────────────────
+[ ] 1. Em Business Manager, clique: "Accounts" → "Ad Accounts"
+[ ] 2. Clique: "Add New Ad Account"
+[ ] 3. Nome: "dicasdoflaviog_ads_2026"
+[ ] 4. Timezone: São Paulo
+[ ] 5. Currency: BRL
+[ ] 6. Create
+[ ] 7. Anote o Ad Account ID
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 5: MAKE (Automação de Dados - A Coluna Vertebral)
+════════════════════════════════════════════════════════════════════════════════
+
+Make.com = Platform que conecta tudo (Meta → Sheets, ManyChat → Sheets, Alertas)
+
+Objetivo: Dados fluem automaticamente. Zero manual.
+
+PASSO 1: Criar Conta Make (5 min)
+────────────────────────────────
+[ ] 1. Acesse: make.com
+[ ] 2. Clique: "Sign Up"
+[ ] 3. Email: dicasdoflaviog@gmail.com
+[ ] 4. Confirmação + Dashboard
+
+PASSO 2: Fluxo 1 - ManyChat Leads → Google Sheets (20 min)
+───────────────────────────────────────────────────────────
+
+Objetivo: Quando ManyChat cria lead, automaticamente aparece na planilha
+
+[ ] 1. Em Make, clique: "+ Create Scenario"
+[ ] 2. Nome: "01_ManyChat_Leads_to_Google_Sheets"
+
+[ ] 3. Bloco 1 (Trigger): ManyChat
+│     ├─ Selecione: "Watch Subscribers"
+│     ├─ Conecte sua conta ManyChat
+│     ├─ Selecione: Instagram Channel
+│     ├─ Label/List: "Leads_Hot"
+│     └─ Polling interval: 15 minutos
+
+[ ] 4. Bloco 2 (Ação): Google Sheets
+│     ├─ Selecione: "Add a row"
+│     ├─ Conecte sua conta Google
+│     ├─ Spreadsheet: "Daily_Dashboard" (em 04_PERFORMANCE)
+│     ├─ Sheet name: "Leads"
+│     └─ Mapear colunas:
+│        A. Data do Lead: {Date from ManyChat}
+│        B. Nome: {Subscriber Name}
+│        C. Email: {Subscriber Email}
+│        D. Número: {Phone}
+│        E. Status: "novo"
+
+[ ] 5. Teste (botão "Run once")
+[ ] 6. Quando funcionar, clique: "Turn on automation"
+[ ] 7. Screenshot do fluxo
+[ ] 8. Cole em: Drive → 06_MAKE/Fluxo_01_Leads_to_Sheets.png
+
+RESULTADO: 
+Novos leads aparecem automaticamente em: 
+Drive → 01_CLIENTS/dicasdoflaviog/2026-S1/04_PERFORMANCE/Daily_Dashboard (aba Leads)
+
+PASSO 3: Fluxo 2 - Meta Performance → Google Sheets (30 min)
+──────────────────────────────────────────────────────────────
+
+Objetivo: Dados de anúncios (impressões, cliques, CPL) entram em planilha automaticamente
+
+IMPORTANTE: Use Graph API de Meta (não através de interface)
+
+[ ] 1. Em Make, clique: "+ Create Scenario"
+[ ] 2. Nome: "02_Meta_Performance_to_Google_Sheets"
+
+[ ] 3. Bloco 1 (Trigger): Schedule
+│     ├─ Tipo: "Daily"
+│     ├─ Hora: 23h (após dia fechado)
+│     └─ Timezone: São Paulo
+
+[ ] 4. Bloco 2 (HTTP Request): Meta Graph API
+│     ├─ URL: https://graph.instagram.com/v18.0/[AD_ACCOUNT_ID]/insights
+│     ├─ Method: GET
+│     ├─ Headers:
+│        Authorization: Bearer [ACCESS_TOKEN]
+│     ├─ Query: fields=impressions,clicks,spend,cpc,cpm
+│     └─ (Você precisa gerar um ACCESS_TOKEN em Meta)
+
+[ ] 5. Bloco 3 (Google Sheets): Add a row
+│     ├─ Spreadsheet: "Daily_Dashboard"
+│     ├─ Sheet: "Performance"
+│     └─ Mapear:
+│        A. Data: {Today}
+│        B. Impressões: {impressions}
+│        C. Cliques: {clicks}
+│        D. Gasto: {spend}
+│        E. CPL: {spend/leads_captured}
+
+[ ] 6. Teste + Turn on automation
+[ ] 7. Screenshot
+[ ] 8. Cole em: Drive → 06_MAKE/Fluxo_02_Meta_Performance_to_Sheets.png
+
+RESULTADO:
+Daily_Dashboard será alimentada todo dia às 23h com performance do dia.
+
+PASSO 4: Fluxo 3 - Alerta CPL Alto (15 min)
+───────────────────────────────────────────
+
+Objetivo: Se CPL > R$ 200, envia notificação para você
+
+[ ] 1. Em Make, clique: "+ Create Scenario"
+[ ] 2. Nome: "03_CPL_Alert"
+
+[ ] 3. Bloco 1 (Trigger): Schedule
+│     ├─ Hora: 08h da manhã
+│     └─ Diário
+
+[ ] 4. Bloco 2 (Google Sheets): Get cell values
+│     ├─ Spreadsheet: "Daily_Dashboard"
+│     ├─ Sheet: "Performance"
+│     ├─ Célula: (Fórmula de CPL)
+│     └─ Armazene em variável: {CPL_VALUE}
+
+[ ] 5. Bloco 3 (Conditional): If
+│     ├─ Condição: {CPL_VALUE} > 200
+│     ├─ Então: Ir para Bloco 4
+│     └─ Senão: Stop
+
+[ ] 6. Bloco 4 (Slack ou Email): Send Notification
+│     ├─ Mensagem: "⚠️ ALERTA: CPL está em R$ [CPL] - acima do limite!"
+│     ├─ Para: Seu email/Slack
+│     └─ Anexe: Screenshot da planilha
+
+[ ] 7. Turn on automation
+
+RESULTADO:
+Você recebe alerta se performance piorar.
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 6: CANVA (Criação de Designs)
+════════════════════════════════════════════════════════════════════════════════
+
+Canva = Criação de templates reusáveis (16 frames para todas as campanhas)
+
+PASSO 1: Criar Time no Canva (5 min)
+───────────────────────────────────
+[ ] 1. Acesse: canva.com/teams
+[ ] 2. Clique: "Create a team"
+[ ] 3. Nome: "Sol - Estrategista Antifrágil"
+[ ] 4. Convide: Seu designer + você
+[ ] 5. Created ✅
+
+PASSO 2: Criar 16 Templates (Referência: CHECKLIST_CRIAR_CANVA.txt)
+────────────────────────────────────────────────────────────────────
+
+4 Templates × 4 Variações = 16 Frames
+
+Template A (Gancho):
+  ├─ Variação 1: Light + Logo
+  ├─ Variação 2: Light + Sem Logo
+  ├─ Variação 3: Dark + Logo
+  └─ Variação 4: Dark + Sem Logo
+
+Template B (Conteúdo):
+  ├─ Variação 1: Light + Logo
+  ├─ Variação 2: Light + Sem Logo
+  ├─ Variação 3: Dark + Logo
+  └─ Variação 4: Invertido (imagem direita)
+
+Template C (Educação):
+  ├─ Variação 1: Dark + Logo
+  ├─ Variação 2: Light + Logo
+  ├─ Variação 3: 5 Items (compacto)
+  └─ Variação 4: Sem Logo
+
+Template D (CTA):
+  ├─ Variação 1: Dark + Círculo decorativo
+  ├─ Variação 2: Light + Círculo decorativo
+  ├─ Variação 3: Dark + Minimalista
+  └─ Variação 4: Light + Minimalista
+
+PASSO 3: Organizar Pasta Canva (5 min)
+──────────────────────────────────────
+Dentro do time Canva, crie pasta:
+└─ dicasdoflaviog_2026
+   ├─ Template_A_Gancho/
+   ├─ Template_B_Conteudo/
+   ├─ Template_C_Educacao/
+   └─ Template_D_CTA/
+
+Cada pasta contém as 4 variações.
+
+PASSO 4: Salvar Links (5 min)
+──────────────────────────────
+[ ] Para cada template, copie o link de compartilhamento
+[ ] Cole em: Drive → 01_CLIENTS/dicasdoflaviog/2026-S1/02_CREATIVE/Design/
+[ ] Arquivo: "Canva_Links.sheet"
+
+Format:
+Template | Variação | Link | Status | Last Updated
+A        | Light    | [link] | ✅ | 2026-03-31
+A        | Dark     | [link] | ✅ | 2026-03-31
+...
+
+════════════════════════════════════════════════════════════════════════════════
+PARTE 7: GOOGLE SHEETS DASHBOARD (O Central)
+════════════════════════════════════════════════════════════════════════════════
+
+Este é o painel que você consulta diariamente.
+Dados vêm automaticamente do Make.
+
+PASSO 1: Criar Planilha Master (10 min)
+────────────────────────────────────────
+[ ] 1. Acesse: sheets.google.com
+[ ] 2. Novo arquivo → "Planilha"
+[ ] 3. Nome: "Daily_Dashboard_dicasdoflaviog_2026"
+[ ] 4. Compartilhe com seu time (Editor)
+
+PASSO 2: Criar Abas (5 min)
+──────────────────────────
+Crie estas abas no mesmo arquivo:
+
+Aba 1: Leads
+├─ Colunas: Data | Nome | Email | Número | Fonte | Status | Ticket
+├─ (Alimentada por Make do ManyChat)
+└─ Linhas: Novos leads aparecem aqui todos os dias
+
+Aba 2: Performance
+├─ Colunas: Data | Impressões | Cliques | Gasto | CPL | Taxa Conversão
+├─ (Alimentada por Make do Meta)
+└─ Linha final: Totaliza semana/mês
+
+Aba 3: ROI
+├─ Colunas: Semana | Gasto | Leads | Clientes | Receita | Lucro | ROI%
+├─ (Calculado manualmente ou por fórmula)
+└─ Comparação semana a semana
+
+Aba 4: Insights
+├─ Texto: Principais descobertas da semana
+├─ Ex: "Melhor horário para publicar: 19h"
+├─ Ex: "Tipo de copy mais eficaz: Social proof"
+└─ Ex: "Próximas ações: Aumentar orçamento para vídeos"
+
+PASSO 3: Adicionar Fórmulas (15 min)
+────────────────────────────────────
+Aba Performance:
+├─ CPL = Gasto / Leads (Coluna E)
+├─ Exemplo: =C2/D2
+└─ Coluna F: Taxa de conversão = Clientes / Leads
+
+Aba ROI:
+├─ Receita = Clientes × R$ 1.500
+├─ Lucro = Receita - Gasto
+├─ ROI = (Lucro / Gasto) × 100
+
+PASSO 4: Adicionar Gráficos (10 min)
+────────────────────────────────────
+Insira gráficos para visualizar:
+
+[ ] 1. Gráfico de Linha: CPL ao longo do tempo
+[ ] 2. Gráfico de Barra: Leads por semana
+[ ] 3. Gráfico de Pizza: Distribuição de ROI
+[ ] 4. Tabela: Top 10 keywords que geraram leads
+
+Acesse: Insert → Chart → Configure
+
+PASSO 5: Salvar no Drive (2 min)
+─────────────────────────────────
+[ ] Mova para: Drive → 01_CLIENTS/dicasdoflaviog/2026-S1/04_PERFORMANCE/
+[ ] Renomeie: "Daily_Dashboard.sheet"
+
+════════════════════════════════════════════════════════════════════════════════
+FLUXO COMPLETO: DO BRIEFING ATÉ DASHBOARD
+════════════════════════════════════════════════════════════════════════════════
+
+Semana 1: IMERSÃO
+─────────────────
+[ ] Estrategista faz entrevista (45 min)
+    └─ Salva em: Drive → 01_BRIEFING/Briefing_Estrategico.docx
+
+[ ] HEAD aprova briefing no NotebookLM (15 min)
+    └─ Pergunta: "Essa proposta está alinhada com nossos valores?"
+
+[ ] Crie apresentação ao cliente
+    └─ Basea: TEMPLATE_APRESENTACAO_CLIENTE.txt
+
+[ ] Cliente aprova (via email)
+    └─ Nota: "OK, pode prosseguir"
+
+Semana 2-3: PRODUÇÃO
+───────────────────
+[ ] Copywriter cria 5 textos
+    └─ Salva em: Drive → 02_CREATIVE/Copy/
+
+[ ] Designer Social adapta 16 frames Canva
+    └─ Salva links em: Drive → 02_CREATIVE/Design/Canva_Links.sheet
+
+[ ] HEAD aprova tudo no NotebookLM
+    └─ Pergunta: "Segue as diretrizes de essência humana?"
+
+Semana 4: PUBLICAÇÃO
+───────────────────
+[ ] Publicador agenda posts
+    └─ Salva em: Drive → 03_PUBLICATION/Instagram_Schedule.sheet
+    └─ Usa: Meta Business Suite
+
+[ ] Engajador ativa ManyChat
+    └─ Fluxos já estão criados
+
+[ ] Tráfego ativa anúncios Meta
+    └─ Salva setup em: Drive → 03_PUBLICATION/Meta_Ads_Setup.docx
+
+[ ] Primeira publicação = ⏱️ TIMER INICIA
+
+Semana 5+: OTIMIZAÇÃO & MONITORAMENTO
+──────────────────────────────────────
+[ ] Make alimenta planilhas automaticamente
+    ├─ Leads ManyChat → Aba "Leads"
+    ├─ Meta data → Aba "Performance"
+    └─ Atualiza de hora em hora
+
+[ ] Você consulta Dashboard diariamente (5 min)
+    └─ Check: CPL está OK? Leads chegando?
+
+[ ] Estrategista escreve relatório semanal
+    └─ Salva em: Drive → 04_PERFORMANCE/Weekly_Reports.sheet
+    └─ Contém: "O que funcionou" + "Próximas ações"
+
+[ ] HEAD revisa performance no NotebookLM
+    └─ Pergunta: "Qual foi o ângulo mais efetivo?"
+
+[ ] Cada 2 semanas, otimize:
+    ├─ Se CPL > R$ 200: Reduz orçamento para esse público
+    ├─ Se CPL < R$ 100: Aumenta orçamento (escalável!)
+    ├─ Se Taxa de conversão baixa: Muda copy
+    └─ Se leads chegam muito frio: Muda público
+
+════════════════════════════════════════════════════════════════════════════════
+RESUMO DE INTEGRAÇÕES (Quick Reference)
+════════════════════════════════════════════════════════════════════════════════
+
+┌───────────────────────────────────────────────────────────────────────┐
+│ FERRAMENTA        │ FUNÇÃO                    │ TEMPO SETUP │ CONTATO │
+├───────────────────────────────────────────────────────────────────────┤
+│ Google Drive      │ Central de documentação   │ 30 min      │ Seu email│
+│ NotebookLM        │ Cérebro do HEAD (IA)      │ 45 min      │ Gmail    │
+│ ManyChat          │ Automação Instagram       │ 1 hora      │ Instagram│
+│ Meta Business Mgr │ Controle de anúncios      │ 30 min      │ Facebook │
+│ Make.com          │ Conectar tudo             │ 2 horas     │ Email    │
+│ Google Sheets     │ Dashboard de dados        │ 45 min      │ Gmail    │
+│ Canva             │ Templates de design       │ 3 horas     │ Email    │
+└───────────────────────────────────────────────────────────────────────┘
+
+TOTAL: ~8 horas de setup inicial
+Depois: ~5 min/dia para consultar + 1h/semana para otimização
+
+════════════════════════════════════════════════════════════════════════════════
+CHECKLIST DE IMPLEMENTAÇÃO (4 SEMANAS)
+════════════════════════════════════════════════════════════════════════════════
+
+SEMANA 1: FUNDAÇÃO
+[ ] Google Drive estruturado
+[ ] NotebookLM criado + docs uploaded
+[ ] ManyChat conectado
+[ ] Meta Business Manager + Pixel criado
+[ ] Canva team criado
+[ ] Documentação: 05_REFERENCE/ preenchido
+
+SEMANA 2: AUTOMAÇÃO
+[ ] Make Fluxo 1 (Leads → Sheets) funcionando
+[ ] Make Fluxo 2 (Meta → Sheets) funcionando
+[ ] Make Fluxo 3 (Alerta CPL) testado
+[ ] Google Sheets Dashboard com fórmulas
+[ ] Gráficos visualizando dados
+
+SEMANA 3: DESIGN
+[ ] 16 templates Canva criados
+[ ] Links salvos em Canva_Links.sheet
+[ ] Designer testou customização com brand guidelines
+[ ] Tudo organizado em pastas Canva
+
+SEMANA 4: PRIMEIRO JOB
+[ ] Briefing estratégico completo
+[ ] Apresentação ao cliente aprovada
+[ ] Copy produzida
+[ ] Designs criados (baseado em template)
+[ ] Tráfego ativado
+[ ] Monitoramento iniciado ✅
+
+════════════════════════════════════════════════════════════════════════════════
+DÚVIDAS FREQUENTES
+════════════════════════════════════════════════════════════════════════════════
+
+P: Preciso pagar por todas essas ferramentas?
+R: Não. Setup inicial 100% FREE (Google, ManyChat, Canva, Make têm planos grátis).
+   Único custo: Meta Ads (seu orçamento de tráfego).
+
+P: Se Make "quebrar", o que acontece?
+R: Leads e dados param de sincronizar. Solução: Configure alertas.
+   Backup manual: Exportar ManyChat leads 1x/semana.
+
+P: Quem monitora tudo isso?
+R: Publicador (coordena schedule) + Gestor de Tráfego (monitora ROI).
+   HEAD revisa notebookLM 1x/semana.
+
+P: Canva é obrigatório? Posso usar Adobe?
+R: Canva é mais rápido (setup em 2h). Adobe é mais potente.
+   Recomendação: Canva para 80% do trabalho, Adobe para 20% premium.
+
+════════════════════════════════════════════════════════════════════════════════
+PRÓXIMOS PASSOS
+════════════════════════════════════════════════════════════════════════════════
+
+1. Imprima este documento (ou leia em 2 monitores)
+2. Comece pela Semana 1: Crie estrutura Drive
+3. Não pule Nenhuma integração (cada uma habilita a próxima)
+4. Teste Make com dados fictícios antes de ativar
+5. Documente qualquer erro em Drive → 07_REFERENCE/Setup_Errors.docx
+6. Quando tudo funcionar, execute seu PRIMEIRO JOB
+
+════════════════════════════════════════════════════════════════════════════════

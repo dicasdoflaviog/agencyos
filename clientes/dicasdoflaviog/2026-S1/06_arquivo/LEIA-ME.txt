@@ -1,0 +1,20 @@
+📁 06_ARQUIVO
+════════════════════════════════════════
+QUEM MOVE PARA CÁ: Publicador
+QUANDO: Após post publicado no Instagram
+
+ORGANIZAR POR DATA:
+  [data]-[tema]/
+    ├── [tema]-slide-1.png
+    ├── [tema]-slide-2.png
+    ├── copy-[tema].txt (versão final)
+    └── resultado.txt (impressões, leads, notas)
+
+EXEMPLOS:
+  2026-04-03-erros-marketing/
+  2026-04-10-automacao-email/
+
+OBJETIVO:
+  Histórico completo de tudo publicado.
+  NotebookLM usa esse histórico para dar contexto ao HEAD.
+════════════════════════════════════════

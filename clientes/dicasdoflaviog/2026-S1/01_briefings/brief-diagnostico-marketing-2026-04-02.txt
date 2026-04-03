@@ -1,0 +1,123 @@
+BRIEFING EXECUTIVO — dicasdoflaviog
+Job #001 | Diagnóstico do Projeto
+====================================
+Data: 2026-04-02
+Status: Aguardando aprovação HEAD
+
+====================================
+OBJETIVO DO PROJETO
+====================================
+
+Captar leads qualificados de empreendedores e donos de negócio que percebem
+estar pagando caro por marketing sem ver resultado — e plantar a semente do
+Manual Anti-Burrice como solução imediata.
+
+====================================
+PÚBLICO E NÍVEL DE CONSCIÊNCIA
+====================================
+
+Quem: Empreendedor solo ou dono de pequena empresa (1–10 pessoas).
+      Já contratou agência ou freelancer de marketing pelo menos uma vez.
+      Faixa etária: 30–50 anos. Faturamento: R$10k–100k/mês.
+
+Dor: Gastou dinheiro em marketing, não viu resultado claro.
+     Não sabe se o problema foi a agência, o produto ou ele mesmo.
+
+Nível: Consciente do problema — sente que algo está errado,
+       mas não consegue nomear o que. Ainda culpa o fornecedor,
+       não o processo.
+
+====================================
+ÂNGULO FORA DA CURVA
+====================================
+
+"O erro mais caro não é contratar a agência errada.
+ É não saber o que pedir para a certa."
+
+Diferenciador: todo mundo fala que "agência ruim desperdiça dinheiro".
+Ninguém fala que o cliente sem critério cria a agência ruim.
+Esse ângulo inverte a culpa de forma honesta — sem atacar agências,
+sem defender o empreendedor. É a verdade incômoda que o mercado evita.
+
+====================================
+ESTRUTURA NARRATIVA (6 slides)
+====================================
+
+Slide 1 | Template A — Dark
+  Gancho: "O erro mais caro que empreendedores cometem ao contratar marketing"
+  KeywordsBar: MARKETING | DECISÃO | RESULTADO
+
+Slide 2 | Template C — Dark
+  Problema: 3 sinais de que você está pagando por marketing sem critério
+  KeywordsBar: MARKETING | DECISÃO | RESULTADO
+
+Slide 3 | Template C — Dark
+  Causa raiz: o que falta antes de contratar qualquer um
+  KeywordsBar: MARKETING | DECISÃO | RESULTADO
+
+Slide 4 | Template B — Dark
+  Insight pessoal: Flávio conta um erro próprio (humanização + credibilidade)
+  Foto real do Flávio
+  Sem KeywordsBar (Template B — conflita com foto)
+
+Slide 5 | Template C — Light
+  Checklist: 4 perguntas para fazer antes de contratar marketing
+  KeywordsBar: MARKETING | DECISÃO | RESULTADO
+
+Slide 6 | Template D — Dark
+  CTA: "Baixa o Checklist Anti-Caos — link na bio"
+  KeywordsBar: MARKETING | DECISÃO | RESULTADO
+
+pillar: "Marketing Digital"
+keywords: ["MARKETING", "DECISÃO", "RESULTADO"]
+
+====================================
+DIRETRIZ PARA COPYWRITER
+====================================
+
+Tom: direto, sem culpar ninguém, verdade crua
+Slide 1: máximo 8 palavras. Sem ponto final. Sem emoji.
+Slide 4: primeira pessoa — erro real do Flávio, não exemplo genérico.
+CTA final: apontar para o Checklist (não para o Manual — funil correto).
+Proibido: "incrível", "transformador", "você merece", qualquer emoji.
+
+====================================
+DIRETRIZ PARA DESIGNER
+====================================
+
+Paleta predominante: dark (#000 + #FFD700 no destaque)
+Slide 4 (Template B): usa foto real do Flávio
+KeywordsBar obrigatória: slides 1, 3, 5 e 6
+Ausente em: slide 4 (Template B)
+Safe area: 100px em todas as bordas
+
+====================================
+DIRETRIZ PARA TRAFFIC MANAGER
+====================================
+
+Potencial de escala: ALTO
+  → Problema universal, ângulo diferenciado, prova social implícita
+
+Público primário: donos de negócio 30–50 anos, interesse em marketing digital
+Orçamento de teste: R$ 50–100/dia
+A/B test sugerido:
+  Versão A: headline do slide 1 atual
+  Versão B: "Já vi 47 empresas errarem nisso — e todas tinham a mesma causa"
+
+====================================
+PRÓXIMOS PASSOS
+====================================
+
+1. [ ] HEAD aprova este brief
+2. [ ] Copywriter escreve 6 slides + caption + hashtags
+3. [ ] Designer monta no Figma (templates A/B/C/D + KeywordsBar)
+4. [ ] HEAD revisa design + copy juntos
+5. [ ] Publicador agenda: quinta-feira às 14h
+
+====================================
+APROVAÇÃO HEAD
+====================================
+
+[ ] APROVADO — HEAD
+[ ] REVISÃO — feedback:
+

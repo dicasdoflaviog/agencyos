@@ -1,0 +1,487 @@
+════════════════════════════════════════════════════════════════
+ARQUITETURA COMPLETA — dicasdoflaviog AI TEAM
+════════════════════════════════════════════════════════════════
+
+VERSÃO: 2.0 (Com UI Designer)
+ÚLTIMA ATUALIZAÇÃO: Março 2026
+
+════════════════════════════════════════════════════════════════
+1. ESTRUTURA HIERÁRQUICA (VISUAL)
+════════════════════════════════════════════════════════════════
+
+                            SOL (Você/Cliente)
+                                  ↓
+                        ┌─────────────────────┐
+                        │   AGENTE HEAD       │
+                        │ (Orquestrador Final)│
+                        │ (Revisor Qualidade) │
+                        └─────────────────────┘
+                                  ↓
+        ┌──────────┬──────────┬──────────┬──────────┬──────────┬─────────────┐
+        ↓          ↓          ↓          ↓          ↓          ↓             ↓
+    ┌────────┐┌──────────┐┌──────────┐┌────────┐┌──────────┐┌────────────┐
+    │ESTRAT. ││COPYWRITER││UI DESIGN.││PUBLICAD││ENGAJADOR ││(FUTURE:DEV)│
+    │        ││          ││          ││OR      ││          ││            │
+    │Brief  ││Copy Text ││React + TW││Caption ││Community ││Backend/API │
+    │Struct.││+ Captions││Components││+ Hshtgs││Responses ││Integration │
+    │       ││          ││(NEW)     ││+ Alt   ││          ││            │
+    └────────┘└──────────┘└──────────┘└────────┘└──────────┘└────────────┘
+
+════════════════════════════════════════════════════════════════
+2. NOVA: AGENTE UI DESIGNER (Especialista em Conversão Visual)
+════════════════════════════════════════════════════════════════
+
+PAPEL:
+└─ Converte estrutura + copy em design/componentes visuais
+└─ Executa em React + Tailwind CSS
+└─ Responsável por Performance, UX, Acessibilidade
+└─ Domina 4 estilos: Minimalista, Moderno, Luxo, Extravagante
+
+COMPETÊNCIAS PRINCIPAIS:
+
+1. USABILIDADE & UX (Mobile-First)
+   └─ 44px+ botões, espaçamento correto, zero carga cognitiva
+
+2. PERFORMANCE (Otimização)
+   └─ WebP/SVG, lazy loading, LCP < 2.5s
+
+3. MICROANIMAÇÕES (Vida sem peso)
+   └─ Framer Motion / Tailwind Animate (300-500ms)
+
+4. TIPOGRAFIA ELITE (Comunicação)
+   └─ Fontes que transmitem autoridade + legibilidade
+
+5. VISUAL STORYTELLING (Narrativa)
+   └─ Cada seção prepara a próxima (fluxo emocional)
+
+6. ACESSIBILIDADE (Padrão de Excelência)
+   └─ ARIA, Alt text, Semântica HTML, Contraste WCAG AA
+
+ENTREGA:
+└─ Componentes React prontos (Tailwind CSS)
+└─ Design Tokens documentados (cores, spacing, fonts)
+└─ Pronto para produção ou passar para DEV
+
+════════════════════════════════════════════════════════════════
+3. NOVO FLUXO DE TRABALHO (Com UI Designer)
+════════════════════════════════════════════════════════════════
+
+FASE 1: PLANEJAMENTO
+────────────────────
+Sol → [Brief] → HEAD [Aprova viabilidade]
+                  ↓
+            ESTRATEGISTA [Cria estrutura]
+                  ↓
+            HEAD [Aprova estrutura]
+
+FASE 2: CONTEÚDO & DESIGN
+─────────────────────────
+COPYWRITER [Escreve copy] → HEAD [Aprova tom/linguagem]
+                                    ↓
+                          UI DESIGNER [Cria design/componentes]
+                                    ↓
+                          HEAD [Aprova visual/performance]
+
+FASE 3: PUBLICAÇÃO
+──────────────────
+PUBLICADOR [Prepara post] → HEAD [Aprova caption/hashtags]
+                              ↓
+                          PUBLICAR NO INSTAGRAM
+
+FASE 4: ENGAJAMENTO (Paralelo)
+──────────────────────────────
+ENGAJADOR [Responde comentários] → HEAD [Monitora tom]
+
+════════════════════════════════════════════════════════════════
+4. RESPONSABILIDADES POR AGENTE
+════════════════════════════════════════════════════════════════
+
+┌───────────────────────────────────────────────────────────┐
+│ AGENTE HEAD                                               │
+├───────────────────────────────────────────────────────────┤
+│ ✅ Aprova/rejeita TUDO                                   │
+│ ✅ Confronta decisões arriscadas                         │
+│ ✅ Revisa linguagem e gramática                          │
+│ ✅ Orquestra workflow entre agentes                      │
+│ ✅ Acumula aprendizado (padrões de sucesso)            │
+│ ✅ Treina agentes quando há erros                       │
+└───────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────┐
+│ AGENTE ESTRATEGISTA                                       │
+├───────────────────────────────────────────────────────────┤
+│ ✅ Transforma tema em estrutura de carrossel              │
+│ ✅ Define sequência de slides (Gancho → Problema → ...) │
+│ ✅ Escolhe template (A/B/C/D)                            │
+│ ✅ Cria brief claro para Copywriter                      │
+│ ❌ Não escreve copy                                       │
+│ ❌ Não especifica design                                  │
+└───────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────┐
+│ AGENTE COPYWRITER                                         │
+├───────────────────────────────────────────────────────────┤
+│ ✅ Escreve todos os textos (headlines, subtítulos)       │
+│ ✅ Cria captions para Instagram                          │
+│ ✅ Mantém tom: "Anti-guru, direto, real"               │
+│ ✅ Respeita palavras proibidas (jornada, incrível...)  │
+│ ❌ Não desenha                                            │
+│ ❌ Não publica                                            │
+└───────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────┐
+│ AGENTE UI DESIGNER (NOVO)                                │
+├───────────────────────────────────────────────────────────┤
+│ ✅ Recebe copy + estrutura                               │
+│ ✅ Cria mockup visual                                    │
+│ ✅ Entrega componentes React + Tailwind                 │
+│ ✅ Otimiza performance (WebP, lazy load)                │
+│ ✅ Implementa acessibilidade (ARIA, alt text)           │
+│ ✅ Cria narrativa visual (visual storytelling)          │
+│ ❌ Não faz estratégia                                    │
+│ ❌ Não escreve copy                                       │
+│ ❌ Não publica                                            │
+│ ❌ Não faz desenvolvimento/backend                       │
+└───────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────┐
+│ AGENTE PUBLICADOR                                         │
+├───────────────────────────────────────────────────────────┤
+│ ✅ Recebe componentes visuais/copy                       │
+│ ✅ Formata para Instagram (caption + hashtags + alt)   │
+│ ✅ Define horário ideal                                  │
+│ ✅ Prepara first comment (se necessário)                │
+│ ❌ Não desenha                                            │
+│ ❌ Não escreve copy original                             │
+└───────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────┐
+│ AGENTE ENGAJADOR                                          │
+├───────────────────────────────────────────────────────────┤
+│ ✅ Responde comentários/DMs                              │
+│ ✅ Classifica tipo de interação                          │
+│ ✅ Usa voz de Sol (autêntica, útil)                     │
+│ ✅ Redireciona para DM quando necessário                 │
+│ ❌ Não publica novo conteúdo                             │
+│ ❌ Não faz análises estratégicas                         │
+└───────────────────────────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════
+5. QUANDO CADA AGENTE TRABALHA (Timeline)
+════════════════════════════════════════════════════════════════
+
+DIA 1 (Brief)
+└─ Sol envía brief → HEAD aprova → ESTRATEGISTA cria estrutura
+└─ ETA: 4 horas
+
+DIA 2 (Conteúdo)
+└─ COPYWRITER escreve copy (pode trabalhar paralelo ao design)
+└─ HEAD revisa copy
+└─ ETA: 6 horas
+
+DIA 2-3 (Design Paralelo)
+└─ UI DESIGNER cria mockup + componentes React
+└─ Pode começar enquanto copywriter ainda escreve
+└─ HEAD revisa design
+└─ ETA: 8 horas
+
+DIA 3 (Publicação)
+└─ PUBLICADOR formata para Instagram
+└─ HEAD revisa caption
+└─ ETA: 1 hora
+
+DIA 3+ (Engajamento)
+└─ ENGAJADOR monitora comentários (contínuo)
+└─ HEAD orienta se desvia do tom
+
+════════════════════════════════════════════════════════════════
+6. HANDOFF ENTRE AGENTES (Checklist)
+════════════════════════════════════════════════════════════════
+
+HEAD → ESTRATEGISTA
+[ ] Brief aprovado
+[ ] Cliente confirmado
+[ ] Orçamento definido
+
+ESTRATEGISTA → COPYWRITER
+[ ] Estrutura de slides clara
+[ ] Tone of voice confirmado
+[ ] Palavras-chave principais listadas
+
+COPYWRITER → UI DESIGNER
+[ ] Copy final sem correções pendentes
+[ ] Headlines e CTAs definidos
+[ ] Tom aprovado pelo HEAD
+
+UI DESIGNER → PUBLICADOR
+[ ] Mockup visual aprovado
+[ ] Componentes React prontos
+[ ] Assets otimizados (WebP/SVG)
+
+PUBLICADOR → Instagram
+[ ] Caption formatado
+[ ] Hashtags relevantes
+[ ] Alt text descritivo
+[ ] Horário agendado
+
+ENGAJADOR → HEAD (Feedback)
+[ ] Comentários monitorados
+[ ] Respostas seguem tom
+[ ] Métricas de engajamento
+
+════════════════════════════════════════════════════════════════
+7. INTEGRAÇÃO TÉCNICA DO UI DESIGNER
+════════════════════════════════════════════════════════════════
+
+STACK PADRÃO:
+└─ React 18+ (componentes)
+└─ Next.js (framework, otimizações)
+└─ Tailwind CSS (estilos)
+└─ TypeScript (tipagem)
+└─ Framer Motion (animações leves)
+└─ zustand ou Context (state management)
+
+ESTRUTURA DE PROJETO:
+
+projeto/
+├── app/
+│   ├── layout.tsx              (componentes globais)
+│   └── page.tsx                (composição final)
+├── components/
+│   ├── Hero.tsx
+│   ├── CTA.tsx
+│   ├── SocialProof.tsx
+│   ├── Guarantee.tsx
+│   └── Footer.tsx
+├── lib/
+│   ├── tokens.ts               (design tokens)
+│   └── utils.ts                (helpers)
+├── styles/
+│   └── globals.css             (variáveis CSS)
+└── public/
+    ├── images/                 (otimizadas)
+    └── icons/                  (SVG)
+
+DESIGN TOKENS OBRIGATÓRIOS:
+
+colors:
+  primary: #FFD100 (dicasdoflaviog yellow)
+  dark: #0D0D0D
+  light: #F5F2EC
+  gray: #888880
+
+spacing:
+  xs: 4px, sm: 8px, md: 16px, lg: 24px, xl: 32px
+
+typography:
+  h1: 2.5rem / 700
+  h2: 2rem / 600
+  body: 1rem / 400
+
+════════════════════════════════════════════════════════════════
+8. EXEMPLO DE FLUXO COMPLETO
+════════════════════════════════════════════════════════════════
+
+CENÁRIO: Criar carrossel sobre "IA na produtividade"
+
+DIA 1 — SEGUNDA
+────────────────
+10:00 - Sol envia brief:
+"Carrossel 6 slides sobre como IA automatiza tarefas repetitivas.
+Público: Donos de pequenos negócios. Tom: Prático, não teórico."
+
+10:15 - HEAD aprova viabilidade
+"Viável. Orçamento: 2h Estrategista + 3h Copy + 4h Design. Prossiga."
+
+10:30 - ESTRATEGISTA trabalha
+Cria structure:
+- Slide 1: Gancho (problema: "Você gasta 8h/semana em email")
+- Slide 2: Contexto (estatística: 70% do tempo é tarefas repetidas)
+- Slide 3: Solução (IA automatiza essas tarefas)
+- Slide 4: Exemplo prático (email + agenda)
+- Slide 5: Prova social (clientes usando)
+- Slide 6: CTA (comece agora)
+
+11:00 - HEAD revisa estrutura
+"Aprovado. Passa para Copy e Design."
+
+13:00 - COPYWRITER escreve
+Cria copy para cada slide, captions
+
+14:00 - UI DESIGNER começa mockup
+(Pode trabalhar paralelo ao copywriter)
+
+17:00 - HEAD revisa copy + design
+"Copy: Aprovado. Design: Rejeitado (cor de fundo muito clara).
+Copywriter: refaz. Designer: ajusta fundo + cor de CTA."
+
+18:30 - COPYWRITER e UI DESIGNER entregam versão 2
+
+19:00 - HEAD aprova ambos
+"Go! Passa para publicação."
+
+DIA 2 — TERÇA
+─────────────
+08:00 - PUBLICADOR formata para Instagram
+Caption: "Você gasta quanto tempo em tarefas que um bot poderia fazer?
+[Copy do slide 1]
+[Link para mais]"
+
+Hashtags: #IA #Automação #Produtividade #Small Business
+
+Alt text: "6 slides sobre automação com IA em pequenos negócios"
+
+Horário: Terça 12:30 (pico de atividade)
+
+09:00 - HEAD revisa
+"Caption pode ser mais direto. Refaz."
+
+10:00 - PUBLICADOR entrega final
+"Pronto pra publicar"
+
+10:15 - PUBLICAÇÃO INSTAGRAM
+
+10:30+ - ENGAJADOR monitora respostas
+Responde comentários, redireciona DMs
+HEAD monitora se ton está correto
+
+════════════════════════════════════════════════════════════════
+9. EVOLUÇÃO FUTURA (Roadmap)
+════════════════════════════════════════════════════════════════
+
+FASE 1 (AGORA):
+✅ HEAD (Orquestrador)
+✅ ESTRATEGISTA (Planejamento)
+✅ COPYWRITER (Conteúdo)
+✅ UI DESIGNER (Novo! Design visual)
+✅ PUBLICADOR (Publicação)
+✅ ENGAJADOR (Comunidade)
+
+FASE 2 (Próximo):
+⬜ AGENTE DEV (Desenvolvimento/Backend)
+   └─ Implementa componentes em produção
+   └─ Cuida de APIs e integrações
+
+⬜ AGENTE ANALYTICS (Dados)
+   └─ Mede performance (CTR, conversão, etc)
+   └─ Reporta ao HEAD para otimizações
+
+FASE 3 (Futuro):
+⬜ AGENTE VIDEO (Vídeo/Reels)
+   └─ Cria scripts + storyboards
+   └─ Edita vídeos
+
+⬜ AGENTE PAID (Anúncios Pagos)
+   └─ Gerencia Meta Ads, Google Ads
+   └─ Otimiza CPL/ROAS
+
+════════════════════════════════════════════════════════════════
+10. MULTI-CLIENTE (Como funciona a escalabilidade)
+════════════════════════════════════════════════════════════════
+
+CLIENTE 1: dicasdoflaviog
+├─ _brand/clientes/dicasdoflaviog/
+├─ Estilos: Minimalista + Anti-guru
+├─ Sistema: 4 cores fixas, 2 fontes
+└─ Agentes: Todos aplicam essas guidelines
+
+CLIENTE 2: qgdigital (Exemplo)
+├─ _brand/clientes/qgdigital/
+├─ Estilos: Moderno/Estruturado (Design Tech)
+├─ Sistema: Cores próprias, tipografia própria
+└─ Agentes: Adaptam prompts pra novo cliente
+
+CLIENTE 3+:
+├─ Mesma estrutura
+├─ Cada um tem sua pasta _brand/clientes/{nome}/
+└─ HEAD gerencia contexto de cada cliente
+
+ESCALABILIDADE:
+└─ Sistema é agnóstico
+└─ Qualquer cliente entra na mesma pipeline
+└─ HEAD orquestra múltiplos clientes simultâneos
+└─ Agentes trabalham com contexto correto via HEAD
+
+════════════════════════════════════════════════════════════════
+9. DESIGN SYSTEM: TEMPLATES CANVA A/B/C/D
+════════════════════════════════════════════════════════════════
+
+NOVO (Março 2026): 4 Templates prontos para reutilizar em todos os clientes.
+
+TEMPLATE A — GANCHO / ABERTURA
+└─ Estrutura: Imagem full-bleed (1080×1350) + Texto mínimo (bottom)
+└─ Uso: Sempre o PRIMEIRO slide do carrossel
+└─ Propósito: Parar o scroll, gerar curiosidade
+└─ Variações: Light, Dark, Com Logo, Sem Logo
+└─ Checklist:
+   ├─ Imagem otimizada (WebP, 1080p+)
+   ├─ Texto branco/preto com bom contraste
+   ├─ Safe area: 40px padding
+   └─ Headline: 36-40px, bold, centered bottom
+
+TEMPLATE B — CONTEÚDO / HUMANIZAÇÃO
+└─ Estrutura: 50% esquerda (imagem) + 50% direita (texto)
+└─ Uso: Slides 2-4 do carrossel, prova social
+└─ Propósito: Educação + confiança
+└─ Variações: Light, Dark, Com Logo, Imagem Direita
+└─ Checklist:
+   ├─ Proporção 50/50 respeitada
+   ├─ Headline 24px, body 14px
+   ├─ Imagem não pixelada
+   └─ Respiro visual entre elementos
+
+TEMPLATE C — EDUCAÇÃO / LISTAS
+└─ Estrutura: Fundo sólido (preto ou cinza) + 3-5 items numerados
+└─ Uso: Listas, rankings, step-by-step
+└─ Propósito: Informação estruturada
+└─ Variações: Dark, Light, Com Logo, 3-items, 5-items
+└─ Checklist:
+   ├─ Números em #FFD700 (amarelo)
+   ├─ Título 20px, descrição 14px
+   ├─ Espaçamento 200px entre items
+   └─ Fundo sem textura (sólido)
+
+TEMPLATE D — CTA / FECHAMENTO
+└─ Estrutura: Fundo escuro + Headline grande + Botão destaque
+└─ Uso: SEMPRE o ÚLTIMO slide
+└─ Propósito: Conversão
+└─ Variações: Dark, Light, Com Circulo Decorativo
+└─ Checklist:
+   ├─ Headline 32px, bold, white
+   ├─ Botão #FFD700, 200×50px
+   ├─ CTA clara ("Clique aqui", "Baixar agora")
+   └─ Safe areas respeitadas
+
+COMO USAR (Designer Social):
+1. Abra link Canva compartilhado (CANVA_LINK.txt)
+2. Selecione template apropriado
+3. Clique na imagem → Replace → upload sua foto
+4. Edite textos (headline/body)
+5. Valide: cores, tipografia, safe areas
+6. Download PNG
+7. Salve em /outputs/carrosseis/[tema]-slide-[n].png
+
+ESPECIFICAÇÕES TÉCNICAS:
+├─ Dimensões: 1080 × 1350px (Instagram)
+├─ Cores: #FFD700 (amarelo) + #000000 + #FFFFFF
+├─ Tipografia: Courier New (display + body)
+├─ Safe area: 40px padding mínimo
+├─ Imagens: WebP, 1080p ou maior
+└─ Exporte: PNG (ou WebP se o Editor suportar)
+
+DOCUMENTAÇÃO DETALHADA:
+├─ Passo a passo: scripts/GUIA_CRIACAO_TEMPLATES_CANVA.txt
+├─ Specs visuais: scripts/TEMPLATES_CANVA_ESPECIFICACOES.html
+└─ Link Canva: scripts/CANVA_LINK.txt
+
+════════════════════════════════════════════════════════════════
+
+FIM DA ARQUITETURA
+
+Status atualizado:
+✅ 1. Templates Canva (A/B/C/D) especificados e prontos para criar
+✅ 2. Designer Social agora tem sistema reutilizável
+⏳ 3. QA Checklist (próximo passo)
+⏳ 4. Primeira produção com novo team
+
+════════════════════════════════════════════════════════════════
