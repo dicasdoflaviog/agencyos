@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { AgentSelector } from './AgentSelector'
 import { AgentChat } from './AgentChat'
-import type { AgentId } from '@/lib/anthropic/agents'
+import type { AgentId } from '@/lib/anthropic/agents-config'
 
 interface AgentInterfaceProps {
   jobId: string

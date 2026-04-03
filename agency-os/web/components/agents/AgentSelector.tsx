@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { getAgentsByLayer, type AgentId } from '@/lib/anthropic/agents'
+import { getAgentsByLayer, type AgentId } from '@/lib/anthropic/agents-config'
 
 interface AgentSelectorProps {
   selectedId: AgentId | null

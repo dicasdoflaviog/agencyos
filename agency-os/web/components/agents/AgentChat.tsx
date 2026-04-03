@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Loader2, Zap, RotateCcw, Check, X } from 'lucide-react'
-import { AGENTS, type AgentId } from '@/lib/anthropic/agents'
+import { AGENTS, type AgentId } from '@/lib/anthropic/agents-config'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
