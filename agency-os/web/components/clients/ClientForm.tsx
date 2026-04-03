@@ -157,7 +157,7 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
           )}
           <label className="cursor-pointer rounded border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-[#A1A1AA] hover:bg-white/[0.07] hover:text-[#FAFAFA] transition-colors">
             {logoPreview ? 'Trocar logo' : 'Selecionar logo'}
-            <input type="file" accept="image/*" onChange={handleLogoChange} className="hidden" />
+            <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={handleLogoChange} className="hidden" />
           </label>
         </div>
       </div>
