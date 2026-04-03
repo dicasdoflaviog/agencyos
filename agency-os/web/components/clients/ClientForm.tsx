@@ -75,9 +75,9 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
     const supabase = createClient()
     const ext = logoFile.name.split('.').pop()
     const path = `${clientId}/logo.${ext}`
-    const { error } = await supabase.storage.from('logos').upload(path, logoFile, { upsert: true })
+    const { error } = await supabase.storage.from('client-logos').upload(path, logoFile, { upsert: true })
     if (error) { toast.error('Erro no upload do logo'); return null }
-    const { data } = supabase.storage.from('logos').getPublicUrl(path)
+    const { data } = supabase.storage.from('client-logos').getPublicUrl(path)
     return data.publicUrl
   }
 
