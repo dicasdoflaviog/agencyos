@@ -13,30 +13,85 @@ export async function POST(req: NextRequest) {
     jobId: string
     clientId: string
     userMessage: string
+    // histórico de mensagens da conversa atual com este agente (opcional)
+    conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string }>
   }
-  const { agentId, jobId, clientId, userMessage } = body
+  const { agentId, jobId, clientId, userMessage, conversationHistory = [] } = body
 
   if (!agentId || !jobId || !clientId || !userMessage?.trim()) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
-  const [{ data: client }, { data: job }] = await Promise.all([
-    supabase.from('clients').select('name, niche').eq('id', clientId).single(),
+  // ── Busca dados do cliente, job e briefing em paralelo
+  const [{ data: client }, { data: job }, { data: briefing }] = await Promise.all([
+    supabase.from('clients').select('name, niche, brand_voice').eq('id', clientId).single(),
     supabase.from('jobs').select('title, description').eq('id', jobId).single(),
+    supabase.from('job_briefings').select('*').eq('job_id', jobId).maybeSingle(),
   ])
 
-  const contextBlock = client && job
-    ? `CONTEXTO DO JOB:\nCliente: ${client.name} | Nicho: ${client.niche ?? 'não definido'}\nJob: ${job.title}${job.description ? ` — ${job.description}` : ''}\n\n`
+  // ── Busca outputs anteriores do job (de outros agentes) para encadeamento
+  const { data: previousOutputs } = await supabase
+    .from('job_outputs')
+    .select('agent_name, output_content, created_at')
+    .eq('job_id', jobId)
+    .eq('status', 'approved') // só injeta outputs aprovados
+    .order('created_at', { ascending: true })
+    .limit(5) // limita para não explodir o contexto
+
+  // ── Monta bloco de contexto
+  const clientBlock = client
+    ? `Cliente: ${client.name}${client.niche ? ` | Nicho: ${client.niche}` : ''}${client.brand_voice ? `\nVoz da marca: ${client.brand_voice}` : ''}`
+    : ''
+
+  const jobBlock = job
+    ? `Job: ${job.title}${job.description ? ` — ${job.description}` : ''}`
+    : ''
+
+  const briefingBlock = briefing
+    ? `\nBRIEFING:\n` +
+      (briefing.content_type    ? `  Tipo de conteúdo: ${briefing.content_type}\n` : '') +
+      (briefing.objective       ? `  Objetivo: ${briefing.objective}\n` : '') +
+      (briefing.target_audience ? `  Público-alvo: ${briefing.target_audience}\n` : '') +
+      (briefing.key_message     ? `  Mensagem principal: ${briefing.key_message}\n` : '') +
+      (briefing.tone            ? `  Tom: ${briefing.tone}\n` : '') +
+      (briefing.restrictions    ? `  Restrições: ${briefing.restrictions}\n` : '') +
+      (briefing.deadline_notes  ? `  Prazo: ${briefing.deadline_notes}\n` : '') +
+      (briefing.reference_urls?.length > 0
+        ? `  Referências: ${briefing.reference_urls.join(', ')}\n`
+        : '')
+    : ''
+
+  const previousOutputsBlock = previousOutputs && previousOutputs.length > 0
+    ? `\n\n## OUTPUTS ANTERIORES DO JOB (contexto encadeado)\n` +
+      previousOutputs.map(o =>
+        `### ${o.agent_name}\n${o.output_content}`
+      ).join('\n\n---\n\n')
+    : ''
+
+  const contextBlock = (clientBlock || jobBlock)
+    ? `## CONTEXTO DO JOB\n${clientBlock}\n${jobBlock}${briefingBlock}${previousOutputsBlock}\n\n---\n\n`
     : ''
 
   const systemPrompt = getSystemPrompt(agentId)
   const agent = AGENTS[agentId]
 
+  // ── Monta histórico de mensagens
+  // Se há histórico de conversa, usa multi-turn. Caso contrário, single-turn.
+  const messages: Array<{ role: 'user' | 'assistant'; content: string }> =
+    conversationHistory.length > 0
+      ? [
+          // Primeira mensagem sempre injeta o contexto do job
+          { role: 'user', content: contextBlock + conversationHistory[0].content },
+          ...conversationHistory.slice(1),
+          { role: 'user', content: userMessage },
+        ]
+      : [{ role: 'user', content: contextBlock + userMessage }]
+
   const message = await anthropic.messages.create({
-    model: 'claude-sonnet-4-5',
+    model: 'claude-sonnet-4-6',
     max_tokens: 4096,
     system: systemPrompt,
-    messages: [{ role: 'user', content: contextBlock + userMessage }],
+    messages,
   })
 
   const outputContent = message.content
@@ -61,5 +116,9 @@ export async function POST(req: NextRequest) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  return NextResponse.json({ outputId: savedOutput.id, content: outputContent, agentName: agent.name })
+  return NextResponse.json({
+    outputId: savedOutput.id,
+    content: outputContent,
+    agentName: agent.name,
+  })
 }

@@ -9,17 +9,23 @@ import {
   DollarSign,
   Bot,
   LogOut,
+  BarChart2,
+  GitBranch,
+  FileStack,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
-  { href: '/',           label: 'Overview',   icon: LayoutDashboard },
-  { href: '/clients',    label: 'Clientes',   icon: Users },
-  { href: '/jobs',       label: 'Jobs',       icon: Briefcase },
-  { href: '/gallery',    label: 'Galeria',    icon: Images },
-  { href: '/financial',  label: 'Financeiro', icon: DollarSign },
+  { href: '/',           label: 'Overview',    icon: LayoutDashboard },
+  { href: '/clients',    label: 'Clientes',    icon: Users },
+  { href: '/jobs',       label: 'Jobs',        icon: Briefcase },
+  { href: '/gallery',    label: 'Galeria',     icon: Images },
+  { href: '/analytics',  label: 'Analytics',   icon: BarChart2 },
+  { href: '/pipelines',  label: 'Pipelines',   icon: GitBranch },
+  { href: '/templates',  label: 'Templates',   icon: FileStack },
+  { href: '/financial',  label: 'Financeiro',  icon: DollarSign },
 ]
 
 export function Sidebar() {
@@ -46,7 +52,7 @@ export function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-0.5 p-2 pt-3">
+      <nav className="flex-1 space-y-0.5 p-2 pt-3 overflow-y-auto">
         {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
           const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href)
           return (

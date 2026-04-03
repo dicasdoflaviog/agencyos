@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { JobForm } from '@/components/jobs/JobForm'
 import { AgentInterface } from '@/components/agents/AgentInterface'
 import { OutputCard } from '@/components/agents/OutputCard'
+import BriefingCard from '@/components/briefing/BriefingCard'
 import { cn, formatDate } from '@/lib/utils'
 
 const STATUS_CONFIG = {
@@ -26,10 +27,11 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
   const { id } = await params
   const supabase = await createClient()
 
-  const [{ data: job }, { data: outputs }, { data: clients }] = await Promise.all([
+  const [{ data: job }, { data: outputs }, { data: clients }, { data: briefing }] = await Promise.all([
     supabase.from('jobs').select('*, client:clients(id, name, logo_url)').eq('id', id).single(),
     supabase.from('job_outputs').select('*').eq('job_id', id).order('created_at', { ascending: false }),
     supabase.from('clients').select('id, name').eq('status', 'active').order('name'),
+    supabase.from('job_briefings').select('*').eq('job_id', id).maybeSingle(),
   ])
 
   if (!job) notFound()
@@ -85,8 +87,26 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
           )}
         </div>
 
-        {/* Editar job — ocupa 2 colunas */}
-        <div className="xl:col-span-2">
+        {/* Sidebar direita — ocupa 2 colunas */}
+        <div className="xl:col-span-2 space-y-4">
+          {/* Briefing */}
+          {briefing ? (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            <BriefingCard briefing={briefing as any} jobId={id} />
+          ) : (
+            <div className="rounded-xl border border-dashed border-zinc-700 p-5 text-center">
+              <p className="text-sm text-zinc-400 font-medium">Sem briefing</p>
+              <p className="text-xs text-zinc-600 mt-1 mb-3">Crie um briefing para melhorar os outputs dos agentes</p>
+              <Link
+                href={`/jobs/${id}/briefing`}
+                className="inline-flex items-center rounded-lg bg-violet-600 hover:bg-violet-500 px-3 py-1.5 text-xs font-medium text-white transition-colors"
+              >
+                + Criar briefing
+              </Link>
+            </div>
+          )}
+
+          {/* Editar job */}
           <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
             <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Editar Job</h3>
             <JobForm clients={clients ?? []} initialData={job} mode="edit" />
