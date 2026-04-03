@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import { QueryProvider } from '@/components/providers/QueryProvider'
+import { Toaster } from 'sonner'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#09090B] text-[#FAFAFA] antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
           <QueryProvider>{children}</QueryProvider>
+          <Toaster position="bottom-right" theme="dark" richColors closeButton />
         </ThemeProvider>
       </body>
     </html>

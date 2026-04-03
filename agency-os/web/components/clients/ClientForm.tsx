@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -10,6 +11,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { toast } from 'sonner'
+import { Upload, X } from 'lucide-react'
 import type { Client } from '@/types/database'
 
 const schema = z.object({
@@ -30,6 +33,8 @@ interface ClientFormProps {
 
 export function ClientForm({ initialData, mode }: ClientFormProps) {
   const router = useRouter()
+  const [logoFile, setLogoFile] = useState<File | null>(null)
+  const [logoPreview, setLogoPreview] = useState<string>(initialData?.logo_url ?? '')
   const {
     register,
     handleSubmit,
@@ -58,6 +63,24 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
     }
   }
 
+  function handleLogoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setLogoFile(file)
+    setLogoPreview(URL.createObjectURL(file))
+  }
+
+  async function uploadLogo(clientId: string): Promise<string | null> {
+    if (!logoFile) return logoPreview || null
+    const supabase = createClient()
+    const ext = logoFile.name.split('.').pop()
+    const path = `${clientId}/logo.${ext}`
+    const { error } = await supabase.storage.from('logos').upload(path, logoFile, { upsert: true })
+    if (error) { toast.error('Erro no upload do logo'); return null }
+    const { data } = supabase.storage.from('logos').getPublicUrl(path)
+    return data.publicUrl
+  }
+
   async function onSubmit(data: FormData) {
     const supabase = createClient()
     const payload = {
@@ -75,13 +98,26 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
         .insert(payload)
         .select()
         .single()
-      if (!error && created) router.push(`/clients/${created.id}`)
+      if (error) {
+        toast.error('Erro ao criar cliente', { description: error.message })
+      } else if (created) {
+        const logo_url = await uploadLogo(created.id)
+        if (logo_url) await supabase.from('clients').update({ logo_url }).eq('id', created.id)
+        toast.success('Cliente criado com sucesso!')
+        router.push(`/clients/${created.id}`)
+      }
     } else if (initialData?.id) {
+      const logo_url = await uploadLogo(initialData.id)
       const { error } = await supabase
         .from('clients')
-        .update(payload)
+        .update({ ...payload, ...(logo_url !== null ? { logo_url } : {}) })
         .eq('id', initialData.id)
-      if (!error) router.refresh()
+      if (error) {
+        toast.error('Erro ao salvar', { description: error.message })
+      } else {
+        toast.success('Cliente atualizado!')
+        router.refresh()
+      }
     }
   }
 
@@ -90,6 +126,33 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 max-w-xl">
+      {/* Logo upload */}
+      <div className="space-y-1.5">
+        <Label className={labelClass}>Logo</Label>
+        <div className="flex items-center gap-3">
+          {logoPreview ? (
+            <div className="relative h-12 w-12 flex-shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={logoPreview} alt="Logo" className="h-12 w-12 rounded object-cover border border-white/10" />
+              <button
+                type="button"
+                onClick={() => { setLogoFile(null); setLogoPreview('') }}
+                className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#EF4444] text-white"
+              >
+                <X size={10} />
+              </button>
+            </div>
+          ) : (
+            <div className="flex h-12 w-12 items-center justify-center rounded border border-dashed border-white/10 bg-white/[0.02] text-[#A1A1AA] flex-shrink-0">
+              <Upload size={14} />
+            </div>
+          )}
+          <label className="cursor-pointer rounded border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-[#A1A1AA] hover:bg-white/[0.07] hover:text-[#FAFAFA] transition-colors">
+            {logoPreview ? 'Trocar logo' : 'Selecionar logo'}
+            <input type="file" accept="image/*" onChange={handleLogoChange} className="hidden" />
+          </label>
+        </div>
+      </div>
       <div className="space-y-1.5">
         <Label className={labelClass}>Nome *</Label>
         <Input

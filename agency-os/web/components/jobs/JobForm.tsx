@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { toast } from 'sonner'
 import type { Client, Job } from '@/types/database'
 
 const schema = z.object({
@@ -61,10 +62,20 @@ export function JobForm({ clients, initialData, mode }: JobFormProps) {
         .insert({ ...payload, status: 'backlog' })
         .select()
         .single()
-      if (!error && created) router.push(`/jobs/${created.id}`)
+      if (error) {
+        toast.error('Erro ao criar job', { description: error.message })
+      } else if (created) {
+        toast.success('Job criado!')
+        router.push(`/jobs/${created.id}`)
+      }
     } else if (initialData?.id) {
       const { error } = await supabase.from('jobs').update(payload).eq('id', initialData.id)
-      if (!error) router.refresh()
+      if (error) {
+        toast.error('Erro ao salvar', { description: error.message })
+      } else {
+        toast.success('Job atualizado!')
+        router.refresh()
+      }
     }
   }
 
