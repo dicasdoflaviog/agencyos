@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { Notification } from '@/types/database'
+import type { RealtimeChannel } from '@supabase/supabase-js'
 import Link from 'next/link'
 
 const TYPE_LABELS: Record<string, string> = {
@@ -18,24 +19,54 @@ export default function NotificationBell() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [open, setOpen] = useState(false)
   const supabase = createClient()
+  const channelRef = useRef<RealtimeChannel | null>(null)
 
   useEffect(() => {
-    fetchNotifications()
-  }, [])
+    let userId: string | null = null
 
-  async function fetchNotifications() {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
+    async function init() {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+      userId = user.id
 
-    const { data } = await supabase
-      .from('notifications')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .limit(20)
+      // Busca inicial
+      const { data } = await supabase
+        .from('notifications')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(20)
+      setNotifications(data ?? [])
 
-    setNotifications(data ?? [])
-  }
+      // Canal Realtime — escuta INSERTs na tabela filtrados pelo user_id
+      channelRef.current = supabase
+        .channel(`notifications:${userId}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'INSERT',
+            schema: 'public',
+            table: 'notifications',
+            filter: `user_id=eq.${userId}`,
+          },
+          (payload) => {
+            const newNotif = payload.new as Notification
+            setNotifications((prev) => [newNotif, ...prev].slice(0, 20))
+          }
+        )
+        .subscribe()
+    }
+
+    init()
+
+    // Cleanup: remove canal ao desmontar
+    return () => {
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current)
+        channelRef.current = null
+      }
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   async function markAllRead() {
     const { data: { user } } = await supabase.auth.getUser()

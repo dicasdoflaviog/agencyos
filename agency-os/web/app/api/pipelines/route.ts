@@ -58,16 +58,30 @@ export async function POST(req: NextRequest) {
 
   // Montar contexto base
   const client = Array.isArray(job.client) ? job.client[0] : job.client
-  let baseContext = `## CONTEXTO DO JOB\nCliente: ${client?.name ?? 'N/A'}${client?.niche ? ` | Nicho: ${client.niche}` : ''}\nJob: ${job.title}${job.description ? ` — ${job.description}` : ''}`
+
+  const lines: string[] = [
+    '## CONTEXTO DO JOB',
+    `Cliente: ${client?.name ?? 'N/A'}${client?.niche ? ` | Nicho: ${client.niche}` : ''}`,
+    `Job: ${job.title}${job.description ? ` — ${job.description}` : ''}`,
+  ]
 
   if (briefing) {
-    baseContext += `\n\nBRIEFING:`
-    if (briefing.content_type)    baseContext += `\n  Tipo: ${briefing.content_type}`
-    if (briefing.objective)       baseContext += `\n  Objetivo: ${briefing.objective}`
-    if (briefing.target_audience) baseContext += `\n  Público: ${briefing.target_audience}`
-    if (briefing.key_message)     baseContext += `\n  Mensagem: ${briefing.key_message}`
-    if (briefing.tone)            baseContext += `\n  Tom: ${briefing.tone}`
+    lines.push('')
+    lines.push('## BRIEFING ESTRATÉGICO')
+    if (briefing.content_type)    lines.push(`• Tipo de conteúdo : ${briefing.content_type}`)
+    if (briefing.objective)       lines.push(`• Objetivo         : ${briefing.objective}`)
+    if (briefing.target_audience) lines.push(`• Público-alvo     : ${briefing.target_audience}`)
+    if (briefing.key_message)     lines.push(`• Mensagem-chave   : ${briefing.key_message}`)
+    if (briefing.tone)            lines.push(`• Tom de voz       : ${briefing.tone}`)
+    if (briefing.call_to_action)  lines.push(`• CTA desejado     : ${briefing.call_to_action}`)
+    if (briefing.references)      lines.push(`• Referências      : ${briefing.references}`)
+    if (briefing.restrictions)    lines.push(`• RESTRIÇÕES (NÃO fazer): ${briefing.restrictions}`)
+  } else {
+    lines.push('')
+    lines.push('⚠️ Nenhum briefing preenchido para este job. Baseie-se apenas no título e descrição acima.')
   }
+
+  const baseContext = lines.join('\n')
 
   const steps: PipelineStep[] = pipeline.steps ?? []
   const results = []
