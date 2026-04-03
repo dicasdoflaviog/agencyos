@@ -72,17 +72,21 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
 
   async function uploadLogo(clientId: string): Promise<string | null> {
     if (!logoFile) return logoPreview || null
-    const supabase = createClient()
-    const ext = logoFile.name.split('.').pop()
-    const path = `${clientId}/logo.${ext}`
-    const { error } = await supabase.storage.from('client-logos').upload(path, logoFile, { upsert: true })
-    if (error) {
-      console.error('[uploadLogo] Supabase Storage error:', { message: error.message, name: error.name, bucket: 'client-logos', path })
-      toast.error(`Erro no upload do logo: ${error.message}`)
+
+    const formData = new FormData()
+    formData.append('file', logoFile)
+    formData.append('clientId', clientId)
+
+    const res = await fetch('/api/upload/logo', { method: 'POST', body: formData })
+    const json = await res.json()
+
+    if (!res.ok) {
+      console.error('[uploadLogo] API error:', json)
+      toast.error(`Erro no upload do logo: ${json.error ?? res.statusText}`)
       return null
     }
-    const { data } = supabase.storage.from('client-logos').getPublicUrl(path)
-    return data.publicUrl
+
+    return json.url as string
   }
 
   async function onSubmit(data: FormData) {
