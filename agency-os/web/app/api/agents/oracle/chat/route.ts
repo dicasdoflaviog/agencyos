@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+export const dynamic = 'force-dynamic'
 
 const ORACLE_SYSTEM = `Você é o ORACLE, o Diretor de IA da agência. Você orquestra os agentes VERA (copy) e ATLAS (design).
 Quando o usuário pedir textos, copies ou conteúdo escrito → você aciona o VERA.
@@ -11,6 +11,7 @@ Responda sempre em português, de forma direta e profissional.
 Ao acionar um agente, indique claramente: [VERA] ou [ATLAS] no início da resposta delegada.`
 
 export async function POST(req: NextRequest) {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return new Response('Unauthorized', { status: 401 })

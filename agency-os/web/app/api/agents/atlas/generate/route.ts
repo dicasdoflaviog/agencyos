@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import OpenAI from 'openai'
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+export const dynamic = 'force-dynamic'
 
 const CREATIVE_TYPES: Record<string, { size: '1024x1024' | '1792x1024' | '1024x1792'; label: string }> = {
   post_feed:  { size: '1024x1024',  label: 'Post Feed' },
@@ -13,6 +13,7 @@ const CREATIVE_TYPES: Record<string, { size: '1024x1024' | '1792x1024' | '1024x1
 }
 
 export async function POST(req: NextRequest) {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
