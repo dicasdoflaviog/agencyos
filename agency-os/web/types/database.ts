@@ -543,3 +543,55 @@ export interface Subscription {
   created_at: string
 }
 
+
+// ── Fase 6: SaaS Platform ─────────────────────────────────────
+
+export interface ApiKey {
+  id: string
+  workspace_id: string | null
+  name: string
+  key_hash: string
+  last_used_at: string | null
+  created_by: string | null
+  created_at: string
+}
+
+export type MarketplaceCategory = 'production' | 'intelligence' | 'operations' | 'growth'
+export type MarketplacePriceType = 'free' | 'one_time' | 'subscription'
+
+export interface MarketplaceAgent {
+  id: string
+  slug: string
+  name: string
+  description: string | null
+  category: MarketplaceCategory
+  price_type: MarketplacePriceType
+  price_brl: number | null
+  rating: number
+  install_count: number
+  created_at: string
+}
+
+export interface MarketplaceInstall {
+  id: string
+  agent_id: string
+  workspace_id: string
+  installed_by: string | null
+  installed_at: string
+}
+
+export interface OnboardingProgress {
+  id: string
+  workspace_id: string
+  steps_done: string[]
+  completed_at: string | null
+  created_at: string
+}
+
+export interface UsageEvent {
+  id: string
+  workspace_id: string
+  event_type: string
+  metadata: Record<string, unknown>
+  created_at: string
+}
