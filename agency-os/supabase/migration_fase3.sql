@@ -246,15 +246,18 @@ CREATE POLICY "team_all_output_versions"
   );
 
 -- Clients can see their own output versions
+-- Corrected: profiles.client_id → job_outputs.client_id (direct FK, no extra hops)
+DROP POLICY IF EXISTS "client_read_own_output_versions" ON output_versions;
+
 CREATE POLICY "client_read_own_output_versions"
   ON output_versions FOR SELECT
   USING (
     EXISTS (
-      SELECT 1 FROM job_outputs jo
-      JOIN jobs j ON j.id = jo.job_id
-      JOIN clients c ON c.id = j.client_id
-      WHERE jo.id = output_versions.output_id
-        AND c.user_id = auth.uid()
+      SELECT 1 FROM profiles p
+      JOIN job_outputs jo ON jo.client_id = p.client_id
+      WHERE p.id = auth.uid()
+        AND p.role = 'client'
+        AND jo.id = output_versions.output_id
     )
   );
 
