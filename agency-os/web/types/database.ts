@@ -1,7 +1,9 @@
 export type Profile = {
   id: string
   name: string
-  role: 'admin' | 'collaborator'
+  role: 'admin' | 'collaborator' | 'client'
+  client_id: string | null
+  phone: string | null
   avatar_url: string | null
   created_at: string
 }
