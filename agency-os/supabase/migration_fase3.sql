@@ -4,6 +4,31 @@
 -- =============================================================================
 
 -- ─────────────────────────────────────────────────────────────────────────────
+-- 0. ALTERAÇÕES EM TABELAS EXISTENTES
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- profiles: adiciona client_id (FK → clients) e phone
+-- Necessário para identificar qual cliente um usuário com role='client' pertence
+ALTER TABLE profiles
+  ADD COLUMN IF NOT EXISTS client_id UUID REFERENCES clients(id) ON DELETE SET NULL,
+  ADD COLUMN IF NOT EXISTS phone     TEXT;
+
+-- profiles: expande o CHECK de role para incluir 'client'
+ALTER TABLE profiles
+  DROP CONSTRAINT IF EXISTS profiles_role_check;
+ALTER TABLE profiles
+  ADD CONSTRAINT profiles_role_check
+    CHECK (role IN ('admin', 'collaborator', 'client'));
+
+CREATE INDEX IF NOT EXISTS idx_profiles_client_id ON profiles(client_id);
+CREATE INDEX IF NOT EXISTS idx_profiles_role      ON profiles(role);
+
+-- notifications: adiciona colunas para envio multicanal
+ALTER TABLE notifications
+  ADD COLUMN IF NOT EXISTS channels TEXT[]       DEFAULT ARRAY['in_app'],
+  ADD COLUMN IF NOT EXISTS sent_at  TIMESTAMPTZ;
+
+-- ─────────────────────────────────────────────────────────────────────────────
 -- 1. CLIENT PORTAL
 -- ─────────────────────────────────────────────────────────────────────────────
 
