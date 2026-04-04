@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { Notification } from '@/types/database'
 import type { RealtimeChannel } from '@supabase/supabase-js'
@@ -20,6 +20,21 @@ export default function NotificationBell() {
   const [open, setOpen] = useState(false)
   const supabase = createClient()
   const channelRef = useRef<RealtimeChannel | null>(null)
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
+  // Click-outside fecha o dropdown sem overlay que bloquearia o sidebar
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+      setOpen(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [open, handleClickOutside])
 
   useEffect(() => {
     let userId: string | null = null
@@ -91,7 +106,7 @@ export default function NotificationBell() {
   const unread = notifications.filter((n) => !n.read).length
 
   return (
-    <div className="relative">
+    <div className="relative" ref={wrapperRef}>
       <button
         onClick={() => setOpen((o) => !o)}
         className="relative flex h-8 w-8 items-center justify-center rounded-lg hover:bg-zinc-800 transition-colors"
@@ -110,9 +125,7 @@ export default function NotificationBell() {
       </button>
 
       {open && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-10 z-50 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-zinc-800 bg-zinc-900 shadow-2xl shadow-black/40">
+        <div className="absolute right-0 top-10 z-50 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-zinc-800 bg-zinc-900 shadow-2xl shadow-black/40">
             <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
               <h3 className="text-sm font-semibold text-zinc-200">Notificações</h3>
               {unread > 0 && (
@@ -166,7 +179,6 @@ export default function NotificationBell() {
               )}
             </div>
           </div>
-        </>
       )}
     </div>
   )
