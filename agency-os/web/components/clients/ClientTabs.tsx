@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { FileText, BarChart2, Brain, BookOpen, LayoutDashboard, CalendarDays } from 'lucide-react'
+import { FileText, BarChart2, Brain, BookOpen, LayoutDashboard, CalendarDays, Sparkles, ImageIcon } from 'lucide-react'
 
 const TABS = [
   { label: 'Overview',    suffix: '',            icon: LayoutDashboard },
@@ -11,6 +11,8 @@ const TABS = [
   { label: 'Agenda',      suffix: '/schedule',   icon: CalendarDays },
   { label: 'Métricas',    suffix: '/metrics',    icon: BarChart2 },
   { label: 'Memória IA',  suffix: '/memory',     icon: Brain },
+  { label: 'ORACLE',      suffix: '/oracle',     icon: Sparkles },
+  { label: 'Criativos',   suffix: '/creative',   icon: ImageIcon },
 ]
 
 export function ClientTabs({ clientId }: { clientId: string }) {
