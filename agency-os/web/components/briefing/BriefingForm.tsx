@@ -66,32 +66,38 @@ export default function BriefingForm({ jobId, existing }: Props) {
     e.preventDefault()
     setLoading(true)
 
-    const { data: { user } } = await supabase.auth.getUser()
-
-    const payload = {
-      job_id: jobId,
-      content_type: form.content_type,
-      objective: form.objective || null,
-      target_audience: form.target_audience || null,
-      key_message: form.key_message || null,
-      tone: form.tone || null,
-      restrictions: form.restrictions || null,
-      deadline_notes: form.deadline_notes || null,
-      reference_urls: form.reference_urls
-        .split('\n')
-        .map((s) => s.trim())
-        .filter(Boolean),
-      created_by: user?.id,
-    }
+    const reference_urls = form.reference_urls
+      .split('\n')
+      .map((s) => s.trim())
+      .filter(Boolean)
 
     let error
     if (existing) {
       ;({ error } = await supabase
         .from('job_briefings')
-        .update(payload)
+        .update({
+          content_type: form.content_type,
+          objective: form.objective || null,
+          target_audience: form.target_audience || null,
+          key_message: form.key_message || null,
+          tone: form.tone || null,
+          restrictions: form.restrictions || null,
+          deadline_notes: form.deadline_notes || null,
+          reference_urls,
+        })
         .eq('id', existing.id))
     } else {
-      ;({ error } = await supabase.from('job_briefings').insert(payload))
+      ;({ error } = await supabase.from('job_briefings').insert({
+        job_id: jobId,
+        content_type: form.content_type,
+        objective: form.objective || null,
+        target_audience: form.target_audience || null,
+        key_message: form.key_message || null,
+        tone: form.tone || null,
+        restrictions: form.restrictions || null,
+        deadline_notes: form.deadline_notes || null,
+        reference_urls,
+      }))
     }
 
     setLoading(false)

@@ -73,8 +73,8 @@ export async function POST(req: NextRequest) {
     if (briefing.target_audience) lines.push(`• Público-alvo     : ${briefing.target_audience}`)
     if (briefing.key_message)     lines.push(`• Mensagem-chave   : ${briefing.key_message}`)
     if (briefing.tone)            lines.push(`• Tom de voz       : ${briefing.tone}`)
-    if (briefing.call_to_action)  lines.push(`• CTA desejado     : ${briefing.call_to_action}`)
-    if (briefing.references)      lines.push(`• Referências      : ${briefing.references}`)
+    if (briefing.deadline_notes)  lines.push(`• Prazo            : ${briefing.deadline_notes}`)
+    if (briefing.reference_urls?.length) lines.push(`• Referências      : ${briefing.reference_urls.join(', ')}`)
     if (briefing.restrictions)    lines.push(`• RESTRIÇÕES (NÃO fazer): ${briefing.restrictions}`)
   } else {
     lines.push('')
