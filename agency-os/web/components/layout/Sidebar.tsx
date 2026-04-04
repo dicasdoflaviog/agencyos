@@ -17,6 +17,7 @@ import {
   Settings,
   Users2,
   TrendingUpIcon,
+  CreditCard,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -39,6 +40,7 @@ const NAV_ITEMS = [
 const SETTINGS_ITEMS = [
   { href: '/settings/team',      label: 'Equipe',      icon: Users2 },
   { href: '/settings/workspace', label: 'Workspace',   icon: Settings },
+  { href: '/settings/billing',   label: 'Faturamento', icon: CreditCard },
 ]
 
 export function Sidebar() {

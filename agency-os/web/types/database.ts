@@ -499,3 +499,47 @@ export interface Workspace {
   domain: string | null
   created_at: string
 }
+
+// ── Fase 5: Scheduled Publishing ──────────────────────────────
+
+export type ScheduledPostPlatform = 'instagram' | 'linkedin' | 'tiktok' | 'twitter'
+
+export interface ScheduledPostV2 {
+  id: string
+  client_id: string | null
+  post_id: string | null
+  platform: ScheduledPostPlatform
+  publish_at: string
+  status: 'scheduled' | 'published' | 'failed'
+  external_id: string | null
+  error_msg: string | null
+  created_by: string | null
+  created_at: string
+  post?: Pick<Post, 'id' | 'title'> | null
+  client?: Pick<Client, 'id' | 'name'> | null
+}
+
+export interface IntegrationConfigV2 {
+  id: string
+  client_id: string | null
+  instagram: Record<string, unknown>
+  linkedin: Record<string, unknown>
+  created_at: string
+  updated_at: string
+}
+
+// ── Fase 5: Stripe Billing ─────────────────────────────────────
+
+export type SubscriptionPlan = 'starter' | 'pro' | 'agency'
+
+export interface Subscription {
+  id: string
+  workspace_id: string | null
+  stripe_customer_id: string | null
+  stripe_sub_id: string | null
+  plan: SubscriptionPlan
+  status: string
+  current_period_end: string | null
+  created_at: string
+}
+

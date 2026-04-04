@@ -13,6 +13,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Agency OS',
   description: 'Painel operacional da agência',
+  manifest: '/manifest.json',
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Agency OS' },
 }
 
 export default function RootLayout({
