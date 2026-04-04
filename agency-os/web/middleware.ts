@@ -44,8 +44,8 @@ export async function middleware(request: NextRequest) {
     return supabaseResponse
   }
 
-  // Client portal routes
-  if (path.startsWith('/client')) {
+  // Client portal routes — NOTE: '/client/' not '/client' to avoid matching '/clients'
+  if (path === '/client/login' || path.startsWith('/client/')) {
     if (path === '/client/login') {
       if (user) return NextResponse.redirect(new URL('/client/outputs', request.url))
       return supabaseResponse

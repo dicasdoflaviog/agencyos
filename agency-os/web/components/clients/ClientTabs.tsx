@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { FileText, BarChart2, Brain, BookOpen, LayoutDashboard, CalendarDays, Sparkles, ImageIcon } from 'lucide-react'
+import { FileText, BarChart2, Brain, BookOpen, LayoutDashboard, CalendarDays, Sparkles, ImageIcon, Video, Mic } from 'lucide-react'
 
 const TABS = [
   { label: 'Overview',    suffix: '',            icon: LayoutDashboard },
@@ -13,6 +13,8 @@ const TABS = [
   { label: 'Memória IA',  suffix: '/memory',     icon: Brain },
   { label: 'ORACLE',      suffix: '/oracle',     icon: Sparkles },
   { label: 'Criativos',   suffix: '/creative',   icon: ImageIcon },
+  { label: 'VULCAN',      suffix: '/video',      icon: Video },
+  { label: 'VOX',         suffix: '/voice',      icon: Mic },
 ]
 
 export function ClientTabs({ clientId }: { clientId: string }) {
