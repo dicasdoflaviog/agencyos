@@ -2,15 +2,7 @@ import { Brain } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { MemorySearchBar } from '@/components/memory/MemorySearchBar'
 import { MemoryList } from '@/components/memory/MemoryList'
-
-interface ClientMemory {
-  id: string
-  client_id: string
-  content: string
-  source: 'output_approved' | 'briefing' | 'manual' | null
-  source_id: string | null
-  created_at: string
-}
+import type { ClientMemory } from '@/types/database'
 
 export default async function MemoryPage({
   params,

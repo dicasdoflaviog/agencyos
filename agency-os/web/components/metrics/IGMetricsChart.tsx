@@ -10,17 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
-
-interface IGMetric {
-  id: string
-  client_id: string
-  date: string
-  followers: number | null
-  reach: number | null
-  impressions: number | null
-  engagement_rate: number | null
-  synced_at: string
-}
+import type { IGMetric } from '@/types/database'
 
 export function IGMetricsChart({ data }: { data: IGMetric[] }) {
   const chartData = data.map((d) => ({

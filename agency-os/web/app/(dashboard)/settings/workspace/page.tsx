@@ -1,15 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { WorkspaceSettingsForm } from '@/components/workspace/WorkspaceSettingsForm'
-
-interface Workspace {
-  id: string
-  name: string
-  slug: string
-  logo_url: string | null
-  primary_color: string
-  domain: string | null
-  created_at: string
-}
+import type { Workspace } from '@/types/database'
 
 export default async function WorkspaceSettingsPage() {
   const supabase = await createClient()

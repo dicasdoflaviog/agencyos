@@ -2,16 +2,7 @@
 
 import { useState } from 'react'
 import { toast } from 'sonner'
-
-interface Workspace {
-  id: string
-  name: string
-  slug: string
-  logo_url: string | null
-  primary_color: string
-  domain: string | null
-  created_at: string
-}
+import type { Workspace } from '@/types/database'
 
 export function WorkspaceSettingsForm({ initialData }: { initialData: Workspace | null }) {
   const [loading, setLoading] = useState(false)

@@ -2,17 +2,9 @@
 
 import { useState } from 'react'
 import { Search } from 'lucide-react'
+import type { ClientMemory, MemorySource } from '@/types/database'
 
-interface ClientMemory {
-  id: string
-  client_id: string
-  content: string
-  source: 'output_approved' | 'briefing' | 'manual' | null
-  source_id: string | null
-  created_at: string
-}
-
-const SOURCE_CONFIG = {
+const SOURCE_CONFIG: Record<MemorySource, { label: string; className: string }> = {
   output_approved: { label: 'Output',   className: 'bg-[#22C55E]/10 text-[#22C55E]' },
   briefing:        { label: 'Briefing', className: 'bg-blue-500/10 text-blue-400' },
   manual:          { label: 'Manual',   className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
@@ -20,7 +12,7 @@ const SOURCE_CONFIG = {
 
 function SourceBadge({ source }: { source: ClientMemory['source'] }) {
   const config = source && source in SOURCE_CONFIG
-    ? SOURCE_CONFIG[source as keyof typeof SOURCE_CONFIG]
+    ? SOURCE_CONFIG[source as MemorySource]
     : { label: 'N/A', className: 'bg-white/[0.06] text-[#A1A1AA]' }
   return (
     <span className={`rounded px-1.5 py-0.5 text-xs font-medium ${config.className}`}>

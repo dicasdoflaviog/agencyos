@@ -1,13 +1,6 @@
-interface ClientMemory {
-  id: string
-  client_id: string
-  content: string
-  source: 'output_approved' | 'briefing' | 'manual' | null
-  source_id: string | null
-  created_at: string
-}
+import type { ClientMemory, MemorySource } from '@/types/database'
 
-const SOURCE_CONFIG: Record<string, { label: string; className: string }> = {
+const SOURCE_CONFIG: Record<MemorySource, { label: string; className: string }> = {
   output_approved: { label: 'Output',   className: 'bg-[#22C55E]/10 text-[#22C55E]' },
   briefing:        { label: 'Briefing', className: 'bg-blue-500/10 text-blue-400' },
   manual:          { label: 'Manual',   className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },

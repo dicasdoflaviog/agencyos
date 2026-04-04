@@ -10,19 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
-
-interface AdsMetric {
-  id: string
-  client_id: string
-  campaign_id: string
-  campaign_name: string | null
-  spend: number | null
-  impressions: number | null
-  clicks: number | null
-  cpl: number | null
-  roas: number | null
-  date: string
-}
+import type { AdsMetric } from '@/types/database'
 
 export function AdsMetricsChart({ data }: { data: AdsMetric[] }) {
   // Aggregate by campaign for chart display
