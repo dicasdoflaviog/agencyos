@@ -9,7 +9,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (!user) redirect('/login')
 
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
-  if (profile?.role !== 'super_admin') redirect('/')
+  if (profile?.role !== 'super_admin') redirect('/' as never)
 
   return (
     <div className="min-h-screen bg-[#09090B] text-[#FAFAFA]">
