@@ -239,6 +239,13 @@ CREATE POLICY "team_all_client_invites"
     EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role IN ('admin','collaborator'))
   );
 
+DO $$
+BEGIN
+  DROP POLICY IF EXISTS "team_all_output_versions" ON output_versions;
+EXCEPTION
+  WHEN undefined_table THEN NULL;
+END $$;
+
 CREATE POLICY "team_all_output_versions"
   ON output_versions FOR ALL
   USING (
@@ -247,7 +254,13 @@ CREATE POLICY "team_all_output_versions"
 
 -- Clients can see their own output versions
 -- Corrected: profiles.client_id → job_outputs.client_id (direct FK, no extra hops)
-DROP POLICY IF EXISTS "client_read_own_output_versions" ON output_versions;
+-- NOTE: DO block handles the case where the policy or table don't exist yet (idempotent)
+DO $$
+BEGIN
+  DROP POLICY IF EXISTS "client_read_own_output_versions" ON output_versions;
+EXCEPTION
+  WHEN undefined_table THEN NULL;  -- table doesn't exist yet, nothing to drop
+END $$;
 
 CREATE POLICY "client_read_own_output_versions"
   ON output_versions FOR SELECT
