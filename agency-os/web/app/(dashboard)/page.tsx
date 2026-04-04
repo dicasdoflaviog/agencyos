@@ -8,7 +8,7 @@ async function getStats() {
   const [clients, jobs, outputs, financial] = await Promise.all([
     supabase.from('clients').select('id', { count: 'exact' }).eq('status', 'active'),
     supabase.from('jobs').select('id', { count: 'exact' }).eq('status', 'in_progress'),
-    supabase.from('job_outputs').select('id', { count: 'exact' }).eq('status', 'approved'),
+    supabase.from('job_outputs').select('id', { count: 'exact' }).eq('approval_stage', 'approved'),
     supabase.from('clients').select('contract_value').eq('status', 'active').eq('contract_status', 'active'),
   ])
 
