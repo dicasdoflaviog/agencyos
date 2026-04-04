@@ -1,0 +1,156 @@
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { ArrowLeft, Calendar, DollarSign, FileText } from 'lucide-react'
+import { createClient } from '@/lib/supabase/server'
+import { ContractForm } from '@/components/contracts/ContractForm'
+import { InvoiceList } from '@/components/contracts/InvoiceList'
+import { cn } from '@/lib/utils'
+
+const STATUS_CONFIG = {
+  active:  { label: 'Ativo',      className: 'bg-[#22C55E]/10 text-[#22C55E]' },
+  paused:  { label: 'Pausado',    className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
+  ended:   { label: 'Encerrado',  className: 'bg-white/[0.06] text-[#71717A]' },
+  draft:   { label: 'Rascunho',   className: 'bg-white/[0.06] text-[#71717A]' },
+} as const
+
+const BILLING_LABELS = {
+  monthly:  'Mensal',
+  project:  'Por Projeto',
+  retainer: 'Retainer',
+} as const
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  })
+}
+
+export default async function ContractDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string; contractId: string }>
+}) {
+  const { id, contractId } = await params
+  const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) notFound()
+
+  const [{ data: contract }, { data: invoices }] = await Promise.all([
+    supabase
+      .from('contracts')
+      .select('*, client:clients(id, name)')
+      .eq('id', contractId)
+      .eq('client_id', id)
+      .single(),
+    supabase
+      .from('invoices')
+      .select('*')
+      .eq('contract_id', contractId)
+      .order('due_date', { ascending: false }),
+  ])
+
+  if (!contract) notFound()
+
+  const status = STATUS_CONFIG[contract.status as keyof typeof STATUS_CONFIG]
+  const paidTotal = invoices
+    ?.filter((inv) => inv.status === 'paid')
+    .reduce((sum, inv) => sum + (inv.amount ?? 0), 0) ?? 0
+  const pendingTotal = invoices
+    ?.filter((inv) => inv.status === 'pending' || inv.status === 'overdue')
+    .reduce((sum, inv) => sum + (inv.amount ?? 0), 0) ?? 0
+
+  return (
+    <div className="max-w-4xl space-y-6">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <Link
+              href={`/clients/${id}/contracts`}
+              className="text-xs text-[#71717A] hover:text-[#A1A1AA] transition-colors inline-flex items-center gap-1"
+            >
+              <ArrowLeft size={12} />
+              {contract.client?.name ?? 'Cliente'} — Contratos
+            </Link>
+          </div>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">
+              Contrato
+            </h1>
+            <span className={cn('rounded px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide', status.className)}>
+              {status.label}
+            </span>
+          </div>
+          <p className="mt-0.5 text-xs text-[#71717A] font-mono">{contractId}</p>
+        </div>
+      </div>
+
+      {/* Overview cards */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
+          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Valor</p>
+          <p className="text-xl font-bold text-[#FAFAFA]">
+            {contract.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          </p>
+        </div>
+        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
+          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Cobrança</p>
+          <p className="text-xl font-bold text-[#FAFAFA]">
+            {BILLING_LABELS[contract.billing as keyof typeof BILLING_LABELS]}
+          </p>
+        </div>
+        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
+          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Pago</p>
+          <p className="text-xl font-bold text-[#22C55E]">
+            {paidTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          </p>
+        </div>
+        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
+          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Pendente</p>
+          <p className="text-xl font-bold text-[#F59E0B]">
+            {pendingTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          </p>
+        </div>
+      </div>
+
+      {/* Dates + notes info */}
+      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5 space-y-3">
+        <div className="flex items-center gap-2">
+          <Calendar size={14} className="text-[#71717A] shrink-0" />
+          <span className="text-xs text-[#71717A]">Início:</span>
+          <span className="text-sm text-[#FAFAFA] font-medium">{formatDate(contract.start_date)}</span>
+          {contract.end_date && (
+            <>
+              <span className="text-[#3F3F46] mx-1">→</span>
+              <span className="text-xs text-[#71717A]">Término:</span>
+              <span className="text-sm text-[#FAFAFA] font-medium">{formatDate(contract.end_date)}</span>
+            </>
+          )}
+        </div>
+        {contract.notes && (
+          <div className="flex gap-2 border-t border-white/[0.04] pt-3">
+            <FileText size={14} className="text-[#71717A] shrink-0 mt-0.5" />
+            <p className="text-sm text-[#A1A1AA] leading-relaxed">{contract.notes}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Invoices */}
+      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
+        <InvoiceList contractId={contractId} initialInvoices={invoices ?? []} />
+      </div>
+
+      {/* Edit form */}
+      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
+        <h3 className="text-sm font-semibold text-[#FAFAFA] mb-4 flex items-center gap-2">
+          <DollarSign size={14} className="text-[#F59E0B]" />
+          Editar Contrato
+        </h3>
+        <ContractForm clientId={id} initialData={contract} mode="edit" />
+      </div>
+    </div>
+  )
+}

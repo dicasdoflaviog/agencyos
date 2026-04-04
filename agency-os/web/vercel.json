@@ -2,6 +2,8 @@
   "crons": [
     { "path": "/api/cron/check-overdue-jobs",     "schedule": "0 9 * * *"  },
     { "path": "/api/cron/send-pending-approvals", "schedule": "0 10 * * *" },
-    { "path": "/api/cron/cleanup-expired-shares", "schedule": "0 3 * * 0"  }
+    { "path": "/api/cron/cleanup-expired-shares", "schedule": "0 3 * * 0"  },
+    { "path": "/api/cron/ig-metrics",             "schedule": "30 0 * * *" },
+    { "path": "/api/cron/ads-metrics",            "schedule": "0 1 * * *"  }
   ]
 }

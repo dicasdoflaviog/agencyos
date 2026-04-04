@@ -368,3 +368,134 @@ export interface EmailLog {
   metadata: Record<string, unknown>
   sent_at: string
 }
+
+// ── Fase 4: Team & Permissions ────────────────────────────────
+
+export type WorkspaceMemberRole = 'admin' | 'collaborator' | 'viewer'
+
+export interface WorkspaceMember {
+  id: string
+  user_id: string | null
+  role: WorkspaceMemberRole
+  invited_by: string | null
+  accepted_at: string | null
+  created_at: string
+  profile?: Pick<Profile, 'id' | 'name' | 'avatar_url'> & { email?: string }
+}
+
+export interface InviteToken {
+  id: string
+  email: string
+  role: WorkspaceMemberRole
+  token: string
+  invited_by: string | null
+  used_at: string | null
+  expires_at: string
+  created_at: string
+}
+
+// ── Fase 4: Contracts & Billing ───────────────────────────────
+
+export type ContractBilling = 'monthly' | 'project' | 'retainer'
+export type ContractStatus = 'active' | 'paused' | 'ended' | 'draft'
+export type InvoiceStatus = 'pending' | 'paid' | 'overdue' | 'cancelled'
+
+export interface Contract {
+  id: string
+  client_id: string
+  value: number
+  billing: ContractBilling
+  start_date: string
+  end_date: string | null
+  status: ContractStatus
+  notes: string | null
+  created_by: string | null
+  created_at: string
+  updated_at: string
+  client?: Pick<Client, 'id' | 'name'>
+}
+
+export interface Invoice {
+  id: string
+  contract_id: string
+  amount: number
+  due_date: string
+  paid_at: string | null
+  status: InvoiceStatus
+  notes: string | null
+  pdf_url: string | null
+  created_at: string
+}
+
+// ── Fase 4: CMS ───────────────────────────────────────────────
+
+export type PostStatus = 'draft' | 'review' | 'published'
+
+export interface Post {
+  id: string
+  client_id: string
+  title: string
+  slug: string
+  content: string | null
+  cover_url: string | null
+  status: PostStatus
+  published_at: string | null
+  author_id: string | null
+  created_at: string
+  updated_at: string
+  client?: Pick<Client, 'id' | 'name'>
+  author?: Pick<Profile, 'id' | 'name' | 'avatar_url'>
+}
+
+// ── Fase 4: Analytics ─────────────────────────────────────────
+
+export interface IGMetric {
+  id: string
+  client_id: string
+  date: string
+  followers: number | null
+  reach: number | null
+  impressions: number | null
+  engagement_rate: number | null
+  synced_at: string
+}
+
+export interface AdsMetric {
+  id: string
+  client_id: string
+  campaign_id: string
+  campaign_name: string | null
+  spend: number | null
+  impressions: number | null
+  clicks: number | null
+  cpl: number | null
+  roas: number | null
+  date: string
+  synced_at: string
+}
+
+// ── Fase 4: AI Memory ─────────────────────────────────────────
+
+export type MemorySource = 'output_approved' | 'briefing' | 'manual'
+
+export interface ClientMemory {
+  id: string
+  client_id: string
+  content: string
+  embedding?: number[]
+  source: MemorySource | null
+  source_id: string | null
+  created_at: string
+}
+
+// ── Fase 4: White-label / Workspace ───────────────────────────
+
+export interface Workspace {
+  id: string
+  name: string
+  slug: string
+  logo_url: string | null
+  primary_color: string
+  domain: string | null
+  created_at: string
+}

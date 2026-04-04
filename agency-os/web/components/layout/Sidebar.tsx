@@ -14,6 +14,9 @@ import {
   FileStack,
   TrendingUp,
   FileText,
+  Settings,
+  Users2,
+  TrendingUpIcon,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -28,8 +31,14 @@ const NAV_ITEMS = [
   { href: '/pipelines',  label: 'Pipelines',   icon: GitBranch },
   { href: '/templates',  label: 'Templates',   icon: FileStack },
   { href: '/financial',  label: 'Financeiro',  icon: DollarSign },
+  { href: '/financial/advanced', label: 'MRR/ARR', icon: TrendingUpIcon, indent: true },
   { href: '/crm',        label: 'CRM',         icon: TrendingUp },
   { href: '/reports',    label: 'Relatórios',  icon: FileText },
+]
+
+const SETTINGS_ITEMS = [
+  { href: '/settings/team',      label: 'Equipe',      icon: Users2 },
+  { href: '/settings/workspace', label: 'Workspace',   icon: Settings },
 ]
 
 export function Sidebar() {
@@ -57,24 +66,48 @@ export function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-0.5 p-2 pt-3 overflow-y-auto">
-        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
-          const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href)
+        {NAV_ITEMS.map(({ href, label, icon: Icon, indent }) => {
+          const isActive = href === '/' ? pathname === '/' : pathname === href || (href !== '/financial' && pathname.startsWith(href))
           return (
             <Link
               key={href}
               href={href}
               className={cn(
                 'flex items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium transition-colors duration-150 cursor-pointer',
+                indent && 'pl-6 text-xs',
                 isActive
                   ? 'bg-[#F59E0B]/10 text-[#F59E0B]'
                   : 'text-[#A1A1AA] hover:bg-white/[0.05] hover:text-[#FAFAFA]'
               )}
             >
-              <Icon size={15} strokeWidth={isActive ? 2.5 : 2} />
+              <Icon size={indent ? 13 : 15} strokeWidth={isActive ? 2.5 : 2} />
               {label}
             </Link>
           )
         })}
+
+        {/* Settings section */}
+        <div className="pt-3 mt-1 border-t border-white/[0.07]">
+          <p className="px-2.5 pb-1 text-[10px] font-semibold uppercase tracking-widest text-[#71717A]">Configurações</p>
+          {SETTINGS_ITEMS.map(({ href, label, icon: Icon }) => {
+            const isActive = pathname.startsWith(href)
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  'flex items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium transition-colors duration-150 cursor-pointer',
+                  isActive
+                    ? 'bg-[#F59E0B]/10 text-[#F59E0B]'
+                    : 'text-[#A1A1AA] hover:bg-white/[0.05] hover:text-[#FAFAFA]'
+                )}
+              >
+                <Icon size={15} strokeWidth={isActive ? 2.5 : 2} />
+                {label}
+              </Link>
+            )
+          })}
+        </div>
       </nav>
 
       {/* Footer */}
