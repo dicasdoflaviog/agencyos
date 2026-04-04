@@ -12,6 +12,8 @@ import {
   BarChart2,
   GitBranch,
   FileStack,
+  TrendingUp,
+  FileText,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -26,6 +28,8 @@ const NAV_ITEMS = [
   { href: '/pipelines',  label: 'Pipelines',   icon: GitBranch },
   { href: '/templates',  label: 'Templates',   icon: FileStack },
   { href: '/financial',  label: 'Financeiro',  icon: DollarSign },
+  { href: '/crm',        label: 'CRM',         icon: TrendingUp },
+  { href: '/reports',    label: 'Relatórios',  icon: FileText },
 ]
 
 export function Sidebar() {

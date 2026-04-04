@@ -197,3 +197,172 @@ export type Notification = {
   metadata: Record<string, unknown>
   created_at: string
 }
+
+// ── Fase 3: Portal do Cliente ─────────────────────────────────
+
+export type ClientRole = 'admin' | 'collaborator' | 'client'
+
+export interface ClientInvite {
+  id: string
+  client_id: string
+  email: string
+  invited_by: string | null
+  accepted_at: string | null
+  expires_at: string
+  token: string
+  created_at: string
+}
+
+// ── Fase 3: Integrações ──────────────────────────────────────
+
+export type IntegrationType = 'whatsapp' | 'instagram' | 'meta_ads' | 'google_analytics'
+
+export interface IntegrationConfig {
+  id: string
+  client_id: string
+  type: IntegrationType
+  config: Record<string, unknown>
+  is_active: boolean
+  last_sync_at: string | null
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type ScheduledPostStatus = 'scheduled' | 'publishing' | 'published' | 'failed' | 'cancelled'
+
+export interface ScheduledPost {
+  id: string
+  client_id: string
+  output_id: string
+  platform: 'instagram' | 'facebook' | 'both'
+  caption: string | null
+  media_urls: string[]
+  publish_at: string
+  published_at: string | null
+  status: ScheduledPostStatus
+  platform_post_id: string | null
+  error_message: string | null
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface MetaCampaign {
+  id: string
+  client_id: string
+  campaign_id: string
+  name: string
+  status: 'ACTIVE' | 'PAUSED' | 'DELETED' | 'ARCHIVED'
+  objective: string | null
+  spend: number
+  impressions: number
+  clicks: number
+  ctr: number | null
+  cpc: number | null
+  conversions: number
+  period_start: string
+  period_end: string
+  synced_at: string
+  created_at: string
+}
+
+// ── Fase 3: Relatórios ───────────────────────────────────────
+
+export type ReportFormat = 'pdf' | 'excel'
+export type ReportStatus = 'pending' | 'generating' | 'ready' | 'failed'
+
+export interface Report {
+  id: string
+  client_id: string
+  title: string
+  period_start: string
+  period_end: string
+  format: ReportFormat
+  sections: string[]
+  file_url: string | null
+  status: ReportStatus
+  generated_at: string | null
+  generated_by: string | null
+  created_at: string
+  client?: Pick<Client, 'id' | 'name'>
+}
+
+export interface ReportShare {
+  id: string
+  report_id: string
+  token: string
+  expires_at: string
+  views: number
+  created_by: string | null
+  created_at: string
+}
+
+// ── Fase 3: CRM ──────────────────────────────────────────────
+
+export type LeadStage = 'prospect' | 'contacted' | 'proposal_sent' | 'negotiation' | 'won' | 'lost'
+export type ActivityType = 'call' | 'email' | 'meeting' | 'note' | 'stage_change' | 'whatsapp'
+
+export interface Lead {
+  id: string
+  name: string
+  company: string | null
+  email: string | null
+  phone: string | null
+  stage: LeadStage
+  deal_value: number | null
+  source: string | null
+  assigned_to: string | null
+  converted_client_id: string | null
+  notes: string | null
+  lost_reason: string | null
+  expected_close: string | null
+  created_by: string | null
+  created_at: string
+  updated_at: string
+  assigned_profile?: Pick<Profile, 'id' | 'name' | 'avatar_url'>
+  tags?: LeadTag[]
+}
+
+export interface LeadActivity {
+  id: string
+  lead_id: string
+  type: ActivityType
+  title: string
+  body: string | null
+  performed_by: string | null
+  metadata: Record<string, unknown>
+  created_at: string
+}
+
+export interface LeadTag {
+  id: string
+  name: string
+  color: string
+  created_at: string
+}
+
+// ── Fase 3: Versioning ───────────────────────────────────────
+
+export interface OutputVersion {
+  id: string
+  output_id: string
+  version_number: number
+  content: string
+  changed_by: string | null
+  change_note: string | null
+  created_at: string
+}
+
+// ── Fase 3: Email ─────────────────────────────────────────────
+
+export interface EmailLog {
+  id: string
+  to_email: string
+  subject: string
+  template: string
+  status: 'sent' | 'failed' | 'bounced'
+  resend_id: string | null
+  metadata: Record<string, unknown>
+  sent_at: string
+}

@@ -23,12 +23,30 @@ export async function proxy(request: NextRequest) {
     }
   )
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
+  const { data: { user } } = await supabase.auth.getUser()
   const path = request.nextUrl.pathname
 
+  // Client portal routes
+  if (path.startsWith('/client')) {
+    if (path === '/client/login') {
+      if (user) return NextResponse.redirect(new URL('/client/outputs', request.url))
+      return supabaseResponse
+    }
+    if (!user) return NextResponse.redirect(new URL('/client/login', request.url))
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
+    if (profile?.role !== 'client') return NextResponse.redirect(new URL('/login', request.url))
+    return supabaseResponse
+  }
+
+  // Dashboard routes — redirect client-role users to portal
+  const dashboardPaths = ['/', '/jobs', '/clients', '/analytics', '/reports', '/crm', '/financial', '/pipelines', '/templates', '/gallery']
+  const isDashboard = dashboardPaths.some(p => p === '/' ? path === '/' : path.startsWith(p))
+  if (isDashboard && user) {
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
+    if (profile?.role === 'client') return NextResponse.redirect(new URL('/client/outputs', request.url))
+  }
+
+  // Unauthenticated redirect for dashboard
   if (!user && path !== '/login') {
     return NextResponse.redirect(new URL('/login', request.url))
   }
@@ -45,3 +63,4 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }
+
