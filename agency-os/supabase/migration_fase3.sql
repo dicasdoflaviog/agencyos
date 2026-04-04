@@ -358,10 +358,19 @@ CREATE POLICY "admin_read_email_logs"
 -- 10. ENABLE REALTIME on jobs and job_outputs
 -- ─────────────────────────────────────────────────────────────────────────────
 -- NOTE: Enable this manually in Supabase Dashboard → Database → Replication
--- or run the SQL below:
+-- or run the SQL below (idempotent — safe to run even if already enabled):
 
-ALTER PUBLICATION supabase_realtime ADD TABLE jobs;
-ALTER PUBLICATION supabase_realtime ADD TABLE job_outputs;
+DO $$
+BEGIN
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE jobs;
+  EXCEPTION WHEN duplicate_object THEN NULL;
+  END;
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE job_outputs;
+  EXCEPTION WHEN duplicate_object THEN NULL;
+  END;
+END $$;
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- DONE — Fase 3 migration complete
