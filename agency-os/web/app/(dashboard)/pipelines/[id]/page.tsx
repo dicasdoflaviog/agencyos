@@ -37,7 +37,7 @@ export default async function PipelineDetailPage({
   const p = pipeline as AgentPipeline
 
   return (
-    <div className="px-6 py-8 max-w-4xl mx-auto space-y-8">
+    <div className="py-8 max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>

@@ -63,7 +63,7 @@ export default async function ClientAnalyticsPage({
   const monthLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
   return (
-    <div className="px-6 py-8 space-y-8 max-w-5xl mx-auto">
+    <div className="py-8 space-y-8 max-w-5xl mx-auto">
       {/* Header */}
       <div>
         <Link href="/analytics" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">

@@ -19,7 +19,7 @@ export default async function TemplatesPage() {
   }
 
   return (
-    <div className="px-6 py-8 space-y-8 max-w-5xl mx-auto">
+    <div className="py-8 space-y-8 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-zinc-100">Templates de Jobs</h1>

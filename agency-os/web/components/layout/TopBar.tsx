@@ -26,7 +26,7 @@ export function TopBar() {
   const title = getTitle(pathname)
 
   return (
-    <header className="flex h-14 flex-shrink-0 items-center justify-between border-b border-white/[0.07] bg-[#09090B] px-6">
+    <header className="relative z-10 flex h-14 flex-shrink-0 items-center justify-between border-b border-white/[0.07] bg-[#09090B] px-6">
       <h1 className="text-sm font-semibold text-[#FAFAFA] tracking-tight">{title}</h1>
       <NotificationBell />
     </header>

@@ -61,7 +61,7 @@ export default async function AnalyticsPage() {
   }
 
   return (
-    <div className="px-6 py-8 space-y-8 max-w-6xl mx-auto">
+    <div className="py-8 space-y-8 max-w-6xl mx-auto">
       <div>
         <h1 className="text-2xl font-bold text-zinc-100">Analytics</h1>
         <p className="text-sm text-zinc-400 mt-1">Visão geral da operação da agência</p>

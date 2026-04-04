@@ -71,7 +71,7 @@ export default function NewPipelinePage() {
   const label = 'block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1.5'
 
   return (
-    <div className="px-6 py-8 max-w-2xl mx-auto">
+    <div className="py-8 max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-8">
         <Link href="/pipelines" className="text-zinc-500 hover:text-zinc-300 transition-colors text-sm">
           ← Pipelines

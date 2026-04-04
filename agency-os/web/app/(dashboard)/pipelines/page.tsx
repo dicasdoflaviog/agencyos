@@ -21,7 +21,7 @@ export default async function PipelinesPage() {
     .limit(20)
 
   return (
-    <div className="px-6 py-8 space-y-8 max-w-5xl mx-auto">
+    <div className="py-8 space-y-8 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-zinc-100">Pipelines</h1>
