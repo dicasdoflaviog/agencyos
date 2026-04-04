@@ -18,6 +18,7 @@ import {
   Users2,
   TrendingUpIcon,
   CreditCard,
+  Store,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -33,7 +34,8 @@ const NAV_ITEMS = [
   { href: '/templates',  label: 'Templates',   icon: FileStack },
   { href: '/financial',  label: 'Financeiro',  icon: DollarSign },
   { href: '/financial/advanced', label: 'MRR/ARR', icon: TrendingUpIcon, indent: true },
-  { href: '/crm',        label: 'CRM',         icon: TrendingUp },
+  { href: '/crm',         label: 'CRM',         icon: TrendingUp },
+  { href: '/marketplace', label: 'Marketplace', icon: Store },
   { href: '/reports',    label: 'Relatórios',  icon: FileText },
 ]
 

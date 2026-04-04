@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { formatCurrency } from '@/lib/utils'
 import { Users, Briefcase, CheckCircle, DollarSign } from 'lucide-react'
+import { OnboardingChecklist } from '@/components/onboarding/OnboardingChecklist'
 
 async function getStats() {
   const supabase = await createClient()
@@ -34,6 +35,7 @@ export default async function OverviewPage() {
 
   return (
     <div>
+      <OnboardingChecklist />
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Overview</h2>
         <p className="mt-1 text-sm text-[#A1A1AA]">Visão geral da agência</p>
