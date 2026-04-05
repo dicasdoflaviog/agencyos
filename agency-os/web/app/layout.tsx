@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Calistoga, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import { QueryProvider } from '@/components/providers/QueryProvider'
@@ -8,6 +8,20 @@ import { Toaster } from 'sonner'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+})
+
+// Editorial display font — headings, hero titles
+const calistoga = Calistoga({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-calistoga',
+})
+
+// Monospace — data labels, IDs, badges, code
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
 })
 
 export const metadata: Metadata = {
@@ -23,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className={inter.variable} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${inter.variable} ${calistoga.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-[#09090B] text-[#FAFAFA] antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
           <QueryProvider>{children}</QueryProvider>

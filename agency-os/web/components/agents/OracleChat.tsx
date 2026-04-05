@@ -38,7 +38,10 @@ export function OracleChat({ jobId, clientName, initialHistory = [] }: OracleCha
         body: JSON.stringify({ message: userMsg, job_id: jobId, history }),
       })
 
-      if (!res.ok) throw new Error('Failed')
+      if (!res.ok) {
+        const errText = await res.text()
+        throw new Error(errText || `HTTP ${res.status}`)
+      }
       if (!res.body) throw new Error('No body')
 
       setMessages(prev => [...prev, { role: 'assistant', content: '', streaming: true }])
@@ -63,8 +66,13 @@ export function OracleChat({ jobId, clientName, initialHistory = [] }: OracleCha
         updated[updated.length - 1] = { role: 'assistant', content: accumulated, streaming: false }
         return updated
       })
-    } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Erro ao processar. Tente novamente.' }])
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Erro desconhecido'
+      console.error('[OracleChat] error:', msg)
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `⚠️ Erro: ${msg.includes('GEMINI_API_KEY') ? 'Chave da API Gemini não configurada no servidor.' : msg}`,
+      }])
     } finally {
       setIsLoading(false)
     }

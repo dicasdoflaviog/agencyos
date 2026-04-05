@@ -15,7 +15,9 @@
   --color-error:          #EF4444;
 
   /* Font */
-  --font-sans: var(--font-inter);
+  --font-sans:    var(--font-inter);
+  --font-display: var(--font-calistoga);
+  --font-mono:    var(--font-mono);
 }
 
 :root {
@@ -50,3 +52,7 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ─── Typography utilities ──────────────────────────────── */
+.font-display { font-family: var(--font-calistoga), serif; }
+.font-mono    { font-family: var(--font-mono), monospace; }
