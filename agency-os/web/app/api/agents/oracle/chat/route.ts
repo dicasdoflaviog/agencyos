@@ -154,6 +154,7 @@ async function classifyIntent(message: string, client: Anthropic): Promise<Agent
   try {
     const res = await client.messages.create({
       model: ANTHROPIC_MODEL_FAST,
+      max_tokens: 20,
       messages: [{ role: 'user', content: CLASSIFIER_PROMPT.replace('{message}', message) }],
     })
     const text = res.content[0]?.type === 'text'
