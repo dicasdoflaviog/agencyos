@@ -35,7 +35,7 @@ const NAV_ITEMS = [
   { href: '/financial',  label: 'Financeiro',  icon: DollarSign },
   { href: '/financial/advanced', label: 'MRR/ARR', icon: TrendingUpIcon, indent: true },
   { href: '/crm',         label: 'CRM',         icon: TrendingUp },
-  { href: '/marketplace', label: 'Marketplace', icon: Store },
+  { href: '/marketplace', label: 'Time de IA', icon: Store },
   { href: '/reports',    label: 'Relatórios',  icon: FileText },
 ]
 
