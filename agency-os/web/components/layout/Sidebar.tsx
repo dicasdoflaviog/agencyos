@@ -22,6 +22,7 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
+import { CreditWidget } from '@/components/credits/CreditWidget'
 
 const NAV_ITEMS = [
   { href: '/',           label: 'Overview',    icon: LayoutDashboard },
@@ -112,6 +113,9 @@ export function Sidebar() {
           })}
         </div>
       </nav>
+
+      {/* Credit Widget */}
+      <CreditWidget />
 
       {/* Footer */}
       <div className="border-t border-[var(--color-border-subtle)] p-2">

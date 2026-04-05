@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Anthropic from '@anthropic-ai/sdk'
+import { checkAndDeductCredits } from '@/lib/credits'
 
 type Params = { params: Promise<{ id: string }> }
 
@@ -96,6 +97,14 @@ export async function POST(req: Request, { params }: Params) {
       .select('workspace_id')
       .eq('user_id', user.id)
       .single()
+
+    // Credit check
+    if (member?.workspace_id) {
+      const credit = await checkAndDeductCredits(member.workspace_id, 'dna_curate', 'DNA — curadoria com IA')
+      if (!credit.ok) {
+        return NextResponse.json({ error: credit.error, balance: credit.balance, cost: credit.cost }, { status: 402 })
+      }
+    }
 
     // Save to client_dna (only fill non-empty fields from AI)
     const updatePayload: Record<string, string> = {}

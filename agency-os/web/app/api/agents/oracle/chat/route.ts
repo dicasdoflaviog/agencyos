@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
 import { type AgentType, AGENT_LABELS } from '@/types/agents'
+import { checkAndDeductCredits } from '@/lib/credits'
 import {
   getClientIGMetrics,
   getClientIGTrend,
@@ -217,6 +218,17 @@ export async function POST(req: NextRequest) {
       .select('workspace_id')
       .eq('id', user.id)
       .maybeSingle()
+
+    // ── 4b. Credit check ────────────────────────────────────────────────────
+    if (profile?.workspace_id) {
+      const credit = await checkAndDeductCredits(profile.workspace_id, 'oracle_message', 'ORACLE — mensagem')
+      if (!credit.ok) {
+        return new Response(
+          JSON.stringify({ error: credit.error, balance: credit.balance, cost: credit.cost }),
+          { status: 402, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+    }
 
     // ── 5. Classify intent + log user message (parallel) ───────────────────
     const [agent] = await Promise.all([

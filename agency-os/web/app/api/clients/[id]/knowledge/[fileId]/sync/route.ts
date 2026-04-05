@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Anthropic from '@anthropic-ai/sdk'
+import { checkAndDeductCredits } from '@/lib/credits'
 
 type Params = { params: Promise<{ id: string; fileId: string }> }
 
@@ -9,6 +10,18 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
 export async function POST(_req: Request, { params }: Params) {
   const { id, fileId } = await params
   const supabase = await createClient()
+
+  // Auth + credit check
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const { data: profile } = await supabase.from('profiles').select('workspace_id').eq('id', user.id).maybeSingle()
+  if (profile?.workspace_id) {
+    const credit = await checkAndDeductCredits(profile.workspace_id, 'knowledge_sync', `Sync arquivo: ${fileId}`)
+    if (!credit.ok) {
+      return NextResponse.json({ error: credit.error, balance: credit.balance, cost: credit.cost }, { status: 402 })
+    }
+  }
 
   const { data: file } = await supabase
     .from('knowledge_files')

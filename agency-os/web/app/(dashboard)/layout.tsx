@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { TopBar } from '@/components/layout/TopBar'
+import { InsufficientCreditsModal } from '@/components/credits/InsufficientCreditsModal'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -20,6 +21,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <div className="mx-auto max-w-[1280px]">{children}</div>
         </main>
       </div>
+      <InsufficientCreditsModal />
     </div>
   )
 }

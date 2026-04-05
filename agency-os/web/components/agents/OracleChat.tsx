@@ -281,6 +281,11 @@ function OracleChatInner({ jobId, clientId, clientName, initialSessionId }: Orac
       })
 
       if (!res.ok) {
+        if (res.status === 402) {
+          const data = await res.json().catch(() => ({}))
+          window.dispatchEvent(new CustomEvent('credits:insufficient', { detail: { balance: data.balance ?? 0, cost: data.cost ?? 0, error: data.error } }))
+          return
+        }
         const errText = await res.text()
         throw new Error(errText || `HTTP ${res.status}`)
       }

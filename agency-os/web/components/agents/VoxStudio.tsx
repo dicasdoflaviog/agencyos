@@ -80,6 +80,13 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, voice_id: selectedVoice, client_id: clientId }),
       })
+      if (!res.ok) {
+        if (res.status === 402) {
+          const data = await res.json().catch(() => ({}))
+          window.dispatchEvent(new CustomEvent('credits:insufficient', { detail: { balance: data.balance ?? 0, cost: data.cost ?? 0 } }))
+          return
+        }
+      }
       const data = await res.json() as { asset: AudioAsset }
       if (data.asset) setAssets(prev => [data.asset, ...prev])
     } catch { /* noop */ } finally {

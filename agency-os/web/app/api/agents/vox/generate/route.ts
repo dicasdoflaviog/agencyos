@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { checkAndDeductCredits } from '@/lib/credits'
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
@@ -22,6 +23,14 @@ export async function POST(req: NextRequest) {
 
   const { data: profile } = await supabase
     .from('profiles').select('workspace_id').eq('id', user.id).single()
+
+  // Credit check before calling ElevenLabs
+  if (profile?.workspace_id) {
+    const credit = await checkAndDeductCredits(profile.workspace_id, 'vox_narration', `VOX — narração: "${text.slice(0, 40)}…"`)
+    if (!credit.ok) {
+      return Response.json({ error: credit.error, balance: credit.balance, cost: credit.cost }, { status: 402 })
+    }
+  }
 
   const elevenRes = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice_id}`, {
     method: 'POST',
