@@ -69,7 +69,12 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
               createdAt={dnaMemory.created_at}
             />
           ) : (
-            <DNAWizard clientId={id} clientName={client.name} niche={client.niche} />
+            <DNAWizard
+              clientId={id}
+              clientName={client.name}
+              niche={client.niche}
+              syncedFilesCount={(knowledgeFiles ?? []).filter(f => f.sync_status === 'synced').length}
+            />
           )}
         </div>
       )}

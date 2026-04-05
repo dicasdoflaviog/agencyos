@@ -2,12 +2,13 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Dna, Palette, Type, MessageSquare, ImageIcon, ChevronRight, ChevronLeft, Loader2, Plus, X, Check } from 'lucide-react'
+import { Dna, Palette, Type, MessageSquare, ImageIcon, ChevronRight, ChevronLeft, Loader2, Plus, X, Check, FileText, Sparkles } from 'lucide-react'
 
 interface Props {
   clientId: string
   clientName: string
   niche: string | null
+  syncedFilesCount?: number
 }
 
 const ARCHETYPES = ['Herói', 'Criador', 'Sábio', 'Explorador', 'Cuidador', 'Governante', 'Mago', 'Fora da Lei', 'Cara Comum', 'Bobo', 'Amante', 'Inocente']
@@ -108,11 +109,12 @@ function Input({ label, value, onChange, placeholder, multiline }: {
   )
 }
 
-export function DNAWizard({ clientId, clientName, niche }: Props) {
+export function DNAWizard({ clientId, clientName, niche, syncedFilesCount = 0 }: Props) {
   const router = useRouter()
   const [step, setStep] = useState<Step>('visual')
   const [form, setForm] = useState<FormData>(DEFAULT)
   const [loading, setLoading] = useState(false)
+  const [loadingFiles, setLoadingFiles] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const stepIndex = STEPS.findIndex(s => s.id === step)
@@ -127,6 +129,28 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
       ? form.tones.filter(x => x !== t)
       : form.tones.length < 4 ? [...form.tones, t] : form.tones
     )
+  }
+
+  async function handleGenerateFromFiles() {
+    setLoadingFiles(true)
+    setError(null)
+    try {
+      const res = await fetch(`/api/clients/${clientId}/dna/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientName, niche, fromFiles: true }),
+      })
+      if (!res.ok) {
+        const d = await res.json()
+        setError(d.error ?? 'Erro ao gerar DNA')
+        return
+      }
+      router.refresh()
+    } catch {
+      setError('Erro de conexão')
+    } finally {
+      setLoadingFiles(false)
+    }
   }
 
   async function handleGenerate() {
@@ -163,6 +187,39 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
           <p className="text-xs text-[var(--color-text-muted)]">Capture a identidade completa da marca para gerar materiais consistentes</p>
         </div>
       </div>
+
+      {/* Quick Generate from Files banner */}
+      {syncedFilesCount > 0 && (
+        <div className="mb-6 rounded-xl border border-amber-500/25 bg-amber-500/8 p-4">
+          <div className="flex items-start gap-3">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-500/15">
+              <FileText size={15} className="text-amber-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-[var(--color-text-primary)]">
+                {syncedFilesCount} arquivo{syncedFilesCount > 1 ? 's' : ''} sincronizado{syncedFilesCount > 1 ? 's' : ''} disponível{syncedFilesCount > 1 ? 'is' : ''}
+              </p>
+              <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+                O @ORACLE pode gerar o Brand DNA diretamente a partir dos seus arquivos de conhecimento, sem precisar preencher o formulário.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={handleGenerateFromFiles}
+            disabled={loadingFiles}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-amber-500 py-2.5 text-sm font-semibold text-[var(--color-text-inverse)] shadow-lg shadow-amber-500/20 transition-all hover:bg-amber-400 disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {loadingFiles ? (
+              <><Loader2 size={14} className="animate-spin" /> Analisando arquivos...</>
+            ) : (
+              <><Sparkles size={14} /> Gerar DNA dos Arquivos</>
+            )}
+          </button>
+          <p className="mt-2 text-center text-[10px] text-[var(--color-text-muted)]">
+            Ou preencha o formulário abaixo para fornecer detalhes adicionais
+          </p>
+        </div>
+      )}
 
       {/* Step indicator */}
       <div className="mb-6 flex items-center gap-2">
