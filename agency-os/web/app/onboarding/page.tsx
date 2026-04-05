@@ -2,26 +2,57 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard'
 
+async function getOrCreateWorkspace(userId: string) {
+  const supabase = await createClient()
+
+  const { data: member } = await supabase
+    .from('workspace_members')
+    .select('workspace_id')
+    .eq('user_id', userId)
+    .maybeSingle()
+
+  if (member?.workspace_id) return member.workspace_id
+
+  // Auto-create workspace on first access
+  const { data: user } = await supabase.auth.getUser()
+  const name = user.user?.email?.split('@')[0] ?? 'Minha Agência'
+  const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + Date.now().toString(36)
+
+  const { data: workspace } = await supabase
+    .from('workspaces')
+    .insert({ name, slug })
+    .select('id')
+    .single()
+
+  if (!workspace) return null
+
+  await supabase
+    .from('workspace_members')
+    .insert({ workspace_id: workspace.id, user_id: userId, role: 'admin' })
+
+  await supabase
+    .from('profiles')
+    .update({ workspace_id: workspace.id, role: 'admin' })
+    .eq('id', userId)
+
+  return workspace.id
+}
+
 async function getOnboardingData() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: member } = await supabase
-    .from('workspace_members')
-    .select('workspace_id')
-    .eq('user_id', user.id)
-    .maybeSingle()
-
-  if (!member?.workspace_id) redirect('/')
+  const workspaceId = await getOrCreateWorkspace(user.id)
+  if (!workspaceId) redirect('/')
 
   const { data: progress } = await supabase
     .from('onboarding_progress')
     .select('*')
-    .eq('workspace_id', member.workspace_id)
+    .eq('workspace_id', workspaceId)
     .maybeSingle()
 
-  return { workspaceId: member.workspace_id, progress }
+  return { workspaceId, progress }
 }
 
 export default async function OnboardingPage() {
