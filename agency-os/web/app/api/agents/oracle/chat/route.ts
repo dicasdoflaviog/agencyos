@@ -106,6 +106,44 @@ const VALID_AGENTS = new Set(Object.keys(AGENT_SYSTEMS))
 const ANTHROPIC_MODEL_FAST = 'claude-haiku-4-5-20251001'   // classifier, quick tasks
 const ANTHROPIC_MODEL_MAIN = 'claude-sonnet-4-5-20250929'  // main Oracle responses
 
+type Attachment = { name: string; base64: string; mimeType: string }
+const VALID_IMG_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'] as const
+type ImgMime = typeof VALID_IMG_TYPES[number]
+
+// Build Claude content blocks for a user message, optionally including a file attachment.
+function buildUserContent(text: string, file?: Attachment): string | Anthropic.ContentBlockParam[] {
+  if (!file || !file.base64) return text
+
+  const blocks: Anthropic.ContentBlockParam[] = []
+
+  if ((VALID_IMG_TYPES as readonly string[]).includes(file.mimeType)) {
+    // Image → Claude Vision
+    blocks.push({
+      type: 'image',
+      source: { type: 'base64', media_type: file.mimeType as ImgMime, data: file.base64 },
+    })
+  } else if (file.mimeType === 'application/pdf') {
+    // PDF → Claude document block
+    blocks.push({
+      type: 'document',
+      source: { type: 'base64', media_type: 'application/pdf', data: file.base64 },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any)
+  } else {
+    // CSV / JSON / TXT / MD → decode and include as text
+    try {
+      const decoded = Buffer.from(file.base64, 'base64').toString('utf-8')
+      blocks.push({
+        type: 'text',
+        text: `[Arquivo: ${file.name}]\n\`\`\`\n${decoded.slice(0, 20000)}\n\`\`\`\n\n`,
+      })
+    } catch { /* ignore decode errors */ }
+  }
+
+  blocks.push({ type: 'text', text })
+  return blocks
+}
+
 async function classifyIntent(message: string, client: Anthropic): Promise<AgentType> {
   // @mention override: "@marco escreva um roteiro..." → marco
   const mention = message.match(/^@(\w+)\s/)
@@ -142,14 +180,14 @@ export async function POST(req: NextRequest) {
     if (!user) return new Response('Unauthorized', { status: 401 })
 
     // ── 3. Parse body ───────────────────────────────────────────────────────
-    let body: { message?: string; job_id?: string; client_id?: string; history?: { role: string; content: string }[] }
+    let body: { message?: string; job_id?: string; client_id?: string; history?: { role: string; content: string }[]; attachment?: Attachment }
     try {
       body = await req.json()
     } catch {
       return new Response('Invalid JSON body', { status: 400 })
     }
 
-    const { message, job_id, client_id, history = [] } = body
+    const { message, job_id, client_id, history = [], attachment } = body
     if (!message || typeof message !== 'string' || !message.trim()) {
       return new Response('Missing required field: message', { status: 400 })
     }
@@ -232,7 +270,7 @@ export async function POST(req: NextRequest) {
           role: (h.role === 'assistant' ? 'assistant' : 'user') as 'user' | 'assistant',
           content: h.content,
         })),
-      { role: 'user' as const, content: message },
+      { role: 'user' as const, content: buildUserContent(message, attachment) },
     ]
 
     // ── 9. Stream response ──────────────────────────────────────────────────
@@ -244,6 +282,7 @@ export async function POST(req: NextRequest) {
         try {
           const stream = anthropic.messages.stream({
             model: ANTHROPIC_MODEL_MAIN,
+            max_tokens: 4096,
             system: systemPrompt,
             messages: anthropicMessages,
           })

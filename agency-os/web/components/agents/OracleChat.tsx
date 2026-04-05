@@ -11,6 +11,7 @@ type Message = {
   agent?: AgentType
   agentLabel?: string
   attachmentName?: string
+  attachmentPreview?: string  // data URL for image thumbnails in history
 }
 
 type OrchestrationOutput = {
@@ -83,7 +84,8 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   const [approvedIds, setApprovedIds] = useState<Set<string>>(new Set())
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null)
   const [savedIdx, setSavedIdx]   = useState<number | null>(null)
-  const [attachedFile, setAttachedFile] = useState<{ name: string; base64: string; mimeType: string } | null>(null)
+  const [attachedFile, setAttachedFile] = useState<{ name: string; base64: string; mimeType: string; previewUrl?: string } | null>(null)
+  const [attachError, setAttachError] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -94,10 +96,19 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
+    setAttachError(null)
+    const MAX_BYTES = 10 * 1024 * 1024 // 10 MB
+    if (file.size > MAX_BYTES) {
+      setAttachError(`Arquivo muito grande (máx 10 MB): ${(file.size / 1024 / 1024).toFixed(1)} MB`)
+      e.target.value = ''
+      return
+    }
     const reader = new FileReader()
     reader.onload = () => {
-      const base64 = (reader.result as string).split(',')[1]
-      setAttachedFile({ name: file.name, base64, mimeType: file.type })
+      const dataUrl = reader.result as string
+      const base64 = dataUrl.split(',')[1]
+      const previewUrl = file.type.startsWith('image/') ? dataUrl : undefined
+      setAttachedFile({ name: file.name, base64, mimeType: file.type, previewUrl })
     }
     reader.readAsDataURL(file)
     e.target.value = ''
@@ -113,6 +124,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
     setMessages(prev => [...prev, {
       role: 'user', content: userMsg,
       attachmentName: currentFile?.name,
+      attachmentPreview: currentFile?.previewUrl,
     }])
     setIsLoading(true)
 
@@ -302,9 +314,11 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                 <div className={`rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${isUser ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] rounded-tr-none' : `bg-[var(--color-bg-surface)] border ${style.border} text-[var(--color-text-primary)] rounded-tl-none`}`}>
                   {msg.attachmentName && (
                     <div className="flex items-center gap-1.5 mb-2 px-2 py-1 rounded-md bg-white/[0.06] border border-[var(--color-border-default)] text-[11px] text-[var(--color-text-secondary)]">
-                      {msg.attachmentName.match(/\.(png|jpg|jpeg|gif|webp)$/i)
-                        ? <Image size={12} />
-                        : <FileText size={12} />}
+                      {msg.attachmentPreview
+                        ? <img src={msg.attachmentPreview} alt="" className="h-7 w-7 rounded object-cover shrink-0" />
+                        : msg.attachmentName.match(/\.(png|jpg|jpeg|gif|webp)$/i)
+                          ? <Image size={12} />
+                          : <FileText size={12} />}
                       <span className="truncate max-w-[200px]">{msg.attachmentName}</span>
                     </div>
                   )}
@@ -454,12 +468,27 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
 
       {/* Input */}
       <div className="p-4 border-t border-[var(--color-border-subtle)]">
+        {attachError && (
+          <div className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-[12px] text-red-400">
+            <X size={12} className="shrink-0" />
+            <span>{attachError}</span>
+            <button onClick={() => setAttachError(null)} className="ml-auto hover:text-red-300">
+              <X size={12} />
+            </button>
+          </div>
+        )}
         {attachedFile && (
           <div className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-[var(--color-border-subtle)] text-[12px] text-[var(--color-text-secondary)]">
-            {attachedFile.mimeType.startsWith('image/')
-              ? <Image size={13} className="shrink-0" />
-              : <FileText size={13} className="shrink-0" />}
+            {attachedFile.previewUrl
+              ? <img src={attachedFile.previewUrl} alt="" className="h-8 w-8 rounded object-cover shrink-0" />
+              : attachedFile.mimeType.startsWith('image/')
+                ? <Image size={13} className="shrink-0" />
+                : <FileText size={13} className="shrink-0" />
+            }
             <span className="truncate flex-1">{attachedFile.name}</span>
+            <span className="text-[10px] text-[var(--color-text-muted)] shrink-0">
+              {attachedFile.mimeType === 'application/pdf' ? 'PDF' : attachedFile.mimeType.startsWith('image/') ? 'Imagem' : 'Texto'}
+            </span>
             <button onClick={() => setAttachedFile(null)} className="hover:text-[var(--color-text-primary)] transition-colors">
               <X size={13} />
             </button>
