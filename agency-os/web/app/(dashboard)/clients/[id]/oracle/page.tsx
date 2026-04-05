@@ -8,12 +8,14 @@ export default async function OraclePage({ params }: { params: Promise<{ id: str
   const { data: client } = await supabase.from('clients').select('name').eq('id', id).single()
   if (!client) notFound()
 
-  const { data: history } = await supabase
-    .from('agent_conversations')
-    .select('role, content')
-    .eq('job_id', id)
-    .order('created_at', { ascending: true })
-    .limit(50)
+  // Load most recent session for this client (if any)
+  const { data: session } = await supabase
+    .from('oracle_sessions')
+    .select('id')
+    .eq('client_id', id)
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
 
   return (
     <div className="space-y-6">
@@ -22,8 +24,9 @@ export default async function OraclePage({ params }: { params: Promise<{ id: str
         <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">Agente de orquestração</p>
       </div>
       <OracleChat
+        clientId={id}
         clientName={client.name}
-        initialHistory={(history ?? []).map(h => ({ role: h.role as 'user' | 'assistant', content: h.content }))}
+        initialSessionId={session?.id}
       />
     </div>
   )

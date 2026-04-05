@@ -106,12 +106,33 @@ const VALID_AGENTS = new Set(Object.keys(AGENT_SYSTEMS))
 const ANTHROPIC_MODEL_FAST = 'claude-haiku-4-5-20251001'   // classifier, quick tasks
 const ANTHROPIC_MODEL_MAIN = 'claude-sonnet-4-5-20250929'  // main Oracle responses
 
-type Attachment = { name: string; base64: string; mimeType: string }
+// Attachments are now uploaded to Supabase Storage; only the path is in the request body.
+type StorageAttachment = { name: string; mimeType: string; storagePath: string }
 const VALID_IMG_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'] as const
 type ImgMime = typeof VALID_IMG_TYPES[number]
 
-// Build a single attachment's content blocks
-function attachmentBlocks(file: Attachment): Anthropic.ContentBlockParam[] {
+// Fetch a file from Supabase Storage and return its base64 content
+async function downloadAttachment(
+  file: StorageAttachment,
+  supabase: Awaited<ReturnType<typeof import('@/lib/supabase/server').createClient>>
+): Promise<{ name: string; base64: string; mimeType: string } | null> {
+  try {
+    const { data, error } = await supabase.storage
+      .from('oracle-attachments')
+      .download(file.storagePath)
+    if (error || !data) return null
+    const arrayBuffer = await data.arrayBuffer()
+    const base64 = Buffer.from(arrayBuffer).toString('base64')
+    // Clean up after download — fire-and-forget
+    supabase.storage.from('oracle-attachments').remove([file.storagePath]).then(() => {}, () => {})
+    return { name: file.name, base64, mimeType: file.mimeType }
+  } catch {
+    return null
+  }
+}
+
+// Build a single attachment's content blocks from resolved base64
+function attachmentBlocks(file: { name: string; base64: string; mimeType: string }): Anthropic.ContentBlockParam[] {
   const blocks: Anthropic.ContentBlockParam[] = []
   if ((VALID_IMG_TYPES as readonly string[]).includes(file.mimeType)) {
     blocks.push({ type: 'image', source: { type: 'base64', media_type: file.mimeType as ImgMime, data: file.base64 } })
@@ -127,10 +148,16 @@ function attachmentBlocks(file: Attachment): Anthropic.ContentBlockParam[] {
   return blocks
 }
 
-// Build Claude content blocks for a user message with optional file attachments.
-function buildUserContent(text: string, files?: Attachment[]): string | Anthropic.ContentBlockParam[] {
-  if (!files || !files.length) return text
-  const blocks: Anthropic.ContentBlockParam[] = files.flatMap(attachmentBlocks)
+// Build Claude content blocks: download from Storage, then build blocks
+async function buildUserContent(
+  text: string,
+  storageFiles: StorageAttachment[] | undefined,
+  supabase: Awaited<ReturnType<typeof import('@/lib/supabase/server').createClient>>
+): Promise<string | Anthropic.ContentBlockParam[]> {
+  if (!storageFiles || !storageFiles.length) return text
+  const resolved = (await Promise.all(storageFiles.map(f => downloadAttachment(f, supabase)))).filter(Boolean) as { name: string; base64: string; mimeType: string }[]
+  if (!resolved.length) return text
+  const blocks: Anthropic.ContentBlockParam[] = resolved.flatMap(attachmentBlocks)
   blocks.push({ type: 'text', text })
   return blocks
 }
@@ -172,14 +199,14 @@ export async function POST(req: NextRequest) {
     if (!user) return new Response('Unauthorized', { status: 401 })
 
     // ── 3. Parse body ───────────────────────────────────────────────────────
-    let body: { message?: string; job_id?: string; client_id?: string; history?: { role: string; content: string }[]; attachments?: Attachment[] }
+    let body: { message?: string; job_id?: string; client_id?: string; session_id?: string; history?: { role: string; content: string }[]; attachments?: StorageAttachment[] }
     try {
       body = await req.json()
     } catch {
       return new Response('Invalid JSON body', { status: 400 })
     }
 
-    const { message, job_id, client_id, history = [], attachments } = body
+    const { message, job_id, client_id, session_id, history = [], attachments } = body
     if (!message || typeof message !== 'string' || !message.trim()) {
       return new Response('Missing required field: message', { status: 400 })
     }
@@ -195,6 +222,7 @@ export async function POST(req: NextRequest) {
     const [agent] = await Promise.all([
       classifyIntent(message, anthropic),
       supabase.from('agent_conversations').insert({
+        session_id: session_id ?? null,
         job_id: job_id ?? null,
         workspace_id: profile?.workspace_id ?? null,
         agent: 'oracle',
@@ -255,6 +283,7 @@ export async function POST(req: NextRequest) {
     const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
 
     const safeHistory = Array.isArray(history) ? history : []
+    const userContent = await buildUserContent(message, attachments?.filter(a => a?.storagePath), supabase)
     const anthropicMessages: Anthropic.MessageParam[] = [
       ...safeHistory.slice(-10)
         .filter((h) => h?.content && typeof h.content === 'string')
@@ -262,7 +291,7 @@ export async function POST(req: NextRequest) {
           role: (h.role === 'assistant' ? 'assistant' : 'user') as 'user' | 'assistant',
           content: h.content,
         })),
-      { role: 'user' as const, content: buildUserContent(message, attachments?.filter(a => a?.base64)) },
+      { role: 'user' as const, content: userContent },
     ]
 
     // ── 9. Stream response ──────────────────────────────────────────────────
@@ -294,6 +323,7 @@ export async function POST(req: NextRequest) {
         } finally {
           // Save assistant response (best-effort)
           await supabase.from('agent_conversations').insert({
+            session_id: session_id ?? null,
             job_id: job_id ?? null,
             workspace_id: profile?.workspace_id ?? null,
             agent,

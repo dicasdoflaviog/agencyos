@@ -1,10 +1,12 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, X, FileText, Image, Zap, CheckCircle2 } from 'lucide-react'
+import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, X, FileText, Image, Zap, CheckCircle2, UploadCloud, Plus, MessageSquare } from 'lucide-react'
 import { type AgentType } from '@/types/agents'
+import { createClient } from '@/lib/supabase/client'
 
 type Message = {
   role: 'user' | 'assistant'
@@ -74,11 +76,15 @@ interface OracleChatProps {
   jobId?: string
   clientId?: string
   clientName?: string
-  initialHistory?: Message[]
+  initialSessionId?: string  // pre-loaded by server pages
 }
 
-export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }: OracleChatProps) {
-  const [messages, setMessages] = useState<Message[]>(initialHistory)
+function OracleChatInner({ jobId, clientId, clientName, initialSessionId }: OracleChatProps) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [messages, setMessages] = useState<Message[]>([])
+  const [sessionId, setSessionId] = useState<string | null>(initialSessionId ?? searchParams.get('session'))
+  const [historyLoading, setHistoryLoading] = useState(false)
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isOrchestrating, setIsOrchestrating] = useState(false)
@@ -86,26 +92,95 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   const [approvedIds, setApprovedIds] = useState<Set<string>>(new Set())
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null)
   const [savedIdx, setSavedIdx]   = useState<number | null>(null)
-  const [attachedFiles, setAttachedFiles] = useState<{ name: string; base64: string; mimeType: string; previewUrl?: string }[]>([])
+  const [attachedFiles, setAttachedFiles] = useState<{ name: string; mimeType: string; storagePath: string; previewUrl?: string; uploading?: boolean }[]>([])
   const [attachError, setAttachError] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // ── Session management ──────────────────────────────────────────────────────
+  const createSession = useCallback(async () => {
+    try {
+      const res = await fetch('/api/agents/oracle/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client_id: clientId ?? null, job_id: jobId ?? null }),
+      })
+      if (!res.ok) return
+      const { id } = await res.json()
+      setSessionId(id)
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('session', id)
+      router.replace(`?${params.toString()}`, { scroll: false } as Parameters<typeof router.replace>[1])
+    } catch { /* non-fatal */ }
+  }, [clientId, jobId, router, searchParams])
+
+  const loadSessionHistory = useCallback(async (id: string) => {
+    setHistoryLoading(true)
+    try {
+      const res = await fetch(`/api/agents/oracle/sessions/${id}`)
+      if (!res.ok) { await createSession(); return }
+      const { messages: rows } = await res.json()
+      if (!rows?.length) return
+      setMessages(rows.map((r: { role: string; content: string; agent?: string }) => ({
+        role: r.role as 'user' | 'assistant',
+        content: r.content,
+        agent: (r.agent as AgentType) ?? 'oracle',
+      })))
+    } catch { /* non-fatal */ } finally {
+      setHistoryLoading(false)
+    }
+  }, [createSession])
+
+  useEffect(() => {
+    const urlSession = searchParams.get('session')
+    if (urlSession) {
+      if (urlSession !== sessionId) setSessionId(urlSession)
+      loadSessionHistory(urlSession)
+    } else if (initialSessionId) {
+      loadSessionHistory(initialSessionId)
+    } else {
+      createSession()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const startNewSession = useCallback(async () => {
+    setMessages([])
+    setOrchestrationResult(null)
+    setSessionId(null)
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete('session')
+    router.replace(`?${params.toString()}`, { scroll: false } as Parameters<typeof router.replace>[1])
+    await createSession()
+  }, [createSession, router, searchParams])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, orchestrationResult])
 
+  const MAX_FILE_BYTES = 10 * 1024 * 1024  // 10 MB per file (Storage limit — no payload restriction)
+  const MAX_FILES = 10
+
+  async function uploadFileToStorage(file: File, previewUrl?: string): Promise<{ name: string; mimeType: string; storagePath: string; previewUrl?: string } | null> {
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { setAttachError('Você precisa estar autenticado para anexar arquivos.'); return null }
+
+    const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_')
+    const storagePath = `${user.id}/${Date.now()}-${safeName}`
+    const { error } = await supabase.storage.from('oracle-attachments').upload(storagePath, file)
+    if (error) { setAttachError(`Erro ao enviar arquivo: ${error.message}`); return null }
+    return { name: file.name, mimeType: file.type, storagePath, previewUrl }
+  }
+
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? [])
     if (!files.length) return
     setAttachError(null)
-    const MAX_BYTES = 3 * 1024 * 1024   // 3 MB per file
-    const MAX_TOTAL = 3 * 1024 * 1024   // 3 MB total (Vercel 4.5 MB limit, base64 adds ~33%)
-    const MAX_FILES = 10
 
-    const oversized = files.find(f => f.size > MAX_BYTES)
+    const oversized = files.find(f => f.size > MAX_FILE_BYTES)
     if (oversized) {
-      setAttachError(`Arquivo muito grande (máx 3 MB): ${oversized.name} (${(oversized.size / 1024 / 1024).toFixed(1)} MB)`)
+      setAttachError(`Arquivo muito grande (máx 10 MB): ${oversized.name} (${(oversized.size / 1024 / 1024).toFixed(1)} MB)`)
       e.target.value = ''
       return
     }
@@ -114,81 +189,69 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
       e.target.value = ''
       return
     }
-    const currentTotal = attachedFiles.reduce((sum, f) => sum + Math.ceil(f.base64.length * 0.75), 0)
-    const newTotal = files.reduce((sum, f) => sum + f.size, 0)
-    if (currentTotal + newTotal > MAX_TOTAL) {
-      setAttachError(`Total de anexos excede 3 MB (limite da função serverless)`)
-      e.target.value = ''
-      return
-    }
 
-    const newFiles = await Promise.all(files.map(file => new Promise<{ name: string; base64: string; mimeType: string; previewUrl?: string }>((resolve) => {
-      const reader = new FileReader()
-      reader.onload = () => {
-        const dataUrl = reader.result as string
-        const base64 = dataUrl.split(',')[1]
-        resolve({ name: file.name, base64, mimeType: file.type, previewUrl: file.type.startsWith('image/') ? dataUrl : undefined })
+    // Add placeholders with uploading state
+    const placeholders = files.map(f => ({ name: f.name, mimeType: f.type, storagePath: '', uploading: true }))
+    setAttachedFiles(prev => [...prev, ...placeholders])
+
+    const results = await Promise.all(files.map(async (file) => {
+      const previewUrl = file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined
+      return uploadFileToStorage(file, previewUrl)
+    }))
+
+    // Replace placeholders with real results
+    setAttachedFiles(prev => {
+      const next = [...prev]
+      let placeholderIdx = next.findIndex(f => f.uploading && f.storagePath === '')
+      for (const result of results) {
+        if (placeholderIdx === -1) break
+        if (result) { next[placeholderIdx] = result } else { next.splice(placeholderIdx, 1) }
+        placeholderIdx = next.findIndex(f => f.uploading && f.storagePath === '')
       }
-      reader.readAsDataURL(file)
-    })))
-
-    setAttachedFiles(prev => [...prev, ...newFiles])
+      return next
+    })
     e.target.value = ''
   }
 
   const handlePaste = (e: React.ClipboardEvent) => {
     const items = Array.from(e.clipboardData.items).filter(i => i.kind === 'file')
     if (!items.length) return
-
-    setAttachError(null)
-    const MAX_BYTES = 3 * 1024 * 1024   // 3 MB per file
-    const MAX_TOTAL = 3 * 1024 * 1024   // 3 MB total
-    const MAX_FILES = 10
-    const toProcess: DataTransferItem[] = []
-
-    for (const item of items) {
-      if (attachedFiles.length + toProcess.length >= MAX_FILES) {
-        setAttachError(`Máximo de ${MAX_FILES} arquivos por mensagem`)
-        break
-      }
-      toProcess.push(item)
-    }
-
-    if (!toProcess.length) return
+    if (attachedFiles.length >= MAX_FILES) { setAttachError(`Máximo de ${MAX_FILES} arquivos por mensagem`); return }
     e.preventDefault()
+    setAttachError(null)
 
-    const currentTotal = attachedFiles.reduce((sum, f) => sum + Math.ceil(f.base64.length * 0.75), 0)
+    const toProcess = items.slice(0, MAX_FILES - attachedFiles.length)
 
-    Promise.all(toProcess.map(item => new Promise<{ name: string; base64: string; mimeType: string; previewUrl?: string } | null>(resolve => {
+    Promise.all(toProcess.map(async (item) => {
       const file = item.getAsFile()
-      if (!file) return resolve(null)
-      if (file.size > MAX_BYTES) {
-        setAttachError(`Arquivo muito grande (máx 3 MB): ${(file.size / 1024 / 1024).toFixed(1)} MB`)
-        return resolve(null)
+      if (!file) return null
+      if (file.size > MAX_FILE_BYTES) {
+        setAttachError(`Arquivo muito grande (máx 10 MB): ${(file.size / 1024 / 1024).toFixed(1)} MB`)
+        return null
       }
-      if (currentTotal + file.size > MAX_TOTAL) {
-        setAttachError(`Total de anexos excede 3 MB (limite da função serverless)`)
-        return resolve(null)
-      }
-      const reader = new FileReader()
-      reader.onload = () => {
-        const dataUrl = reader.result as string
-        const base64 = dataUrl.split(',')[1]
-        const ext = file.type.split('/')[1]?.split(';')[0] || 'png'
-        const name = file.name && file.name !== 'blob' ? file.name : `colado-${Date.now()}.${ext}`
-        resolve({ name, base64, mimeType: file.type, previewUrl: file.type.startsWith('image/') ? dataUrl : undefined })
-      }
-      reader.readAsDataURL(file)
-    }))).then(results => {
-      const valid = results.filter((r): r is NonNullable<typeof r> => r !== null)
-      if (valid.length) setAttachedFiles(prev => [...prev, ...valid])
-    })
+      const ext = file.type.split('/')[1]?.split(';')[0] || 'png'
+      const namedFile = new File([file], file.name && file.name !== 'blob' ? file.name : `colado-${Date.now()}.${ext}`, { type: file.type })
+      const previewUrl = file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined
+
+      // Show placeholder
+      const placeholder = { name: namedFile.name, mimeType: namedFile.type, storagePath: '', uploading: true }
+      setAttachedFiles(prev => [...prev, placeholder])
+
+      const result = await uploadFileToStorage(namedFile, previewUrl)
+      setAttachedFiles(prev => {
+        const next = [...prev]
+        const idx = next.findIndex(f => f.uploading && f.name === namedFile.name && f.storagePath === '')
+        if (idx !== -1) { result ? (next[idx] = result) : next.splice(idx, 1) }
+        return next
+      })
+    }))
   }
 
   const sendMessage = async () => {
-    if ((!input.trim() && !attachedFiles.length) || isLoading) return
-    const userMsg = input.trim() || (attachedFiles.length === 1 ? `Analisar arquivo: ${attachedFiles[0].name}` : `Analisar ${attachedFiles.length} arquivos`)
-    const currentFiles = attachedFiles
+    const readyFiles = attachedFiles.filter(f => !f.uploading)
+    if ((!input.trim() && !readyFiles.length) || isLoading) return
+    const userMsg = input.trim() || (readyFiles.length === 1 ? `Analisar arquivo: ${readyFiles[0].name}` : `Analisar ${readyFiles.length} arquivos`)
+    const currentFiles = readyFiles
     setInput('')
     setAttachedFiles([])
     setOrchestrationResult(null)
@@ -207,11 +270,12 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: userMsg,
+          session_id: sessionId,
           job_id: jobId,
           client_id: clientId,
           history,
           ...(currentFiles.length > 0 && {
-            attachments: currentFiles.map(f => ({ name: f.name, base64: f.base64, mimeType: f.mimeType }))
+            attachments: currentFiles.map(f => ({ name: f.name, mimeType: f.mimeType, storagePath: f.storagePath }))
           })
         }),
       })
@@ -326,7 +390,21 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           <p className="text-sm font-semibold text-[var(--color-text-primary)]">ORACLE</p>
           <p className="text-xs text-[var(--color-text-secondary)]">{clientName ? `Contexto: ${clientName}` : 'Orquestra VERA · ATLAS · VOX'}</p>
         </div>
-        <div className="ml-auto flex items-center gap-1.5">
+        <div className="ml-auto flex items-center gap-2">
+          {sessionId && (
+            <span className="text-[10px] font-mono text-[var(--color-text-muted)] hidden sm:block truncate max-w-[120px]" title={sessionId}>
+              #{sessionId.slice(0, 8)}
+            </span>
+          )}
+          <button
+            onClick={startNewSession}
+            disabled={isLoading}
+            title="Nova conversa"
+            className="flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-lg border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-default)] transition-colors disabled:opacity-40"
+          >
+            <Plus size={11} />
+            Nova
+          </button>
           <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-xs text-[var(--color-text-secondary)]">Online</span>
         </div>
@@ -334,7 +412,13 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.length === 0 && !orchestrationResult && (
+        {historyLoading && (
+          <div className="flex items-center justify-center py-8 gap-2">
+            <Loader2 size={16} className="text-[var(--color-accent)] animate-spin" />
+            <span className="text-sm text-[var(--color-text-secondary)]">Carregando histórico...</span>
+          </div>
+        )}
+        {!historyLoading && messages.length === 0 && !orchestrationResult && (
           <div className="flex flex-col items-center justify-center h-full text-center gap-3">
             <div className="h-12 w-12 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
               <Bot size={24} className="text-[var(--color-accent)]" />
@@ -632,5 +716,19 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
         </div>
       </div>
     </div>
+  )
+}
+
+// Wrap with Suspense because useSearchParams requires it in the App Router
+export function OracleChat(props: OracleChatProps) {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col h-[600px] bg-[var(--color-bg-base)] border border-[var(--color-border-subtle)] rounded-xl items-center justify-center gap-2">
+        <Loader2 size={20} className="text-[var(--color-accent)] animate-spin" />
+        <span className="text-sm text-[var(--color-text-secondary)]">Carregando Oracle...</span>
+      </div>
+    }>
+      <OracleChatInner {...props} />
+    </Suspense>
   )
 }
