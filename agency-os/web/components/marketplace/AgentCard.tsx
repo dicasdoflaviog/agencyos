@@ -24,7 +24,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 function priceLabel(agent: MarketplaceAgent) {
   if (agent.price_type === 'free') return 'Grátis'
   const v = agent.price_brl?.toFixed(2).replace('.', ',') ?? '–'
-  return agent.price_type === 'subscription' ? `R$ ${v}/mês` : `R$ ${v}`
+  return `R$ ${v}/mês`
 }
 
 function formatCount(n: number) {

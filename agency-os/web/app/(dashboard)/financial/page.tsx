@@ -4,6 +4,8 @@ function fmt(value: number) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
 }
 
+export const metadata = { title: 'Financeiro | Agency OS' }
+
 export default async function FinancialPage() {
   const supabase = await createClient()
   const { data: clients } = await supabase

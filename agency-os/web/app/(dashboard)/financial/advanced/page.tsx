@@ -42,17 +42,26 @@ export default async function AdvancedFinancialPage() {
 
   const allContracts = contracts ?? []
 
-  // MRR: monthly + retainer active contracts
-  const mrr = allContracts
-    .filter((c) => c.status === 'active' && (c.billing === 'monthly' || c.billing === 'retainer'))
-    .reduce((sum, c) => sum + (c.value ?? 0), 0)
-
-  const arr = mrr * 12
-
-  // Active contracts count
-  const activeCount = allContracts.filter((c) => c.status === 'active').length
+  // Fallback: if no contracts exist, derive MRR from clients.contract_value
+  let mrr = 0
+  let activeCount = 0
+  if (allContracts.length === 0) {
+    const { data: activeClients } = await supabase
+      .from('clients')
+      .select('contract_value')
+      .eq('contract_status', 'active')
+    const clients = activeClients ?? []
+    activeCount = clients.length
+    mrr = clients.reduce((sum, c) => sum + (c.contract_value ?? 0), 0)
+  } else {
+    mrr = allContracts
+      .filter((c) => c.status === 'active' && (c.billing === 'monthly' || c.billing === 'retainer'))
+      .reduce((sum, c) => sum + (c.value ?? 0), 0)
+    activeCount = allContracts.filter((c) => c.status === 'active').length
+  }
 
   // Pipeline: draft contracts total value
+  const arr = mrr * 12
   const pipelineValue = allContracts
     .filter((c) => c.status === 'draft')
     .reduce((sum, c) => sum + (c.value ?? 0), 0)

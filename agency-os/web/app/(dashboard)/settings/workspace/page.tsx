@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { WorkspaceSettingsForm } from '@/components/workspace/WorkspaceSettingsForm'
 import type { Workspace } from '@/types/database'
 
+export const metadata = { title: 'Workspace | Agency OS' }
+
 export default async function WorkspaceSettingsPage() {
   const supabase = await createClient()
 

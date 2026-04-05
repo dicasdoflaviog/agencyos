@@ -3,6 +3,8 @@ import { CRMKanban } from '@/components/crm/CRMKanban'
 import { CRMMetricsBar } from '@/components/crm/CRMMetricsBar'
 import type { Lead } from '@/types/database'
 
+export const metadata = { title: 'CRM | Agency OS' }
+
 export default async function CRMPage() {
   const supabase = await createClient()
 

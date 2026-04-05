@@ -91,7 +91,8 @@ export function CRMKanban({ leads: initialLeads }: Props) {
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="overflow-x-auto pb-4">
+      <div className="relative">
+        <div className="overflow-x-auto pb-4">
         <div className="flex gap-3 min-w-max">
           {STAGES.map(stage => {
             const stageLeads = leads.filter(l => l.stage === stage.id)
@@ -125,6 +126,9 @@ export function CRMKanban({ leads: initialLeads }: Props) {
             )
           })}
         </div>
+      </div>
+      {/* Fade-right gradient scroll indicator */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#09090B] to-transparent" />
       </div>
       <DragOverlay>
         {activeLead && (

@@ -3,6 +3,8 @@ import { AgentCard } from '@/components/marketplace/AgentCard'
 import { MarketplaceAgent } from '@/types/database'
 import { Bot } from 'lucide-react'
 
+export const metadata = { title: 'Marketplace | Agency OS' }
+
 interface Props {
   searchParams: Promise<{ category?: string }>
 }

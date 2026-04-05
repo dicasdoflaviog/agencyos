@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { ClientForm } from '@/components/clients/ClientForm'
+import { ClientDetailToggle } from '@/components/clients/ClientDetailToggle'
 import { formatCurrency, formatDate, cn } from '@/lib/utils'
 
 const STATUS_CONFIG = {
@@ -50,41 +50,11 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* Info + Editar */}
         <div className="lg:col-span-2 space-y-4">
-          <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-6">
-            <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Editar Dados</h3>
-            <ClientForm initialData={client} mode="edit" />
-          </div>
+          <ClientDetailToggle client={client} />
         </div>
 
         {/* Sidebar info */}
         <div className="space-y-4">
-          {/* Contrato */}
-          <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-            <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Contrato</h3>
-            <div className="space-y-2">
-              {client.contract_value != null && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-[#A1A1AA]">Valor mensal</span>
-                  <span className="font-medium text-[#FAFAFA]">{formatCurrency(client.contract_value)}</span>
-                </div>
-              )}
-              <div className="flex justify-between text-sm">
-                <span className="text-[#A1A1AA]">Status</span>
-                <span className={cn('text-xs font-medium rounded px-2 py-0.5',
-                  client.contract_status === 'active'  ? 'bg-[#22C55E]/10 text-[#22C55E]' :
-                  client.contract_status === 'pending' ? 'bg-[#F59E0B]/10 text-[#F59E0B]' :
-                  'bg-[#EF4444]/10 text-[#EF4444]'
-                )}>
-                  {client.contract_status === 'active' ? 'Em dia' : client.contract_status === 'pending' ? 'Pendente' : 'Atrasado'}
-                </span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-[#A1A1AA]">Cliente desde</span>
-                <span className="text-[#FAFAFA]">{formatDate(client.created_at)}</span>
-              </div>
-            </div>
-          </div>
-
           {/* Jobs recentes */}
           <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
             <div className="flex items-center justify-between mb-3">

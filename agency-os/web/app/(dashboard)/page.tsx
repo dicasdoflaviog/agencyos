@@ -1,7 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { formatCurrency } from '@/lib/utils'
-import { Users, Briefcase, CheckCircle, DollarSign } from 'lucide-react'
+import { Users, Briefcase, CheckCircle, DollarSign, Plus, Zap } from 'lucide-react'
 import { OnboardingChecklist } from '@/components/onboarding/OnboardingChecklist'
+import Link from 'next/link'
 
 async function getStats() {
   const supabase = await createClient()
@@ -53,6 +54,40 @@ export default async function OverviewPage() {
             </p>
           </div>
         ))}
+      </div>
+
+      {/* Quick actions */}
+      <div className="mt-8">
+        <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Ações Rápidas</h3>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <Link href="/clients/new" className="flex items-center gap-3 rounded-md border border-white/[0.07] bg-[#18181B] p-4 hover:border-[#F59E0B]/40 hover:bg-[#F59E0B]/5 transition-all group">
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#F59E0B]/10 text-[#F59E0B] group-hover:bg-[#F59E0B]/20 transition-colors">
+              <Plus size={16} />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-[#FAFAFA]">Adicionar Cliente</p>
+              <p className="text-xs text-[#A1A1AA]">Cadastre um novo cliente</p>
+            </div>
+          </Link>
+          <Link href="/jobs/new" className="flex items-center gap-3 rounded-md border border-white/[0.07] bg-[#18181B] p-4 hover:border-[#F59E0B]/40 hover:bg-[#F59E0B]/5 transition-all group">
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#22C55E]/10 text-[#22C55E] group-hover:bg-[#22C55E]/20 transition-colors">
+              <Briefcase size={16} />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-[#FAFAFA]">Criar Job</p>
+              <p className="text-xs text-[#A1A1AA]">Inicie um novo projeto</p>
+            </div>
+          </Link>
+          <Link href="/oracle" className="flex items-center gap-3 rounded-md border border-white/[0.07] bg-[#18181B] p-4 hover:border-[#F59E0B]/40 hover:bg-[#F59E0B]/5 transition-all group">
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#6366F1]/10 text-[#6366F1] group-hover:bg-[#6366F1]/20 transition-colors">
+              <Zap size={16} />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-[#FAFAFA]">Consultar Oracle</p>
+              <p className="text-xs text-[#A1A1AA]">Converse com seus agentes</p>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   )

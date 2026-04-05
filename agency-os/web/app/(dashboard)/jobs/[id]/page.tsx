@@ -99,7 +99,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
               <p className="text-xs text-zinc-600 mt-1 mb-3">Crie um briefing para melhorar os outputs dos agentes</p>
               <Link
                 href={`/jobs/${id}/briefing`}
-                className="inline-flex items-center rounded-lg bg-violet-600 hover:bg-violet-500 px-3 py-1.5 text-xs font-medium text-white transition-colors"
+                className="inline-flex items-center rounded-lg bg-[#F59E0B] hover:bg-[#D97706] px-3 py-1.5 text-xs font-medium text-[#0A0A0A] transition-colors"
               >
                 + Criar briefing
               </Link>

@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
 import type { Report } from '@/types/database'
 
+export const metadata = { title: 'Relatórios | Agency OS' }
+
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
   pending:    { label: 'Pendente',   className: 'bg-white/[0.06] text-[#A1A1AA]' },
   generating: { label: 'Gerando…',  className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },

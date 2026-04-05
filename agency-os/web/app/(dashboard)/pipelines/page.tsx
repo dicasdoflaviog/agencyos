@@ -29,7 +29,7 @@ export default async function PipelinesPage() {
         </div>
         <Link
           href="/pipelines/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-violet-600 hover:bg-violet-500 px-4 py-2 text-sm font-medium text-white transition-colors"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#F59E0B] hover:bg-[#D97706] px-4 py-2 text-sm font-medium text-[#0A0A0A] transition-colors"
         >
           + Novo pipeline
         </Link>
@@ -44,7 +44,7 @@ export default async function PipelinesPage() {
           </p>
           <Link
             href="/pipelines/new"
-            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-violet-600 hover:bg-violet-500 px-4 py-2 text-sm font-medium text-white transition-colors"
+            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#F59E0B] hover:bg-[#D97706] px-4 py-2 text-sm font-medium text-[#0A0A0A] transition-colors"
           >
             Criar primeiro pipeline
           </Link>
