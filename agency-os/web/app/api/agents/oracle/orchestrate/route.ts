@@ -6,7 +6,7 @@ import { getClientIGMetrics, getClientIGTrend, formatIGContext, formatIGTrendCon
 
 export const dynamic = 'force-dynamic'
 
-const ANTHROPIC_MODEL = 'claude-3-5-haiku-20241022'
+const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001'
 
 // ── Agent system prompts (same as oracle/chat) ────────────────────────────────
 const AGENT_SYSTEMS: Partial<Record<AgentType, string>> = {

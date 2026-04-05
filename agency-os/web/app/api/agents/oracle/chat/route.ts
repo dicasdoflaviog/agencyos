@@ -103,7 +103,8 @@ Responda APENAS com uma palavra (${ALL_AGENTS}).`
 
 const VALID_AGENTS = new Set(Object.keys(AGENT_SYSTEMS))
 
-const ANTHROPIC_MODEL = 'claude-3-5-haiku-20241022'
+const ANTHROPIC_MODEL_FAST = 'claude-haiku-4-5-20251001'   // classifier, quick tasks
+const ANTHROPIC_MODEL_MAIN = 'claude-sonnet-4-5-20250929'  // main Oracle responses
 
 async function classifyIntent(message: string, client: Anthropic): Promise<AgentType> {
   // @mention override: "@marco escreva um roteiro..." → marco
@@ -114,8 +115,7 @@ async function classifyIntent(message: string, client: Anthropic): Promise<Agent
 
   try {
     const res = await client.messages.create({
-      model: ANTHROPIC_MODEL,
-      max_tokens: 10,
+      model: ANTHROPIC_MODEL_FAST,
       messages: [{ role: 'user', content: CLASSIFIER_PROMPT.replace('{message}', message) }],
     })
     const text = res.content[0]?.type === 'text'
@@ -243,8 +243,7 @@ export async function POST(req: NextRequest) {
       async start(controller) {
         try {
           const stream = anthropic.messages.stream({
-            model: ANTHROPIC_MODEL,
-            max_tokens: 2000,
+            model: ANTHROPIC_MODEL_MAIN,
             system: systemPrompt,
             messages: anthropicMessages,
           })
