@@ -19,6 +19,7 @@ const schema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
   slug: z.string().min(1, 'Slug é obrigatório'),
   niche: z.string().optional(),
+  instagram_handle: z.string().optional(),
   contract_value: z.string().optional(),
   contract_status: z.enum(['active', 'pending', 'overdue']),
   notes: z.string().optional(),
@@ -47,6 +48,7 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
       name: initialData?.name ?? '',
       slug: initialData?.slug ?? '',
       niche: initialData?.niche ?? '',
+      instagram_handle: (initialData as { instagram_handle?: string })?.instagram_handle ?? '',
       contract_value: initialData?.contract_value?.toString() ?? '',
       contract_status: initialData?.contract_status ?? 'active',
       notes: initialData?.notes ?? '',
@@ -95,6 +97,7 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
       name: data.name,
       slug: data.slug,
       niche: data.niche || null,
+      instagram_handle: data.instagram_handle?.replace('@', '') || null,
       contract_value: data.contract_value ? parseFloat(data.contract_value) : null,
       contract_status: data.contract_status,
       notes: data.notes || null,
@@ -181,6 +184,19 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
       <div className="space-y-1.5">
         <Label className={labelClass}>Nicho</Label>
         <Input {...register('niche')} placeholder="Ex: Moda, Saúde, Tech..." className={inputClass} />
+      </div>
+
+      <div className="space-y-1.5">
+        <Label className={labelClass}>Instagram</Label>
+        <div className="relative">
+          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-[#A1A1AA] text-sm">@</span>
+          <Input
+            {...register('instagram_handle')}
+            placeholder="handle_do_cliente"
+            className={`${inputClass} pl-7`}
+          />
+        </div>
+        <p className="text-[10px] text-[#52525B]">Usado para sincronizar métricas do Instagram via Apify</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">

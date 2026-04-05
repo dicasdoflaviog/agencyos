@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check } from 'lucide-react'
+import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, X, FileText, Image } from 'lucide-react'
 import { type AgentType } from '@/types/agents'
 
 type Message = {
@@ -10,6 +10,7 @@ type Message = {
   streaming?: boolean
   agent?: AgentType
   agentLabel?: string
+  attachmentName?: string
 }
 
 const AGENT_STYLES: Record<AgentType, { color: string; bg: string; border: string }> = {
@@ -65,17 +66,36 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   const [isLoading, setIsLoading] = useState(false)
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null)
   const [savedIdx, setSavedIdx]   = useState<number | null>(null)
+  const [attachedFile, setAttachedFile] = useState<{ name: string; base64: string; mimeType: string } | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(',')[1]
+      setAttachedFile({ name: file.name, base64, mimeType: file.type })
+    }
+    reader.readAsDataURL(file)
+    e.target.value = ''
+  }
+
   const sendMessage = async () => {
-    if (!input.trim() || isLoading) return
-    const userMsg = input.trim()
+    if ((!input.trim() && !attachedFile) || isLoading) return
+    const userMsg = input.trim() || (attachedFile ? `Analisar arquivo: ${attachedFile.name}` : '')
+    const currentFile = attachedFile
     setInput('')
-    setMessages(prev => [...prev, { role: 'user', content: userMsg }])
+    setAttachedFile(null)
+    setMessages(prev => [...prev, {
+      role: 'user', content: userMsg,
+      attachmentName: currentFile?.name,
+    }])
     setIsLoading(true)
 
     const history = messages.slice(-10)
@@ -84,7 +104,19 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
       const res = await fetch('/api/agents/oracle/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg, job_id: jobId, client_id: clientId, history }),
+        body: JSON.stringify({
+          message: userMsg,
+          job_id: jobId,
+          client_id: clientId,
+          history,
+          ...(currentFile && {
+            attachment: {
+              name: currentFile.name,
+              base64: currentFile.base64,
+              mimeType: currentFile.mimeType,
+            }
+          })
+        }),
       })
 
       if (!res.ok) {
@@ -209,6 +241,14 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                   </span>
                 )}
                 <div className={`rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${isUser ? 'bg-[#27272A] text-[#FAFAFA] rounded-tr-none' : `bg-[#18181B] border ${style.border} text-[#FAFAFA] rounded-tl-none`}`}>
+                  {msg.attachmentName && (
+                    <div className="flex items-center gap-1.5 mb-2 px-2 py-1 rounded-md bg-white/[0.06] border border-white/[0.08] text-[11px] text-[#A1A1AA]">
+                      {msg.attachmentName.match(/\.(png|jpg|jpeg|gif|webp)$/i)
+                        ? <Image size={12} />
+                        : <FileText size={12} />}
+                      <span className="truncate max-w-[200px]">{msg.attachmentName}</span>
+                    </div>
+                  )}
                   {msg.content}
                   {msg.streaming && <span className={`inline-block w-1 h-4 ml-0.5 animate-pulse ${style.color.replace('text-', 'bg-')}`} />}
                 </div>
@@ -273,7 +313,32 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
 
       {/* Input */}
       <div className="p-4 border-t border-white/[0.07]">
+        {attachedFile && (
+          <div className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.07] text-[12px] text-[#A1A1AA]">
+            {attachedFile.mimeType.startsWith('image/')
+              ? <Image size={13} className="shrink-0" />
+              : <FileText size={13} className="shrink-0" />}
+            <span className="truncate flex-1">{attachedFile.name}</span>
+            <button onClick={() => setAttachedFile(null)} className="hover:text-[#FAFAFA] transition-colors">
+              <X size={13} />
+            </button>
+          </div>
+        )}
         <div className="flex gap-2">
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            title="Anexar arquivo"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/[0.04] border border-white/[0.07] text-[#71717A] hover:text-[#FAFAFA] hover:border-white/[0.15] transition-all"
+          >
+            <Paperclip size={16} />
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*,.pdf,.txt,.md,.docx,.csv,.json"
+            onChange={handleFileChange}
+            className="hidden"
+          />
           <textarea
             value={input}
             onChange={e => setInput(e.target.value)}
@@ -284,7 +349,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           />
           <button
             onClick={sendMessage}
-            disabled={isLoading || !input.trim()}
+            disabled={isLoading || (!input.trim() && !attachedFile)}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F59E0B] text-[#0A0A0A] hover:bg-[#F59E0B]/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
           >
             <Send size={16} strokeWidth={2.5} />
