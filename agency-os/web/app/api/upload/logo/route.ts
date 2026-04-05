@@ -2,22 +2,22 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 
-const BUCKET = 'client-logos'
+const BUCKET = 'logos'
 const MAX_SIZE = 5 * 1024 * 1024 // 5MB
 const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml']
 
 export async function POST(req: NextRequest) {
-  // Verificar autenticação do usuário
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const formData = await req.formData()
   const file = formData.get('file') as File | null
-  const clientId = formData.get('clientId') as string | null
+  // Accept workspace_id (onboarding) or clientId (client context)
+  const ownerId = (formData.get('workspace_id') ?? formData.get('clientId')) as string | null
 
-  if (!file || !clientId) {
-    return NextResponse.json({ error: 'file e clientId são obrigatórios' }, { status: 400 })
+  if (!file || !ownerId) {
+    return NextResponse.json({ error: 'file e workspace_id são obrigatórios' }, { status: 400 })
   }
 
   if (file.size > MAX_SIZE) {
@@ -29,9 +29,8 @@ export async function POST(req: NextRequest) {
   }
 
   const ext = file.name.split('.').pop()?.toLowerCase() ?? 'png'
-  const path = `${clientId}/logo.${ext}`
+  const path = `${ownerId}/logo.${ext}`
 
-  // Upload via service_role (server-side — bypass RLS, key nunca exposta no browser)
   const admin = createAdminClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -41,10 +40,7 @@ export async function POST(req: NextRequest) {
 
   const { error: uploadError } = await admin.storage
     .from(BUCKET)
-    .upload(path, buffer, {
-      contentType: file.type,
-      upsert: true,
-    })
+    .upload(path, buffer, { contentType: file.type, upsert: true })
 
   if (uploadError) {
     console.error('[upload/logo] Storage error:', uploadError)
@@ -52,8 +48,6 @@ export async function POST(req: NextRequest) {
   }
 
   const { data } = admin.storage.from(BUCKET).getPublicUrl(path)
-
-  // Cachebust para forçar reload da imagem no browser
   const publicUrl = `${data.publicUrl}?t=${Date.now()}`
 
   return NextResponse.json({ url: publicUrl })
