@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic } from '@/lib/anthropic/client'
 import { AGENTS, getSystemPrompt, type AgentId } from '@/lib/anthropic/agents'
+import { getClientIGMetrics, getClientIGTrend, formatIGContext, formatIGTrendContext } from '@/lib/apify/tools'
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
 
   // ── Busca dados do cliente, job e briefing em paralelo
   const [{ data: client }, { data: job }, { data: briefing }] = await Promise.all([
-    supabase.from('clients').select('name, niche, brand_voice').eq('id', clientId).single(),
+    supabase.from('clients').select('name, niche, brand_voice, instagram_handle').eq('id', clientId).single(),
     supabase.from('jobs').select('title, description').eq('id', jobId).single(),
     supabase.from('job_briefings').select('*').eq('job_id', jobId).maybeSingle(),
   ])
@@ -38,9 +39,23 @@ export async function POST(req: NextRequest) {
     .order('created_at', { ascending: true })
     .limit(5) // limita para não explodir o contexto
 
+  // ── Para PULSE: carrega métricas do Instagram do cliente (via Apify/DB)
+  let igBlock = ''
+  if (agentId === 'pulse' && clientId) {
+    const [metrics, trend] = await Promise.all([
+      getClientIGMetrics(clientId, supabase),
+      getClientIGTrend(clientId, supabase),
+    ])
+    if (metrics) {
+      igBlock = formatIGContext(metrics) + formatIGTrendContext(trend)
+    } else if (client?.instagram_handle) {
+      igBlock = `\n\nInstagram do cliente: @${client.instagram_handle} (métricas não sincronizadas — use o botão "Sincronizar Instagram" no perfil do cliente)`
+    }
+  }
+
   // ── Monta bloco de contexto
   const clientBlock = client
-    ? `Cliente: ${client.name}${client.niche ? ` | Nicho: ${client.niche}` : ''}${client.brand_voice ? `\nVoz da marca: ${client.brand_voice}` : ''}`
+    ? `Cliente: ${client.name}${client.niche ? ` | Nicho: ${client.niche}` : ''}${client.brand_voice ? `\nVoz da marca: ${client.brand_voice}` : ''}${client.instagram_handle ? `\nInstagram: @${client.instagram_handle}` : ''}`
     : ''
 
   const jobBlock = job
@@ -69,7 +84,7 @@ export async function POST(req: NextRequest) {
     : ''
 
   const contextBlock = (clientBlock || jobBlock)
-    ? `## CONTEXTO DO JOB\n${clientBlock}\n${jobBlock}${briefingBlock}${previousOutputsBlock}\n\n---\n\n`
+    ? `## CONTEXTO DO JOB\n${clientBlock}\n${jobBlock}${briefingBlock}${igBlock}${previousOutputsBlock}\n\n---\n\n`
     : ''
 
   const systemPrompt = getSystemPrompt(agentId)

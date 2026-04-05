@@ -2,6 +2,15 @@ import { NextRequest } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
 import { type AgentType, AGENT_LABELS } from '@/types/agents'
+import {
+  getClientIGMetrics,
+  getClientIGTrend,
+  scrapeInstagramProfile,
+  formatIGContext,
+  formatIGTrendContext,
+  isIGSyncRequest,
+  extractIGHandle,
+} from '@/lib/apify/tools'
 
 export const dynamic = 'force-dynamic'
 
@@ -166,7 +175,40 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext
+  // Load Instagram metrics context
+  let igContext = ''
+  if (client_id) {
+    // If user explicitly asks to sync/update, trigger a fresh Apify scrape
+    if (isIGSyncRequest(message)) {
+      const handle = extractIGHandle(message)
+        ?? (await supabase.from('clients').select('instagram_handle').eq('id', client_id).maybeSingle())
+            .data?.instagram_handle
+      if (handle) {
+        const fresh = await scrapeInstagramProfile(handle, client_id)
+        if (fresh) {
+          // Persist to ig_metrics table
+          const today = new Date().toISOString().split('T')[0]
+          await supabase.from('ig_metrics').upsert(
+            { client_id, date: today, username: fresh.username, followers: fresh.followers,
+              following: fresh.following, posts: fresh.posts, engagement_rate: fresh.engagement_rate },
+            { onConflict: 'client_id,date' },
+          )
+          igContext = formatIGContext(fresh)
+        }
+      }
+    } else {
+      // Otherwise load from DB (fast — already synced)
+      const [metrics, trend] = await Promise.all([
+        getClientIGMetrics(client_id, supabase),
+        getClientIGTrend(client_id, supabase),
+      ])
+      if (metrics) {
+        igContext = formatIGContext(metrics) + formatIGTrendContext(trend)
+      }
+    }
+  }
+
+  const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
 
   const messages: Anthropic.MessageParam[] = [
     ...history.slice(-10).map((h) => ({
