@@ -111,7 +111,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     client_id: clientId,
     content: dnaContent,
     source: 'dna_document',
-    source_id: `dna_${Date.now()}`,
+    source_id: crypto.randomUUID(),
   }
   if (embedding) insertPayload.embedding = `[${embedding.join(',')}]`
 
