@@ -308,7 +308,7 @@ export async function POST(req: NextRequest) {
             agent,
             role: 'assistant',
             content: fullContent,
-          }).catch(() => {})
+          }).then(() => {}, () => {})
 
           // Auto-save to job_outputs when job context exists
           if (job_id && fullContent && agent !== 'oracle') {
@@ -330,7 +330,7 @@ export async function POST(req: NextRequest) {
               output_content: fullContent,
               output_type: outputTypeMap[agent] ?? 'text',
               status: 'pending',
-            }).catch(() => {})
+            }).then(() => {}, () => {})
           }
 
           controller.close()
