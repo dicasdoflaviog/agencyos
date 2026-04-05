@@ -76,7 +76,12 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
     })
 
     if (allDone) {
-      await handleFinishOnboarding()
+      try {
+        await handleFinishOnboarding()
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Erro ao finalizar onboarding')
+        setLoading(false)
+      }
       return
     }
 
