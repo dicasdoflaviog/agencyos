@@ -1,12 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
+import { Images } from 'lucide-react'
 
 interface GalleryPageProps {
-  searchParams: Promise<{ client?: string; status?: string }>
+  searchParams: Promise<{ client?: string; status?: string; type?: string }>
 }
 
+// output_types that belong to the "strategy" tab (hidden by default)
+const STRATEGY_TYPES = ['strategy', 'script']
+
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
-  const { client: clientFilter, status: statusFilter } = await searchParams
+  const { client: clientFilter, status: statusFilter, type: typeFilter } = await searchParams
   const supabase = await createClient()
 
   let query = supabase
@@ -17,6 +21,11 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   if (clientFilter) query = query.eq('client_id', clientFilter)
   if (statusFilter)  query = query.eq('status', statusFilter)
 
+  // By default (no type tab selected) hide strategy/script — they live inside the Job
+  if (!typeFilter) {
+    query = query.not('output_type', 'in', `(${STRATEGY_TYPES.map(t => `"${t}"`).join(',')})`)
+  }
+
   const [{ data: outputs }, { data: clients }] = await Promise.all([
     query,
     supabase.from('clients').select('id, name').eq('status', 'active').order('name'),
@@ -24,14 +33,21 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
 
   return (
     <div>
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Galeria</h2>
-        <p className="mt-1 text-sm text-[#A1A1AA]">{outputs?.length ?? 0} outputs gerados</p>
+      <div className="mb-6 flex items-center gap-3">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/10">
+          <Images size={18} className="text-amber-400" />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-[#FAFAFA] tracking-tight">Galeria</h2>
+          <p className="text-xs text-[#71717A]">Outputs visuais e criativos gerados pelos agentes</p>
+        </div>
       </div>
+
       <GalleryGrid
         outputs={outputs ?? []}
         clients={clients ?? []}
         activeClient={clientFilter ?? null}
+        activeType={typeFilter ?? null}
         activeStatus={statusFilter ?? null}
       />
     </div>

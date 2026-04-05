@@ -63,7 +63,7 @@ export type JobOutput = {
   agent_name: string
   input_prompt: string
   output_content: string
-  output_type: 'text' | 'copy' | 'strategy' | 'script' | 'image_prompt'
+  output_type: 'text' | 'copy' | 'strategy' | 'script' | 'image_prompt' | 'image' | 'video' | 'audio' | 'design_preview' | 'carousel'
   status: 'pending' | 'approved' | 'rejected' | 'revision'
   approval_stage: ApprovalStage
   output_version: number
@@ -569,6 +569,9 @@ export interface MarketplaceAgent {
   price_brl: number | null
   rating: number
   install_count: number
+  specialties: string[] | null
+  when_to_use: string[] | null
+  greeting_message: string | null
   created_at: string
 }
 
