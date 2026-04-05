@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, X, FileText, Image, Zap, CheckCircle2 } from 'lucide-react'
 import { type AgentType } from '@/types/agents'
 
@@ -376,7 +378,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                     {msg.agentLabel}
                   </span>
                 )}
-                <div className={`rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${isUser ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] rounded-tr-none' : `bg-[var(--color-bg-surface)] border ${style.border} text-[var(--color-text-primary)] rounded-tl-none`}`}>
+                  <div className={`rounded-xl px-4 py-2.5 text-sm leading-relaxed ${isUser ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] rounded-tr-none' : `bg-[var(--color-bg-surface)] border ${style.border} text-[var(--color-text-primary)] rounded-tl-none`}`}>
                   {msg.attachmentNames && msg.attachmentNames.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-2">
                       {msg.attachmentNames.map((name, ai) => (
@@ -391,7 +393,13 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                       ))}
                     </div>
                   )}
-                  {msg.content}
+                  {isUser ? (
+                    <span className="whitespace-pre-wrap">{msg.content}</span>
+                  ) : (
+                    <div className="oracle-prose">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
+                    </div>
+                  )}
                   {msg.streaming && <span className={`inline-block w-1 h-4 ml-0.5 animate-pulse ${style.color.replace('text-', 'bg-')}`} />}
                 </div>
 
@@ -504,9 +512,9 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                     <p className="text-[11px] text-[var(--color-text-muted)] italic border-l-2 border-[var(--color-border-subtle)] pl-2">
                       {output.task}
                     </p>
-                    <p className="text-sm text-[var(--color-text-primary)] whitespace-pre-wrap leading-relaxed">
-                      {output.content}
-                    </p>
+                    <div className="oracle-prose text-sm">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{output.content}</ReactMarkdown>
+                    </div>
                     {output.status === 'fulfilled' && (
                       <div className="flex gap-2 pt-1">
                         <button
