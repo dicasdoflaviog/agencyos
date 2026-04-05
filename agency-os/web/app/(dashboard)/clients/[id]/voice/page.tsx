@@ -24,7 +24,7 @@ export default async function VoicePage({ params }: { params: Promise<{ id: stri
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold text-[#FAFAFA]">VOX</h1>
-        <p className="text-sm text-[#A1A1AA] mt-0.5">Narração com IA · {client.name}</p>
+        <p className="text-sm text-[#A1A1AA] mt-0.5">Narração com IA</p>
       </div>
       <VoxStudio clientId={id} clientName={client.name} initialAssets={(assets ?? []) as AudioAsset[]} />
     </div>

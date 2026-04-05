@@ -27,7 +27,7 @@ export default async function CreativePage({ params }: { params: Promise<{ id: s
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold text-[#FAFAFA]">Creative Studio</h1>
-        <p className="text-sm text-[#A1A1AA] mt-0.5">Criativos com IA · {client.name}</p>
+        <p className="text-sm text-[#A1A1AA] mt-0.5">Criativos com IA</p>
       </div>
       <CreativeStudio
         clientId={id}

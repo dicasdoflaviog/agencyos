@@ -27,7 +27,7 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold text-[#FAFAFA]">VULCAN</h1>
-        <p className="text-sm text-[#A1A1AA] mt-0.5">Vídeos com IA · {client.name}</p>
+        <p className="text-sm text-[#A1A1AA] mt-0.5">Vídeos com IA</p>
       </div>
       <VulcanStudio clientId={id} clientName={client.name} initialJobs={(jobs ?? []) as VideoJob[]} />
     </div>

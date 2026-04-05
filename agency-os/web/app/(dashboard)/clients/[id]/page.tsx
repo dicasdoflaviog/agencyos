@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Briefcase } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { ClientForm } from '@/components/clients/ClientForm'
 import { formatCurrency, formatDate } from '@/lib/utils'
@@ -35,33 +34,18 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
 
   return (
     <div>
-      <div className="mb-6">
-        <Link
-          href="/clients"
-          className="inline-flex items-center gap-1.5 text-xs text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors cursor-pointer mb-4"
-        >
-          <ArrowLeft size={13} strokeWidth={2} />
-          Voltar para Clientes
-        </Link>
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded bg-[#27272A] text-sm font-semibold text-[#FAFAFA]">
-            {client.logo_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={client.logo_url} alt={client.name} className="h-10 w-10 rounded object-cover" />
-            ) : (
-              client.name.slice(0, 2).toUpperCase()
-            )}
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">{client.name}</h2>
-              <span className={cn('rounded px-2 py-0.5 text-xs font-medium', status.className)}>
-                {status.label}
-              </span>
-            </div>
-            {client.niche && <p className="text-sm text-[#A1A1AA]">{client.niche}</p>}
-          </div>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded bg-[#27272A] text-sm font-semibold text-[#FAFAFA]">
+          {client.logo_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={client.logo_url} alt={client.name} className="h-10 w-10 rounded object-cover" />
+          ) : (
+            client.name.slice(0, 2).toUpperCase()
+          )}
         </div>
+        <span className={cn('rounded px-2 py-0.5 text-xs font-medium', status.className)}>
+          {status.label}
+        </span>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">

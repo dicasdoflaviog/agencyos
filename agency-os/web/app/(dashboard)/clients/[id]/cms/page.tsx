@@ -1,9 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { PostCard } from '@/components/cms/PostCard'
-import { ClientTabs } from '@/components/clients/ClientTabs'
 
 export default async function ClientCMSPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -17,28 +16,16 @@ export default async function ClientCMSPage({ params }: { params: Promise<{ id: 
   if (!client) notFound()
 
   return (
-    <div>
-      <div className="mb-4">
-        <Link href="/clients" className="inline-flex items-center gap-1.5 text-xs text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors mb-3">
-          <ArrowLeft size={13} strokeWidth={2} />
-          Voltar para Clientes
+    <div className="space-y-4">
+      <div className="flex items-center justify-end">
+        <Link
+          href={`/clients/${id}/cms/new`}
+          className="flex items-center gap-2 rounded bg-[#F59E0B] px-3 py-1.5 text-sm font-semibold text-[#09090B] hover:bg-[#D97706] transition-colors"
+        >
+          <Plus size={14} strokeWidth={2.5} />
+          Novo Post
         </Link>
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">{client.name}</h2>
-            <p className="text-sm text-[#A1A1AA] mt-0.5">CMS — Gerenciar conteúdo</p>
-          </div>
-          <Link
-            href={`/clients/${id}/cms/new`}
-            className="flex items-center gap-2 rounded bg-[#F59E0B] px-3 py-1.5 text-sm font-semibold text-[#09090B] hover:bg-[#D97706] transition-colors"
-          >
-            <Plus size={14} strokeWidth={2.5} />
-            Novo Post
-          </Link>
-        </div>
       </div>
-
-      <ClientTabs clientId={id} />
 
       {posts && posts.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
