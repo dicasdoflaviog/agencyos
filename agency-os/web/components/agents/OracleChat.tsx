@@ -97,17 +97,25 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
     const files = Array.from(e.target.files ?? [])
     if (!files.length) return
     setAttachError(null)
-    const MAX_BYTES = 10 * 1024 * 1024
+    const MAX_BYTES = 3 * 1024 * 1024   // 3 MB per file
+    const MAX_TOTAL = 3 * 1024 * 1024   // 3 MB total (Vercel 4.5 MB limit, base64 adds ~33%)
     const MAX_FILES = 10
 
     const oversized = files.find(f => f.size > MAX_BYTES)
     if (oversized) {
-      setAttachError(`Arquivo muito grande (máx 10 MB): ${oversized.name} (${(oversized.size / 1024 / 1024).toFixed(1)} MB)`)
+      setAttachError(`Arquivo muito grande (máx 3 MB): ${oversized.name} (${(oversized.size / 1024 / 1024).toFixed(1)} MB)`)
       e.target.value = ''
       return
     }
     if (attachedFiles.length + files.length > MAX_FILES) {
       setAttachError(`Máximo de ${MAX_FILES} arquivos por mensagem`)
+      e.target.value = ''
+      return
+    }
+    const currentTotal = attachedFiles.reduce((sum, f) => sum + Math.ceil(f.base64.length * 0.75), 0)
+    const newTotal = files.reduce((sum, f) => sum + f.size, 0)
+    if (currentTotal + newTotal > MAX_TOTAL) {
+      setAttachError(`Total de anexos excede 3 MB (limite da função serverless)`)
       e.target.value = ''
       return
     }
@@ -131,7 +139,8 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
     if (!items.length) return
 
     setAttachError(null)
-    const MAX_BYTES = 10 * 1024 * 1024
+    const MAX_BYTES = 3 * 1024 * 1024   // 3 MB per file
+    const MAX_TOTAL = 3 * 1024 * 1024   // 3 MB total
     const MAX_FILES = 10
     const toProcess: DataTransferItem[] = []
 
@@ -146,11 +155,17 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
     if (!toProcess.length) return
     e.preventDefault()
 
+    const currentTotal = attachedFiles.reduce((sum, f) => sum + Math.ceil(f.base64.length * 0.75), 0)
+
     Promise.all(toProcess.map(item => new Promise<{ name: string; base64: string; mimeType: string; previewUrl?: string } | null>(resolve => {
       const file = item.getAsFile()
       if (!file) return resolve(null)
       if (file.size > MAX_BYTES) {
-        setAttachError(`Arquivo muito grande (máx 10 MB): ${(file.size / 1024 / 1024).toFixed(1)} MB`)
+        setAttachError(`Arquivo muito grande (máx 3 MB): ${(file.size / 1024 / 1024).toFixed(1)} MB`)
+        return resolve(null)
+      }
+      if (currentTotal + file.size > MAX_TOTAL) {
+        setAttachError(`Total de anexos excede 3 MB (limite da função serverless)`)
         return resolve(null)
       }
       const reader = new FileReader()
