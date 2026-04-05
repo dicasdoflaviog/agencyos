@@ -10,8 +10,8 @@ type Message = {
   streaming?: boolean
   agent?: AgentType
   agentLabel?: string
-  attachmentName?: string
-  attachmentPreview?: string  // data URL for image thumbnails in history
+  attachmentNames?: string[]
+  attachmentPreviews?: string[]  // data URLs for image thumbnails in history
 }
 
 type OrchestrationOutput = {
@@ -84,7 +84,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   const [approvedIds, setApprovedIds] = useState<Set<string>>(new Set())
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null)
   const [savedIdx, setSavedIdx]   = useState<number | null>(null)
-  const [attachedFile, setAttachedFile] = useState<{ name: string; base64: string; mimeType: string; previewUrl?: string } | null>(null)
+  const [attachedFiles, setAttachedFiles] = useState<{ name: string; base64: string; mimeType: string; previewUrl?: string }[]>([])
   const [attachError, setAttachError] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -94,37 +94,91 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   }, [messages, orchestrationResult])
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const files = Array.from(e.target.files ?? [])
+    if (!files.length) return
     setAttachError(null)
-    const MAX_BYTES = 10 * 1024 * 1024 // 10 MB
-    if (file.size > MAX_BYTES) {
-      setAttachError(`Arquivo muito grande (máx 10 MB): ${(file.size / 1024 / 1024).toFixed(1)} MB`)
+    const MAX_BYTES = 10 * 1024 * 1024
+    const MAX_FILES = 5
+
+    const oversized = files.find(f => f.size > MAX_BYTES)
+    if (oversized) {
+      setAttachError(`Arquivo muito grande (máx 10 MB): ${oversized.name} (${(oversized.size / 1024 / 1024).toFixed(1)} MB)`)
       e.target.value = ''
       return
     }
-    const reader = new FileReader()
-    reader.onload = () => {
-      const dataUrl = reader.result as string
-      const base64 = dataUrl.split(',')[1]
-      const previewUrl = file.type.startsWith('image/') ? dataUrl : undefined
-      setAttachedFile({ name: file.name, base64, mimeType: file.type, previewUrl })
+    if (attachedFiles.length + files.length > MAX_FILES) {
+      setAttachError(`Máximo de ${MAX_FILES} arquivos por mensagem`)
+      e.target.value = ''
+      return
     }
-    reader.readAsDataURL(file)
+
+    const newFiles = await Promise.all(files.map(file => new Promise<{ name: string; base64: string; mimeType: string; previewUrl?: string }>((resolve) => {
+      const reader = new FileReader()
+      reader.onload = () => {
+        const dataUrl = reader.result as string
+        const base64 = dataUrl.split(',')[1]
+        resolve({ name: file.name, base64, mimeType: file.type, previewUrl: file.type.startsWith('image/') ? dataUrl : undefined })
+      }
+      reader.readAsDataURL(file)
+    })))
+
+    setAttachedFiles(prev => [...prev, ...newFiles])
     e.target.value = ''
   }
 
+  const handlePaste = (e: React.ClipboardEvent) => {
+    const items = Array.from(e.clipboardData.items).filter(i => i.kind === 'file')
+    if (!items.length) return
+
+    setAttachError(null)
+    const MAX_BYTES = 10 * 1024 * 1024
+    const MAX_FILES = 5
+    const toProcess: DataTransferItem[] = []
+
+    for (const item of items) {
+      if (attachedFiles.length + toProcess.length >= MAX_FILES) {
+        setAttachError(`Máximo de ${MAX_FILES} arquivos por mensagem`)
+        break
+      }
+      toProcess.push(item)
+    }
+
+    if (!toProcess.length) return
+    e.preventDefault()
+
+    Promise.all(toProcess.map(item => new Promise<{ name: string; base64: string; mimeType: string; previewUrl?: string } | null>(resolve => {
+      const file = item.getAsFile()
+      if (!file) return resolve(null)
+      if (file.size > MAX_BYTES) {
+        setAttachError(`Arquivo muito grande (máx 10 MB): ${(file.size / 1024 / 1024).toFixed(1)} MB`)
+        return resolve(null)
+      }
+      const reader = new FileReader()
+      reader.onload = () => {
+        const dataUrl = reader.result as string
+        const base64 = dataUrl.split(',')[1]
+        const ext = file.type.split('/')[1]?.split(';')[0] || 'png'
+        const name = file.name && file.name !== 'blob' ? file.name : `colado-${Date.now()}.${ext}`
+        resolve({ name, base64, mimeType: file.type, previewUrl: file.type.startsWith('image/') ? dataUrl : undefined })
+      }
+      reader.readAsDataURL(file)
+    }))).then(results => {
+      const valid = results.filter((r): r is NonNullable<typeof r> => r !== null)
+      if (valid.length) setAttachedFiles(prev => [...prev, ...valid])
+    })
+  }
+
   const sendMessage = async () => {
-    if ((!input.trim() && !attachedFile) || isLoading) return
-    const userMsg = input.trim() || (attachedFile ? `Analisar arquivo: ${attachedFile.name}` : '')
-    const currentFile = attachedFile
+    if ((!input.trim() && !attachedFiles.length) || isLoading) return
+    const userMsg = input.trim() || (attachedFiles.length === 1 ? `Analisar arquivo: ${attachedFiles[0].name}` : `Analisar ${attachedFiles.length} arquivos`)
+    const currentFiles = attachedFiles
     setInput('')
-    setAttachedFile(null)
+    setAttachedFiles([])
     setOrchestrationResult(null)
     setMessages(prev => [...prev, {
       role: 'user', content: userMsg,
-      attachmentName: currentFile?.name,
-      attachmentPreview: currentFile?.previewUrl,
+      attachmentNames: currentFiles.map(f => f.name),
+      attachmentPreviews: currentFiles.map(f => f.previewUrl ?? '').filter(Boolean),
     }])
     setIsLoading(true)
 
@@ -139,12 +193,8 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           job_id: jobId,
           client_id: clientId,
           history,
-          ...(currentFile && {
-            attachment: {
-              name: currentFile.name,
-              base64: currentFile.base64,
-              mimeType: currentFile.mimeType,
-            }
+          ...(currentFiles.length > 0 && {
+            attachments: currentFiles.map(f => ({ name: f.name, base64: f.base64, mimeType: f.mimeType }))
           })
         }),
       })
@@ -249,7 +299,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   }
 
   return (
-    <div className="flex flex-col h-[600px] bg-[var(--color-bg-base)] border border-[var(--color-border-subtle)] rounded-xl overflow-hidden">
+    <div onPaste={handlePaste} className="flex flex-col h-[600px] bg-[var(--color-bg-base)] border border-[var(--color-border-subtle)] rounded-xl overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-accent)]/10">
@@ -312,14 +362,18 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                   </span>
                 )}
                 <div className={`rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${isUser ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] rounded-tr-none' : `bg-[var(--color-bg-surface)] border ${style.border} text-[var(--color-text-primary)] rounded-tl-none`}`}>
-                  {msg.attachmentName && (
-                    <div className="flex items-center gap-1.5 mb-2 px-2 py-1 rounded-md bg-white/[0.06] border border-[var(--color-border-default)] text-[11px] text-[var(--color-text-secondary)]">
-                      {msg.attachmentPreview
-                        ? <img src={msg.attachmentPreview} alt="" className="h-7 w-7 rounded object-cover shrink-0" />
-                        : msg.attachmentName.match(/\.(png|jpg|jpeg|gif|webp)$/i)
-                          ? <Image size={12} />
-                          : <FileText size={12} />}
-                      <span className="truncate max-w-[200px]">{msg.attachmentName}</span>
+                  {msg.attachmentNames && msg.attachmentNames.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-2">
+                      {msg.attachmentNames.map((name, ai) => (
+                        <div key={ai} className="flex items-center gap-1 px-2 py-1 rounded-md bg-white/[0.06] border border-[var(--color-border-default)] text-[11px] text-[var(--color-text-secondary)]">
+                          {msg.attachmentPreviews?.[ai]
+                            ? <img src={msg.attachmentPreviews[ai]} alt="" className="h-6 w-6 rounded object-cover shrink-0" />
+                            : name.match(/\.(png|jpg|jpeg|gif|webp)$/i)
+                              ? <Image size={11} />
+                              : <FileText size={11} />}
+                          <span className="truncate max-w-[150px]">{name}</span>
+                        </div>
+                      ))}
                     </div>
                   )}
                   {msg.content}
@@ -472,32 +526,31 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           <div className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-[12px] text-red-400">
             <X size={12} className="shrink-0" />
             <span>{attachError}</span>
-            <button onClick={() => setAttachError(null)} className="ml-auto hover:text-red-300">
-              <X size={12} />
-            </button>
+            <button onClick={() => setAttachError(null)} className="ml-auto hover:text-red-300"><X size={12} /></button>
           </div>
         )}
-        {attachedFile && (
-          <div className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-[var(--color-border-subtle)] text-[12px] text-[var(--color-text-secondary)]">
-            {attachedFile.previewUrl
-              ? <img src={attachedFile.previewUrl} alt="" className="h-8 w-8 rounded object-cover shrink-0" />
-              : attachedFile.mimeType.startsWith('image/')
-                ? <Image size={13} className="shrink-0" />
-                : <FileText size={13} className="shrink-0" />
-            }
-            <span className="truncate flex-1">{attachedFile.name}</span>
-            <span className="text-[10px] text-[var(--color-text-muted)] shrink-0">
-              {attachedFile.mimeType === 'application/pdf' ? 'PDF' : attachedFile.mimeType.startsWith('image/') ? 'Imagem' : 'Texto'}
-            </span>
-            <button onClick={() => setAttachedFile(null)} className="hover:text-[var(--color-text-primary)] transition-colors">
-              <X size={13} />
-            </button>
+        {attachedFiles.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {attachedFiles.map((f, idx) => (
+              <div key={idx} className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/[0.04] border border-[var(--color-border-subtle)] text-[12px] text-[var(--color-text-secondary)]">
+                {f.previewUrl
+                  ? <img src={f.previewUrl} alt="" className="h-6 w-6 rounded object-cover shrink-0" />
+                  : f.mimeType === 'application/pdf'
+                    ? <FileText size={12} className="shrink-0 text-red-400" />
+                    : <FileText size={12} className="shrink-0" />
+                }
+                <span className="truncate max-w-[120px]">{f.name}</span>
+                <button onClick={() => setAttachedFiles(prev => prev.filter((_, i) => i !== idx))} className="hover:text-[var(--color-text-primary)] transition-colors ml-0.5">
+                  <X size={11} />
+                </button>
+              </div>
+            ))}
           </div>
         )}
         <div className="flex gap-2">
           <button
             onClick={() => fileInputRef.current?.click()}
-            title="Anexar arquivo"
+            title="Anexar arquivo (ou Cole Ctrl+V uma imagem)"
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/[0.04] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)] transition-all"
           >
             <Paperclip size={16} />
@@ -506,6 +559,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
             ref={fileInputRef}
             type="file"
             accept="image/*,.pdf,.txt,.md,.docx,.csv,.json"
+            multiple
             onChange={handleFileChange}
             className="hidden"
           />
@@ -513,7 +567,8 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Descreva o que precisa... (Enter = chat, ⚡ = orquestrar)"
+            onPaste={handlePaste}
+            placeholder="Descreva o que precisa... Cole Ctrl+V para anexar imagem"
             rows={1}
             className="flex-1 resize-none rounded-lg bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] px-3 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:outline-none focus:border-[var(--color-accent)]/40 transition-colors"
           />
@@ -529,7 +584,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           {/* Send button */}
           <button
             onClick={sendMessage}
-            disabled={isLoading || isOrchestrating || (!input.trim() && !attachedFile)}
+            disabled={isLoading || isOrchestrating || (!input.trim() && !attachedFiles.length)}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:bg-[var(--color-accent)]/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
           >
             <Send size={16} strokeWidth={2.5} />
