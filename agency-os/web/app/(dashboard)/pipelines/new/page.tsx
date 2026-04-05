@@ -110,7 +110,7 @@ export default function NewPipelinePage() {
             <button
               type="button"
               onClick={addStep}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/30 px-3 py-1 text-xs text-violet-300 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)]/10 hover:bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 px-3 py-1 text-xs text-[var(--color-accent)] transition-colors"
             >
               <Plus size={12} /> Adicionar agente
             </button>
@@ -132,7 +132,7 @@ export default function NewPipelinePage() {
                       <GripVertical size={14} />
                     </button>
                   </div>
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-violet-500/20 text-violet-400 text-xs font-bold shrink-0">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-accent)]/15 text-[var(--color-accent)] text-xs font-bold shrink-0">
                     {i + 1}
                   </span>
                   <select

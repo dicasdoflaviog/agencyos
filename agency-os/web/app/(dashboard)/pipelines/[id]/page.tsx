@@ -70,7 +70,7 @@ export default async function PipelineDetailPage({
             return (
               <div key={i} className="flex gap-4">
                 <div className="flex flex-col items-center">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-500/20 text-violet-400 text-xs font-bold shrink-0">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-accent)]/15 text-[var(--color-accent)] text-xs font-bold shrink-0">
                     {i + 1}
                   </span>
                   {i < p.steps.length - 1 && (

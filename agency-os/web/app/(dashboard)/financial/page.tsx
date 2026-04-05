@@ -37,7 +37,7 @@ export default async function FinancialPage() {
           <p className="text-3xl font-bold font-display tracking-tight text-[var(--color-accent)]">{fmt(mrr)}</p>
         </div>
         <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
-          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Clientes ativos</p>
+          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Clientes com contrato</p>
           <p className="text-3xl font-bold font-display tracking-tight text-[var(--color-text-primary)]">{activeClients.length}</p>
         </div>
         <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">

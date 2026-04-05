@@ -128,7 +128,7 @@ export function CRMKanban({ leads: initialLeads }: Props) {
         </div>
       </div>
       {/* Fade-right gradient scroll indicator */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#09090B] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--color-bg-base)] to-transparent" />
       </div>
       <DragOverlay>
         {activeLead && (

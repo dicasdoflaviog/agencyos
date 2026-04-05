@@ -95,7 +95,7 @@ export default function PipelineEditForm({ pipeline }: { pipeline: AgentPipeline
           <div className="flex items-center justify-between mb-3">
             <label className={lbl + ' mb-0'}>Agentes em sequência</label>
             <button type="button" onClick={addStep}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/30 px-3 py-1 text-xs text-violet-300 transition-colors">
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)]/10 hover:bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 px-3 py-1 text-xs text-[var(--color-accent)] transition-colors">
               <Plus size={12} /> Adicionar agente
             </button>
           </div>
@@ -103,7 +103,7 @@ export default function PipelineEditForm({ pipeline }: { pipeline: AgentPipeline
             {steps.map((step, i) => (
               <div key={i} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 space-y-3">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-violet-500/20 text-violet-400 text-xs font-bold shrink-0">{i + 1}</span>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-accent)]/15 text-[var(--color-accent)] text-xs font-bold shrink-0">{i + 1}</span>
                   <select value={step.agent_id} onChange={(e) => updateStep(i, 'agent_id', e.target.value)}
                     className="flex-1 rounded-lg bg-white/[0.04] border border-white/10 text-zinc-100 px-3 py-1.5 text-sm focus:outline-none focus:border-violet-500">
                     {AGENT_LIST.map((a) => (

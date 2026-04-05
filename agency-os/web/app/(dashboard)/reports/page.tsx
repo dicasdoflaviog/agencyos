@@ -65,6 +65,23 @@ export default async function ReportsPage() {
           <FileText size={32} className="mb-3 text-[var(--color-text-secondary)]" strokeWidth={1.5} />
           <p className="text-sm font-medium text-[var(--color-text-primary)]">Nenhum relatório gerado</p>
           <p className="mt-1 text-xs text-[var(--color-text-secondary)]">Selecione um cliente acima para gerar o primeiro relatório</p>
+          {clients && clients.length > 0 ? (
+            <Link
+              href={`/reports/${clients[0].id}/new`}
+              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 px-4 py-2 text-sm font-medium text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20 transition-colors"
+            >
+              <Plus size={14} />
+              Criar Relatório
+            </Link>
+          ) : (
+            <Link
+              href="/clients"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 px-4 py-2 text-sm font-medium text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20 transition-colors"
+            >
+              <Plus size={14} />
+              Cadastrar Cliente
+            </Link>
+          )}
         </div>
       ) : (
         <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] overflow-hidden">

@@ -112,7 +112,7 @@ export default function TemplateEditForm({ template }: { template: JobTemplate }
                 onClick={() => setContentType(contentType === ct.value ? '' : ct.value)}
                 className={`rounded-full px-3 py-1 text-xs font-medium border transition-colors ${
                   contentType === ct.value
-                    ? 'bg-violet-600 border-violet-500 text-white'
+                    ? 'bg-[var(--color-accent)] border-[var(--color-accent)] text-black'
                     : 'bg-white/[0.03] border-white/10 text-zinc-400 hover:border-zinc-500'
                 }`}
               >
@@ -133,12 +133,12 @@ export default function TemplateEditForm({ template }: { template: JobTemplate }
                 onClick={() => toggleAgent(agent.id)}
                 className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm text-left transition-colors ${
                   selectedAgents.includes(agent.id)
-                    ? 'bg-violet-600/15 border-violet-500/40 text-violet-300'
+                    ? 'bg-[var(--color-accent)]/10 border-[var(--color-accent)]/30 text-[var(--color-accent)]'
                     : 'bg-white/[0.02] border-[var(--color-border-subtle)] text-zinc-400 hover:border-zinc-600'
                 }`}
               >
                 <span className="font-semibold text-xs">{agent.name}</span>
-                <span className="text-xs opacity-60 truncate">{agent.role}</span>
+                <span className="text-xs opacity-60 truncate" title={agent.role}>{agent.role}</span>
               </button>
             ))}
           </div>

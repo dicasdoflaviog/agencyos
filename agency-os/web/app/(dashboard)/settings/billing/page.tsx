@@ -3,6 +3,8 @@ import { CreditCard } from 'lucide-react'
 import { PlanCard } from '@/components/billing/PlanCard'
 import { BillingPortalButton } from '@/components/billing/BillingPortalButton'
 
+export const metadata = { title: 'Faturamento | Agency OS' }
+
 const PLANS = [
   {
     plan: 'starter' as const,
