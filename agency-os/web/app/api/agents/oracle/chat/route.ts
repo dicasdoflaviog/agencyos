@@ -343,7 +343,8 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'text/plain; charset=utf-8',
         'X-Content-Type-Options': 'nosniff',
         'X-Agent': agent,
-        'X-Agent-Label': AGENT_LABELS[agent],
+        // HTTP headers only accept ASCII (0-255) — replace em dash and strip remaining non-ASCII
+        'X-Agent-Label': AGENT_LABELS[agent].replace(/\u2014/g, '-').replace(/[^\x00-\xFF]/g, '').trim(),
       },
     })
 
