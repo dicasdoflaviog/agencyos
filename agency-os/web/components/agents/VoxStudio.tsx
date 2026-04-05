@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Mic, Play, Download, Loader2, Volume2, StopCircle } from 'lucide-react'
+import { Mic, Play, Download, Loader2, Volume2, StopCircle, Sparkles } from 'lucide-react'
+import { VoiceCloneModal } from './VoiceCloneModal'
 
 interface Voice {
   id: string
@@ -37,14 +38,17 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
   const [isGenerating, setIsGenerating] = useState(false)
   const [assets, setAssets] = useState<AudioAsset[]>(initialAssets)
   const [playingId, setPlayingId] = useState<string | null>(null)
+  const [showCloneModal, setShowCloneModal] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  useEffect(() => {
+  const loadVoices = () => {
     fetch('/api/agents/vox/voices')
       .then(r => r.json())
       .then((v: Voice[]) => setVoices(v))
       .catch(() => {})
-  }, [])
+  }
+
+  useEffect(() => { loadVoices() }, [])
 
   const generate = async () => {
     if (!text.trim() || isGenerating) return
@@ -83,10 +87,16 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
           <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
             <Mic size={16} className="text-emerald-400" />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-[var(--color-text-primary)]">VOX</p>
             <p className="text-xs text-[var(--color-text-secondary)]">Narração com IA · {clientName}</p>
           </div>
+          <button
+            onClick={() => setShowCloneModal(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium hover:bg-emerald-500/20 transition-all"
+          >
+            <Sparkles size={12} /> Clonar Minha Voz
+          </button>
         </div>
 
         {/* Voice selector */}
@@ -162,6 +172,18 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
           ))
         )}
       </div>
+
+      {showCloneModal && (
+        <VoiceCloneModal
+          onClose={() => setShowCloneModal(false)}
+          onSuccess={(voiceId, name) => {
+            setShowCloneModal(false)
+            loadVoices()
+            setSelectedVoice(voiceId)
+            console.info('Voz clonada:', voiceId, name)
+          }}
+        />
+      )}
     </div>
   )
 }

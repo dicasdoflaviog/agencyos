@@ -10,5 +10,28 @@ export async function GET() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
-  return Response.json(PRESET_VOICES)
+
+  const { data: profile } = await supabase
+    .from('profiles').select('workspace_id').eq('id', user.id).single()
+
+  const voices = [...PRESET_VOICES]
+
+  if (profile?.workspace_id) {
+    const { data: ws } = await supabase
+      .from('workspaces')
+      .select('cloned_voice_id, cloned_voice_name')
+      .eq('id', profile.workspace_id)
+      .single()
+
+    if (ws?.cloned_voice_id) {
+      voices.unshift({
+        id: ws.cloned_voice_id,
+        name: ws.cloned_voice_name ?? 'Minha Voz',
+        lang: 'pt-BR',
+        description: '⭐ Sua voz clonada com IA',
+      })
+    }
+  }
+
+  return Response.json(voices)
 }
