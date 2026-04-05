@@ -1,8 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { redirect } from 'next/navigation'
 import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard'
 
-async function getOrCreateWorkspace(userId: string) {
+async function getOrCreateWorkspace(userId: string, userEmail: string) {
+  // Use session client to read (respects RLS for read)
   const supabase = await createClient()
 
   const { data: member } = await supabase
@@ -13,24 +15,29 @@ async function getOrCreateWorkspace(userId: string) {
 
   if (member?.workspace_id) return member.workspace_id
 
-  // Auto-create workspace on first access
-  const { data: user } = await supabase.auth.getUser()
-  const name = user.user?.email?.split('@')[0] ?? 'Minha Agência'
+  // Use admin client to create workspace + member — bypasses RLS
+  // (new user has no role yet, so RLS would block INSERT)
+  const admin = createAdminClient()
+
+  const name = userEmail?.split('@')[0] ?? 'Minha Agência'
   const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + Date.now().toString(36)
 
-  const { data: workspace } = await supabase
+  const { data: workspace, error: wsError } = await admin
     .from('workspaces')
     .insert({ name, slug })
     .select('id')
     .single()
 
-  if (!workspace) return null
+  if (!workspace || wsError) {
+    console.error('[onboarding] workspace create error:', wsError?.message)
+    return null
+  }
 
-  await supabase
+  await admin
     .from('workspace_members')
     .insert({ workspace_id: workspace.id, user_id: userId, role: 'admin' })
 
-  await supabase
+  await admin
     .from('profiles')
     .update({ workspace_id: workspace.id, role: 'admin' })
     .eq('id', userId)
@@ -43,7 +50,7 @@ async function getOnboardingData() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const workspaceId = await getOrCreateWorkspace(user.id)
+  const workspaceId = await getOrCreateWorkspace(user.id, user.email ?? '')
   if (!workspaceId) redirect('/')
 
   const { data: progress } = await supabase
