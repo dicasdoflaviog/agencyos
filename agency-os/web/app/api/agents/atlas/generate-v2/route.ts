@@ -1,24 +1,12 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-
-interface GeminiImagePart {
-  inlineData: { mimeType: string; data: string }
-}
-interface GeminiTextPart {
-  text: string
-}
-type GeminiPart = GeminiImagePart | GeminiTextPart
-
-interface GeminiResponsePart {
-  inlineData?: { mimeType: string; data: string }
-  text?: string
-}
-
-interface GeminiResponse {
-  candidates?: Array<{
-    content: { parts: GeminiResponsePart[] }
-  }>
-}
+import {
+  type GeminiImagePart,
+  type GeminiTextPart,
+  type GeminiPart,
+  type GeminiResponsePart,
+  type GeminiResponse,
+} from '@/types/gemini'
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { generateEmbedding } from '@/lib/ai/embeddings'
+import { type GeminiContentResponse } from '@/types/gemini'
 
 export const dynamic = 'force-dynamic'
 
@@ -68,11 +69,7 @@ Gere o documento no seguinte formato (use ## para cada seção):
 Seja específico, prático e direto. O documento será usado por agentes de IA para gerar conteúdo consistente. Responda em português.
 `
 
-interface RouteContext {
-  params: Promise<{ id: string }>
-}
-
-export async function POST(req: NextRequest, { params }: RouteContext) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: clientId } = await params
   const supabase = await createClient()
 
@@ -102,10 +99,6 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
   if (!geminiRes.ok) {
     const err = await geminiRes.text()
     return NextResponse.json({ error: `Gemini error: ${err}` }, { status: 502 })
-  }
-
-  interface GeminiContentResponse {
-    candidates?: Array<{ content: { parts: Array<{ text?: string }> } }>
   }
 
   const geminiData = (await geminiRes.json()) as GeminiContentResponse

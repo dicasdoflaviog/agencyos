@@ -6,7 +6,7 @@ import { Video, Loader2, Play, Download, Film, Clock } from 'lucide-react'
 type VideoFormat = 'reels' | 'tiktok' | 'shorts' | 'banner'
 type JobStatus = 'pending' | 'processing' | 'done' | 'failed'
 
-interface VideoJob {
+export interface VideoJob {
   id: string
   format: string
   prompt: string

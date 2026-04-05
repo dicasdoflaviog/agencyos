@@ -15,21 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-export interface Contract {
-  id: string
-  client_id: string
-  value: number
-  billing: 'monthly' | 'project' | 'retainer'
-  start_date: string
-  end_date: string | null
-  status: 'active' | 'paused' | 'ended' | 'draft'
-  notes: string | null
-  created_by: string | null
-  created_at: string
-  updated_at: string
-  client?: { id: string; name: string }
-}
+import { type Contract } from '@/components/contracts/ContractCard'
 
 interface ContractFormProps {
   clientId: string

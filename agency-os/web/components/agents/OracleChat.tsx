@@ -2,8 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check } from 'lucide-react'
-
-type AgentType = 'oracle' | 'vera' | 'atlas' | 'vox'
+import { type AgentType } from '@/types/agents'
 
 type Message = {
   role: 'user' | 'assistant'

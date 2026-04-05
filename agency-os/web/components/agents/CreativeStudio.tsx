@@ -7,7 +7,7 @@ import Image from 'next/image'
 type CreativeType = 'post_feed' | 'stories' | 'banner' | 'thumbnail' | 'portrait'
 type StyleType = 'photorealistic' | 'illustration' | 'minimal' | 'bold_graphic' | 'cinematic'
 
-interface CreativeAsset {
+export interface CreativeAsset {
   id: string
   image_url: string
   type: string

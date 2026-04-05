@@ -1,14 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
-import { CreativeStudio } from '@/components/agents/CreativeStudio'
-
-interface CreativeAsset {
-  id: string
-  image_url: string
-  type: string
-  prompt: string
-  created_at: string
-}
+import { CreativeStudio, type CreativeAsset } from '@/components/agents/CreativeStudio'
 
 export default async function CreativePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params

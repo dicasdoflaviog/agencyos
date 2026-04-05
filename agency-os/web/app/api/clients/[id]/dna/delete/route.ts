@@ -3,11 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
-interface RouteContext {
-  params: Promise<{ id: string }>
-}
-
-export async function DELETE(req: NextRequest, { params }: RouteContext) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: clientId } = await params
   const supabase = await createClient()
 

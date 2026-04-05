@@ -1,17 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
-import { VulcanStudio } from '@/components/agents/VulcanStudio'
-
-interface VideoJob {
-  id: string
-  format: string
-  prompt: string
-  status: 'pending' | 'processing' | 'done' | 'failed'
-  video_url: string | null
-  duration_s: number
-  created_at: string
-  error_msg: string | null
-}
+import { VulcanStudio, type VideoJob } from '@/components/agents/VulcanStudio'
 
 export default async function VideoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params

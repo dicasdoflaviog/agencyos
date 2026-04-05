@@ -1,14 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
-import { VoxStudio } from '@/components/agents/VoxStudio'
-
-interface AudioAsset {
-  id: string
-  text_content: string
-  voice_id: string
-  audio_url: string
-  created_at: string
-}
+import { VoxStudio, type AudioAsset } from '@/components/agents/VoxStudio'
 
 export default async function VoicePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params

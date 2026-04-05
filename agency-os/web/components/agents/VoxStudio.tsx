@@ -10,7 +10,7 @@ interface Voice {
   description: string
 }
 
-interface AudioAsset {
+export interface AudioAsset {
   id: string
   text_content: string
   voice_id: string

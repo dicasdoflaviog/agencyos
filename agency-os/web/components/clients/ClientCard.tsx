@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { type Client } from '@/types/database'
-import { formatCurrency } from '@/lib/utils'
-import { cn } from '@/lib/utils'
+import { formatCurrency, cn } from '@/lib/utils'
 
 const STATUS_CONFIG = {
   active:   { label: 'Ativo',     className: 'bg-[#22C55E]/10 text-[#22C55E]' },
