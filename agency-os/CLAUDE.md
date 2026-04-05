@@ -3,6 +3,170 @@
 
 ---
 
+## 👤 PERFIL DO DONO DO PROJETO — Leia antes de tudo
+
+**Quem é:** Empreendedor digital, especialista em UX/UI, Design, Branding e Marketing. Apaixonado por IA e vibecoding. Cria seus próprios projetos mesmo sem formação técnica em desenvolvimento.
+
+**O que sabe bem:** UX/UI, design visual, branding, marketing, copywriting, ferramentas de IA, estratégia de negócio.
+
+**O que não é sua especialidade:** Arquitetura de software, linguagens de programação (lógica avançada), infraestrutura, banco de dados, custos de API/cloud.
+
+**Filosofia do projeto:**
+- Ser **facilitador e integrador** — acoplar ferramentas prontas, não reinventar a roda
+- Priorizar **Time-to-Market baixo** — entregar valor rápido ao cliente High Ticket
+- Manter **custo operacional previsível** — custos de API e tokens são uma preocupação real
+- Evitar **código pesado ou desnecessariamente complexo** — se algo nativo do browser ou um serviço existente resolve, prefira
+
+**Como a IA deve se comunicar:**
+- Sempre explicar termos técnicos quando usá-los (ex: TTM, RLS, SSR, SDK)
+- Antes de implementar algo caro ou complexo, alertar sobre custo e alternativas
+- Recomendar ativamente quando existe uma ferramenta de mercado melhor que construir do zero
+- Dar contexto de "por que essa escolha" não só "o que fazer"
+- Perguntar quando houver ambiguidade em vez de assumir
+
+---
+
+## 📖 GLOSSÁRIO — Termos usados neste projeto
+
+### Arquitetura & Código
+
+| Termo | Significado simples |
+|-------|-------------------|
+| **TTM** (Time-to-Market) | Tempo até uma feature estar funcionando para o cliente final |
+| **SDK** | Kit pronto de uma API (ex: `@anthropic-ai/sdk` = pacote oficial da Anthropic) |
+| **API** | "Porta de entrada" de um serviço externo. Você manda um pedido, ele responde |
+| **REST API** | Tipo mais comum de API — comunicação via HTTP (GET, POST, PUT, DELETE) |
+| **Webhook** | URL que um serviço externo chama quando algo acontece (ex: Vapi avisa quando a ligação termina) |
+| **Route / Rota** | Endereço no backend que processa uma ação (ex: `/api/agents/oracle/chat`) |
+| **Middleware** | Código que roda antes de toda requisição (ex: verificar se o usuário está logado) |
+| **SSR** (Server-Side Rendering) | Página gerada no servidor antes de chegar ao browser (mais SEO, mais rápido) |
+| **CSR** (Client-Side Rendering) | Página gerada no browser do usuário (mais interativo, menos SEO) |
+| **`'use client'`** | Instrução Next.js — esse componente roda no browser (tem acesso a clique, estado, etc.) |
+| **`async/await`** | Forma de esperar uma resposta (da API, do banco) sem travar tudo |
+| **TypeScript** | JavaScript com "verificação de tipos" — evita bugs antes de rodar o código |
+| **`any`** | Tipo proibido no projeto — significa "não sei o tipo", gera bugs silenciosos |
+| **RLS** (Row Level Security) | Segurança do Supabase — cada usuário só vê os dados do seu workspace |
+| **Migration** | Arquivo SQL que altera o banco de dados (adiciona tabela, coluna, etc.) de forma controlada |
+| **FK** (Foreign Key) | Ligação entre tabelas (ex: `job.client_id` aponta para a tabela `clients`) |
+| **Index** | "Índice" no banco — acelera buscas em colunas muito consultadas |
+| **Trigger** | Função automática do banco que roda quando algo muda (ex: atualizar `updated_at`) |
+
+### Infraestrutura & Deploy
+
+| Termo | Significado simples |
+|-------|-------------------|
+| **Vercel** | Serviço onde o site fica hospedado. Faz deploy automático a cada `git push` |
+| **Deploy** | Publicar a versão nova do código em produção (site ao vivo) |
+| **Build** | Processo de compilar o código antes de publicar. Se falhar, o deploy não vai ao ar |
+| **Env vars** (variáveis de ambiente) | Senhas e chaves de API guardadas fora do código (`.env.local`, painel Vercel) |
+| **Edge Function** | Função que roda próxima ao usuário (mais rápida, mas com limitações) |
+| **Serverless** | Código que roda "na nuvem" só quando chamado — não tem servidor ligado 24/7 |
+| **CDN** | Rede global de servidores que entrega arquivos (imagens, CSS) mais rápido |
+| **Supabase Storage** | S3/Drive do Supabase — guarda arquivos (imagens, áudio, PDFs) |
+| **Bucket** | "Pasta" dentro do Supabase Storage |
+
+### Custos & Performance
+
+| Termo | Significado simples |
+|-------|-------------------|
+| **Token** | Unidade de cobrança de LLMs. ~1 token = ¾ de uma palavra. Mais contexto = mais tokens = mais caro |
+| **Context window** | Limite de tokens que a IA consegue "ver" de uma vez. Claude Sonnet: ~200k tokens |
+| **Prompt** | Instrução/pergunta enviada para a IA |
+| **System prompt** | Instrução permanente que define como a IA se comporta (personalidade, regras) |
+| **Streaming** | Resposta da IA chegando palavra por palavra (como no ChatGPT) em vez de esperar tudo |
+| **Rate limit** | Limite de chamadas por minuto/hora de uma API. Se ultrapassar, retorna erro 429 |
+| **Latência** | Tempo de resposta. Alta latência = lento. Baixa latência = rápido |
+| **Cache** | Guardar resultado temporariamente para não chamar a API de novo (economiza custo) |
+| **Revalidate** | Tempo até o cache expirar e buscar dados frescos |
+
+### Padrões & Qualidade
+
+| Termo | Significado simples |
+|-------|-------------------|
+| **Refactor** | Reorganizar o código sem mudar o que ele faz — manter limpo |
+| **Bug** | Erro no código que causa comportamento inesperado |
+| **Type error** | Erro TypeScript — tipo errado passado para uma função |
+| **500** | Código HTTP de erro no servidor (algo quebrou no backend) |
+| **401** | Usuário não autenticado (não está logado) |
+| **403** | Usuário autenticado mas sem permissão |
+| **404** | Recurso não encontrado |
+| **Payload** | Dados enviados numa requisição. `PAYLOAD_TOO_LARGE` = dados demais no request |
+| **Multipart/form-data** | Formato de envio de arquivos (usado para upload de áudio, imagem) |
+| **Base64** | Forma de converter arquivo binário em texto — aumenta ~33% o tamanho |
+| **CORS** | Política de segurança do browser — bloqueia chamadas de um domínio para outro |
+
+### IA & Integrações
+
+| Termo | Significado simples |
+|-------|-------------------|
+| **LLM** | Large Language Model — o "cérebro" de IAs como Claude e GPT |
+| **RAG** | Retrieval-Augmented Generation — IA que busca documentos antes de responder |
+| **Embedding** | Representação numérica de texto para busca semântica (vetor 768 dimensões) |
+| **TTS** | Text-to-Speech — texto → voz (ex: ElevenLabs, VOX) |
+| **STT** | Speech-to-Text — voz → texto (ex: Whisper da OpenAI) |
+| **SSE** | Server-Sent Events — streaming de dados do servidor para o browser (como o chat do Oracle) |
+| **n8n** | Ferramenta de automação no-code (tipo Make/Zapier mas self-hosted) |
+| **Webhook n8n** | URL do n8n que recebe dados do sistema para disparar um fluxo |
+| **Vapi** | Plataforma de SDR por voz — IA que faz ligações telefônicas |
+| **HeyGen** | Plataforma de avatares digitais — gera vídeo de uma pessoa falando via IA |
+| **Apify** | Plataforma de web scraping — coleta dados de redes sociais, sites, etc. |
+| **ElevenLabs** | API de clonagem e geração de voz com IA (VOX usa isso) |
+| **Instant Voice Cloning** | Feature do ElevenLabs que cria uma voz a partir de ~1min de áudio (requer plano pago) |
+
+---
+
+## 💰 DIRETRIZES DE CUSTO
+
+Antes de implementar qualquer feature, avaliar:
+
+### Perguntas obrigatórias
+1. **Chama IA a cada request?** — Se sim, calcular custo por uso. Claude Sonnet: ~$3/1M tokens input
+2. **Guarda arquivos?** — Supabase Storage: $0.021/GB/mês. Limpar arquivos temporários após uso
+3. **Tem cache possível?** — Se a resposta muda raramente, cachear. Ex: lista de vozes ElevenLabs (1h)
+4. **Escala linear com usuários?** — Se custo dobra com cada usuário, alertar antes de implementar
+5. **Tem alternativa nativa do browser?** — Web Audio API, MediaRecorder, Canvas são gratuitos
+
+### Padrões de economia já implementados
+- **Classifier de intenção** usa `claude-haiku` (mais barato) em vez de Sonnet
+- **Arquivos de anexo** vão para Supabase Storage (não base64 no banco)
+- **Histórico do Oracle** limita às últimas 10 mensagens para não explodir o context window
+- **Preview de vozes** tem `revalidate: 3600` (não chama ElevenLabs a cada page load)
+- **Arquivos do Oracle** são deletados do Storage após processamento (ephemeral)
+
+### Alertas de custo alto
+- ❌ Não enviar o histórico completo de chat para IA a cada mensagem
+- ❌ Não fazer polling (checar a cada segundo) — usar webhooks ou SSE
+- ❌ Não guardar áudio/vídeo em base64 no banco de dados
+- ❌ Não chamar API externa em cada render de componente — usar useEffect + cache
+
+---
+
+## 🎯 FRAMEWORK DE DECISÃO TÉCNICA
+
+Quando o dono propuser uma nova feature, avaliar nesta ordem:
+
+```
+1. Existe um serviço/API de mercado que já faz isso bem?
+   → SIM: Integrar (ex: HeyGen para avatar, Vapi para ligações)
+   → NÃO: Construir do zero
+
+2. O custo de uso é previsível?
+   → SIM: Seguir
+   → NÃO: Propor alternativa ou alertar com estimativa
+
+3. TTM (Time-to-Market) é compatível com a prioridade?
+   → Baixo (1-3 dias): Verde
+   → Médio (1 semana): Amarelo — confirmar prioridade
+   → Alto (2+ semanas): Vermelho — questionar se é o momento certo
+
+4. Complexidade de manutenção?
+   → Simples (1 arquivo): Fazer
+   → Média (3-5 arquivos): Fazer com documentação
+   → Alta (novo sistema): Planejar antes, confirmar com o dono
+```
+
+
+
 ## 📁 ESTRUTURA DA PASTA MESTRE
 
 ```
