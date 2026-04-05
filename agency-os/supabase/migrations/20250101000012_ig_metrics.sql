@@ -1,39 +1,25 @@
--- ig_metrics: Instagram metrics synced via Apify
-CREATE TABLE IF NOT EXISTS ig_metrics (
-  id          UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  client_id   UUID NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
-  date        DATE NOT NULL DEFAULT CURRENT_DATE,
-  username    TEXT,
-  followers   INTEGER DEFAULT 0,
-  following   INTEGER DEFAULT 0,
-  posts       INTEGER DEFAULT 0,
-  engagement_rate DECIMAL(5,2),
-  raw_data    JSONB,
-  created_at  TIMESTAMPTZ DEFAULT now(),
-  updated_at  TIMESTAMPTZ DEFAULT now(),
-  UNIQUE(client_id, date)
-);
+-- ig_metrics: add columns needed for Apify sync (table already exists from fase4)
+ALTER TABLE ig_metrics
+  ADD COLUMN IF NOT EXISTS username    TEXT,
+  ADD COLUMN IF NOT EXISTS following   INTEGER DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS posts       INTEGER DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS raw_data    JSONB,
+  ADD COLUMN IF NOT EXISTS updated_at  TIMESTAMPTZ DEFAULT now();
 
-ALTER TABLE ig_metrics ENABLE ROW LEVEL SECURITY;
+-- Drop old broad policy (idempotent)
+DO $$ BEGIN
+  DROP POLICY IF EXISTS "team_ig_metrics" ON ig_metrics;
+EXCEPTION WHEN undefined_object THEN NULL;
+END $$;
 
-CREATE POLICY "workspace members can read ig_metrics"
-  ON ig_metrics FOR SELECT
-  USING (
-    client_id IN (
-      SELECT id FROM clients
-      WHERE workspace_id IN (
-        SELECT workspace_id FROM profiles WHERE id = auth.uid()
-      )
-    )
-  );
-
-CREATE POLICY "workspace members can write ig_metrics"
-  ON ig_metrics FOR ALL
-  USING (
-    client_id IN (
-      SELECT id FROM clients
-      WHERE workspace_id IN (
-        SELECT workspace_id FROM profiles WHERE id = auth.uid()
-      )
-    )
-  );
+-- New policy: only authenticated workspace members
+DO $$ BEGIN
+  CREATE POLICY "workspace_ig_metrics"
+    ON ig_metrics FOR ALL
+    USING (EXISTS (
+      SELECT 1 FROM profiles
+      WHERE id = auth.uid()
+        AND role IN ('admin', 'collaborator')
+    ));
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
