@@ -24,7 +24,7 @@ export default async function PipelinesPage() {
     <div className="py-8 space-y-8 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100">Pipelines</h1>
+          <h1 className="text-2xl font-bold font-display text-zinc-100">Pipelines</h1>
           <p className="text-sm text-zinc-400 mt-1">Fluxos multi-agente automatizados</p>
         </div>
         <Link

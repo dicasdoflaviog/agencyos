@@ -71,7 +71,7 @@ export default async function ClientAnalyticsPage({
         </Link>
         <div className="mt-2 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-zinc-100">{client.name}</h1>
+            <h1 className="text-2xl font-bold font-display text-zinc-100">{client.name}</h1>
             {client.niche && <p className="text-sm text-zinc-400 mt-0.5">{client.niche}</p>}
           </div>
           {client.contract_value && (

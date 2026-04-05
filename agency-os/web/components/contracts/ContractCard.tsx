@@ -75,7 +75,7 @@ export function ContractCard({ contract, clientId }: ContractCardProps) {
 
       <div className="flex items-center gap-2 mb-3">
         <DollarSign size={14} className="text-[#A1A1AA] shrink-0" />
-        <span className="text-xl font-bold text-[#FAFAFA] tracking-tight">
+        <span className="text-xl font-bold font-display text-[#FAFAFA] tracking-tight">
           {formatCurrency(contract.value)}
         </span>
       </div>

@@ -29,7 +29,7 @@ export default async function ReportsPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Relatórios</h2>
+          <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Relatórios</h2>
           <p className="mt-1 text-sm text-[#A1A1AA]">
             {reports?.length ?? 0} relatório{(reports?.length ?? 1) !== 1 ? 's' : ''} gerado{(reports?.length ?? 1) !== 1 ? 's' : ''}
           </p>

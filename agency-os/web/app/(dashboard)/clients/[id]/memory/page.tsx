@@ -27,7 +27,7 @@ export default async function MemoryPage({
             <Brain size={16} className="text-[#F59E0B]" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-[#FAFAFA]">Memória IA</h2>
+            <h2 className="text-2xl font-bold font-display tracking-tight text-[#FAFAFA]">Memória IA</h2>
             <p className="text-sm text-[#A1A1AA]">
               Contexto e conhecimento acumulado sobre este cliente
             </p>

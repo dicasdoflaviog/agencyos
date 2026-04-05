@@ -37,7 +37,7 @@ export default async function OverviewPage() {
     <div>
       <OnboardingChecklist />
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Overview</h2>
+        <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Overview</h2>
         <p className="mt-1 text-sm text-[#A1A1AA]">Visão geral da agência</p>
       </div>
 
@@ -48,7 +48,7 @@ export default async function OverviewPage() {
               <span className="text-xs font-medium text-[#A1A1AA] uppercase tracking-wider">{label}</span>
               <Icon size={15} className={color} strokeWidth={2} />
             </div>
-            <p className="text-2xl font-bold text-[#FAFAFA] tracking-tight">
+            <p className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">
               {isString ? value : value.toLocaleString('pt-BR')}
             </p>
           </div>

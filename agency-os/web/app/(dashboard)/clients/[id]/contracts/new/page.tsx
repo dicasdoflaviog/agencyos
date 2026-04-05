@@ -36,7 +36,7 @@ export default async function NewContractPage({
             Contratos de {client.name}
           </Link>
         </div>
-        <h1 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Novo Contrato</h1>
+        <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Novo Contrato</h1>
         <p className="mt-0.5 text-sm text-[#71717A]">
           Criando contrato para <span className="text-[#A1A1AA] font-medium">{client.name}</span>
         </p>

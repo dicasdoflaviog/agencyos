@@ -22,7 +22,7 @@ export default async function TemplatesPage() {
     <div className="py-8 space-y-8 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100">Templates de Jobs</h1>
+          <h1 className="text-2xl font-bold font-display text-zinc-100">Templates de Jobs</h1>
           <p className="text-sm text-zinc-400 mt-1">Modelos pré-configurados para criar jobs mais rápido</p>
         </div>
         <Link

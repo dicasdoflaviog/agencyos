@@ -79,7 +79,7 @@ export function AgentCard({ agent, isInstalled }: Props) {
         </div>
 
         {/* Handle */}
-        <p className="text-[11px] text-[#52525B] mb-2">@{agent.slug}</p>
+        <p className="font-mono text-[11px] text-[#52525B] mb-2">@{agent.slug}</p>
 
         {/* Description */}
         <p className="text-xs text-[#A1A1AA] line-clamp-2 mb-3 leading-relaxed">
@@ -90,11 +90,11 @@ export function AgentCard({ agent, isInstalled }: Props) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1">
             <Star size={11} className="fill-amber-400 text-amber-400" />
-            <span className="text-[11px] text-[#A1A1AA]">{agent.rating.toFixed(1)}</span>
+            <span className="font-mono text-[11px] text-[#A1A1AA]">{agent.rating.toFixed(1)}</span>
           </div>
           <div className="flex items-center gap-1">
             <Users size={11} className="text-[#71717A]" />
-            <span className="text-[11px] text-[#71717A]">{formatCount(agent.install_count)} instalações</span>
+            <span className="font-mono text-[11px] text-[#71717A]">{formatCount(agent.install_count)} instalações</span>
           </div>
         </div>
       </div>

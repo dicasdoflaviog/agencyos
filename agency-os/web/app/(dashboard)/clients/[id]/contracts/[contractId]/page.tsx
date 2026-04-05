@@ -77,7 +77,7 @@ export default async function ContractDetailPage({
             </Link>
           </div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">
+            <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">
               Contrato
             </h1>
             <span className={cn('rounded px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide', status.className)}>
@@ -92,13 +92,13 @@ export default async function ContractDetailPage({
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
           <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Valor</p>
-          <p className="text-xl font-bold text-[#FAFAFA]">
+          <p className="text-xl font-bold font-display text-[#FAFAFA]">
             {contract.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </p>
         </div>
         <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
           <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Cobrança</p>
-          <p className="text-xl font-bold text-[#FAFAFA]">
+          <p className="text-xl font-bold font-display text-[#FAFAFA]">
             {BILLING_LABELS[contract.billing as keyof typeof BILLING_LABELS]}
           </p>
         </div>

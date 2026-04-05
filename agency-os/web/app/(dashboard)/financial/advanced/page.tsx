@@ -100,7 +100,7 @@ export default async function AdvancedFinancialPage() {
     <div>
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Financeiro Avançado</h1>
+        <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Financeiro Avançado</h1>
         <p className="mt-0.5 text-sm text-[#71717A]">MRR, ARR e visão completa de contratos</p>
       </div>
 
@@ -114,7 +114,7 @@ export default async function AdvancedFinancialPage() {
                 <Icon size={14} className={color} strokeWidth={2} />
               </div>
             </div>
-            <p className="text-2xl font-bold text-[#FAFAFA] tracking-tight mb-1">{value}</p>
+            <p className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight mb-1">{value}</p>
             <p className="text-xs text-[#71717A]">{sub}</p>
           </div>
         ))}

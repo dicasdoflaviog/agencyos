@@ -9,9 +9,7 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
+        getAll() { return request.cookies.getAll() },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
@@ -25,7 +23,7 @@ export async function middleware(request: NextRequest) {
 
   const path = request.nextUrl.pathname
 
-  // API v1 routes — require Authorization header (routes validate key themselves)
+  // API v1 — validate Bearer token (routes handle key verification themselves)
   if (path.startsWith('/api/v1/')) {
     const authHeader = request.headers.get('authorization')
     if (!authHeader?.startsWith('Bearer ')) {
@@ -34,43 +32,64 @@ export async function middleware(request: NextRequest) {
     return supabaseResponse
   }
 
+  // All other API routes — skip middleware logic
+  if (path.startsWith('/api/')) return supabaseResponse
+
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Admin routes — require super_admin role
+  // Unauthenticated: only allow /login
+  if (!user) {
+    if (path === '/login') return supabaseResponse
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
+  // Authenticated on login page → app
+  if (path === '/login') {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
+  // Fetch profile once for all checks (role + onboarding)
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role, onboarding_completed')
+    .eq('id', user.id)
+    .single()
+
+  // ── Admin routes ─────────────────────────────────────────────────────────
   if (path.startsWith('/admin')) {
-    if (!user) return NextResponse.redirect(new URL('/login', request.url))
-    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
-    if (profile?.role !== 'super_admin') return NextResponse.redirect(new URL('/', request.url))
+    if (profile?.role !== 'super_admin') {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
     return supabaseResponse
   }
 
-  // Client portal routes — NOTE: '/client/' not '/client' to avoid matching '/clients'
+  // ── Client portal ─────────────────────────────────────────────────────────
   if (path === '/client/login' || path.startsWith('/client/')) {
     if (path === '/client/login') {
       if (user) return NextResponse.redirect(new URL('/client/outputs', request.url))
       return supabaseResponse
     }
-    if (!user) return NextResponse.redirect(new URL('/client/login', request.url))
-    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
-    if (profile?.role !== 'client') return NextResponse.redirect(new URL('/login', request.url))
+    if (profile?.role !== 'client') {
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
     return supabaseResponse
   }
 
-  // Dashboard routes — redirect client-role users to portal
-  const dashboardPaths = ['/', '/jobs', '/clients', '/analytics', '/reports', '/crm', '/financial', '/pipelines', '/templates', '/gallery']
-  const isDashboard = dashboardPaths.some(p => p === '/' ? path === '/' : path.startsWith(p))
-  if (isDashboard && user) {
-    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
-    if (profile?.role === 'client') return NextResponse.redirect(new URL('/client/outputs', request.url))
-  }
-
-  // Unauthenticated redirect for dashboard
-  if (!user && path !== '/login') {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-
-  if (user && path === '/login') {
+  // ── Onboarding gate ───────────────────────────────────────────────────────
+  // Completed onboarding → block /onboarding, send to app
+  if (path === '/onboarding' && profile?.onboarding_completed) {
     return NextResponse.redirect(new URL('/', request.url))
+  }
+
+  // Not completed onboarding → block all app routes, send to /onboarding
+  if (path !== '/onboarding' && !profile?.onboarding_completed) {
+    return NextResponse.redirect(new URL('/onboarding', request.url))
+  }
+  // ──────────────────────────────────────────────────────────────────────────
+
+  // Dashboard: redirect client-role users to portal
+  if (profile?.role === 'client') {
+    return NextResponse.redirect(new URL('/client/outputs', request.url))
   }
 
   return supabaseResponse
@@ -81,3 +100,4 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }
+

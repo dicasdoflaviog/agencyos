@@ -24,7 +24,7 @@ export default async function FinancialPage() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Financeiro</h2>
+        <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Financeiro</h2>
         <p className="mt-1 text-sm text-[#A1A1AA]">Receita recorrente mensal dos contratos ativos</p>
       </div>
 
@@ -32,15 +32,15 @@ export default async function FinancialPage() {
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
           <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">MRR</p>
-          <p className="text-3xl font-bold tracking-tight text-[#F59E0B]">{fmt(mrr)}</p>
+          <p className="text-3xl font-bold font-display tracking-tight text-[#F59E0B]">{fmt(mrr)}</p>
         </div>
         <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
           <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Clientes ativos</p>
-          <p className="text-3xl font-bold tracking-tight text-[#FAFAFA]">{activeClients.length}</p>
+          <p className="text-3xl font-bold font-display tracking-tight text-[#FAFAFA]">{activeClients.length}</p>
         </div>
         <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
           <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Contratos em atraso</p>
-          <p className={`text-3xl font-bold tracking-tight ${overdueCount > 0 ? 'text-[#EF4444]' : 'text-[#FAFAFA]'}`}>
+          <p className={`text-3xl font-bold font-display tracking-tight ${overdueCount > 0 ? 'text-[#EF4444]' : 'text-[#FAFAFA]'}`}>
             {overdueCount}
           </p>
         </div>

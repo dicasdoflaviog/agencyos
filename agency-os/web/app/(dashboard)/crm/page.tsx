@@ -19,7 +19,7 @@ export default async function CRMPage() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">CRM</h2>
+        <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">CRM</h2>
         <p className="mt-1 text-sm text-[#A1A1AA]">{normalizedLeads.length} lead{normalizedLeads.length !== 1 ? 's' : ''}</p>
       </div>
       <CRMMetricsBar leads={normalizedLeads} />

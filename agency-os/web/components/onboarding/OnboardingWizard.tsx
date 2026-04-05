@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Check } from 'lucide-react'
+import { Check, UploadCloud } from 'lucide-react'
 
 interface Props {
   workspaceId: string
@@ -28,10 +28,40 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
 
   const [agencyName, setAgencyName] = useState('')
   const [logoUrl, setLogoUrl] = useState('')
+  const [logoUploading, setLogoUploading] = useState(false)
   const [clientName, setClientName] = useState('')
   const [clientEmail, setClientEmail] = useState('')
   const [jobTitle, setJobTitle] = useState('')
   const [memberEmail, setMemberEmail] = useState('')
+
+  async function handleUploadLogo(file: File | undefined) {
+    if (!file) return
+    setLogoUploading(true)
+    setError(null)
+    try {
+      const form = new FormData()
+      form.append('file', file)
+      form.append('workspace_id', workspaceId)
+      const res = await fetch('/api/upload/logo', { method: 'POST', body: form })
+      const json = await res.json() as { url?: string; error?: string }
+      if (!res.ok || !json.url) throw new Error(json.error ?? 'Erro no upload')
+      setLogoUrl(json.url)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao fazer upload')
+    } finally {
+      setLogoUploading(false)
+    }
+  }
+
+  async function handleFinishOnboarding() {
+    const res = await fetch(`/api/workspaces/${workspaceId}/finalize`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    if (!res.ok) throw new Error('Erro ao finalizar onboarding')
+    router.refresh()
+    router.push('/')
+  }
 
   async function markStepDone(stepId: string) {
     const newSteps = [...new Set([...stepsDone, stepId])]
@@ -46,7 +76,7 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
     })
 
     if (allDone) {
-      router.push('/')
+      await handleFinishOnboarding()
       return
     }
 
@@ -72,12 +102,15 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
       }
 
       if (step.id === 'logo') {
-        if (!logoUrl.trim()) { setError('Informe a URL do logo'); setLoading(false); return }
-        await fetch('/api/workspaces/update', {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ workspace_id: workspaceId, logo_url: logoUrl.trim() }),
-        })
+        // logo_url already saved during upload via /api/upload/logo
+        // Only validate that upload happened; skip if user chose to skip
+        if (logoUrl) {
+          await fetch('/api/workspaces/update', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ workspace_id: workspaceId, logo_url: logoUrl }),
+          })
+        }
       }
 
       if (step.id === 'first_client') {
@@ -120,7 +153,7 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
   return (
     <div className="w-full max-w-lg">
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-bold text-[#FAFAFA]">Configuração inicial</h1>
+        <h1 className="text-2xl font-bold font-display text-[#FAFAFA]">Configuração inicial</h1>
         <p className="mt-1 text-sm text-[#A1A1AA]">Vamos deixar sua agência pronta em 5 passos</p>
       </div>
 
@@ -169,13 +202,31 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
           )}
 
           {STEPS[currentStep].id === 'logo' && (
-            <input
-              type="url"
-              placeholder="https://exemplo.com/logo.png"
-              value={logoUrl}
-              onChange={e => setLogoUrl(e.target.value)}
-              className="w-full rounded border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-[#F59E0B]/50 focus:outline-none"
-            />
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-lg border border-dashed border-zinc-700 bg-zinc-800 overflow-hidden">
+                  {logoUrl
+                    ? <img src={logoUrl} alt="Logo" className="h-full w-full object-contain" />
+                    : <UploadCloud size={22} className="text-zinc-500" />
+                  }
+                </div>
+                <div className="flex-1">
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/svg+xml"
+                    onChange={e => handleUploadLogo(e.target.files?.[0])}
+                    disabled={logoUploading}
+                    className="w-full cursor-pointer text-xs text-[#A1A1AA] file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-[#F59E0B] file:px-4 file:py-2 file:text-xs file:font-medium file:text-[#0A0A0A] hover:file:bg-[#D97706] disabled:opacity-50"
+                  />
+                  {logoUploading && (
+                    <p className="mt-1.5 text-xs text-[#A1A1AA]">Fazendo upload...</p>
+                  )}
+                  {logoUrl && !logoUploading && (
+                    <p className="mt-1.5 text-xs text-emerald-400">✓ Logo enviado com sucesso</p>
+                  )}
+                </div>
+              </div>
+            </div>
           )}
 
           {STEPS[currentStep].id === 'first_client' && (

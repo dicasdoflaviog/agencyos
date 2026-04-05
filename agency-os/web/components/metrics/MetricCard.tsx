@@ -31,7 +31,7 @@ export function MetricCard({ label, value, change, icon }: MetricCardProps) {
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">{label}</p>
-          <p className="mt-2 text-2xl font-bold text-[#FAFAFA]">{value}</p>
+          <p className="mt-2 text-2xl font-bold font-display font-mono text-[#FAFAFA]">{value}</p>
           {change !== undefined && (
             <div
               className={cn(

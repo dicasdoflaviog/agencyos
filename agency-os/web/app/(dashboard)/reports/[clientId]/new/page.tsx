@@ -26,7 +26,7 @@ export default async function NewReportPage({ params }: { params: Promise<{ clie
           <ArrowLeft size={13} strokeWidth={2} />
           Voltar para Relatórios
         </Link>
-        <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Novo Relatório</h2>
+        <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Novo Relatório</h2>
         <p className="mt-1 text-sm text-[#A1A1AA]">Gerar relatório para {client.name}</p>
       </div>
       <ReportBuilderForm clientId={client.id} clientName={client.name} />

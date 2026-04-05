@@ -15,7 +15,7 @@ export default async function WorkspaceSettingsPage() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold tracking-tight text-[#FAFAFA]">
+        <h2 className="text-2xl font-bold font-display tracking-tight text-[#FAFAFA]">
           Configurações do Workspace
         </h2>
         <p className="mt-1 text-sm text-[#A1A1AA]">

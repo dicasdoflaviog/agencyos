@@ -57,10 +57,10 @@ export default async function AgentDetailPage({ params }: Props) {
             <span className="mb-2 inline-block rounded bg-[#F59E0B]/10 px-2 py-0.5 text-xs font-medium text-[#F59E0B]">
               {categoryLabels[typedAgent.category] ?? typedAgent.category}
             </span>
-            <h1 className="text-2xl font-bold text-[#FAFAFA]">{typedAgent.name}</h1>
+            <h1 className="text-2xl font-bold font-display text-[#FAFAFA]">{typedAgent.name}</h1>
           </div>
           <div className="text-right">
-            <p className="text-xl font-bold text-[#FAFAFA]">{priceLabel}</p>
+            <p className="text-xl font-bold font-display text-[#FAFAFA]">{priceLabel}</p>
             <p className="mt-1 text-xs text-[#71717A]">
               {typedAgent.price_type === 'subscription' ? 'Por mês' : typedAgent.price_type === 'one_time' ? 'Pagamento único' : ''}
             </p>

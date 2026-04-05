@@ -47,7 +47,7 @@ export default async function MarketplacePage({ searchParams }: Props) {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/10">
             <Bot size={18} className="text-amber-400" />
           </div>
-          <h1 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">
+          <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">
             Marketplace de Agentes
           </h1>
         </div>

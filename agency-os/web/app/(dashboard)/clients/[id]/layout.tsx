@@ -23,7 +23,7 @@ export default async function ClientLayout({
   return (
     <div>
       <div className="mb-4">
-        <h2 className="text-xl font-semibold text-[#FAFAFA] tracking-tight">{client.name}</h2>
+        <h2 className="text-xl font-semibold font-display text-[#FAFAFA] tracking-tight">{client.name}</h2>
         {client.niche && (
           <p className="text-sm text-[#A1A1AA] mt-0.5">{client.niche}</p>
         )}

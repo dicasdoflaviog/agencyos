@@ -48,7 +48,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
         </Link>
         <div className="flex flex-wrap items-start gap-3">
           <div className="flex-1 min-w-0">
-            <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight truncate">{job.title}</h2>
+            <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight truncate">{job.title}</h2>
             {job.client && (
               <p className="mt-1 text-sm text-[#A1A1AA]">
                 <Link href={`/clients/${job.client.id}`} className="hover:text-[#FAFAFA] transition-colors cursor-pointer">

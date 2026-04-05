@@ -17,7 +17,7 @@ export default async function NewPostPage({ params }: { params: Promise<{ id: st
           <ArrowLeft size={13} strokeWidth={2} />
           Voltar para CMS
         </Link>
-        <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Novo Post</h2>
+        <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Novo Post</h2>
         <p className="text-sm text-[#A1A1AA] mt-0.5">{client.name}</p>
       </div>
       <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-6">

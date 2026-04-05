@@ -45,7 +45,7 @@ export default async function ClientContractsPage({
               {client.name}
             </Link>
           </div>
-          <h1 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Contratos</h1>
+          <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Contratos</h1>
           <p className="mt-0.5 text-sm text-[#71717A]">
             {contracts?.length ?? 0} contrato{contracts?.length !== 1 ? 's' : ''} no total
           </p>
@@ -68,13 +68,13 @@ export default async function ClientContractsPage({
           </div>
           <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
             <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Valor Ativo</p>
-            <p className="text-2xl font-bold text-[#FAFAFA]">
+            <p className="text-2xl font-bold font-display text-[#FAFAFA]">
               {totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             </p>
           </div>
           <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
             <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Total</p>
-            <p className="text-2xl font-bold text-[#FAFAFA]">{contracts?.length ?? 0}</p>
+            <p className="text-2xl font-bold font-display text-[#FAFAFA]">{contracts?.length ?? 0}</p>
           </div>
         </div>
       )}

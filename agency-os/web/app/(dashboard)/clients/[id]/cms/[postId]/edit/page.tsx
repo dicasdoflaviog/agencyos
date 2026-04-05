@@ -22,7 +22,7 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
           <ArrowLeft size={13} strokeWidth={2} />
           Voltar para CMS
         </Link>
-        <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">Editar Post</h2>
+        <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Editar Post</h2>
         <p className="text-sm text-[#A1A1AA] mt-0.5">{client.name} — {post.title}</p>
       </div>
       <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-6">

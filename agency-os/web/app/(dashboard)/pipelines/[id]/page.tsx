@@ -46,7 +46,7 @@ export default async function PipelineDetailPage({
               ← Pipelines
             </Link>
           </div>
-          <h1 className="text-2xl font-bold text-zinc-100">{p.name}</h1>
+          <h1 className="text-2xl font-bold font-display text-zinc-100">{p.name}</h1>
           {p.description && <p className="text-sm text-zinc-400 mt-1">{p.description}</p>}
         </div>
         <div className="flex gap-2">

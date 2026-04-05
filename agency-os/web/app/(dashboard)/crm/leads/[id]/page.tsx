@@ -55,7 +55,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">{typedLead.name}</h2>
+          <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">{typedLead.name}</h2>
           {typedLead.company && <p className="text-sm text-[#A1A1AA]">{typedLead.company}</p>}
           <span className="mt-1 inline-block rounded px-2 py-0.5 text-xs font-medium bg-[#F59E0B]/10 text-[#F59E0B]">
             {STAGE_LABELS[typedLead.stage]}
