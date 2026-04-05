@@ -110,22 +110,33 @@ export async function POST(req: NextRequest) {
     { role: 'user' as const, parts: [{ text: message }] },
   ]
 
-  const geminiRes = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: systemPrompt }] },
-        contents,
-        generationConfig: { maxOutputTokens: 2000 },
-      }),
-    }
-  )
+  const GEMINI_MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-8b']
+  const requestBody = JSON.stringify({
+    system_instruction: { parts: [{ text: systemPrompt }] },
+    contents,
+    generationConfig: { maxOutputTokens: 2000 },
+  })
 
-  if (!geminiRes.ok || !geminiRes.body) {
-    const errText = await geminiRes.text()
-    return new Response(`Gemini error: ${errText}`, { status: 502 })
+  let geminiRes: Response | null = null
+  for (const model of GEMINI_MODELS) {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`,
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: requestBody }
+    )
+    if (res.ok && res.body) { geminiRes = res; break }
+    // Only continue to next model on quota/rate-limit errors
+    if (res.status !== 429 && res.status !== 503) {
+      const errText = await res.text()
+      return new Response(`⚠️ Gemini error: ${errText}`, { status: 502 })
+    }
+  }
+
+  if (!geminiRes || !geminiRes.body) {
+    const friendly = 'A IA está temporariamente indisponível (cota de uso atingida). Por favor, tente novamente em alguns minutos ou verifique seu plano em https://ai.google.dev'
+    return new Response(
+      `data: ${JSON.stringify({ type: 'text', text: friendly })}\n\ndata: [DONE]\n\n`,
+      { status: 200, headers: { 'Content-Type': 'text/event-stream', 'X-Agent': agent } }
+    )
   }
 
   const reader = geminiRes.body.getReader()
