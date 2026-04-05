@@ -215,7 +215,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
       await fetch(`/api/outputs/${outputId}/approve`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ stage: 'internal_review' }),
+        body: JSON.stringify({ to_stage: 'internal_review' }),
       })
       setApprovedIds(prev => new Set([...prev, outputId]))
     } catch { /* silent */ }

@@ -4,6 +4,8 @@ import { Users, Briefcase, CheckCircle, DollarSign, Plus, Zap } from 'lucide-rea
 import { OnboardingChecklist } from '@/components/onboarding/OnboardingChecklist'
 import Link from 'next/link'
 
+export const metadata = { title: 'Visão Geral | Agency OS' }
+
 async function getStats() {
   const supabase = await createClient()
 

@@ -7,7 +7,9 @@ import { Toaster } from 'sonner'
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-inter',
+  display: 'swap',
 })
 
 // Editorial display font — headings, hero titles
@@ -39,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${calistoga.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-[var(--color-bg-base)] text-[var(--color-text-primary)] antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
+        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
           <QueryProvider>{children}</QueryProvider>
           <Toaster position="bottom-right" theme="dark" richColors closeButton />
         </ThemeProvider>

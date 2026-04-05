@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { JobKanban } from '@/components/jobs/JobKanban'
 import { Button } from '@/components/ui/button'
 
+export const metadata = { title: 'Jobs | Agency OS' }
+
 export default async function JobsPage() {
   const supabase = await createClient()
   const { data: jobs } = await supabase

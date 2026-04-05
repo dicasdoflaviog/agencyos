@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { ClientCard } from '@/components/clients/ClientCard'
 import { Button } from '@/components/ui/button'
 
+export const metadata = { title: 'Clientes | Agency OS' }
+
 export default async function ClientsPage() {
   const supabase = await createClient()
   const { data: clients } = await supabase
