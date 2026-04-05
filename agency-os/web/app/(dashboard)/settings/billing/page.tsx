@@ -1,7 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
-import { CreditCard } from 'lucide-react'
+import { CreditCard, Zap } from 'lucide-react'
 import { PlanCard } from '@/components/billing/PlanCard'
 import { BillingPortalButton } from '@/components/billing/BillingPortalButton'
+import { CreditBalance } from '@/components/billing/CreditBalance'
 
 export const metadata = { title: 'Faturamento | Agency OS' }
 
@@ -10,9 +11,11 @@ const PLANS = [
     plan: 'starter' as const,
     price: 'R$497',
     priceId: process.env.STRIPE_PRICE_ID_STARTER ?? 'price_starter',
+    credits: '500 créditos/mês',
     features: [
       '1 usuário',
       '3 clientes ativos',
+      '500 créditos de IA/mês',
       'Agendamento de posts',
       'CMS básico',
       'Suporte por email',
@@ -22,9 +25,11 @@ const PLANS = [
     plan: 'pro' as const,
     price: 'R$997',
     priceId: process.env.STRIPE_PRICE_ID_PRO ?? 'price_pro',
+    credits: '1.500 créditos/mês',
     features: [
       '5 usuários',
       'Clientes ilimitados',
+      '1.500 créditos de IA/mês',
       'Analytics avançado',
       'CRM integrado',
       'Relatórios automáticos',
@@ -35,9 +40,11 @@ const PLANS = [
     plan: 'agency' as const,
     price: 'R$1997',
     priceId: process.env.STRIPE_PRICE_ID_AGENCY ?? 'price_agency',
+    credits: '5.000 créditos/mês',
     features: [
       'Usuários ilimitados',
       'White-label',
+      '5.000 créditos de IA/mês',
       'Multi-workspace',
       'API access',
       'Onboarding dedicado',
@@ -66,53 +73,77 @@ export default async function BillingPage() {
   const customerId = subscription?.stripe_customer_id ?? null
 
   return (
-    <div>
-      <div className="mb-6">
+    <div className="space-y-8">
+      {/* Header */}
+      <div>
         <div className="flex items-center gap-2.5 mb-1">
           <CreditCard size={20} className="text-[var(--color-accent)]" />
           <h2 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Faturamento</h2>
         </div>
         <p className="text-sm text-[var(--color-text-secondary)]">
-          Gerencie sua assinatura e plano de cobrança.
+          Gerencie sua assinatura, créditos e histórico de uso de IA.
         </p>
       </div>
 
-      {/* Current plan summary */}
-      <div className="mb-6 rounded-xl border border-zinc-800 bg-[var(--color-bg-surface)] p-5">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Plano Atual</p>
-            <p className="mt-1 text-xl font-bold font-display text-[var(--color-text-primary)]">
-              {currentPlan ? currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1) : 'Teste Gratuito'}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_380px]">
+        {/* LEFT — Credits */}
+        <div>
+          <div className="flex items-center gap-2 mb-4">
+            <Zap size={15} className="text-[var(--color-accent)]" />
+            <h3 className="text-sm font-semibold text-white">Créditos de IA</h3>
+          </div>
+          <CreditBalance />
+        </div>
+
+        {/* RIGHT — Subscription */}
+        <div>
+          <div className="flex items-center gap-2 mb-4">
+            <CreditCard size={15} className="text-zinc-400" />
+            <h3 className="text-sm font-semibold text-white">Assinatura</h3>
+          </div>
+
+          {/* Current plan */}
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 mb-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-1">Plano Atual</p>
+            <p className="text-xl font-bold text-white">
+              {currentPlan ? currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1) : 'Sem assinatura'}
             </p>
             {subStatus && (
-              <p className="mt-0.5 text-sm text-zinc-400">
+              <p className="mt-1 text-sm text-zinc-400">
                 Status: <span className="text-zinc-200 font-medium capitalize">{subStatus}</span>
                 {periodEnd && (
                   <> · Renova em <span className="text-zinc-200 font-medium">{periodEnd}</span></>
                 )}
               </p>
             )}
+            {!subStatus && (
+              <p className="mt-1 text-xs text-zinc-500">
+                Você está no modo de teste. Assine um plano para liberar todos os recursos.
+              </p>
+            )}
+            {customerId && (
+              <div className="mt-4">
+                <BillingPortalButton customerId={customerId} />
+              </div>
+            )}
           </div>
-          {customerId && (
-            <BillingPortalButton customerId={customerId} />
-          )}
-        </div>
-      </div>
 
-      {/* Plan cards */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {PLANS.map(p => (
-          <PlanCard
-            key={p.plan}
-            plan={p.plan}
-            price={p.price}
-            features={p.features}
-            current={currentPlan === p.plan}
-            priceId={p.priceId}
-          />
-        ))}
+          {/* Plan comparison */}
+          <div className="space-y-3">
+            {PLANS.map(p => (
+              <PlanCard
+                key={p.plan}
+                plan={p.plan}
+                price={p.price}
+                features={p.features}
+                current={currentPlan === p.plan}
+                priceId={p.priceId}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
 }
+
