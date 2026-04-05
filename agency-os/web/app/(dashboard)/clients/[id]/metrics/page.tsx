@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { IGMetricsChart } from '@/components/metrics/IGMetricsChart'
 import { AdsMetricsChart } from '@/components/metrics/AdsMetricsChart'
 import { MetricCard } from '@/components/metrics/MetricCard'
+import { IGSyncButton } from '@/components/metrics/IGSyncButton'
 import { Users, Eye, TrendingUp, DollarSign } from 'lucide-react'
 
 export default async function ClientMetricsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -14,7 +15,7 @@ export default async function ClientMetricsPage({ params }: { params: Promise<{ 
   const since = thirtyDaysAgo.toISOString().slice(0, 10)
 
   const [{ data: client }, { data: igMetrics }, { data: adsMetrics }] = await Promise.all([
-    supabase.from('clients').select('id, name').eq('id', id).single(),
+    supabase.from('clients').select('id, name, instagram_handle').eq('id', id).single(),
     supabase.from('ig_metrics').select('*').eq('client_id', id).gte('date', since).order('date'),
     supabase.from('ads_metrics').select('*').eq('client_id', id).gte('date', since).order('date'),
   ])
@@ -30,6 +31,10 @@ export default async function ClientMetricsPage({ params }: { params: Promise<{ 
 
   return (
     <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-sm font-semibold text-[#FAFAFA]">Métricas — {client.name}</h2>
+        <IGSyncButton clientId={id} username={(client as { instagram_handle?: string }).instagram_handle} />
+      </div>
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <MetricCard label="Seguidores" value={latestIG?.followers?.toLocaleString('pt-BR') ?? '—'} icon={<Users size={16} />} />
         <MetricCard label="Eng. Médio" value={avgEngagement ? `${avgEngagement}%` : '—'} icon={<TrendingUp size={16} />} />
