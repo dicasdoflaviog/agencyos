@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, X, FileText, Image } from 'lucide-react'
+import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, X, FileText, Image, Zap, CheckCircle2 } from 'lucide-react'
 import { type AgentType } from '@/types/agents'
 
 type Message = {
@@ -11,6 +11,20 @@ type Message = {
   agent?: AgentType
   agentLabel?: string
   attachmentName?: string
+}
+
+type OrchestrationOutput = {
+  agent: AgentType
+  label: string
+  task: string
+  content: string
+  output_id: string | null
+  status: 'fulfilled' | 'rejected'
+}
+
+type OrchestrationResult = {
+  campaign_title: string
+  agents: OrchestrationOutput[]
 }
 
 const AGENT_STYLES: Record<AgentType, { color: string; bg: string; border: string }> = {
@@ -64,6 +78,9 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   const [messages, setMessages] = useState<Message[]>(initialHistory)
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isOrchestrating, setIsOrchestrating] = useState(false)
+  const [orchestrationResult, setOrchestrationResult] = useState<OrchestrationResult | null>(null)
+  const [approvedIds, setApprovedIds] = useState<Set<string>>(new Set())
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null)
   const [savedIdx, setSavedIdx]   = useState<number | null>(null)
   const [attachedFile, setAttachedFile] = useState<{ name: string; base64: string; mimeType: string } | null>(null)
@@ -72,7 +89,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+  }, [messages, orchestrationResult])
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -92,6 +109,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
     const currentFile = attachedFile
     setInput('')
     setAttachedFile(null)
+    setOrchestrationResult(null)
     setMessages(prev => [...prev, {
       role: 'user', content: userMsg,
       attachmentName: currentFile?.name,
@@ -154,12 +172,53 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
       const msg = err instanceof Error ? err.message : 'Erro desconhecido'
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `⚠️ ${msg.includes('GEMINI_API_KEY') ? 'Chave Gemini não configurada no servidor.' : msg}`,
+        content: `⚠️ ${msg}`,
         agent: 'oracle',
       }])
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const orchestrate = async () => {
+    if (!input.trim() || isOrchestrating) return
+    const userMsg = input.trim()
+    setInput('')
+    setOrchestrationResult(null)
+    setMessages(prev => [...prev, { role: 'user', content: userMsg }])
+    setIsOrchestrating(true)
+
+    try {
+      const res = await fetch('/api/agents/oracle/orchestrate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg, job_id: jobId, client_id: clientId }),
+      })
+
+      if (!res.ok) {
+        const err = await res.json() as { error?: string }
+        throw new Error(err.error ?? `HTTP ${res.status}`)
+      }
+
+      const result = await res.json() as OrchestrationResult
+      setOrchestrationResult(result)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Erro desconhecido'
+      setMessages(prev => [...prev, { role: 'assistant', content: `⚠️ Orquestração falhou: ${msg}`, agent: 'oracle' }])
+    } finally {
+      setIsOrchestrating(false)
+    }
+  }
+
+  const approveOutput = async (outputId: string) => {
+    try {
+      await fetch(`/api/outputs/${outputId}/approve`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stage: 'internal_review' }),
+      })
+      setApprovedIds(prev => new Set([...prev, outputId]))
+    } catch { /* silent */ }
   }
 
   const copyText = async (text: string, idx: number) => {
@@ -196,14 +255,14 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.length === 0 && (
+        {messages.length === 0 && !orchestrationResult && (
           <div className="flex flex-col items-center justify-center h-full text-center gap-3">
             <div className="h-12 w-12 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
               <Bot size={24} className="text-[var(--color-accent)]" />
             </div>
             <p className="text-[var(--color-text-primary)] font-medium">Como posso ajudar?</p>
             <p className="text-sm text-[var(--color-text-secondary)] max-w-xs">
-              Descreva o que precisa. Eu identifico a melhor IA e orquestro automaticamente.
+              Descreva o que precisa. Use <span className="text-[var(--color-accent)] font-medium">Enviar</span> para chat ou <span className="text-violet-400 font-medium">Orquestrar</span> para acionar múltiplos agentes em paralelo.
             </p>
             <div className="grid grid-cols-1 gap-2 mt-2 w-full max-w-xs">
               {[
@@ -293,6 +352,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           )
         })}
 
+        {/* Chat loading indicator */}
         {isLoading && messages[messages.length - 1]?.role !== 'assistant' && (
           <div className="flex gap-3">
             <div className="h-7 w-7 rounded-lg bg-[var(--color-accent)]/10 flex items-center justify-center">
@@ -308,6 +368,87 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
             </div>
           </div>
         )}
+
+        {/* Orchestration loading indicator */}
+        {isOrchestrating && (
+          <div className="rounded-xl border border-violet-500/20 bg-violet-500/5 p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <Loader2 size={14} className="text-violet-400 animate-spin" />
+              <span className="text-xs font-semibold text-violet-400">Orquestrando agentes em paralelo...</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {(['vance','vera','atlas','volt','pulse','marco','iris','cipher'] as AgentType[]).map((a, idx) => (
+                <span
+                  key={a}
+                  className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-violet-500/10 text-violet-300 animate-pulse"
+                  style={{ animationDelay: `${idx * 120}ms` }}
+                >
+                  {a.toUpperCase()}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Orchestration results panel */}
+        {orchestrationResult && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 px-1">
+              <Zap size={13} className="text-violet-400" />
+              <span className="text-xs font-semibold text-[var(--color-text-primary)]">{orchestrationResult.campaign_title}</span>
+              <span className="ml-auto text-[10px] text-[var(--color-text-muted)]">{orchestrationResult.agents.length} agentes · {orchestrationResult.agents.filter(a => a.output_id && approvedIds.has(a.output_id)).length} aprovados</span>
+            </div>
+            <div className="grid grid-cols-1 gap-3">
+              {orchestrationResult.agents.map((output) => {
+                const style = AGENT_STYLES[output.agent] ?? AGENT_STYLES.oracle
+                const isApproved = output.output_id ? approvedIds.has(output.output_id) : false
+                return (
+                  <div
+                    key={output.agent}
+                    className={`rounded-xl border p-4 space-y-3 transition-all ${isApproved ? 'border-emerald-500/30 bg-emerald-500/5' : `${style.border} bg-[var(--color-bg-surface)]`}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className={`h-6 w-6 rounded-md flex items-center justify-center text-[11px] font-bold ${style.bg} ${style.color}`}>
+                        {AGENT_ICONS[output.agent]}
+                      </div>
+                      <span className={`text-[11px] font-mono font-semibold ${style.color}`}>{output.label}</span>
+                      {isApproved && (
+                        <span className="ml-auto flex items-center gap-1 text-[10px] text-emerald-400">
+                          <CheckCircle2 size={11} /> Aprovado
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-[var(--color-text-muted)] italic border-l-2 border-[var(--color-border-subtle)] pl-2">
+                      {output.task}
+                    </p>
+                    <p className="text-sm text-[var(--color-text-primary)] whitespace-pre-wrap leading-relaxed">
+                      {output.content}
+                    </p>
+                    {output.status === 'fulfilled' && (
+                      <div className="flex gap-2 pt-1">
+                        <button
+                          onClick={() => navigator.clipboard.writeText(output.content)}
+                          className="flex items-center gap-1 text-[10px] px-2 py-1 rounded-md bg-white/[0.04] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+                        >
+                          <Copy size={10} /> Copiar
+                        </button>
+                        {output.output_id && !isApproved && (
+                          <button
+                            onClick={() => approveOutput(output.output_id!)}
+                            className="flex items-center gap-1 text-[10px] px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+                          >
+                            <CheckCircle2 size={10} /> Aprovar
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         <div ref={bottomRef} />
       </div>
 
@@ -343,13 +484,23 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Descreva o que precisa... (Enter para enviar)"
+            placeholder="Descreva o que precisa... (Enter = chat, ⚡ = orquestrar)"
             rows={1}
             className="flex-1 resize-none rounded-lg bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] px-3 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:outline-none focus:border-[var(--color-accent)]/40 transition-colors"
           />
+          {/* Orchestrate button */}
+          <button
+            onClick={orchestrate}
+            disabled={isLoading || isOrchestrating || !input.trim()}
+            title="Orquestrar múltiplos agentes em paralelo"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 border border-violet-500/20 text-violet-400 hover:bg-violet-500/20 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          >
+            {isOrchestrating ? <Loader2 size={16} className="animate-spin" /> : <Zap size={16} />}
+          </button>
+          {/* Send button */}
           <button
             onClick={sendMessage}
-            disabled={isLoading || (!input.trim() && !attachedFile)}
+            disabled={isLoading || isOrchestrating || (!input.trim() && !attachedFile)}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:bg-[var(--color-accent)]/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
           >
             <Send size={16} strokeWidth={2.5} />
@@ -369,10 +520,10 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
               </button>
             )
           })}
-          <span className="text-[9px] text-[var(--color-text-muted)] ml-auto">auto-roteamento · 22 agentes</span>
+          <span className="text-[9px] text-[var(--color-text-muted)] ml-auto">⚡ orquestra · ✈ envia · 22 agentes</span>
+
         </div>
       </div>
     </div>
   )
 }
-
