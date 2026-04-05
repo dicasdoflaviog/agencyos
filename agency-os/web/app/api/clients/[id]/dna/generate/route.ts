@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
 import { generateEmbedding } from '@/lib/ai/embeddings'
-import { type GeminiContentResponse } from '@/types/gemini'
 
 export const dynamic = 'force-dynamic'
 
@@ -78,34 +78,30 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
   const body = await req.json()
 
-  const apiKey = process.env.GEMINI_API_KEY ?? process.env.GOOGLE_AI_API_KEY
-  if (!apiKey) return NextResponse.json({ error: 'GEMINI_API_KEY não configurada' }, { status: 500 })
+  const anthropicKey = process.env.ANTHROPIC_API_KEY
+  if (!anthropicKey) return NextResponse.json({ error: 'ANTHROPIC_API_KEY não configurada' }, { status: 500 })
 
-  // 1. Generate the DNA Document via Gemini
+  // 1. Generate the DNA Document via Claude
   const prompt = DNA_PROMPT(body)
+  const anthropic = new Anthropic({ apiKey: anthropicKey })
 
-  const geminiRes = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        generationConfig: { maxOutputTokens: 3000, temperature: 0.4 },
-      }),
-    },
-  )
-
-  if (!geminiRes.ok) {
-    const err = await geminiRes.text()
-    return NextResponse.json({ error: `Gemini error: ${err}` }, { status: 502 })
+  let dnaContent: string
+  try {
+    const message = await anthropic.messages.create({
+      model: 'claude-3-5-haiku-20241022',
+      max_tokens: 3000,
+      messages: [{ role: 'user', content: prompt }],
+    })
+    dnaContent = message.content
+      .filter(b => b.type === 'text')
+      .map(b => ('text' in b ? b.text : ''))
+      .join('\n')
+  } catch (err) {
+    return NextResponse.json({ error: `Claude error: ${String(err)}` }, { status: 502 })
   }
 
-  const geminiData = (await geminiRes.json()) as GeminiContentResponse
-  const dnaContent = geminiData.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
-
-  if (!dnaContent) {
-    return NextResponse.json({ error: 'Gemini retornou resposta vazia' }, { status: 502 })
+  if (!dnaContent.trim()) {
+    return NextResponse.json({ error: 'Claude retornou resposta vazia' }, { status: 502 })
   }
 
   // 2. Save the full DNA document in client_memories
