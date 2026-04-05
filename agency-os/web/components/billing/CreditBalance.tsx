@@ -58,28 +58,28 @@ export function CreditBalance() {
   return (
     <div className="space-y-4">
       {/* Balance card */}
-      <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6">
+      <div className="rounded-2xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-6">
         <div className="flex items-start justify-between mb-5">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-1">Saldo de Créditos</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)] mb-1">Saldo de Créditos</p>
             {loading ? (
-              <div className="h-10 w-32 rounded-lg bg-white/10 animate-pulse" />
+              <div className="h-10 w-32 rounded-lg bg-[var(--color-bg-hover)] animate-pulse" />
             ) : (
               <p className="text-4xl font-bold text-white tabular-nums">
                 {balance.toLocaleString('pt-BR')}
-                <span className="text-lg font-medium text-zinc-400 ml-2">créditos</span>
+                <span className="text-lg font-medium text-[var(--color-text-secondary)] ml-2">créditos</span>
               </p>
             )}
           </div>
-          <div className={`flex items-center justify-center w-12 h-12 rounded-xl border ${low && !loading ? 'border-amber-500/30 bg-amber-500/10' : 'border-white/10 bg-white/5'}`}>
+          <div className={`flex items-center justify-center w-12 h-12 rounded-xl border ${low && !loading ? 'border-amber-500/30 bg-amber-500/10' : 'border-[var(--color-border-default)] bg-[var(--color-bg-elevated)]'}`}>
             <Zap size={20} className={low && !loading ? 'text-amber-400' : 'text-[var(--color-accent)]'} />
           </div>
         </div>
 
         {/* Bar */}
-        <div className="h-2 rounded-full bg-white/10 overflow-hidden mb-2">
+        <div className="h-2 rounded-full bg-[var(--color-bg-hover)] overflow-hidden mb-2">
           {loading ? (
-            <div className="h-full w-1/3 rounded-full bg-white/20 animate-pulse" />
+            <div className="h-full w-1/3 rounded-full bg-[var(--color-bg-active)] animate-pulse" />
           ) : (
             <div
               className="h-full rounded-full transition-all duration-700"
@@ -92,7 +92,7 @@ export function CreditBalance() {
             />
           )}
         </div>
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-[var(--color-text-muted)]">
           {loading ? '...' : `${balance.toLocaleString('pt-BR')} / ${max.toLocaleString('pt-BR')} créditos mensais (plano ${data?.plan ?? 'starter'})`}
         </p>
 
@@ -105,8 +105,8 @@ export function CreditBalance() {
       </div>
 
       {/* Cost reference */}
-      <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5">
-        <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-3">Custo por Ação</p>
+      <div className="rounded-2xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-5">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">Custo por Ação</p>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           {[
             { label: 'ORACLE (msg)', cost: 10 },
@@ -116,8 +116,8 @@ export function CreditBalance() {
             { label: 'Conteúdo', cost: 15 },
             { label: 'Scraping', cost: 30 },
           ].map(item => (
-            <div key={item.label} className="flex items-center justify-between rounded-lg bg-white/[0.03] border border-white/[0.06] px-3 py-2">
-              <span className="text-xs text-zinc-400">{item.label}</span>
+            <div key={item.label} className="flex items-center justify-between rounded-lg bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] px-3 py-2">
+              <span className="text-xs text-[var(--color-text-secondary)]">{item.label}</span>
               <span className="text-xs font-bold text-white tabular-nums">{item.cost} cr</span>
             </div>
           ))}
@@ -125,24 +125,24 @@ export function CreditBalance() {
       </div>
 
       {/* Transaction history */}
-      <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5">
+      <div className="rounded-2xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Clock size={14} className="text-zinc-500" />
-          <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Últimas Transações</p>
+          <Clock size={14} className="text-[var(--color-text-muted)]" />
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Últimas Transações</p>
         </div>
 
         {loading ? (
           <div className="space-y-2">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-10 rounded-lg bg-white/5 animate-pulse" />
+              <div key={i} className="h-10 rounded-lg bg-[var(--color-bg-elevated)] animate-pulse" />
             ))}
           </div>
         ) : !data?.transactions?.length ? (
-          <p className="text-sm text-zinc-500 text-center py-6">Nenhuma transação ainda.</p>
+          <p className="text-sm text-[var(--color-text-muted)] text-center py-6">Nenhuma transação ainda.</p>
         ) : (
           <div className="space-y-1">
             {data.transactions.map(tx => (
-              <div key={tx.id} className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/[0.03] transition-colors">
+              <div key={tx.id} className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-[var(--color-bg-surface)] transition-colors">
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className={`flex-shrink-0 ${tx.amount > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                     {tx.amount > 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
@@ -151,13 +151,13 @@ export function CreditBalance() {
                     <p className="text-xs font-medium text-white truncate">
                       {AGENT_LABELS[tx.agent_used ?? tx.type] ?? tx.description ?? tx.type}
                     </p>
-                    <p className="text-[10px] text-zinc-500">
+                    <p className="text-[10px] text-[var(--color-text-muted)]">
                       {new Date(tx.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
-                  <span className={`text-xs font-bold tabular-nums ${TYPE_COLORS[tx.type] ?? 'text-zinc-400'}`}>
+                  <span className={`text-xs font-bold tabular-nums ${TYPE_COLORS[tx.type] ?? 'text-[var(--color-text-secondary)]'}`}>
                     {tx.amount > 0 ? '+' : ''}{tx.amount.toLocaleString('pt-BR')} cr
                   </span>
                   <span className="text-[10px] text-zinc-600 tabular-nums w-14 text-right">

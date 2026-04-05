@@ -33,9 +33,9 @@ export function AgentProfileModal({ agent, squad, onClose }: Props) {
       />
 
       {/* Panel */}
-      <div className="relative z-10 h-full w-full max-w-md flex flex-col bg-[#0f0f0f] border-l border-white/[0.08] shadow-2xl overflow-y-auto animate-slide-in-right">
+      <div className="relative z-10 h-full w-full max-w-md flex flex-col bg-[var(--color-bg-base)] border-l border-[var(--color-border-default)] shadow-2xl overflow-y-auto animate-slide-in-right">
         {/* Header */}
-        <div className={`flex-shrink-0 p-6 border-b border-white/[0.06] bg-gradient-to-br from-black to-transparent`}>
+        <div className={`flex-shrink-0 p-6 border-b border-[var(--color-border-subtle)] bg-gradient-to-br from-black to-transparent`}>
           <div className="flex items-start justify-between mb-4">
             <div
               className={`flex items-center justify-center w-16 h-16 rounded-2xl text-4xl border ${squad.colorBorder} ${squad.colorBg}`}
@@ -44,7 +44,7 @@ export function AgentProfileModal({ agent, squad, onClose }: Props) {
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-zinc-500 hover:text-white hover:bg-white/[0.06] transition-colors"
+              className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
             >
               <X size={18} />
             </button>
@@ -63,18 +63,18 @@ export function AgentProfileModal({ agent, squad, onClose }: Props) {
         <div className="flex-1 p-6 space-y-6">
           {/* Bio */}
           <div>
-            <p className="text-sm text-zinc-300 leading-relaxed">{agent.bio}</p>
+            <p className="text-sm text-[var(--color-text-primary)] leading-relaxed">{agent.bio}</p>
           </div>
 
           {/* Personality */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Lightbulb size={13} className="text-zinc-500" />
-              <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Personalidade</span>
+              <Lightbulb size={13} className="text-[var(--color-text-muted)]" />
+              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Personalidade</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {agent.personality.map(p => (
-                <span key={p} className="text-xs text-zinc-300 bg-white/[0.05] border border-white/[0.08] px-2.5 py-1 rounded-full">
+                <span key={p} className="text-xs text-[var(--color-text-primary)] bg-[var(--color-bg-elevated)] border border-[var(--color-border-default)] px-2.5 py-1 rounded-full">
                   {p}
                 </span>
               ))}
@@ -85,7 +85,7 @@ export function AgentProfileModal({ agent, squad, onClose }: Props) {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Zap size={13} className={squad.colorText} />
-              <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Especialidades</span>
+              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Especialidades</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {agent.specialties.map(s => (
@@ -99,12 +99,12 @@ export function AgentProfileModal({ agent, squad, onClose }: Props) {
           {/* Skills */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Target size={13} className="text-zinc-500" />
-              <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Skills</span>
+              <Target size={13} className="text-[var(--color-text-muted)]" />
+              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Skills</span>
             </div>
             <div className="grid grid-cols-2 gap-1.5">
               {agent.skills.map(s => (
-                <div key={s} className="flex items-center gap-2 text-xs text-zinc-400 bg-white/[0.03] border border-white/[0.05] px-3 py-2 rounded-lg">
+                <div key={s} className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)] bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] px-3 py-2 rounded-lg">
                   <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${squad.colorBg.replace('bg-', 'bg-').replace('/10', '')}`}
                     style={{ background: squad.color === 'amber' ? '#f59e0b' : squad.color === 'violet' ? '#8b5cf6' : squad.color === 'cyan' ? '#06b6d4' : squad.color === 'emerald' ? '#10b981' : '#f43f5e' }}
                   />
@@ -117,13 +117,13 @@ export function AgentProfileModal({ agent, squad, onClose }: Props) {
           {/* When to use */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <ArrowRight size={13} className="text-zinc-500" />
-              <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Quando usar</span>
+              <ArrowRight size={13} className="text-[var(--color-text-muted)]" />
+              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Quando usar</span>
             </div>
             <ul className="space-y-2">
               {agent.whenToUse.map(w => (
-                <li key={w} className="flex items-start gap-2.5 text-sm text-zinc-400">
-                  <span className="mt-1.5 w-1 h-1 rounded-full bg-zinc-600 flex-shrink-0" />
+                <li key={w} className="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)]">
+                  <span className="mt-1.5 w-1 h-1 rounded-full bg-[var(--color-text-disabled)] flex-shrink-0" />
                   {w}
                 </li>
               ))}
@@ -132,7 +132,7 @@ export function AgentProfileModal({ agent, squad, onClose }: Props) {
         </div>
 
         {/* CTA */}
-        <div className="flex-shrink-0 p-5 border-t border-white/[0.06] bg-black/40">
+        <div className="flex-shrink-0 p-5 border-t border-[var(--color-border-subtle)] bg-black/40">
           <Link
             href={`/oracle?agent=${agent.id}`}
             onClick={onClose}

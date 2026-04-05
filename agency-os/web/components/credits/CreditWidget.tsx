@@ -42,11 +42,11 @@ export function CreditWidget() {
   const low = data.balance < max * 0.15
 
   return (
-    <div className="mx-3 mb-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
+    <div className="mx-3 mb-3 rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-3">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1.5">
           <Zap size={13} className={low && !loading ? 'text-amber-400' : 'text-[var(--color-accent)]'} />
-          <span className="text-[11px] font-medium text-zinc-400">Créditos</span>
+          <span className="text-[11px] font-medium text-[var(--color-text-secondary)]">Créditos</span>
         </div>
         <Link
           href="/settings/billing"
@@ -58,9 +58,9 @@ export function CreditWidget() {
       </div>
 
       {/* Progress bar */}
-      <div className="h-1.5 rounded-full bg-white/10 overflow-hidden mb-1.5">
+      <div className="h-1.5 rounded-full bg-[var(--color-bg-hover)] overflow-hidden mb-1.5">
         {loading ? (
-          <div className="h-full w-1/3 rounded-full bg-white/20 animate-pulse" />
+          <div className="h-full w-1/3 rounded-full bg-[var(--color-bg-active)] animate-pulse" />
         ) : (
           <div
             className="h-full rounded-full transition-all duration-700"
@@ -76,13 +76,13 @@ export function CreditWidget() {
 
       <div className="flex items-center justify-between">
         {loading ? (
-          <div className="h-3 w-16 rounded bg-white/10 animate-pulse" />
+          <div className="h-3 w-16 rounded bg-[var(--color-bg-hover)] animate-pulse" />
         ) : (
           <>
             <span className={`text-[11px] font-bold tabular-nums ${low ? 'text-amber-400' : 'text-white'}`}>
               {data.balance.toLocaleString('pt-BR')} cr
             </span>
-            <span className="text-[10px] text-zinc-500 capitalize">{data.plan}</span>
+            <span className="text-[10px] text-[var(--color-text-muted)] capitalize">{data.plan}</span>
           </>
         )}
       </div>

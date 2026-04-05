@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency OS — Layout Templates v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────── */
+:root {
+  --bg-base:       #0C0C0E;
+  --bg-surface:    #131317;
+  --bg-elevated:   #1C1C22;
+  --bg-overlay:    #26262F;
+  --bg-hover:      #2A2A35;
+  --border-subtle:  #1E1E28;
+  --border-default: #2C2C3A;
+  --border-strong:  #3F3F52;
+  --text-primary:   #F0F0F5;
+  --text-secondary: #A0A0B8;
+  --text-muted:     #686880;
+  --text-inverse:   #0C0C0E;
+  --accent:        #F59E0B;
+  --accent-hover:  #D97706;
+  --accent-subtle: rgba(245,158,11,0.12);
+  --accent-ring:   rgba(245,158,11,0.40);
+  --success:        #10B981;
+  --success-subtle: rgba(16,185,129,0.12);
+  --success-text:   #34D399;
+  --error:          #EF4444;
+  --error-subtle:   rgba(239,68,68,0.12);
+  --error-text:     #FCA5A5;
+  --info:           #3B82F6;
+  --info-subtle:    rgba(59,130,246,0.12);
+  --info-text:      #93C5FD;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
+  --shadow-xl: 0 24px 48px rgba(0,0,0,0.7);
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-2xl: 24px;
+  --radius-full:9999px;
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth:     cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-base: 200ms;
+  --dur-moderate: 300ms;
+}
+
+/* ── RESET ───────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PAGE LAYOUT ─────────────────────────── */
+.page-header {
+  padding: 48px 48px 32px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--text-primary);
+}
+.page-header h1 em { color: var(--accent); font-style: normal; }
+.page-header p { font-size: 14px; color: var(--text-secondary); margin-top: 6px; }
+
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+  gap: 48px;
+  padding: 48px;
+}
+
+/* ── TEMPLATE WRAPPER ────────────────────── */
+.tpl-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.tpl-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tpl-num {
+  width: 24px; height: 24px;
+  background: var(--accent);
+  color: var(--text-inverse);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tpl-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.tpl-use {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.tpl-canvas {
+  width: 540px;
+  height: 540px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+.tpl-notes {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.tpl-notes strong { color: var(--accent); }
+
+/* ════════════════════════════════════════════
+   TEMPLATE 01 — PRODUTO FLUTUANTE
+   Ref: Powered by Agency (UI mockup + pills)
+════════════════════════════════════════════ */
+.t01 {
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, #1a1a2e 0%, #0C0C0E 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px 32px;
+  position: relative;
+}
+/* Concentric ring decoration */
+.t01-rings {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.t01-rings::before,
+.t01-rings::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(245,158,11,0.08);
+}
+.t01-rings::before { width: 380px; height: 380px; }
+.t01-rings::after  { width: 520px; height: 520px; }
+
+/* Central mockup card */
+.t01-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  width: 260px;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  z-index: 2;
+  animation: t01-float 4s ease-in-out infinite;
+}
+@keyframes t01-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+.t01-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.t01-avatar {
+  width: 36px; height: 36px;
+  background: var(--accent-subtle);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--accent);
+  flex-shrink: 0;
+}
+.t01-card-info { flex: 1; }
+.t01-card-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.t01-card-role { font-size: 10px; color: var(--text-muted); }
+.t01-card-status {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 500; color: var(--success-text);
+  margin-bottom: 10px;
+}
+.t01-card-status::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--success);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.t01-card-label { font-size: 10px; color: var(--text-muted); margin-bottom: 6px; }
+.t01-card-bar {
+  height: 4px;
+  background: var(--bg-overlay);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.t01-card-bar-fill {
+  height: 100%;
+  width: 70%;
+  background: linear-gradient(90deg, var(--accent), #FBBF24);
+  border-radius: var(--radius-full);
+}
+.t01-card-actions {
+  display: flex; gap: 8px; margin-top: 14px;
+}
+.t01-btn-mute {
+  flex: 1; height: 32px; background: var(--bg-overlay);
+  border: 1px solid var(--border-default); border-radius: var(--radius-md);
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.t01-btn-end {
+  flex: 1; height: 32px;
+  background: var(--error); border-radius: var(--radius-md);
+  font-size: 12px; font-weight: 600; color: #fff;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+
+/* Floating feature pills */
+.t01-pill {
+  position: absolute;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-secondary);
+  display: flex; align-items: center; gap: 7px;
+  box-shadow: var(--shadow-md);
+  z-index: 3;
+  white-space: nowrap;
+}
+.t01-pill-icon {
+  width: 20px; height: 20px;
+  background: var(--accent-subtle);
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+}
+.t01-pill-tl { top: 80px; left: 20px; }
+.t01-pill-ml { top: 195px; left: 8px; }
+.t01-pill-tr { top: 70px; right: 16px; }
+.t01-pill-br { bottom: 160px; right: 12px; }
+
+/* Bottom text area */
+.t01-bottom {
+  text-align: center;
+  margin-top: 28px;
+  position: relative;
+  z-index: 2;
+}
+.t01-headline {
+  font-size: 22px; font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.t01-headline em { color: var(--accent); font-style: normal; }
+.t01-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent); color: var(--text-inverse);
+  padding: 10px 22px; border-radius: var(--radius-full);
+  font-size: 13px; font-weight: 700;
+}
+
+
+/* ════════════════════════════════════════════
+   TEMPLATE 02 — MODAL CLEAN / CARD FORM
+   Ref: Acme Login (card + gradient bg)
+════════════════════════════════════════════ */
+.t02 {
+  background: radial-gradient(ellipse 100% 90% at 30% 20%, #1a1232 0%, #0f0f18 50%, #0C0C0E 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.t02-modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-2xl);
+  width: 100%;
+  max-width: 340px;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+.t02-modal-top {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.t02-modal-title { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+.t02-modal-close {
+  width: 20px; height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--bg-overlay);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-muted);
+}
+.t02-modal-body { padding: 28px 24px 24px; }
+.t02-welcome {
+  font-size: 24px; font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+.t02-welcome em { color: var(--accent); font-style: normal; }
+.t02-field { margin-bottom: 14px; }
+.t02-label {
+  font-size: 11px; font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  display: flex; justify-content: space-between;
+}
+.t02-label a { color: var(--accent); font-size: 11px; }
+.t02-input {
+  width: 100%; height: 38px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 0 12px;
+  font-size: 13px; color: var(--text-muted);
+  display: flex; align-items: center;
+}
+.t02-input.focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); color: var(--text-primary); }
+.t02-check-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin-bottom: 8px;
+}
+.t02-check {
+  width: 14px; height: 14px; border-radius: 3px;
+  flex-shrink: 0; margin-top: 1px;
+}
+.t02-check.on { background: var(--accent); }
+.t02-check.off { background: transparent; border: 1.5px solid var(--border-strong); }
+.t02-check-label { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+.t02-check-label a { color: var(--accent); }
+.t02-actions { display: flex; gap: 8px; margin-top: 20px; }
+.t02-btn-primary {
+  flex: 1; height: 38px;
+  background: var(--accent); border-radius: var(--radius-md);
+  font-size: 13px; font-weight: 700; color: var(--text-inverse);
+  display: flex; align-items: center; justify-content: center;
+}
+.t02-btn-secondary {
+  flex: 1; height: 38px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  font-size: 13px; font-weight: 500; color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+}
+.t02-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 12px 24px;
+  font-size: 11px; color: var(--text-muted); text-align: center;
+}
+.t02-footer a { color: var(--accent); }
+
+
+/* ════════════════════════════════════════════
+   TEMPLATE 03 — TÍTULO + CARDS FOTO
+   Ref: Seguro azul (headline + card strip)
+════════════════════════════════════════════ */
+.t03 {
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px 24px;
+  gap: 0;
+}
+.t03-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.t03-headline {
+  font-size: 26px; font-weight: 800;
+  letter-spacing: -.02em; line-height: 1.2;
+  color: var(--text-primary);
+}
+.t03-headline em { color: var(--accent); font-style: normal; }
+.t03-sub {
+  font-size: 13px; color: var(--text-secondary);
+  line-height: 1.6; align-self: center;
+}
+.t03-cards {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+.t03-card {
+  flex: 1;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  min-height: 220px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+}
+.t03-card-img {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+  background: linear-gradient(135deg, var(--bg-overlay), var(--bg-elevated));
+}
+.t03-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+}
+.t03-card-icon-badge {
+  position: absolute;
+  top: 12px; left: 50%; transform: translateX(-50%);
+  width: 30px; height: 30px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; box-shadow: var(--shadow-md);
+}
+.t03-card-text {
+  position: absolute; bottom: 14px; left: 12px; right: 12px;
+}
+.t03-card-name {
+  font-size: 12px; font-weight: 700;
+  color: #fff; margin-bottom: 3px;
+}
+.t03-card-price { font-size: 10px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+.t03-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 16px;
+}
+.t03-cta-link {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  font-size: 12px; font-weight: 500;
+  color: var(--text-secondary);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.t03-domain {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--text-muted);
+}
+
+
+/* ════════════════════════════════════════════
+   TEMPLATE 04 — PROBLEMA → SOLUÇÃO + STATS
+   Ref: Aviara Labs (staggered cards + stats + CTA)
+════════════════════════════════════════════ */
+.t04 {
+  background: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px 32px;
+  gap: 0;
+}
+.t04-logo {
+  display: flex; align-items: center; gap: 7px;
+  margin-bottom: 20px;
+}
+.t04-logo-icon {
+  width: 22px; height: 22px;
+  background: var(--accent);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+}
+.t04-logo-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.t04-headline {
+  font-size: 26px; font-weight: 800;
+  letter-spacing: -.02em; line-height: 1.2;
+  color: var(--text-primary); margin-bottom: 20px;
+}
+.t04-headline em { color: var(--accent); font-style: normal; }
+
+/* Staggered speech-bubble cards */
+.t04-bubbles { position: relative; height: 130px; margin-bottom: 24px; }
+.t04-bubble-dark {
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--text-primary);
+  max-width: 78%; line-height: 1.5;
+  box-shadow: var(--shadow-md);
+  z-index: 1;
+}
+.t04-bubble-dark strong { color: var(--accent); }
+.t04-bubble-accent {
+  position: absolute;
+  bottom: 0; right: 0;
+  background: var(--accent);
+  border-radius: var(--radius-xl);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--text-inverse);
+  max-width: 78%; line-height: 1.5;
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+.t04-bubble-accent strong { text-decoration: underline; }
+
+/* Stats row */
+.t04-stats { display: flex; gap: 0; margin-bottom: 24px; }
+.t04-stat {
+  flex: 1; text-align: center;
+  padding: 14px 8px;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.t04-stat:not(:last-child) { border-right: 1px solid var(--border-subtle); }
+.t04-stat-icon {
+  font-size: 20px; margin-bottom: 6px;
+  color: var(--accent);
+}
+.t04-stat-value {
+  font-size: 18px; font-weight: 800;
+  color: var(--text-primary); line-height: 1;
+  margin-bottom: 3px;
+}
+.t04-stat-label { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
+
+/* CTA */
+.t04-cta {
+  width: 100%; height: 48px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px;
+  font-size: 14px; font-weight: 700; color: var(--text-inverse);
+}
+.t04-domain { text-align: center; margin-top: 10px; font-size: 11px; color: var(--text-muted); }
+
+
+/* ════════════════════════════════════════════
+   TEMPLATE 05 — TÍTULO BOLD + TAG CLOUD
+   Ref: Digimob (huge headline + flowing chips)
+════════════════════════════════════════════ */
+.t05 {
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  padding: 44px 36px 32px;
+  position: relative;
+  overflow: hidden;
+}
+/* Dot grid texture */
+.t05::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(245,158,11,0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+.t05-headline {
+  font-size: 36px; font-weight: 900;
+  letter-spacing: -.03em; line-height: 1.1;
+  color: var(--text-primary);
+  position: relative; z-index: 1;
+  margin-bottom: 24px;
+}
+.t05-headline em { color: var(--accent); font-style: normal; }
+/* Chip cloud */
+.t05-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: relative; z-index: 1;
+  margin-bottom: auto;
+}
+.t05-chip {
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.t05-chip-amber { background: var(--accent); color: var(--text-inverse); }
+.t05-chip-outline { background: transparent; border: 1.5px solid var(--border-strong); color: var(--text-secondary); }
+.t05-chip-dark { background: var(--bg-elevated); border: 1px solid var(--border-default); color: var(--text-primary); }
+.t05-chip-success { background: var(--success-subtle); border: 1px solid rgba(16,185,129,.25); color: var(--success-text); }
+.t05-chip-arrow {
+  width: 36px; height: 36px;
+  background: var(--bg-elevated); border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--text-secondary);
+}
+/* Sub text */
+.t05-sub {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--text-secondary);
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+.t05-sub-plus {
+  width: 18px; height: 18px;
+  background: var(--accent-subtle);
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--accent); font-weight: 700;
+  flex-shrink: 0;
+}
+.t05-sub strong { color: var(--accent); }
+/* Logo row */
+.t05-logo-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 16px;
+  position: relative; z-index: 1;
+}
+.t05-logo { font-size: 13px; font-weight: 800; color: var(--text-primary); }
+.t05-logo span { color: var(--accent); }
+.t05-url {
+  display: flex; align-items: center; gap: 5px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-size: 10px; font-family: var(--font-mono); color: var(--text-muted);
+}
+
+
+/* ════════════════════════════════════════════
+   TEMPLATE 06 — FUNDO SÓLIDO + PREVIEW + ÍCONES
+   Ref: Segur verde (solid bg, app preview, icon grid)
+════════════════════════════════════════════ */
+.t06 {
+  background: var(--accent);
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px 28px;
+}
+.t06-arrow {
+  font-size: 18px; color: var(--text-inverse);
+  margin-bottom: 10px; opacity: 0.9;
+}
+.t06-headline {
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -.02em; line-height: 1.2;
+  color: var(--text-inverse);
+  margin-bottom: 20px;
+}
+/* App preview card */
+.t06-preview {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-xl);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.t06-preview-left { flex: 1; }
+.t06-preview-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.t06-preview-sub { font-size: 11px; color: rgba(255,255,255,0.7); }
+.t06-preview-right {
+  width: 72px; height: 54px;
+  background: rgba(0,0,0,0.3);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+}
+/* 2x2 icon grid */
+.t06-icons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: auto;
+}
+.t06-icon-box {
+  aspect-ratio: 1;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.t06-icon-box span { font-size: 22px; }
+.t06-icon-label { font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.75); text-align: center; }
+/* Logo */
+.t06-logo-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 16px;
+}
+.t06-logo-icon {
+  width: 28px; height: 28px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.t06-logo-name { font-size: 13px; font-weight: 800; color: rgba(0,0,0,0.7); }
+.t06-logo-sub { font-size: 10px; color: rgba(0,0,0,0.5); margin-left: 4px; }
+
+
+/* ════════════════════════════════════════════
+   TEMPLATE 07 — GRID ESCURO + AGENTES
+   Ref: AI Agent tags (dark grid + avatar cards + hero)
+════════════════════════════════════════════ */
+.t07 {
+  background: radial-gradient(ellipse 100% 80% at 50% 0%, #1a1530 0%, #0e0c1a 50%, #0C0C0E 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  padding: 8px;
+  position: relative;
+}
+/* Center hero icon */
+.t07-hero {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px; height: 72px;
+  background: var(--accent);
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 0 0 4px rgba(245,158,11,0.2), var(--shadow-xl);
+  z-index: 10;
+  animation: t07-pulse 3s ease-in-out infinite;
+}
+@keyframes t07-pulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(245,158,11,0.2), 0 24px 48px rgba(0,0,0,0.7); }
+  50%      { box-shadow: 0 0 0 10px rgba(245,158,11,0.08), 0 24px 48px rgba(0,0,0,0.7); }
+}
+/* Each quadrant card */
+.t07-cell {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.t07-cell-avatar {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background: var(--bg-overlay);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  border: 2px solid var(--border-default);
+}
+/* Avatar at specific positions */
+.t07-cell:nth-child(2) .t07-cell-avatar { align-self: flex-end; }
+.t07-cell:nth-child(4) .t07-cell-avatar { align-self: flex-end; }
+
+.t07-cell-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.t07-tag {
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-full);
+  padding: 3px 9px;
+  font-size: 10px; font-weight: 600; color: var(--text-secondary);
+}
+.t07-tag-accent {
+  background: var(--accent-subtle);
+  border-color: rgba(245,158,11,0.25);
+  color: var(--accent);
+}
+.t07-tag-red {
+  background: var(--error-subtle);
+  border-color: rgba(239,68,68,0.2);
+  color: var(--error-text);
+}
+.t07-tag-green {
+  background: var(--success-subtle);
+  border-color: rgba(16,185,129,0.2);
+  color: var(--success-text);
+}
+.t07-bar {
+  height: 3px; background: var(--bg-overlay); border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.t07-bar-fill {
+  height: 100%; border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--accent), #FBBF24);
+}
+
+/* Bottom headline overlay */
+.t07-bottom-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(12,12,14,0.97) 0%, transparent 100%);
+  padding: 40px 20px 18px;
+  z-index: 5;
+}
+.t07-bottom-headline {
+  font-size: 24px; font-weight: 900;
+  letter-spacing: -.02em;
+  color: var(--text-primary); line-height: 1.2;
+}
+.t07-bottom-headline em { color: var(--accent); font-style: normal; }
+.t07-bottom-sub {
+  font-size: 12px; color: var(--text-muted); margin-top: 3px;
+}
+
+
+/* ── GUIDE SECTION ───────────────────────── */
+.guide-section {
+  margin: 0 48px 48px;
+  padding: 28px 32px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+}
+.guide-section h2 {
+  font-size: 16px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.guide-section h2::before {
+  content: '';
+  width: 3px; height: 16px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.guide-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+}
+.guide-card-num {
+  font-size: 10px; font-weight: 700;
+  color: var(--accent); font-family: var(--font-mono);
+  margin-bottom: 5px;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.guide-card-name { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.guide-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.guide-card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.guide-tag {
+  background: var(--bg-overlay);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  font-size: 10px; color: var(--text-muted);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+  <h1>Agency OS — <em>Layout Templates</em> v1.0</h1>
+  <p>7 templates de layout para posts sociais e materiais de comunicação · Adaptados ao Design System · Use os tokens, nunca valores hardcoded</p>
+</div>
+
+
+<!-- ════════════════════════════
+     TEMPLATES GRID
+════════════════════════════ -->
+<div class="templates-grid">
+
+  <!-- ── T01: PRODUTO FLUTUANTE ── -->
+  <div class="tpl-block">
+    <div class="tpl-label">
+      <div class="tpl-num">01</div>
+      <div>
+        <div class="tpl-name">Produto Flutuante</div>
+        <div class="tpl-use">Showcase de features · Posts de lançamento · Demonstração do produto</div>
+      </div>
+    </div>
+    <div class="tpl-canvas">
+      <div class="t01">
+        <div class="t01-rings"></div>
+
+        <!-- Floating pills -->
+        <div class="t01-pill t01-pill-tl">
+          <div class="t01-pill-icon">🤖</div>
+          Agentes IA
+        </div>
+        <div class="t01-pill t01-pill-ml">
+          <div class="t01-pill-icon">⚡</div>
+          Automação
+        </div>
+        <div class="t01-pill t01-pill-tr">
+          <div class="t01-pill-icon">📊</div>
+          Relatórios
+        </div>
+        <div class="t01-pill t01-pill-br">
+          <div class="t01-pill-icon">🔒</div>
+          Segurança
+        </div>
+
+        <!-- Central card -->
+        <div class="t01-card">
+          <div class="t01-card-header">
+            <div class="t01-avatar">OR</div>
+            <div class="t01-card-info">
+              <div class="t01-card-name">ORACLE</div>
+              <div class="t01-card-role">Orquestrador · Agency OS</div>
+            </div>
+          </div>
+          <div class="t01-card-status">Agente ativo</div>
+          <div class="t01-card-label">Tarefa em execução</div>
+          <div class="t01-card-bar"><div class="t01-card-bar-fill"></div></div>
+          <div class="t01-card-actions">
+            <div class="t01-btn-mute">⏸ Pausar</div>
+            <div class="t01-btn-end">✕ Encerrar</div>
+          </div>
+        </div>
+
+        <!-- Bottom text -->
+        <div class="t01-bottom">
+          <div class="t01-headline">Sua agência no<br><em>piloto automático.</em></div>
+          <div class="t01-cta">Começar agora ↗</div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-notes">
+      <strong>Estrutura:</strong> Fundo escuro com anéis concêntricos decorativos → Card central flutuante (animação de float) → Pills com features ao redor → Headline bold + CTA.<br>
+      <strong>Tokens-chave:</strong> <code>--bg-base</code>, <code>--bg-elevated</code>, <code>--accent</code>, <code>--shadow-xl</code><br>
+      <strong>Variações:</strong> Trocar o card central pelo screenshot de outra tela do app. Pills podem ter ícones SVG no lugar de emojis.
+    </div>
+  </div>
+
+  <!-- ── T02: MODAL CLEAN ── -->
+  <div class="tpl-block">
+    <div class="tpl-label">
+      <div class="tpl-num">02</div>
+      <div>
+        <div class="tpl-name">Modal Clean</div>
+        <div class="tpl-use">Onboarding · Login · Formulários · Anúncios de feature</div>
+      </div>
+    </div>
+    <div class="tpl-canvas">
+      <div class="t02">
+        <div class="t02-modal">
+          <div class="t02-modal-top">
+            <span class="t02-modal-title">Bem-vindo ao Agency OS</span>
+            <div class="t02-modal-close">✕</div>
+          </div>
+          <div class="t02-modal-body">
+            <div class="t02-welcome">Acesse sua<br><em>agência</em></div>
+            <div class="t02-field">
+              <div class="t02-label"><span>E-mail</span></div>
+              <div class="t02-input">seuemail@agencia.com</div>
+            </div>
+            <div class="t02-field">
+              <div class="t02-label">
+                <span>Senha</span>
+                <a href="#">Esqueci a senha</a>
+              </div>
+              <div class="t02-input focus">••••••••••</div>
+            </div>
+            <div class="t02-check-row">
+              <div class="t02-check on"></div>
+              <div class="t02-check-label">Aceito os <a href="#">Termos de Uso</a> e a Política de Privacidade</div>
+            </div>
+            <div class="t02-check-row">
+              <div class="t02-check off"></div>
+              <div class="t02-check-label">Manter conectado por 30 dias</div>
+            </div>
+            <div class="t02-actions">
+              <div class="t02-btn-primary">Entrar</div>
+              <div class="t02-btn-secondary">Criar conta</div>
+            </div>
+          </div>
+          <div class="t02-footer">Dúvidas? Acesse a <a href="#">Central de Ajuda</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-notes">
+      <strong>Estrutura:</strong> Fundo gradiente escuro → Card modal centralizado com header/body/footer → Formulário limpo com inputs focados.<br>
+      <strong>Tokens-chave:</strong> <code>--bg-surface</code>, <code>--bg-elevated</code>, <code>--accent-ring</code>, <code>--border-default</code><br>
+      <strong>Variações:</strong> Substituir o formulário por um card de confirmação ou feature highlight. Gradiente pode variar pela seção (roxo = IA, verde = sucesso).
+    </div>
+  </div>
+
+  <!-- ── T03: TÍTULO + CARDS FOTO ── -->
+  <div class="tpl-block">
+    <div class="tpl-label">
+      <div class="tpl-num">03</div>
+      <div>
+        <div class="tpl-name">Título + Cards Foto</div>
+        <div class="tpl-use">Catálogo de serviços · Portfólio · Features com imagem</div>
+      </div>
+    </div>
+    <div class="tpl-canvas">
+      <div class="t03">
+        <div class="t03-top">
+          <div class="t03-headline">Escolha o <em>agente</em> certo<br>para cada missão</div>
+          <div class="t03-sub">Conheça nossa linha de agentes IA especializados para agências</div>
+        </div>
+        <div class="t03-cards">
+          <div class="t03-card">
+            <div class="t03-card-img">✍️</div>
+            <div class="t03-card-overlay"></div>
+            <div class="t03-card-icon-badge">✍️</div>
+            <div class="t03-card-text">
+              <div class="t03-card-name">VERA Copy</div>
+              <div class="t03-card-price">Copywriter IA<br>Planos a partir de R$97/mês</div>
+            </div>
+          </div>
+          <div class="t03-card">
+            <div class="t03-card-img">🎨</div>
+            <div class="t03-card-overlay"></div>
+            <div class="t03-card-icon-badge">🎨</div>
+            <div class="t03-card-text">
+              <div class="t03-card-name">ATLAS Design</div>
+              <div class="t03-card-price">Designer Visual IA<br>Planos a partir de R$97/mês</div>
+            </div>
+          </div>
+          <div class="t03-card">
+            <div class="t03-card-img">📈</div>
+            <div class="t03-card-overlay"></div>
+            <div class="t03-card-icon-badge">📈</div>
+            <div class="t03-card-text">
+              <div class="t03-card-name">NEXUS Ads</div>
+              <div class="t03-card-price">Gestor de Tráfego IA<br>Planos a partir de R$97/mês</div>
+            </div>
+          </div>
+        </div>
+        <div class="t03-footer">
+          <div class="t03-cta-link">Ver todos os agentes →</div>
+          <div class="t03-domain">🌐 agencyos.com.br</div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-notes">
+      <strong>Estrutura:</strong> Grid 2-col no topo (headline + subtítulo) → Strip de cards com fundo emoji/foto + overlay escuro + badge ícone + texto na base → Rodapé com CTA e domínio.<br>
+      <strong>Tokens-chave:</strong> <code>--bg-base</code>, <code>--bg-elevated</code>, <code>--accent</code>, <code>--border-subtle</code><br>
+      <strong>Variações:</strong> Usar imagens reais de clientes/projetos nos cards. Accent pode mudar por categoria de serviço.
+    </div>
+  </div>
+
+  <!-- ── T04: PROBLEMA → SOLUÇÃO ── -->
+  <div class="tpl-block">
+    <div class="tpl-label">
+      <div class="tpl-num">04</div>
+      <div>
+        <div class="tpl-name">Problema → Solução + Stats</div>
+        <div class="tpl-use">Prova social · Anúncio de benefício · Copy de dor/solução</div>
+      </div>
+    </div>
+    <div class="tpl-canvas">
+      <div class="t04">
+        <div class="t04-logo">
+          <div class="t04-logo-icon">⚡</div>
+          <div class="t04-logo-name">Agency OS</div>
+        </div>
+        <div class="t04-headline">Gerenciar agência<br>não precisa ser <em>caos.</em></div>
+        <div class="t04-bubbles">
+          <div class="t04-bubble-dark">
+            No último mês, a equipe perdeu <strong>18 horas</strong> em tarefas manuais e retrabalho.
+          </div>
+          <div class="t04-bubble-accent">
+            Com os agentes do Agency OS, esse tempo <strong>cai para zero.</strong>
+          </div>
+        </div>
+        <div class="t04-stats">
+          <div class="t04-stat">
+            <div class="t04-stat-icon">🚀</div>
+            <div class="t04-stat-value">10×</div>
+            <div class="t04-stat-label">Produtividade<br>da equipe</div>
+          </div>
+          <div class="t04-stat">
+            <div class="t04-stat-icon">✅</div>
+            <div class="t04-stat-value">100%</div>
+            <div class="t04-stat-label">Entregas<br>no prazo</div>
+          </div>
+          <div class="t04-stat">
+            <div class="t04-stat-icon">💰</div>
+            <div class="t04-stat-value">3×</div>
+            <div class="t04-stat-label">Capacidade<br>sem contratar</div>
+          </div>
+        </div>
+        <div class="t04-cta">Quero testar agora ↗</div>
+        <div class="t04-domain">agencyos.com.br</div>
+      </div>
+    </div>
+    <div class="tpl-notes">
+      <strong>Estrutura:</strong> Logo pequena → Headline do problema → Dois balões empilhados (dor → solução) → Linha de 3 stats com ícone + valor + label → CTA âmbar full-width → Domínio.<br>
+      <strong>Tokens-chave:</strong> <code>--bg-surface</code>, <code>--bg-overlay</code>, <code>--accent</code>, <code>--border-subtle</code><br>
+      <strong>Variações:</strong> Balão da solução pode ser azul (info) para variar o tom. Stats podem mostrar dados reais de clientes.
+    </div>
+  </div>
+
+  <!-- ── T05: TÍTULO BOLD + TAG CLOUD ── -->
+  <div class="tpl-block">
+    <div class="tpl-label">
+      <div class="tpl-num">05</div>
+      <div>
+        <div class="tpl-name">Título Bold + Tag Cloud</div>
+        <div class="tpl-use">Proposta de valor · Branding · Posts de posicionamento</div>
+      </div>
+    </div>
+    <div class="tpl-canvas">
+      <div class="t05">
+        <div class="t05-headline">Agency OS é<br>tudo isso e<br><em>muito mais.</em></div>
+        <div class="t05-chips">
+          <div class="t05-chip t05-chip-amber">Automação Total</div>
+          <div class="t05-chip t05-chip-dark">Agentes IA</div>
+          <div class="t05-chip t05-chip-success">Resultados Reais</div>
+          <div class="t05-chip t05-chip-outline">Relatórios</div>
+          <div class="t05-chip t05-chip-dark">Multi-cliente</div>
+          <div class="t05-chip-arrow">→</div>
+          <div class="t05-chip t05-chip-amber">Gestão 360°</div>
+          <div class="t05-chip t05-chip-outline">Kanban Inteligente</div>
+          <div class="t05-chip t05-chip-dark">Whitelabel</div>
+        </div>
+        <div class="t05-sub">
+          <div class="t05-sub-plus">+</div>
+          <span>Simplifique a gestão da sua agência. <strong>Seja Agency OS.</strong></span>
+        </div>
+        <div class="t05-logo-row">
+          <div class="t05-logo">Agency <span>OS</span></div>
+          <div class="t05-url">🌐 agencyos.com.br</div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-notes">
+      <strong>Estrutura:</strong> Headline 3 linhas extra-bold (900) com gradiente pontilhado no fundo → Nuvem de chips em fluxo orgânico com variação de estilos → Subtexto com ícone + logo + URL.<br>
+      <strong>Tokens-chave:</strong> <code>--accent</code>, <code>--bg-elevated</code>, <code>--success-subtle</code>, <code>--border-strong</code><br>
+      <strong>Variações:</strong> Chips podem refletir benefícios específicos por vertical (e-commerce, consultoria, etc.). Fundo pode ser <code>--bg-surface</code> para versão mais clara.
+    </div>
+  </div>
+
+  <!-- ── T06: FUNDO SÓLIDO + PREVIEW ── -->
+  <div class="tpl-block">
+    <div class="tpl-label">
+      <div class="tpl-num">06</div>
+      <div>
+        <div class="tpl-name">Fundo Sólido + Preview + Ícones</div>
+        <div class="tpl-use">Destaque de feature · Lançamento de módulo · Post âmbar de marca</div>
+      </div>
+    </div>
+    <div class="tpl-canvas">
+      <div class="t06">
+        <div class="t06-arrow">→</div>
+        <div class="t06-headline">Para gerenciar<br>mais com<br>menos esforço</div>
+        <div class="t06-preview">
+          <div class="t06-preview-left">
+            <div class="t06-preview-title">Agency OS · Dashboard</div>
+            <div class="t06-preview-sub">Visão geral em tempo real</div>
+          </div>
+          <div class="t06-preview-right">📊</div>
+        </div>
+        <div class="t06-icons">
+          <div class="t06-icon-box">
+            <span>🤖</span>
+            <div class="t06-icon-label">Agentes IA</div>
+          </div>
+          <div class="t06-icon-box">
+            <span>📋</span>
+            <div class="t06-icon-label">Kanban</div>
+          </div>
+          <div class="t06-icon-box">
+            <span>💬</span>
+            <div class="t06-icon-label">Briefing</div>
+          </div>
+          <div class="t06-icon-box">
+            <span>📈</span>
+            <div class="t06-icon-label">Relatórios</div>
+          </div>
+        </div>
+        <div class="t06-logo-row">
+          <div class="t06-logo-icon">⚡</div>
+          <div class="t06-logo-name">Agency OS</div>
+          <div class="t06-logo-sub">Gestão de Agências</div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-notes">
+      <strong>Estrutura:</strong> Fundo sólido âmbar (--accent) → Seta decorativa → Headline bold sobre o fundo → Card preview do app → Grid 4 ícones com label → Logo bottom.<br>
+      <strong>Tokens-chave:</strong> <code>--accent</code> como background, <code>--text-inverse</code> para texto, <code>--shadow-md</code><br>
+      <strong>Variações:</strong> Fundo pode ser <code>--bg-base</code> (escuro) com texto claro para versão invertida. Ícones trocam conforme o módulo destacado.
+    </div>
+  </div>
+
+  <!-- ── T07: GRID ESCURO + AGENTES ── -->
+  <div class="tpl-block">
+    <div class="tpl-label">
+      <div class="tpl-num">07</div>
+      <div>
+        <div class="tpl-name">Grid Escuro + Agentes</div>
+        <div class="tpl-use">Showcase de IA · Posts de time · Funcionalidades de tagging</div>
+      </div>
+    </div>
+    <div class="tpl-canvas">
+      <div class="t07">
+        <!-- Hero central -->
+        <div class="t07-hero">⚡</div>
+
+        <!-- Quadrante 1 (topo-esq) -->
+        <div class="t07-cell">
+          <div class="t07-cell-avatar">👩‍💼</div>
+          <div class="t07-cell-tags">
+            <div class="t07-tag t07-tag-accent">⚡ Alta Prioridade ×</div>
+            <div class="t07-tag">💬 Follow-up ×</div>
+          </div>
+          <div class="t07-bar"><div class="t07-bar-fill" style="width:75%"></div></div>
+        </div>
+
+        <!-- Quadrante 2 (topo-dir) -->
+        <div class="t07-cell">
+          <div class="t07-cell-avatar">👨‍💻</div>
+          <div class="t07-cell-tags">
+            <div class="t07-tag t07-tag-red">🔴 Urgente ×</div>
+          </div>
+          <div class="t07-bar"><div class="t07-bar-fill" style="width:45%"></div></div>
+        </div>
+
+        <!-- Quadrante 3 (baixo-esq) -->
+        <div class="t07-cell">
+          <div class="t07-cell-tags">
+            <div class="t07-tag t07-tag-green">✅ Concluído ×</div>
+          </div>
+          <div class="t07-cell-avatar" style="margin-top:4px">🧑‍🎨</div>
+          <div class="t07-bar"><div class="t07-bar-fill" style="width:90%"></div></div>
+        </div>
+
+        <!-- Quadrante 4 (baixo-dir) -->
+        <div class="t07-cell">
+          <div class="t07-cell-avatar">👩‍🔬</div>
+          <div class="t07-cell-tags">
+            <div class="t07-tag t07-tag-accent">🎯 Alta Intenção ×</div>
+            <div class="t07-tag">💬 Contato ×</div>
+          </div>
+        </div>
+
+        <!-- Bottom headline overlay -->
+        <div class="t07-bottom-overlay">
+          <div class="t07-bottom-headline">Seu agente IA<br>organiza tudo <em>por você</em></div>
+          <div class="t07-bottom-sub">Agency OS · Tags automáticas por contexto</div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-notes">
+      <strong>Estrutura:</strong> Fundo gradiente escuro-roxo → Grid 2×2 de cards glassmorphism com avatar + tags + barra de progresso → Ícone hero âmbar centralizado absolutamente → Overlay no bottom com headline bold.<br>
+      <strong>Tokens-chave:</strong> <code>--bg-base</code>, <code>--accent-subtle</code>, <code>--error-subtle</code>, <code>--success-subtle</code>, <code>--shadow-xl</code><br>
+      <strong>Variações:</strong> Cards podem mostrar clientes reais (com avatares). Tags refletem os status e etiquetas reais usados no Agency OS.
+    </div>
+  </div>
+
+</div><!-- /templates-grid -->
+
+
+<!-- ── GUIA DE USO PARA AGENTES ── -->
+<div class="guide-section">
+  <h2>Guia de Uso para Agentes IA</h2>
+  <div class="guide-grid">
+
+    <div class="guide-card">
+      <div class="guide-card-num">Template 01</div>
+      <div class="guide-card-name">Produto Flutuante</div>
+      <div class="guide-card-desc">Use quando o foco é mostrar a interface do produto com features ao redor. Ideal para posts de lançamento ou demonstração de funcionalidade.</div>
+      <div class="guide-card-tags">
+        <div class="guide-tag">Fundo escuro</div><div class="guide-tag">Pills flutuantes</div><div class="guide-tag">Card central</div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-card-num">Template 02</div>
+      <div class="guide-card-name">Modal Clean</div>
+      <div class="guide-card-desc">Para apresentar formulários, cadastros, acessos ou features específicas em destaque. Tom mais sóbrio e profissional.</div>
+      <div class="guide-card-tags">
+        <div class="guide-tag">Gradiente fundo</div><div class="guide-tag">Card elevado</div><div class="guide-tag">Form</div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-card-num">Template 03</div>
+      <div class="guide-card-name">Título + Cards Foto</div>
+      <div class="guide-card-desc">Ideal para mostrar múltiplos serviços, agentes ou produtos lado a lado com imagem/emoji + texto descritivo.</div>
+      <div class="guide-card-tags">
+        <div class="guide-tag">Grid 2-col</div><div class="guide-tag">Card strip</div><div class="guide-tag">Overlay texto</div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-card-num">Template 04</div>
+      <div class="guide-card-name">Problema → Solução</div>
+      <div class="guide-card-desc">Copy de dor e solução em balões empilhados. Use quando quiser mostrar contraste antes/depois ou apresentar uma prova social com dados.</div>
+      <div class="guide-card-tags">
+        <div class="guide-tag">Balões empilhados</div><div class="guide-tag">Stats × 3</div><div class="guide-tag">CTA âmbar</div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-card-num">Template 05</div>
+      <div class="guide-card-name">Título Bold + Tags</div>
+      <div class="guide-card-desc">Posicionamento de marca. Headline enorme + nuvem de chips coloridos. Funciona bem para posts de proposta de valor e identidade.</div>
+      <div class="guide-card-tags">
+        <div class="guide-tag">Headline 900</div><div class="guide-tag">Chip cloud</div><div class="guide-tag">Grid texture</div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-card-num">Template 06</div>
+      <div class="guide-card-name">Fundo Sólido + Preview</div>
+      <div class="guide-card-desc">Fundo âmbar cheio para máximo impacto visual. Use para destacar um módulo específico do produto com ícones abaixo. Tom mais "energético".</div>
+      <div class="guide-card-tags">
+        <div class="guide-tag">Fundo --accent</div><div class="guide-tag">Preview app</div><div class="guide-tag">Ícone grid</div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-card-num">Template 07</div>
+      <div class="guide-card-name">Grid Escuro + Agentes</div>
+      <div class="guide-card-desc">Para mostrar múltiplos agentes/clientes em ação com tags. O ícone central cria foco e o overlay bottom ancora a narrativa com uma frase de impacto.</div>
+      <div class="guide-card-tags">
+        <div class="guide-tag">2×2 grid</div><div class="guide-tag">Hero icon</div><div class="guide-tag">Tags dinâmicas</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+// Subtle entrance animation for template canvases
+const canvases = document.querySelectorAll('.tpl-canvas');
+const io = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '0';
+      entry.target.style.transform = 'translateY(16px)';
+      entry.target.style.transition = `opacity 400ms ease ${i * 60}ms, transform 400ms ease ${i * 60}ms`;
+      requestAnimationFrame(() => {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      });
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+canvases.forEach(c => io.observe(c));
+</script>
+</body>
+</html>

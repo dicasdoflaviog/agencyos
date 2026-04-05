@@ -15,14 +15,14 @@ function AgentCard({ agent, squad, onClick }: AgentCardProps) {
   return (
     <button
       onClick={onClick}
-      className="group w-full text-left rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/[0.15] transition-all duration-200 p-5 flex flex-col gap-4"
+      className="group w-full text-left rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-strong)] transition-all duration-200 p-5 flex flex-col gap-4"
     >
       {/* Top row */}
       <div className="flex items-start justify-between">
         <div className={`flex items-center justify-center w-12 h-12 rounded-xl text-2xl border ${squad.colorBorder} ${squad.colorBg} flex-shrink-0`}>
           {agent.emoji}
         </div>
-        <ChevronRight size={16} className="text-zinc-600 group-hover:text-zinc-400 transition-colors mt-1" />
+        <ChevronRight size={16} className="text-[var(--color-text-muted)] group-hover:text-[var(--color-text-secondary)] transition-colors mt-1" />
       </div>
 
       {/* Name + role */}
@@ -32,7 +32,7 @@ function AgentCard({ agent, squad, onClick }: AgentCardProps) {
       </div>
 
       {/* Bio preview */}
-      <p className="text-xs text-zinc-500 leading-relaxed line-clamp-2">{agent.bio}</p>
+      <p className="text-xs text-[var(--color-text-muted)] leading-relaxed line-clamp-2">{agent.bio}</p>
 
       {/* Specialty tags */}
       <div className="flex flex-wrap gap-1.5 mt-auto">
@@ -42,7 +42,7 @@ function AgentCard({ agent, squad, onClick }: AgentCardProps) {
           </span>
         ))}
         {agent.specialties.length > 3 && (
-          <span className="text-[10px] text-zinc-600 px-2 py-0.5">+{agent.specialties.length - 3}</span>
+          <span className="text-[10px] text-[var(--color-text-disabled)] px-2 py-0.5">+{agent.specialties.length - 3}</span>
         )}
       </div>
     </button>
@@ -69,7 +69,7 @@ function SquadSection({ squad, onSelect }: SquadSectionProps) {
               {squad.agents.length} agentes
             </span>
           </div>
-          <p className="text-sm text-zinc-500">{squad.tagline}</p>
+          <p className="text-sm text-[var(--color-text-muted)]">{squad.tagline}</p>
         </div>
       </div>
 
@@ -104,11 +104,11 @@ export function MarketplaceClient({ squads }: Props) {
         <div className="flex items-center gap-3 mb-2">
           <Users size={22} className="text-[var(--color-accent)]" />
           <h1 className="text-3xl font-bold text-white tracking-tight">Conheça seu Time</h1>
-          <span className="text-sm font-semibold text-zinc-500 bg-white/[0.05] border border-white/[0.08] px-2.5 py-1 rounded-full">
+          <span className="text-sm font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-elevated)] border border-[var(--color-border-default)] px-2.5 py-1 rounded-full">
             {totalAgents} agentes
           </span>
         </div>
-        <p className="text-sm text-zinc-500 max-w-xl">
+        <p className="text-sm text-[var(--color-text-muted)] max-w-xl">
           Cada agente é um especialista de alto nível, treinado para uma função específica. Clique em qualquer um para ver o perfil completo e acioná-lo.
         </p>
       </div>

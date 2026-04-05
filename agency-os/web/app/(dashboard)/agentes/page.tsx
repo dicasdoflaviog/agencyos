@@ -1,9 +1,9 @@
 import { MarketplaceClient } from '@/components/marketplace/MarketplaceClient'
 import { SQUADS } from '@/lib/team-data'
 
-export const metadata = { title: 'Time de IA | Agency OS' }
+export const metadata = { title: 'Time de Agentes | Agency OS' }
 
-export default function MarketplacePage() {
+export default function AgentesPage() {
   return (
     <div>
       <MarketplaceClient squads={SQUADS} />

@@ -245,25 +245,35 @@
 
 /* ── Tailwind theme — mapeia tokens para utilities ───────── */
 @theme inline {
-  /* Colors */
-  --color-bg:              var(--color-bg-base);
-  --color-surface:         var(--color-bg-surface);
-  --color-surface-raised:  var(--color-bg-elevated);
-  --color-overlay:         var(--color-bg-overlay);
-  --color-text:            var(--color-text-primary);
-  --color-muted:           var(--color-text-secondary);
-  --color-accent:          var(--color-accent);
-  --color-accent-hover:    var(--color-accent-hover);
-  --color-accent-fg:       var(--color-text-inverse);
-  --color-success:         var(--color-success);
-  --color-error:           var(--color-error);
-  --color-warning:         var(--color-warning);
-  --color-info:            var(--color-info);
+  /* Backgrounds */
+  --color-base:             var(--color-bg-base);
+  --color-surface:          var(--color-bg-surface);
+  --color-elevated:         var(--color-bg-elevated);
+  --color-overlay:          var(--color-bg-overlay);
+  --color-hover:            var(--color-bg-hover);
+  --color-active-bg:        var(--color-bg-active);
 
-  /* Fonts — Next.js font vars */
-  --font-sans:    var(--font-inter);
-  --font-display: var(--font-calistoga);
-  --font-mono:    var(--font-jetbrains);
+  /* Text (renamed to avoid 'text-text-*' ugliness) */
+  --color-primary:          var(--color-text-primary);
+  --color-secondary:        var(--color-text-secondary);
+  --color-muted:            var(--color-text-muted);
+  --color-disabled:         var(--color-text-disabled);
+
+  /* Accent */
+  --color-accent:           var(--color-accent);
+  --color-accent-hover:     var(--color-accent-hover);
+  --color-accent-fg:        var(--color-text-inverse);
+
+  /* Status */
+  --color-success:          var(--color-success);
+  --color-error:            var(--color-error);
+  --color-warning:          var(--color-warning);
+  --color-info:             var(--color-info);
+
+  /* Fonts */
+  --font-sans:              var(--font-inter);
+  --font-display:           var(--font-calistoga);
+  --font-mono:              var(--font-jetbrains);
 }
 
 /* ── Base styles ──────────────────────────────────────────── */
