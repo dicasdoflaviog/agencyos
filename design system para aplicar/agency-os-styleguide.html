@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency OS — Design System v2.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS DARK (padrão) ────────────────── */
+:root, [data-theme="dark"] {
+  --bg-base:       #0C0C0E;
+  --bg-surface:    #131317;
+  --bg-elevated:   #1C1C22;
+  --bg-overlay:    #26262F;
+  --bg-hover:      #2A2A35;
+  --bg-active:     #313140;
+
+  --border-subtle:  #1E1E28;
+  --border-default: #2C2C3A;
+  --border-strong:  #3F3F52;
+
+  --text-primary:   #F0F0F5;
+  --text-secondary: #A0A0B8;
+  --text-muted:     #686880;
+  --text-disabled:  #3E3E52;
+  --text-inverse:   #0C0C0E;
+
+  --accent:        #F59E0B;
+  --accent-hover:  #D97706;
+  --accent-active: #B45309;
+  --accent-subtle: rgba(245,158,11,0.12);
+  --accent-ring:   rgba(245,158,11,0.40);
+
+  --success:        #10B981;
+  --success-subtle: rgba(16,185,129,0.12);
+  --success-text:   #34D399;
+  --error:          #EF4444;
+  --error-subtle:   rgba(239,68,68,0.12);
+  --error-text:     #FCA5A5;
+  --warning:        #F59E0B;
+  --warning-subtle: rgba(245,158,11,0.12);
+  --info:           #3B82F6;
+  --info-subtle:    rgba(59,130,246,0.12);
+  --info-text:      #93C5FD;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg: 0 10px 24px rgba(0,0,0,0.6);
+
+  --code-string: #86EFAC;
+  --code-key:    #F9A8D4;
+  --code-value:  #93C5FD;
+  --code-bg:     #1C1C22;
+}
+
+/* ── TOKENS LIGHT ────────────────────────── */
+[data-theme="light"] {
+  --bg-base:       #F4F4F7;
+  --bg-surface:    #FFFFFF;
+  --bg-elevated:   #F8F8FB;
+  --bg-overlay:    #EDEDF4;
+  --bg-hover:      #EAEAF2;
+  --bg-active:     #E0E0EE;
+
+  --border-subtle:  #E8E8F0;
+  --border-default: #D4D4E0;
+  --border-strong:  #B8B8CC;
+
+  --text-primary:   #0C0C14;
+  --text-secondary: #4A4A6A;
+  --text-muted:     #7A7A96;
+  --text-disabled:  #C0C0D4;
+  --text-inverse:   #FFFFFF;
+
+  --accent:        #F59E0B;
+  --accent-hover:  #D97706;
+  --accent-active: #B45309;
+  --accent-subtle: rgba(245,158,11,0.10);
+  --accent-ring:   rgba(245,158,11,0.30);
+
+  --success:        #059669;
+  --success-subtle: rgba(5,150,105,0.10);
+  --success-text:   #065F46;
+  --error:          #DC2626;
+  --error-subtle:   rgba(220,38,38,0.10);
+  --error-text:     #7F1D1D;
+  --warning:        #D97706;
+  --warning-subtle: rgba(217,119,6,0.10);
+  --info:           #2563EB;
+  --info-subtle:    rgba(37,99,235,0.10);
+  --info-text:      #1E3A8A;
+
+  --shadow-sm: 0 1px 3px rgba(10,10,30,0.08);
+  --shadow-md: 0 4px 12px rgba(10,10,30,0.10);
+  --shadow-lg: 0 10px 24px rgba(10,10,30,0.12);
+
+  --code-string: #166534;
+  --code-key:    #9D174D;
+  --code-value:  #1E40AF;
+  --code-bg:     #F1F5F9;
+}
+
+/* ── TOKENS FIXOS ────────────────────────── */
+:root {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-full:9999px;
+
+  /* Easing */
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-sharp:      cubic-bezier(0.4, 0, 1, 1);
+
+  /* Durations */
+  --dur-fast:     100ms;
+  --dur-base:     200ms;
+  --dur-moderate: 300ms;
+  --dur-slow:     450ms;
+}
+
+/* ── THEME TRANSITION GLOBAL ─────────────── */
+*, *::before, *::after {
+  transition:
+    background-color var(--dur-moderate) var(--ease-smooth),
+    border-color     var(--dur-moderate) var(--ease-smooth),
+    color            var(--dur-fast)     var(--ease-smooth),
+    box-shadow       var(--dur-moderate) var(--ease-smooth);
+}
+
+/* ── KEYFRAMES ───────────────────────────── */
+@keyframes fade-up    { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fade-in    { from{opacity:0} to{opacity:1} }
+@keyframes scale-in   { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
+@keyframes slide-right{ from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+@keyframes bounce-in  { 0%{transform:scale(0.5);opacity:0} 60%{transform:scale(1.12)} 80%{transform:scale(0.96)} 100%{transform:scale(1);opacity:1} }
+@keyframes shimmer    { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@keyframes spin       { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes pulse-soft { 0%,100%{opacity:1} 50%{opacity:.45} }
+@keyframes ripple     { 0%{transform:scale(0);opacity:.4} 100%{transform:scale(4);opacity:0} }
+
+/* ── RESET ───────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--bg-base);color:var(--text-primary);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg-base)}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:999px}
+a{color:var(--accent);text-decoration:none}
+
+/* ── LAYOUT ──────────────────────────────── */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:220px;min-width:220px;background:var(--bg-surface);border-right:1px solid var(--border-subtle);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.sidebar-logo{padding:0 20px 24px;border-bottom:1px solid var(--border-subtle);margin-bottom:8px}
+.sidebar-logo span{font-size:18px;font-weight:700;color:var(--text-primary)}
+.sidebar-logo span em{color:var(--accent);font-style:normal}
+.nav-section{padding:8px 12px;font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:var(--radius-md);font-size:14px;color:var(--text-secondary);cursor:pointer;transition:all 150ms ease;text-decoration:none}
+.nav-item:hover{background:var(--bg-hover);color:var(--text-primary)}
+.nav-item.active{background:var(--accent-subtle);color:var(--accent);font-weight:500}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.nav-item.active svg{opacity:1}
+
+.main{flex:1;overflow-x:hidden}
+.topbar{height:56px;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100;gap:12px}
+.topbar-title{font-size:14px;font-weight:600;color:var(--text-secondary)}
+.topbar-badge{background:var(--accent-subtle);color:var(--accent);font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full)}
+
+.content{padding:40px 48px;max-width:1200px}
+.page-title{font-size:32px;font-weight:800;color:var(--text-primary);letter-spacing:-.02em;margin-bottom:4px}
+.page-desc{font-size:15px;color:var(--text-secondary);margin-bottom:48px}
+
+/* ── SEÇÕES DO STYLEGUIDE ────────────────── */
+.section{margin-bottom:64px;scroll-margin-top:80px}
+.section-header{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border-subtle)}
+.section-title{font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:-.01em}
+.section-desc{font-size:13px;color:var(--text-muted);margin-top:4px}
+
+/* ── GRID DEMO ───────────────────────────── */
+.demo-grid{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+.demo-col{display:flex;flex-direction:column;gap:12px}
+
+/* ── COLOR SWATCHES ──────────────────────── */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.swatch{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-subtle)}
+.swatch-color{height:52px}
+.swatch-info{padding:6px 8px;background:var(--bg-elevated)}
+.swatch-name{font-size:11px;font-weight:600;color:var(--text-secondary)}
+.swatch-hex{font-family:var(--font-mono);font-size:10px;color:var(--text-muted)}
+.color-row{display:flex;flex-direction:column;gap:4px}
+.color-scale{display:flex;height:32px;border-radius:var(--radius-md);overflow:hidden}
+.color-scale-item{flex:1;position:relative}
+.color-scale-item:hover::after{content:attr(data-label);position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--text-muted);white-space:nowrap}
+
+/* ── TYPOGRAPHY ──────────────────────────── */
+.type-row{padding:16px 0;border-bottom:1px solid var(--border-subtle);display:flex;align-items:baseline;gap:24px}
+.type-row:last-child{border-bottom:none}
+.type-meta{min-width:120px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted)}
+.type-sample{flex:1}
+
+/* ── BOTÕES ──────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-weight:500;cursor:pointer;border:none;transition:all 150ms ease;white-space:nowrap;text-decoration:none}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+
+/* Tamanhos */
+.btn-sm{height:32px;padding:0 12px;font-size:13px;border-radius:var(--radius-md)}
+.btn-md{height:40px;padding:0 16px;font-size:14px;border-radius:var(--radius-md)}
+.btn-lg{height:48px;padding:0 20px;font-size:15px;border-radius:var(--radius-lg)}
+
+/* Variantes */
+.btn-primary{background:var(--accent);color:var(--text-inverse);}
+.btn-primary:hover{background:var(--accent-hover);}
+.btn-primary:active{background:var(--accent-active);}
+
+.btn-secondary{background:var(--bg-elevated);color:var(--text-primary);border:1px solid var(--border-default);}
+.btn-secondary:hover{background:var(--bg-hover);border-color:var(--border-strong);}
+
+.btn-ghost{background:transparent;color:var(--text-secondary);}
+.btn-ghost:hover{background:var(--bg-hover);color:var(--text-primary);}
+
+.btn-danger{background:var(--error-subtle);color:var(--error-text);border:1px solid rgba(239,68,68,0.25);}
+.btn-danger:hover{background:rgba(239,68,68,0.2);}
+
+.btn-success{background:var(--success-subtle);color:var(--success-text);border:1px solid rgba(16,185,129,0.25);}
+.btn-success:hover{background:rgba(16,185,129,0.2);}
+
+.btn-icon{width:40px;height:40px;padding:0;justify-content:center;}
+.btn-icon.btn-sm{width:32px;height:32px;}
+.btn-icon.btn-lg{width:48px;height:48px;}
+
+/* ── INPUTS ──────────────────────────────── */
+.field{display:flex;flex-direction:column;gap:6px;min-width:240px}
+.label{font-size:12px;font-weight:500;color:var(--text-secondary);letter-spacing:.02em}
+.label-required::after{content:'*';color:var(--error);margin-left:2px}
+.input{height:40px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:0 12px;font-family:var(--font-sans);font-size:14px;color:var(--text-primary);outline:none;transition:border-color 150ms ease,box-shadow 150ms ease;width:100%}
+.input::placeholder{color:var(--text-muted)}
+.input:hover{border-color:var(--border-strong)}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+.input.input-error{border-color:var(--error);box-shadow:0 0 0 3px rgba(239,68,68,.2)}
+.input.input-success{border-color:var(--success);box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+.input:disabled{opacity:.5;cursor:not-allowed}
+.input-hint{font-size:12px;color:var(--text-muted)}
+.input-error-msg{font-size:12px;color:var(--error-text)}
+.input-success-msg{font-size:12px;color:var(--success-text)}
+.textarea{height:96px;padding:10px 12px;resize:vertical}
+.select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23686880' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;cursor:pointer}
+
+/* ── CARDS ───────────────────────────────── */
+.card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:24px}
+.card-sm{padding:16px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:600;color:var(--text-primary)}
+.card-desc{font-size:13px;color:var(--text-muted);margin-top:2px}
+.card:hover{border-color:var(--border-default)}
+.card-interactive{cursor:pointer;transition:all 150ms ease}
+.card-interactive:hover{border-color:var(--border-strong);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.card-accent{border-left:3px solid var(--accent)}
+
+/* ── BADGES ──────────────────────────────── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--radius-full);font-size:11px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.badge-amber{background:var(--accent-subtle);color:var(--accent)}
+.badge-green{background:var(--success-subtle);color:var(--success-text)}
+.badge-red{background:var(--error-subtle);color:var(--error-text)}
+.badge-blue{background:var(--info-subtle);color:var(--info-text)}
+.badge-gray{background:rgba(160,160,184,.12);color:var(--text-secondary)}
+.badge-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+
+/* ── TAGS / CHIPS ─────────────────────────── */
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--radius-full);border:1px solid var(--border-default);background:var(--bg-elevated);font-size:12px;color:var(--text-secondary);cursor:pointer;transition:all 150ms ease}
+.chip:hover{border-color:var(--border-strong);color:var(--text-primary)}
+.chip.active{border-color:var(--accent);background:var(--accent-subtle);color:var(--accent)}
+
+/* ── AVATAR ──────────────────────────────── */
+.avatar{border-radius:var(--radius-full);display:inline-flex;align-items:center;justify-content:center;font-weight:600;overflow:hidden;flex-shrink:0}
+.avatar-xs{width:24px;height:24px;font-size:10px}
+.avatar-sm{width:32px;height:32px;font-size:12px}
+.avatar-md{width:40px;height:40px;font-size:14px}
+.avatar-lg{width:48px;height:48px;font-size:16px}
+.avatar-xl{width:64px;height:64px;font-size:20px}
+.avatar-amber{background:var(--accent-subtle);color:var(--accent)}
+.avatar-green{background:var(--success-subtle);color:var(--success-text)}
+.avatar-blue{background:var(--info-subtle);color:var(--info-text)}
+.avatar-purple{background:rgba(139,92,246,.15);color:#A78BFA}
+.avatar-group{display:flex}
+.avatar-group .avatar{border:2px solid var(--bg-surface);margin-left:-8px}
+.avatar-group .avatar:first-child{margin-left:0}
+
+/* ── TABS ────────────────────────────────── */
+.tabs{display:flex;border-bottom:1px solid var(--border-subtle);gap:0;overflow-x:auto}
+.tab{padding:10px 16px;font-size:14px;font-weight:500;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;transition:all 150ms ease;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--text-primary)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-count{background:var(--bg-overlay);color:var(--text-muted);font-size:11px;padding:1px 6px;border-radius:var(--radius-full)}
+.tab.active .tab-count{background:var(--accent-subtle);color:var(--accent)}
+
+/* ── TOAST / ALERTS ──────────────────────── */
+.toast{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:var(--radius-lg);border:1px solid;font-size:14px;margin-bottom:8px}
+.toast-success{background:var(--success-subtle);border-color:rgba(16,185,129,.25);color:var(--success-text)}
+.toast-error{background:var(--error-subtle);border-color:rgba(239,68,68,.25);color:var(--error-text)}
+.toast-warning{background:var(--warning-subtle);border-color:rgba(245,158,11,.25);color:#FCD34D}
+.toast-info{background:var(--info-subtle);border-color:rgba(59,130,246,.25);color:var(--info-text)}
+.toast-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.toast-body{flex:1}
+.toast-title{font-weight:600;margin-bottom:2px}
+.toast-msg{font-size:13px;opacity:.8}
+.toast-close{opacity:.5;cursor:pointer;font-size:16px;line-height:1;flex-shrink:0}
+.toast-close:hover{opacity:1}
+
+/* ── KANBAN CARD ─────────────────────────── */
+.kanban-card{background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:14px 16px;cursor:pointer;transition:all 150ms ease}
+.kanban-card:hover{border-color:var(--border-strong);box-shadow:var(--shadow-md)}
+.kanban-card-title{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:6px}
+.kanban-card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.kanban-card-client{font-size:12px;color:var(--text-muted)}
+.kanban-card-date{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:4px}
+.kanban-card-date.overdue{color:var(--error-text)}
+
+/* ── SIDEBAR AGENT LIST ──────────────────── */
+.agent-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--radius-md);cursor:pointer;transition:all 150ms ease}
+.agent-item:hover{background:var(--bg-hover)}
+.agent-item.selected{background:var(--accent-subtle)}
+.agent-avatar{width:30px;height:30px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.agent-info{flex:1;min-width:0}
+.agent-name{font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-role{font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-section{font-size:10px;font-weight:600;color:var(--text-disabled);letter-spacing:.08em;text-transform:uppercase;padding:12px 12px 4px}
+
+/* ── STAT CARD ───────────────────────────── */
+.stat-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:20px 24px;display:flex;flex-direction:column;gap:8px}
+.stat-label{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
+.stat-value{font-size:28px;font-weight:800;color:var(--text-primary);letter-spacing:-.02em;line-height:1}
+.stat-sub{font-size:12px;color:var(--text-muted)}
+.stat-icon{width:28px;height:28px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* ── EMPTY STATE ─────────────────────────── */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 24px;text-align:center;gap:12px}
+.empty-icon{width:56px;height:56px;border-radius:var(--radius-xl);background:var(--bg-elevated);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:4px}
+.empty-title{font-size:16px;font-weight:600;color:var(--text-primary)}
+.empty-desc{font-size:14px;color:var(--text-muted);max-width:320px;line-height:1.6}
+
+/* ── TABLE ───────────────────────────────── */
+.table-wrap{border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--bg-elevated)}
+th{padding:10px 16px;font-size:11px;font-weight:600;color:var(--text-muted);text-align:left;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border-subtle)}
+td{padding:12px 16px;font-size:14px;color:var(--text-primary);border-bottom:1px solid var(--border-subtle)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg-hover)}
+
+/* ── CODE BLOCK ──────────────────────────── */
+.code-block{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px;font-family:var(--font-mono);font-size:12px;color:#93C5FD;overflow-x:auto;line-height:1.7}
+.code-comment{color:var(--text-muted)}
+.code-key{color:#F9A8D4}
+.code-val{color:#86EFAC}
+
+/* ── PROGRESS ────────────────────────────── */
+.progress-wrap{display:flex;flex-direction:column;gap:6px;width:100%}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary)}
+.progress-bar{height:6px;background:var(--bg-overlay);border-radius:var(--radius-full);overflow:hidden}
+.progress-fill{height:100%;border-radius:var(--radius-full);transition:width .5s ease}
+
+/* ── SKELETON ────────────────────────────── */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton{background:linear-gradient(90deg,var(--bg-elevated) 25%,var(--bg-overlay) 50%,var(--bg-elevated) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius-md)}
+
+/* ── MODAL PREVIEW ───────────────────────── */
+.modal-overlay{background:rgba(0,0,0,.7);border-radius:var(--radius-lg);padding:32px;display:flex;align-items:center;justify-content:center}
+.modal{background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-xl);padding:24px;width:380px;box-shadow:var(--shadow-xl)}
+.modal-title{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:6px}
+.modal-desc{font-size:14px;color:var(--text-secondary);margin-bottom:20px;line-height:1.6}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+
+/* ── DIVIDER ─────────────────────────────── */
+.divider{height:1px;background:var(--border-subtle);margin:8px 0}
+
+/* ── MISC ────────────────────────────────── */
+.flex{display:flex}
+.flex-col{flex-direction:column}
+.items-center{align-items:center}
+.gap-2{gap:8px}
+.gap-3{gap:12px}
+.gap-4{gap:16px}
+.flex-wrap{flex-wrap:wrap}
+.text-sm{font-size:13px}
+.text-xs{font-size:11px}
+.text-muted{color:var(--text-muted)}
+.text-secondary{color:var(--text-secondary)}
+.font-mono{font-family:var(--font-mono)}
+.w-full{width:100%}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.mt-2{margin-top:8px}
+.mt-4{margin-top:16px}
+.p-4{padding:16px}
+.rounded{border-radius:var(--radius-md)}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <span>Agency <em>OS</em></span>
+  </div>
+  <div class="nav-section">Design System</div>
+  <a class="nav-item active" href="#cores">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+    Cores & Tokens
+  </a>
+  <a class="nav-item" href="#tipografia">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+    Tipografia
+  </a>
+  <a class="nav-item" href="#espacamento">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+    Espaçamento
+  </a>
+  <a class="nav-item" href="#botoes">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="3"/></svg>
+    Botões
+  </a>
+  <a class="nav-item" href="#inputs">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+    Inputs & Forms
+  </a>
+  <a class="nav-item" href="#cards">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+    Cards
+  </a>
+  <a class="nav-item" href="#badges">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+    Badges & Chips
+  </a>
+  <a class="nav-item" href="#avatares">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Avatares
+  </a>
+  <a class="nav-item" href="#tabs">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="8" y1="3" x2="8" y2="9"/></svg>
+    Tabs & Nav
+  </a>
+  <a class="nav-item" href="#feedbacks">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Feedbacks
+  </a>
+  <a class="nav-item" href="#layout">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="8" rx="1"/><rect x="14" y="15" width="7" height="6" rx="1"/></svg>
+    Layouts Padrão
+  </a>
+  <a class="nav-item" href="#agencia">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    Componentes App
+  </a>
+  <a class="nav-item" href="#animacoes">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Animações
+  </a>
+</nav>
+
+<!-- ── CONTEÚDO ── -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title">Design System</span>
+    <span class="topbar-badge">v2.1</span>
+    <div style="flex:1"></div>
+    <span style="font-size:13px;color:var(--text-muted)" id="theme-label">Dark · Amber Accent · Acessível</span>
+    <button class="btn btn-icon btn-secondary theme-toggle" id="theme-toggle" title="Alternar tema" style="margin-left:12px;font-size:18px;line-height:1">🌙</button>
+  </div>
+
+  <div class="content">
+    <h1 class="page-title">Agency OS Design System</h1>
+    <p class="page-desc">Guia completo de componentes, tokens e padrões visuais para o Agency OS v2.0</p>
+
+    <!-- ════════════════════════════════════
+         CORES
+    ═════════════════════════════════════ -->
+    <section class="section" id="cores">
+      <div class="section-header">
+        <h2 class="section-title">Cores & Tokens</h2>
+        <p class="section-desc">Paleta completa do design system — use sempre os tokens, nunca valores hardcoded</p>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Backgrounds</h3>
+      <div class="swatches" style="margin-bottom:24px">
+        <div class="swatch"><div class="swatch-color" style="background:#0C0C0E;border:1px solid #222"></div><div class="swatch-info"><div class="swatch-name">bg-base</div><div class="swatch-hex">#0C0C0E</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#131317"></div><div class="swatch-info"><div class="swatch-name">bg-surface</div><div class="swatch-hex">#131317</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1C1C22"></div><div class="swatch-info"><div class="swatch-name">bg-elevated</div><div class="swatch-hex">#1C1C22</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#26262F"></div><div class="swatch-info"><div class="swatch-name">bg-overlay</div><div class="swatch-hex">#26262F</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#2A2A35"></div><div class="swatch-info"><div class="swatch-name">bg-hover</div><div class="swatch-hex">#2A2A35</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#313140"></div><div class="swatch-info"><div class="swatch-name">bg-active</div><div class="swatch-hex">#313140</div></div></div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Accent — Amber Scale</h3>
+      <div class="color-scale" style="border-radius:var(--radius-md);overflow:hidden;height:40px;margin-bottom:8px">
+        <div style="flex:1;background:#FFFBEB" title="50"></div>
+        <div style="flex:1;background:#FEF3C7" title="100"></div>
+        <div style="flex:1;background:#FDE68A" title="200"></div>
+        <div style="flex:1;background:#FCD34D" title="300"></div>
+        <div style="flex:1;background:#FBBF24" title="400"></div>
+        <div style="flex:1;background:#F59E0B;outline:2px solid #fff;outline-offset:-2px" title="500 ← primária"></div>
+        <div style="flex:1;background:#D97706" title="600"></div>
+        <div style="flex:1;background:#B45309" title="700"></div>
+        <div style="flex:1;background:#92400E" title="800"></div>
+        <div style="flex:1;background:#78350F" title="900"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:24px">
+        <span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span style="color:var(--accent)">500 ★</span><span>600</span><span>700</span><span>800</span><span>900</span>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Texto</h3>
+      <div class="swatches" style="margin-bottom:24px">
+        <div class="swatch"><div class="swatch-color" style="background:#F0F0F5"></div><div class="swatch-info"><div class="swatch-name">primary</div><div class="swatch-hex">#F0F0F5</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#A0A0B8"></div><div class="swatch-info"><div class="swatch-name">secondary</div><div class="swatch-hex">#A0A0B8</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#686880"></div><div class="swatch-info"><div class="swatch-name">muted</div><div class="swatch-hex">#686880</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#3E3E52"></div><div class="swatch-info"><div class="swatch-name">disabled</div><div class="swatch-hex">#3E3E52</div></div></div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Status</h3>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch-color" style="background:#10B981"></div><div class="swatch-info"><div class="swatch-name">success</div><div class="swatch-hex">#10B981</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#EF4444"></div><div class="swatch-info"><div class="swatch-name">error</div><div class="swatch-hex">#EF4444</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#F59E0B"></div><div class="swatch-info"><div class="swatch-name">warning</div><div class="swatch-hex">#F59E0B</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#3B82F6"></div><div class="swatch-info"><div class="swatch-name">info</div><div class="swatch-hex">#3B82F6</div></div></div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         TIPOGRAFIA
+    ═════════════════════════════════════ -->
+    <section class="section" id="tipografia">
+      <div class="section-header">
+        <h2 class="section-title">Tipografia</h2>
+        <p class="section-desc">Inter como fonte principal · JetBrains Mono para código</p>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">display / 48px<br>extrabold</div>
+        <div class="type-sample" style="font-size:48px;font-weight:800;line-height:1.1;letter-spacing:-.03em">Agency OS</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">h1 / 36px<br>bold</div>
+        <div class="type-sample" style="font-size:36px;font-weight:700;line-height:1.2;letter-spacing:-.02em">Visão geral da agência</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">h2 / 24px<br>semibold</div>
+        <div class="type-sample" style="font-size:24px;font-weight:600;line-height:1.3">Clientes ativos</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">h3 / 20px<br>semibold</div>
+        <div class="type-sample" style="font-size:20px;font-weight:600">Jobs em andamento</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">body-lg / 16px<br>regular</div>
+        <div class="type-sample" style="font-size:16px;line-height:1.6;color:var(--text-secondary)">Texto de descrição padrão. Use para parágrafos e conteúdo editorial que precisa de boa legibilidade em blocos maiores.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">body / 14px<br>regular</div>
+        <div class="type-sample" style="font-size:14px;line-height:1.5;color:var(--text-secondary)">Texto de corpo padrão para a aplicação. Labels, descrições de cards, conteúdo de tabelas e formulários.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">caption / 12px<br>medium</div>
+        <div class="type-sample" style="font-size:12px;font-weight:500;color:var(--text-muted)">LABELS DE FORMULÁRIO · METADADOS · TIMESTAMPS</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">overline / 11px<br>bold · uppercase</div>
+        <div class="type-sample" style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)">SEÇÃO DE CONFIGURAÇÕES</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">mono / 13px</div>
+        <div class="type-sample" style="font-family:var(--font-mono);font-size:13px;color:#93C5FD">--color-accent: #F59E0B;</div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         ESPAÇAMENTO
+    ═════════════════════════════════════ -->
+    <section class="section" id="espacamento">
+      <div class="section-header">
+        <h2 class="section-title">Espaçamento</h2>
+        <p class="section-desc">Escala em múltiplos de 4px · Use sempre os tokens</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;gap:8px;align-items:center" data-s="4"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:4px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-1</span><span style="font-size:13px;color:var(--text-secondary)">4px</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:8px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-2</span><span style="font-size:13px;color:var(--text-secondary)">8px</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:12px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-3</span><span style="font-size:13px;color:var(--text-secondary)">12px</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:16px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-4</span><span style="font-size:13px;color:var(--text-secondary)">16px</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:24px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-6</span><span style="font-size:13px;color:var(--text-secondary)">24px</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:32px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-8</span><span style="font-size:13px;color:var(--text-secondary)">32px</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:48px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-12</span><span style="font-size:13px;color:var(--text-secondary)">48px</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="background:var(--accent-subtle);border-left:3px solid var(--accent);height:24px;width:64px"></div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);min-width:80px">--space-16</span><span style="font-size:13px;color:var(--text-secondary)">64px</span></div>
+      </div>
+
+      <div style="margin-top:24px">
+        <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Border Radius</h3>
+        <div class="demo-grid">
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:4px"></div><span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">--radius-sm (4px)</span></div>
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:8px"></div><span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">--radius-md (8px)</span></div>
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:12px"></div><span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">--radius-lg (12px)</span></div>
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:16px"></div><span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">--radius-xl (16px)</span></div>
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:9999px"></div><span style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">--radius-full</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         BOTÕES
+    ═════════════════════════════════════ -->
+    <section class="section" id="botoes">
+      <div class="section-header">
+        <h2 class="section-title">Botões</h2>
+        <p class="section-desc">5 variantes · 3 tamanhos · estados hover/active/disabled/loading</p>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Variantes</h3>
+      <div class="demo-grid" style="margin-bottom:24px">
+        <button class="btn btn-primary btn-md">+ Novo Job</button>
+        <button class="btn btn-secondary btn-md">Cancelar</button>
+        <button class="btn btn-ghost btn-md">Ver todos</button>
+        <button class="btn btn-danger btn-md">Excluir</button>
+        <button class="btn btn-success btn-md">✓ Aprovar</button>
+        <button class="btn btn-primary btn-md" disabled>Desabilitado</button>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Tamanhos</h3>
+      <div class="demo-grid" style="align-items:center;margin-bottom:24px">
+        <button class="btn btn-primary btn-sm">Pequeno (sm)</button>
+        <button class="btn btn-primary btn-md">Médio (md)</button>
+        <button class="btn btn-primary btn-lg">Grande (lg)</button>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Ícones e Icon Buttons</h3>
+      <div class="demo-grid" style="align-items:center">
+        <button class="btn btn-primary btn-md">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Novo Cliente
+        </button>
+        <button class="btn btn-secondary btn-md">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Editar
+        </button>
+        <button class="btn btn-ghost btn-icon btn-md" title="Configurações">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+        <button class="btn btn-danger btn-icon btn-md" title="Deletar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         INPUTS
+    ═════════════════════════════════════ -->
+    <section class="section" id="inputs">
+      <div class="section-header">
+        <h2 class="section-title">Inputs & Forms</h2>
+        <p class="section-desc">Campos de texto, select, textarea com estados visuais claros</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:24px">
+        <div class="field">
+          <label class="label label-required">Nome do cliente</label>
+          <input class="input" type="text" placeholder="Ex: dicasdoflaviog">
+          <span class="input-hint">Será usado como identificador no sistema</span>
+        </div>
+        <div class="field">
+          <label class="label">Valor do contrato (R$)</label>
+          <input class="input" type="number" placeholder="0,00">
+        </div>
+        <div class="field">
+          <label class="label">Status do contrato</label>
+          <select class="input select">
+            <option>Em dia</option>
+            <option>Atrasado</option>
+            <option>Cancelado</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">E-mail (com erro)</label>
+          <input class="input input-error" type="email" value="email-invalido">
+          <span class="input-error-msg">✗ Formato de e-mail inválido</span>
+        </div>
+        <div class="field">
+          <label class="label">Slug (validado)</label>
+          <input class="input input-success" type="text" value="dicasdoflaviog">
+          <span class="input-success-msg">✓ Slug disponível</span>
+        </div>
+        <div class="field">
+          <label class="label">Campo desabilitado</label>
+          <input class="input" type="text" value="Somente leitura" disabled>
+        </div>
+        <div class="field" style="grid-column:1/-1">
+          <label class="label">Observações</label>
+          <textarea class="input textarea" placeholder="Notas internas sobre este cliente..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         CARDS
+    ═════════════════════════════════════ -->
+    <section class="section" id="cards">
+      <div class="section-header">
+        <h2 class="section-title">Cards</h2>
+        <p class="section-desc">Containers de conteúdo com variações de elevação e interatividade</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Card padrão</div>
+              <div class="card-desc">Informação estática</div>
+            </div>
+            <span class="badge badge-green badge-dot">Ativo</span>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.6">Use para exibir informações que não requerem ação imediata do usuário.</p>
+        </div>
+
+        <div class="card card-interactive">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Card clicável</div>
+              <div class="card-desc">Hover para ver o efeito</div>
+            </div>
+            <span class="badge badge-amber">Alta</span>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.6">Cards interativos elevam ligeiramente ao hover para comunicar clicabilidade.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Card destaque</div>
+              <div class="card-desc">Borda accent à esquerda</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.6">Use para destacar informações importantes ou itens em foco.</p>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin:24px 0 12px;color:var(--text-secondary)">Stat Cards (KPIs)</h3>
+      <div class="grid-4">
+        <div class="stat-card">
+          <div class="stat-label">CLIENTES ATIVOS<div class="stat-icon" style="background:var(--accent-subtle)">👥</div></div>
+          <div class="stat-value">12</div>
+          <div class="stat-sub">+3 este mês</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">JOBS EM ANDAMENTO<div class="stat-icon" style="background:var(--info-subtle)">💼</div></div>
+          <div class="stat-value">8</div>
+          <div class="stat-sub">2 em atraso</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">OUTPUTS APROVADOS<div class="stat-icon" style="background:var(--success-subtle)">✅</div></div>
+          <div class="stat-value">34</div>
+          <div class="stat-sub">Últimos 30 dias</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">MRR<div class="stat-icon" style="background:var(--success-subtle)">💰</div></div>
+          <div class="stat-value" style="color:var(--success-text)">R$ 8,4k</div>
+          <div class="stat-sub">+12% vs mês anterior</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         BADGES
+    ═════════════════════════════════════ -->
+    <section class="section" id="badges">
+      <div class="section-header">
+        <h2 class="section-title">Badges & Chips</h2>
+        <p class="section-desc">Indicadores de status, tags de categoria e filtros interativos</p>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Badges de status</h3>
+      <div class="demo-grid" style="margin-bottom:24px">
+        <span class="badge badge-green badge-dot">Ativo</span>
+        <span class="badge badge-amber badge-dot">Em Andamento</span>
+        <span class="badge badge-red badge-dot">Atrasado</span>
+        <span class="badge badge-blue badge-dot">Em Revisão</span>
+        <span class="badge badge-gray badge-dot">Rascunho</span>
+        <span class="badge badge-green">Aprovado</span>
+        <span class="badge badge-red">Rejeitado</span>
+        <span class="badge badge-amber">Alta</span>
+        <span class="badge badge-gray">Concluído</span>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Chips de filtro (interativos)</h3>
+      <div class="demo-grid">
+        <span class="chip active">🎯 Todos</span>
+        <span class="chip">📷 Visuais</span>
+        <span class="chip">✍️ Copy</span>
+        <span class="chip">🎠 Carrossel</span>
+        <span class="chip">🎬 Vídeo</span>
+        <span class="chip">🎙️ Áudio</span>
+        <span class="chip">📊 Estratégia</span>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         AVATARES
+    ═════════════════════════════════════ -->
+    <section class="section" id="avatares">
+      <div class="section-header">
+        <h2 class="section-title">Avatares</h2>
+        <p class="section-desc">Para usuários, clientes e agentes de IA</p>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Tamanhos</h3>
+      <div class="demo-grid" style="align-items:center;margin-bottom:24px">
+        <div class="avatar avatar-xs avatar-amber">F</div>
+        <div class="avatar avatar-sm avatar-amber">FG</div>
+        <div class="avatar avatar-md avatar-amber">FG</div>
+        <div class="avatar avatar-lg avatar-amber">FG</div>
+        <div class="avatar avatar-xl avatar-amber">FG</div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Cores para agentes IA</h3>
+      <div class="demo-grid" style="align-items:center;margin-bottom:24px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div class="avatar avatar-md avatar-amber" style="border-radius:var(--radius-md)">OR</div><span style="font-size:10px;color:var(--text-muted)">ORACLE</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div class="avatar avatar-md avatar-blue" style="border-radius:var(--radius-md)">NX</div><span style="font-size:10px;color:var(--text-muted)">NEXUS</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div class="avatar avatar-md avatar-purple" style="border-radius:var(--radius-md)">VE</div><span style="font-size:10px;color:var(--text-muted)">VERA</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div class="avatar avatar-md avatar-green" style="border-radius:var(--radius-md)">AT</div><span style="font-size:10px;color:var(--text-muted)">ATLAS</span></div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Avatar group</h3>
+      <div class="avatar-group">
+        <div class="avatar avatar-md avatar-amber">FG</div>
+        <div class="avatar avatar-md avatar-blue">JS</div>
+        <div class="avatar avatar-md avatar-green">MC</div>
+        <div class="avatar avatar-md avatar-purple">+3</div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         TABS
+    ═════════════════════════════════════ -->
+    <section class="section" id="tabs">
+      <div class="section-header">
+        <h2 class="section-title">Tabs & Navegação</h2>
+        <p class="section-desc">Navegação interna entre seções de uma mesma entidade</p>
+      </div>
+
+      <div class="tabs" style="margin-bottom:24px">
+        <div class="tab active">Overview</div>
+        <div class="tab">DNA</div>
+        <div class="tab">Contratos</div>
+        <div class="tab">CMS</div>
+        <div class="tab">Agenda</div>
+        <div class="tab">Métricas</div>
+        <div class="tab">Criativos <span class="tab-count">4</span></div>
+      </div>
+
+      <div class="card card-sm" style="border-radius:0 var(--radius-lg) var(--radius-lg) var(--radius-lg)">
+        <p style="font-size:14px;color:var(--text-secondary)">Conteúdo da aba ativa é exibido aqui. A aba com underline âmbar indica a seleção atual.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         FEEDBACKS
+    ═════════════════════════════════════ -->
+    <section class="section" id="feedbacks">
+      <div class="section-header">
+        <h2 class="section-title">Feedbacks & Alertas</h2>
+        <p class="section-desc">Toasts, alerts, progress e estados de loading</p>
+      </div>
+
+      <div style="max-width:480px;margin-bottom:24px">
+        <div class="toast toast-success">
+          <span class="toast-icon">✓</span>
+          <div class="toast-body">
+            <div class="toast-title">Output aprovado com sucesso</div>
+            <div class="toast-msg">O carrossel foi enviado para o cliente.</div>
+          </div>
+          <span class="toast-close">×</span>
+        </div>
+        <div class="toast toast-error">
+          <span class="toast-icon">✗</span>
+          <div class="toast-body">
+            <div class="toast-title">Erro ao salvar alterações</div>
+            <div class="toast-msg">Verifique sua conexão e tente novamente.</div>
+          </div>
+          <span class="toast-close">×</span>
+        </div>
+        <div class="toast toast-warning">
+          <span class="toast-icon">⚠</span>
+          <div class="toast-body">
+            <div class="toast-title">Job com prazo vencido</div>
+            <div class="toast-msg">post feed test venceu em 03/04/2026.</div>
+          </div>
+          <span class="toast-close">×</span>
+        </div>
+        <div class="toast toast-info">
+          <span class="toast-icon">ℹ</span>
+          <div class="toast-body">
+            <div class="toast-title">Novo agente disponível no Marketplace</div>
+            <div class="toast-msg">SEO Sage acabou de ser lançado.</div>
+          </div>
+          <span class="toast-close">×</span>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Barras de progresso</h3>
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:400px;margin-bottom:24px">
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Jobs concluídos</span><span>75%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--success)"></div></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Outputs aprovados</span><span>40%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:40%;background:var(--accent)"></div></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Taxa de conversão CRM</span><span>15%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:15%;background:var(--info)"></div></div>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Skeleton loading</h3>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:360px">
+        <div class="skeleton" style="height:20px;width:60%"></div>
+        <div class="skeleton" style="height:14px;width:90%"></div>
+        <div class="skeleton" style="height:14px;width:75%"></div>
+        <div class="skeleton" style="height:14px;width:50%"></div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         LAYOUT
+    ═════════════════════════════════════ -->
+    <section class="section" id="layout">
+      <div class="section-header">
+        <h2 class="section-title">Layouts Padrão</h2>
+        <p class="section-desc">Estruturas de página recorrentes na aplicação</p>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Empty State</h3>
+      <div class="card" style="max-width:400px;margin-bottom:24px">
+        <div class="empty-state">
+          <div class="empty-icon">📋</div>
+          <div class="empty-title">Nenhum relatório gerado</div>
+          <div class="empty-desc">Selecione um cliente acima para gerar o primeiro relatório de performance.</div>
+          <button class="btn btn-primary btn-md" style="margin-top:4px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Gerar relatório
+          </button>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Modal de confirmação</h3>
+      <div class="modal-overlay" style="max-width:480px">
+        <div class="modal">
+          <div class="modal-title">Excluir job?</div>
+          <div class="modal-desc">Tem certeza que deseja excluir <strong>"post feed test"</strong>? Todos os outputs e histórico serão permanentemente removidos.</div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost btn-md">Cancelar</button>
+            <button class="btn btn-danger btn-md">Excluir permanentemente</button>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:14px;margin:24px 0 12px;color:var(--text-secondary)">Tabela de dados</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Nicho</th>
+              <th>Contrato / mês</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar avatar-sm avatar-amber" style="border-radius:var(--radius-sm)">DC</div><div><div style="font-weight:500">dicasdoflaviog</div><div style="font-size:12px;color:var(--text-muted)">desde 03/04/2026</div></div></div></td>
+              <td style="color:var(--text-secondary)">Marketing / IA / Branding</td>
+              <td><span style="color:var(--text-muted)">—</span></td>
+              <td><span class="badge badge-green badge-dot">Em dia</span></td>
+              <td><button class="btn btn-ghost btn-sm">Editar</button></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar avatar-sm avatar-blue" style="border-radius:var(--radius-sm)">NC</div><div><div style="font-weight:500">novocliente</div><div style="font-size:12px;color:var(--text-muted)">desde 01/04/2026</div></div></div></td>
+              <td style="color:var(--text-secondary)">E-commerce / Performance</td>
+              <td style="font-weight:500;color:var(--success-text)">R$ 997/mês</td>
+              <td><span class="badge badge-amber badge-dot">Pendente</span></td>
+              <td><button class="btn btn-ghost btn-sm">Editar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         COMPONENTES ESPECÍFICOS
+    ═════════════════════════════════════ -->
+    <section class="section" id="agencia">
+      <div class="section-header">
+        <h2 class="section-title">Componentes da Aplicação</h2>
+        <p class="section-desc">Patterns específicos do Agency OS</p>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- Kanban Card -->
+        <div>
+          <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Job Kanban Card</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;max-width:280px">
+            <div class="kanban-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:11px;font-weight:600;color:var(--text-muted)">dicasdoflaviog</span>
+                <span class="badge badge-red">Alta</span>
+              </div>
+              <div class="kanban-card-title">post feed test</div>
+              <div class="kanban-card-meta">
+                <span class="kanban-card-client">2 outputs</span>
+                <span class="kanban-card-date overdue">⏰ 03/04/2026</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:11px;font-weight:600;color:var(--text-muted)">dicasdoflaviog</span>
+                <span class="badge badge-amber">Alta</span>
+              </div>
+              <div class="kanban-card-title">Agency OS</div>
+              <div class="kanban-card-meta">
+                <span class="kanban-card-client">0 outputs</span>
+                <span class="kanban-card-date">📅 05/04/2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent List -->
+        <div>
+          <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Lista de Agentes</h3>
+          <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:8px;max-width:240px">
+            <div class="agent-section">Orquestração</div>
+            <div class="agent-item selected">
+              <div class="agent-avatar" style="background:var(--accent-subtle);color:var(--accent)">OR</div>
+              <div class="agent-info">
+                <div class="agent-name">ORACLE</div>
+                <div class="agent-role">Head & Orquestrador</div>
+              </div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-avatar" style="background:var(--info-subtle);color:var(--info-text)">NX</div>
+              <div class="agent-info">
+                <div class="agent-name">NEXUS</div>
+                <div class="agent-role">Gerente de Cliente</div>
+              </div>
+            </div>
+            <div class="agent-section">Produção</div>
+            <div class="agent-item">
+              <div class="agent-avatar" style="background:rgba(139,92,246,.15);color:#A78BFA">VE</div>
+              <div class="agent-info">
+                <div class="agent-name">VERA Copy</div>
+                <div class="agent-role">Copywriter</div>
+              </div>
+            </div>
+            <div class="agent-item">
+              <div class="agent-avatar" style="background:var(--success-subtle);color:var(--success-text)">AT</div>
+              <div class="agent-info">
+                <div class="agent-name">ATLAS Design</div>
+                <div class="agent-role">Designer Visual</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Code snippet -->
+      <h3 class="section-title" style="font-size:14px;margin:24px 0 12px;color:var(--text-secondary)">Como usar os tokens no código</h3>
+      <div class="code-block">
+<span class="code-comment">/* ✅ CORRETO — usar sempre os tokens */</span>
+.<span class="code-key">meu-botao</span> {
+  <span class="code-key">background</span>: <span class="code-val">var(--color-accent)</span>;
+  <span class="code-key">color</span>: <span class="code-val">var(--color-text-inverse)</span>;
+  <span class="code-key">border-radius</span>: <span class="code-val">var(--radius-md)</span>;
+  <span class="code-key">padding</span>: <span class="code-val">var(--btn-padding-md)</span>;
+}
+
+<span class="code-comment">/* ❌ ERRADO — nunca hardcoded */</span>
+.<span class="code-key">meu-botao</span> {
+  <span class="code-key">background</span>: <span class="code-val">#F59E0B</span>; <span class="code-comment">/* hardcoded */</span>
+  <span class="code-key">color</span>: <span class="code-val">#0C0C0E</span>; <span class="code-comment">/* hardcoded */</span>
+  <span class="code-key">border-radius</span>: <span class="code-val">8px</span>; <span class="code-comment">/* hardcoded */</span>
+}
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         ANIMAÇÕES & MICRO-INTERAÇÕES
+    ═════════════════════════════════════ -->
+    <section class="section" id="animacoes">
+      <div class="section-header">
+        <h2 class="section-title">Animações & Micro-interações</h2>
+        <p class="section-desc">Tokens de easing/duração e todas as animações do sistema — com demos ao vivo</p>
+      </div>
+
+      <!-- Easing curves -->
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Curvas de Easing</h3>
+      <div class="grid-2" style="margin-bottom:32px">
+        <div class="card card-sm">
+          <div style="font-size:12px;font-weight:600;color:var(--accent);font-family:var(--font-mono);margin-bottom:4px">--ease-spring</div>
+          <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:10px">cubic-bezier(0.34, 1.56, 0.64, 1)</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Efeito "mola" — ultrapassa levemente o destino. Ideal para botões, badges e elementos que surgem.</div>
+        </div>
+        <div class="card card-sm">
+          <div style="font-size:12px;font-weight:600;color:var(--accent);font-family:var(--font-mono);margin-bottom:4px">--ease-smooth</div>
+          <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:10px">cubic-bezier(0.4, 0, 0.2, 1)</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Suave e natural. Padrão para a maioria das transições: cores, bordas, sombras.</div>
+        </div>
+        <div class="card card-sm">
+          <div style="font-size:12px;font-weight:600;color:var(--accent);font-family:var(--font-mono);margin-bottom:4px">--ease-decelerate</div>
+          <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:10px">cubic-bezier(0, 0, 0.2, 1)</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Entra rápido e desacelera. Para elementos que entram na tela: modais, sidepanels.</div>
+        </div>
+        <div class="card card-sm">
+          <div style="font-size:12px;font-weight:600;color:var(--accent);font-family:var(--font-mono);margin-bottom:4px">--ease-sharp</div>
+          <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:10px">cubic-bezier(0.4, 0, 1, 1)</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Aceleração rápida. Para elementos que saem da tela: fechar toasts, dispensar.</div>
+        </div>
+      </div>
+
+      <!-- Duration tokens -->
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Tokens de Duração</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+        <div class="card card-sm" style="min-width:130px;text-align:center">
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">100ms</div>
+          <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-top:2px">--dur-fast</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Cor, opacidade</div>
+        </div>
+        <div class="card card-sm" style="min-width:130px;text-align:center">
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">200ms</div>
+          <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-top:2px">--dur-base</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Hover padrão</div>
+        </div>
+        <div class="card card-sm" style="min-width:130px;text-align:center">
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">300ms</div>
+          <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-top:2px">--dur-moderate</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Entradas, modais</div>
+        </div>
+        <div class="card card-sm" style="min-width:130px;text-align:center">
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">450ms</div>
+          <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-top:2px">--dur-slow</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Progress, transições de tema</div>
+        </div>
+      </div>
+
+      <!-- Live animation demos -->
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Demos ao vivo — clique para reanimar</h3>
+      <div class="grid-3" style="margin-bottom:32px">
+
+        <!-- fade-up -->
+        <div class="card card-sm anim-demo-box" data-anim="fade-up" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el" style="width:48px;height:48px;background:var(--accent-subtle);border:1px solid var(--accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:20px">⬆️</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">fade-up</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">opacity + translateY</div>
+          </div>
+        </div>
+
+        <!-- fade-in -->
+        <div class="card card-sm anim-demo-box" data-anim="fade-in" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el" style="width:48px;height:48px;background:var(--accent-subtle);border:1px solid var(--accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:20px">✨</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">fade-in</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">opacity only</div>
+          </div>
+        </div>
+
+        <!-- scale-in -->
+        <div class="card card-sm anim-demo-box" data-anim="scale-in" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el" style="width:48px;height:48px;background:var(--accent-subtle);border:1px solid var(--accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:20px">🔍</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">scale-in</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">opacity + scale</div>
+          </div>
+        </div>
+
+        <!-- bounce-in -->
+        <div class="card card-sm anim-demo-box" data-anim="bounce-in" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el" style="width:48px;height:48px;background:var(--success-subtle);border:1px solid var(--success);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:20px">🎯</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">bounce-in</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">spring elastic</div>
+          </div>
+        </div>
+
+        <!-- slide-right -->
+        <div class="card card-sm anim-demo-box" data-anim="slide-right" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el" style="width:48px;height:48px;background:var(--info-subtle);border:1px solid var(--info);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:20px">➡️</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">slide-right</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">translateX entrada</div>
+          </div>
+        </div>
+
+        <!-- shimmer -->
+        <div class="card card-sm anim-demo-box" data-anim="shimmer-demo" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el skeleton" style="width:120px;height:12px;border-radius:var(--radius-full)"></div>
+          <div class="skeleton" style="width:80px;height:10px;border-radius:var(--radius-full)"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">shimmer</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">skeleton loading</div>
+          </div>
+        </div>
+
+        <!-- spin -->
+        <div class="card card-sm anim-demo-box" data-anim="spin" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el" style="width:36px;height:36px;border:3px solid var(--bg-overlay);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">spin</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">loader / spinner</div>
+          </div>
+        </div>
+
+        <!-- pulse-soft -->
+        <div class="card card-sm anim-demo-box" data-anim="pulse-demo" style="cursor:pointer;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <div class="anim-demo-el" style="width:12px;height:12px;background:var(--success);border-radius:50%;animation:pulse-soft 1.5s ease-in-out infinite;box-shadow:0 0 0 4px var(--success-subtle)"></div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">pulse-soft</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">status online</div>
+          </div>
+        </div>
+
+        <!-- ripple -->
+        <div class="card card-sm" style="text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <button class="btn btn-primary btn-md ripple-btn" style="position:relative;overflow:hidden">Clique aqui</button>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary)">ripple</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted)">feedback de clique</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Micro-interactions reference -->
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Micro-interações por Componente</h3>
+      <div class="table-wrap" style="margin-bottom:32px">
+        <table>
+          <thead><tr>
+            <th>Componente</th><th>Gatilho</th><th>Animação</th><th>Easing / Duração</th>
+          </tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-amber">Botão primário</span></td><td>:active</td><td>scale(0.96) → spring back</td><td>ease-spring · 150ms</td></tr>
+            <tr><td><span class="badge badge-blue">Card interativo</span></td><td>:hover</td><td>translateY(-1px) + shadow-md</td><td>ease-smooth · 200ms</td></tr>
+            <tr><td><span class="badge badge-green">Input</span></td><td>:focus</td><td>border-color + ring glow</td><td>ease-smooth · 150ms</td></tr>
+            <tr><td><span class="badge badge-amber">Badge / Chip</span></td><td>mount</td><td>bounce-in (scale 0.5 → 1)</td><td>ease-spring · 300ms</td></tr>
+            <tr><td><span class="badge badge-red">Toast</span></td><td>appear</td><td>slide-right + fade-in</td><td>ease-decelerate · 300ms</td></tr>
+            <tr><td><span class="badge badge-blue">Modal</span></td><td>open</td><td>scale-in (0.92 → 1)</td><td>ease-spring · 300ms</td></tr>
+            <tr><td><span class="badge badge-gray">Progress bar</span></td><td>valor muda</td><td>width transition</td><td>ease-smooth · 500ms</td></tr>
+            <tr><td><span class="badge badge-amber">Nav item</span></td><td>:hover</td><td>background fade + color</td><td>ease-smooth · 150ms</td></tr>
+            <tr><td><span class="badge badge-green">Theme toggle</span></td><td>click</td><td>todos os tokens CSS</td><td>ease-smooth · 300ms</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- CSS usage code -->
+      <h3 class="section-title" style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Como usar no CSS</h3>
+      <div class="code-block">
+<span class="code-comment">/* Entrada de elemento na tela */</span>
+.<span class="code-key">meu-card</span> {
+  <span class="code-key">animation</span>: <span class="code-val">fade-up 300ms var(--ease-decelerate) both</span>;
+}
+
+<span class="code-comment">/* Delay em cascata */</span>
+.<span class="code-key">card</span>:nth-child(1) { animation-delay: 0ms; }
+.<span class="code-key">card</span>:nth-child(2) { animation-delay: 60ms; }
+.<span class="code-key">card</span>:nth-child(3) { animation-delay: 120ms; }
+
+<span class="code-comment">/* Micro-interação de hover */</span>
+.<span class="code-key">card-interactive</span> {
+  <span class="code-key">transition</span>: <span class="code-val">transform var(--dur-base) var(--ease-smooth),
+              box-shadow var(--dur-base) var(--ease-smooth)</span>;
+}
+.<span class="code-key">card-interactive</span>:hover {
+  <span class="code-key">transform</span>: <span class="code-val">translateY(-2px)</span>;
+  <span class="code-key">box-shadow</span>: <span class="code-val">var(--shadow-md)</span>;
+}
+
+<span class="code-comment">/* Botão com spring no :active */</span>
+.<span class="code-key">btn</span>:active {
+  <span class="code-key">transform</span>: <span class="code-val">scale(0.96)</span>;
+  <span class="code-key">transition-duration</span>: <span class="code-val">var(--dur-fast)</span>;
+  <span class="code-key">transition-timing-function</span>: <span class="code-val">var(--ease-spring)</span>;
+}
+      </div>
+    </section>
+
+    <div style="margin-top:48px;padding:24px;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);background:var(--accent-subtle)">
+      <div style="font-size:14px;font-weight:600;color:var(--accent);margin-bottom:4px">Agency OS Design System v2.1</div>
+      <div style="font-size:13px;color:var(--text-secondary)">Dark &amp; Light theme · Amber accent (#F59E0B) · Inter · Animações · Acessível &amp; Amigável · Abril 2026</div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+// ── THEME TOGGLE ──────────────────────────
+const html = document.documentElement;
+const toggleBtn = document.getElementById('theme-toggle');
+const themeLabel = document.getElementById('theme-label');
+
+function applyTheme(theme) {
+  html.dataset.theme = theme;
+  if (theme === 'light') {
+    toggleBtn.textContent = '☀️';
+    themeLabel.textContent = 'Light · Amber Accent · Acessível';
+  } else {
+    toggleBtn.textContent = '🌙';
+    themeLabel.textContent = 'Dark · Amber Accent · Acessível';
+  }
+  localStorage.setItem('agency-os-theme', theme);
+}
+
+// Restore saved preference
+const savedTheme = localStorage.getItem('agency-os-theme') || 'dark';
+applyTheme(savedTheme);
+
+toggleBtn.addEventListener('click', () => {
+  applyTheme(html.dataset.theme === 'dark' ? 'light' : 'dark');
+});
+
+// ── SCROLL HIGHLIGHT NAV ──────────────────
+const sections = document.querySelectorAll('.section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(item => item.classList.remove('active'));
+      const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.25 });
+sections.forEach(s => observer.observe(s));
+
+// ── CHIP TOGGLE ───────────────────────────
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+  });
+});
+
+// ── TAB TOGGLE ────────────────────────────
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    tab.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// ── TOAST CLOSE ───────────────────────────
+document.querySelectorAll('.toast-close').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.toast').style.display = 'none');
+});
+
+// ── ANIMATION DEMOS (click to replay) ────
+document.querySelectorAll('.anim-demo-box').forEach(box => {
+  box.addEventListener('click', () => {
+    const anim = box.dataset.anim;
+    if (!anim || anim === 'shimmer-demo' || anim === 'spin' || anim === 'pulse-demo') return;
+    const el = box.querySelector('.anim-demo-el') || box;
+    el.style.animation = 'none';
+    el.offsetHeight; // reflow
+    el.style.animation = `${anim} 400ms var(--ease-spring) both`;
+  });
+});
+
+// ── RIPPLE EFFECT ─────────────────────────
+document.querySelectorAll('.ripple-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const existing = this.querySelector('.ripple-circle');
+    if (existing) existing.remove();
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const circle = document.createElement('span');
+    circle.classList.add('ripple-circle');
+    circle.style.cssText = `position:absolute;border-radius:50%;background:rgba(255,255,255,0.35);width:8px;height:8px;left:${x - 4}px;top:${y - 4}px;animation:ripple 600ms var(--ease-sharp) forwards;pointer-events:none`;
+    this.appendChild(circle);
+    setTimeout(() => circle.remove(), 650);
+  });
+});
+</script>
+</body>
+</html>

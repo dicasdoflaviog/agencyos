@@ -1,0 +1,568 @@
+/**
+ * ============================================================
+ * AGENCY OS — Design Tokens v2.1
+ * Dark theme + Light theme + Amber accent · Acessível e amigável
+ *
+ * Uso:
+ *   - Tema dark (padrão): <html> sem atributo
+ *   - Tema light:         <html data-theme="light">
+ *   - Toggle via JS:      document.documentElement.dataset.theme = 'light' | 'dark'
+ * ============================================================
+ */
+
+:root {
+
+  /* ──────────────────────────────────────────
+     CORES — Backgrounds
+  ────────────────────────────────────────── */
+  --color-bg-base:       #0C0C0E;   /* fundo raiz da aplicação */
+  --color-bg-surface:    #131317;   /* superfície principal (cards, sidebar) */
+  --color-bg-elevated:   #1C1C22;   /* painéis elevados, modais */
+  --color-bg-overlay:    #26262F;   /* dropdowns, tooltips */
+  --color-bg-hover:      #2A2A35;   /* hover state de itens interativos */
+  --color-bg-active:     #313140;   /* active/selected state */
+
+  /* ──────────────────────────────────────────
+     CORES — Borders
+  ────────────────────────────────────────── */
+  --color-border-subtle:  #1E1E28;  /* divisores suaves, separadores */
+  --color-border-default: #2C2C3A;  /* bordas de inputs, cards */
+  --color-border-strong:  #3F3F52;  /* foco, destaque */
+  --color-border-focus:   #F59E0B;  /* ring de foco (acessibilidade) */
+
+  /* ──────────────────────────────────────────
+     CORES — Texto
+  ────────────────────────────────────────── */
+  --color-text-primary:   #F0F0F5;  /* textos principais */
+  --color-text-secondary: #A0A0B8;  /* labels, subtítulos */
+  --color-text-muted:     #686880;  /* placeholder, metadados */
+  --color-text-disabled:  #3E3E52;  /* estados desativados */
+  --color-text-inverse:   #0C0C0E;  /* texto em fundo claro (botão primário) */
+
+  /* ──────────────────────────────────────────
+     CORES — Accent (Amber)
+  ────────────────────────────────────────── */
+  --color-accent-50:      #FFFBEB;
+  --color-accent-100:     #FEF3C7;
+  --color-accent-200:     #FDE68A;
+  --color-accent-300:     #FCD34D;
+  --color-accent-400:     #FBBF24;
+  --color-accent-500:     #F59E0B;  /* ← cor primária do sistema */
+  --color-accent-600:     #D97706;  /* hover */
+  --color-accent-700:     #B45309;  /* pressed / active */
+  --color-accent-800:     #92400E;  /* texto em fundo accent claro */
+  --color-accent-900:     #78350F;
+
+  /* Aliases semânticos */
+  --color-accent:         var(--color-accent-500);
+  --color-accent-hover:   var(--color-accent-600);
+  --color-accent-active:  var(--color-accent-700);
+  --color-accent-subtle:  rgba(245, 158, 11, 0.12); /* bg suave */
+  --color-accent-ring:    rgba(245, 158, 11, 0.40); /* ring de foco */
+
+  /* ──────────────────────────────────────────
+     CORES — Semânticas de Status
+  ────────────────────────────────────────── */
+
+  /* Sucesso */
+  --color-success:        #10B981;
+  --color-success-hover:  #059669;
+  --color-success-subtle: rgba(16, 185, 129, 0.12);
+  --color-success-text:   #34D399;
+
+  /* Erro */
+  --color-error:          #EF4444;
+  --color-error-hover:    #DC2626;
+  --color-error-subtle:   rgba(239, 68, 68, 0.12);
+  --color-error-text:     #FCA5A5;
+
+  /* Alerta */
+  --color-warning:        #F59E0B;
+  --color-warning-hover:  #D97706;
+  --color-warning-subtle: rgba(245, 158, 11, 0.12);
+  --color-warning-text:   #FCD34D;
+
+  /* Info */
+  --color-info:           #3B82F6;
+  --color-info-hover:     #2563EB;
+  --color-info-subtle:    rgba(59, 130, 246, 0.12);
+  --color-info-text:      #93C5FD;
+
+  /* ──────────────────────────────────────────
+     TIPOGRAFIA — Famílias
+  ────────────────────────────────────────── */
+  --font-sans:   'Inter', 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono:   'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-display: 'Inter', system-ui, sans-serif;
+
+  /* ──────────────────────────────────────────
+     TIPOGRAFIA — Escala de tamanhos
+  ────────────────────────────────────────── */
+  --text-xs:    0.75rem;    /* 12px */
+  --text-sm:    0.875rem;   /* 14px */
+  --text-base:  1rem;       /* 16px */
+  --text-md:    1.125rem;   /* 18px */
+  --text-lg:    1.25rem;    /* 20px */
+  --text-xl:    1.5rem;     /* 24px */
+  --text-2xl:   1.875rem;   /* 30px */
+  --text-3xl:   2.25rem;    /* 36px */
+  --text-4xl:   3rem;       /* 48px */
+  --text-5xl:   3.75rem;    /* 60px */
+
+  /* ──────────────────────────────────────────
+     TIPOGRAFIA — Pesos
+  ────────────────────────────────────────── */
+  --font-regular:   400;
+  --font-medium:    500;
+  --font-semibold:  600;
+  --font-bold:      700;
+  --font-extrabold: 800;
+
+  /* ──────────────────────────────────────────
+     TIPOGRAFIA — Line Heights
+  ────────────────────────────────────────── */
+  --leading-none:    1;
+  --leading-tight:   1.25;
+  --leading-snug:    1.375;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose:   2;
+
+  /* ──────────────────────────────────────────
+     TIPOGRAFIA — Letter Spacing
+  ────────────────────────────────────────── */
+  --tracking-tighter: -0.05em;
+  --tracking-tight:   -0.025em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.025em;
+  --tracking-wider:    0.05em;
+  --tracking-widest:   0.1em;
+
+  /* ──────────────────────────────────────────
+     ESPAÇAMENTO — Escala base 4px
+  ────────────────────────────────────────── */
+  --space-0:    0;
+  --space-1:    0.25rem;   /* 4px */
+  --space-2:    0.5rem;    /* 8px */
+  --space-3:    0.75rem;   /* 12px */
+  --space-4:    1rem;      /* 16px */
+  --space-5:    1.25rem;   /* 20px */
+  --space-6:    1.5rem;    /* 24px */
+  --space-8:    2rem;      /* 32px */
+  --space-10:   2.5rem;    /* 40px */
+  --space-12:   3rem;      /* 48px */
+  --space-16:   4rem;      /* 64px */
+  --space-20:   5rem;      /* 80px */
+  --space-24:   6rem;      /* 96px */
+
+  /* ──────────────────────────────────────────
+     BORDER RADIUS
+  ────────────────────────────────────────── */
+  --radius-none:  0;
+  --radius-xs:    0.125rem;  /* 2px */
+  --radius-sm:    0.25rem;   /* 4px */
+  --radius-md:    0.5rem;    /* 8px */
+  --radius-lg:    0.75rem;   /* 12px */
+  --radius-xl:    1rem;      /* 16px */
+  --radius-2xl:   1.5rem;    /* 24px */
+  --radius-full:  9999px;    /* pill */
+
+  /* ──────────────────────────────────────────
+     SOMBRAS
+  ────────────────────────────────────────── */
+  --shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 4px 6px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-lg:   0 10px 15px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-xl:   0 20px 25px rgba(0, 0, 0, 0.6), 0 10px 10px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 0 3px var(--color-accent-ring);  /* foco acessível */
+  --shadow-glow-success: 0 0 0 3px rgba(16, 185, 129, 0.35);
+  --shadow-glow-error:   0 0 0 3px rgba(239, 68, 68, 0.35);
+
+  /* ──────────────────────────────────────────
+     TRANSIÇÕES & MICRO-ANIMAÇÕES
+  ────────────────────────────────────────── */
+  --transition-fast:    100ms ease;
+  --transition-base:    150ms ease;
+  --transition-slow:    250ms ease;
+  --transition-slower:  350ms ease;
+
+  /* Curvas de easing customizadas */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);  /* spring — elástico, botões */
+  --ease-smooth:   cubic-bezier(0.4, 0, 0.2, 1);       /* suave — modais, cards */
+  --ease-sharp:    cubic-bezier(0.4, 0, 1, 1);          /* rápido saída — toasts */
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);       /* decelera — entrada de elementos */
+
+  /* Durações semânticas */
+  --duration-instant:   50ms;   /* micro feedback (ripple) */
+  --duration-fast:      100ms;  /* hover, foco */
+  --duration-base:      200ms;  /* transições padrão */
+  --duration-moderate:  300ms;  /* modais, drawers */
+  --duration-slow:      450ms;  /* page transitions */
+  --duration-slower:    600ms;  /* animações de entrada elaboradas */
+
+  /* ──────────────────────────────────────────
+     Z-INDEX
+  ────────────────────────────────────────── */
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+
+  /* ──────────────────────────────────────────
+     LAYOUT — Sidebar & Grid
+  ────────────────────────────────────────── */
+  --sidebar-width:         220px;
+  --sidebar-collapsed:     64px;
+  --topbar-height:         56px;
+  --content-max-width:     1280px;
+  --content-padding:       var(--space-8);
+
+  /* ──────────────────────────────────────────
+     COMPONENTES — Botões
+  ────────────────────────────────────────── */
+  --btn-height-sm:    32px;
+  --btn-height-md:    40px;
+  --btn-height-lg:    48px;
+  --btn-padding-sm:   var(--space-2) var(--space-3);
+  --btn-padding-md:   var(--space-3) var(--space-5);
+  --btn-padding-lg:   var(--space-4) var(--space-6);
+  --btn-radius:       var(--radius-md);
+  --btn-font-size-sm: var(--text-xs);
+  --btn-font-size-md: var(--text-sm);
+  --btn-font-size-lg: var(--text-base);
+
+  /* ──────────────────────────────────────────
+     COMPONENTES — Inputs
+  ────────────────────────────────────────── */
+  --input-height-sm:  32px;
+  --input-height-md:  40px;
+  --input-height-lg:  48px;
+  --input-padding:    var(--space-2) var(--space-3);
+  --input-radius:     var(--radius-md);
+  --input-bg:         var(--color-bg-elevated);
+  --input-border:     var(--color-border-default);
+  --input-border-focus: var(--color-accent);
+  --input-text:       var(--color-text-primary);
+  --input-placeholder: var(--color-text-muted);
+
+  /* ──────────────────────────────────────────
+     COMPONENTES — Cards
+  ────────────────────────────────────────── */
+  --card-bg:        var(--color-bg-surface);
+  --card-border:    var(--color-border-subtle);
+  --card-radius:    var(--radius-lg);
+  --card-padding:   var(--space-6);
+  --card-shadow:    var(--shadow-sm);
+
+  /* ──────────────────────────────────────────
+     COMPONENTES — Badges
+  ────────────────────────────────────────── */
+  --badge-radius:   var(--radius-full);
+  --badge-padding:  2px var(--space-2);
+  --badge-font-size: var(--text-xs);
+
+}
+
+/* ──────────────────────────────────────────
+   TEMA LIGHT — sobrescreve os tokens de cor
+   Ativa com: <html data-theme="light">
+────────────────────────────────────────── */
+
+[data-theme="light"] {
+
+  /* Backgrounds */
+  --color-bg-base:       #F4F4F7;
+  --color-bg-surface:    #FFFFFF;
+  --color-bg-elevated:   #F8F8FB;
+  --color-bg-overlay:    #EDEDF4;
+  --color-bg-hover:      #EAEAF2;
+  --color-bg-active:     #E0E0EE;
+
+  /* Borders */
+  --color-border-subtle:  #E8E8F0;
+  --color-border-default: #D4D4E0;
+  --color-border-strong:  #B8B8CC;
+  --color-border-focus:   #F59E0B;
+
+  /* Texto */
+  --color-text-primary:   #0C0C14;
+  --color-text-secondary: #4A4A6A;
+  --color-text-muted:     #7A7A96;
+  --color-text-disabled:  #C0C0D4;
+  --color-text-inverse:   #FFFFFF;
+
+  /* Accent — permanece igual */
+  --color-accent:         #F59E0B;
+  --color-accent-hover:   #D97706;
+  --color-accent-active:  #B45309;
+  --color-accent-subtle:  rgba(245, 158, 11, 0.10);
+  --color-accent-ring:    rgba(245, 158, 11, 0.35);
+
+  /* Status — versão mais suave para light */
+  --color-success:        #059669;
+  --color-success-hover:  #047857;
+  --color-success-subtle: rgba(5, 150, 105, 0.10);
+  --color-success-text:   #065F46;
+
+  --color-error:          #DC2626;
+  --color-error-hover:    #B91C1C;
+  --color-error-subtle:   rgba(220, 38, 38, 0.10);
+  --color-error-text:     #7F1D1D;
+
+  --color-warning:        #D97706;
+  --color-warning-hover:  #B45309;
+  --color-warning-subtle: rgba(217, 119, 6, 0.10);
+  --color-warning-text:   #78350F;
+
+  --color-info:           #2563EB;
+  --color-info-hover:     #1D4ED8;
+  --color-info-subtle:    rgba(37, 99, 235, 0.10);
+  --color-info-text:      #1E3A8A;
+
+  /* Sombras — mais suaves e com tom azulado */
+  --shadow-xs:   0 1px 2px rgba(10, 10, 30, 0.06);
+  --shadow-sm:   0 1px 3px rgba(10, 10, 30, 0.08), 0 1px 2px rgba(10, 10, 30, 0.05);
+  --shadow-md:   0 4px 8px rgba(10, 10, 30, 0.10), 0 2px 4px rgba(10, 10, 30, 0.06);
+  --shadow-lg:   0 10px 20px rgba(10, 10, 30, 0.10), 0 4px 8px rgba(10, 10, 30, 0.06);
+  --shadow-xl:   0 20px 32px rgba(10, 10, 30, 0.12), 0 8px 16px rgba(10, 10, 30, 0.08);
+  --shadow-glow: 0 0 0 3px rgba(245, 158, 11, 0.30);
+
+}
+
+/* ──────────────────────────────────────────
+   KEYFRAMES — Animações reutilizáveis
+────────────────────────────────────────── */
+
+/* Entrada suave de baixo */
+@keyframes aos-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Entrada suave de cima */
+@keyframes aos-fade-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade simples */
+@keyframes aos-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Escala (pop) — para modais e toasts */
+@keyframes aos-scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Saída por escala */
+@keyframes aos-scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.92); }
+}
+
+/* Slide da direita (drawer) */
+@keyframes aos-slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Slide da esquerda (sidebar open) */
+@keyframes aos-slide-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Shimmer skeleton */
+@keyframes aos-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Pulse suave (loading, notificação) */
+@keyframes aos-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Bounce sutil (badge de novo item) */
+@keyframes aos-bounce-in {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.1); opacity: 1; }
+  80%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Spin (loading indicator) */
+@keyframes aos-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ──────────────────────────────────────────
+   CLASSES DE ANIMAÇÃO — Aplique nos elementos
+────────────────────────────────────────── */
+
+/* Entrada de componentes */
+.animate-fade-up      { animation: aos-fade-up    var(--duration-moderate) var(--ease-decelerate) both; }
+.animate-fade-down    { animation: aos-fade-down  var(--duration-moderate) var(--ease-decelerate) both; }
+.animate-fade-in      { animation: aos-fade-in    var(--duration-base)     var(--ease-smooth)     both; }
+.animate-scale-in     { animation: aos-scale-in   var(--duration-moderate) var(--ease-spring)     both; }
+.animate-slide-right  { animation: aos-slide-in-right var(--duration-moderate) var(--ease-decelerate) both; }
+.animate-slide-left   { animation: aos-slide-in-left  var(--duration-moderate) var(--ease-decelerate) both; }
+.animate-bounce-in    { animation: aos-bounce-in  var(--duration-moderate) var(--ease-smooth)     both; }
+.animate-spin         { animation: aos-spin       1s linear infinite; }
+.animate-pulse        { animation: aos-pulse      2s var(--ease-smooth) infinite; }
+
+/* Delays escalonados (para listas) */
+.animate-delay-1 { animation-delay:  50ms; }
+.animate-delay-2 { animation-delay: 100ms; }
+.animate-delay-3 { animation-delay: 150ms; }
+.animate-delay-4 { animation-delay: 200ms; }
+.animate-delay-5 { animation-delay: 250ms; }
+.animate-delay-6 { animation-delay: 300ms; }
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-elevated) 25%,
+    var(--color-bg-overlay)  50%,
+    var(--color-bg-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: aos-shimmer 1.6s var(--ease-smooth) infinite;
+}
+
+/* ──────────────────────────────────────────
+   MICRO-INTERAÇÕES — States de componentes
+────────────────────────────────────────── */
+
+/* Botão — spring ao pressionar */
+.btn {
+  transition:
+    background-color var(--duration-fast) var(--ease-smooth),
+    color            var(--duration-fast) var(--ease-smooth),
+    border-color     var(--duration-fast) var(--ease-smooth),
+    box-shadow       var(--duration-fast) var(--ease-smooth),
+    transform        var(--duration-fast) var(--ease-spring);
+}
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Card interativo — levanta suavemente */
+.card-interactive {
+  transition:
+    border-color var(--duration-base) var(--ease-smooth),
+    box-shadow   var(--duration-base) var(--ease-smooth),
+    transform    var(--duration-base) var(--ease-smooth);
+}
+.card-interactive:hover {
+  transform: translateY(-2px);
+}
+
+/* Nav item — desliza o background */
+.nav-item {
+  transition:
+    background-color var(--duration-fast) var(--ease-smooth),
+    color            var(--duration-fast) var(--ease-smooth);
+}
+
+/* Input — foco suave */
+.input {
+  transition:
+    border-color var(--duration-base) var(--ease-smooth),
+    box-shadow   var(--duration-base) var(--ease-smooth);
+}
+
+/* Badge bounce ao aparecer */
+.badge {
+  animation: aos-bounce-in var(--duration-moderate) var(--ease-spring) both;
+}
+
+/* Tab — underline desliza */
+.tab {
+  transition:
+    color        var(--duration-base) var(--ease-smooth),
+    border-color var(--duration-base) var(--ease-smooth);
+}
+
+/* Toast — entra da direita */
+.toast {
+  animation: aos-slide-in-right var(--duration-moderate) var(--ease-decelerate) both;
+}
+
+/* Modal — escala ao entrar */
+.modal {
+  animation: aos-scale-in var(--duration-moderate) var(--ease-spring) both;
+}
+
+/* Sidebar item hover — detalhe de fundo */
+.agent-item {
+  transition:
+    background-color var(--duration-fast) var(--ease-smooth),
+    color            var(--duration-fast) var(--ease-smooth);
+}
+
+/* Progress bar — fill animado */
+.progress-fill {
+  transition: width var(--duration-slower) var(--ease-decelerate);
+}
+
+/* Theme transition global — suaviza troca dark↔light */
+*, *::before, *::after {
+  transition:
+    background-color var(--duration-moderate) var(--ease-smooth),
+    border-color     var(--duration-moderate) var(--ease-smooth),
+    color            var(--duration-fast)     var(--ease-smooth),
+    box-shadow       var(--duration-moderate) var(--ease-smooth);
+}
+/* Exceções — não aplicar theme transition em animações específicas */
+.animate-fade-up,
+.animate-scale-in,
+.animate-bounce-in,
+.skeleton,
+.btn,
+.input,
+.progress-fill {
+  transition: revert;
+}
+
+/* ──────────────────────────────────────────
+   UTILITÁRIOS GLOBAIS RECOMENDADOS
+────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Foco acessível global */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar          { width: 6px; height: 6px; }
+::-webkit-scrollbar-track    { background: var(--color-bg-base); }
+::-webkit-scrollbar-thumb    { background: var(--color-border-strong); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
