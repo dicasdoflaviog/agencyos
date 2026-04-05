@@ -81,7 +81,7 @@ export function Sidebar() {
                 indent && 'pl-6 text-xs',
                 isActive
                   ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
-                  : 'text-[var(--color-text-secondary)] hover:bg-white/[0.05] hover:text-[var(--color-text-primary)]'
+                  : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
             >
               <Icon size={indent ? 13 : 15} strokeWidth={isActive ? 2.5 : 2} />
@@ -103,7 +103,7 @@ export function Sidebar() {
                   'flex items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium transition-colors duration-150 cursor-pointer',
                   isActive
                     ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
-                    : 'text-[var(--color-text-secondary)] hover:bg-white/[0.05] hover:text-[var(--color-text-primary)]'
+                    : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
                 <Icon size={15} strokeWidth={isActive ? 2.5 : 2} />
@@ -121,7 +121,7 @@ export function Sidebar() {
       <div className="border-t border-[var(--color-border-subtle)] p-2">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium text-[var(--color-text-secondary)] transition-colors duration-150 hover:bg-white/[0.05] hover:text-[var(--color-text-primary)] cursor-pointer"
+          className="flex w-full items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium text-[var(--color-text-secondary)] transition-colors duration-150 hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)] cursor-pointer"
         >
           <LogOut size={15} strokeWidth={2} />
           Sair

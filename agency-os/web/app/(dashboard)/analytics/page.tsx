@@ -63,8 +63,8 @@ export default async function AnalyticsPage() {
   return (
     <div className="py-8 space-y-8 max-w-6xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold font-display text-zinc-100">Analytics</h1>
-        <p className="text-sm text-zinc-400 mt-1">Visão geral da operação da agência</p>
+        <h1 className="text-2xl font-bold font-display text-[var(--color-text-primary)]">Analytics</h1>
+        <p className="text-sm text-[var(--color-text-secondary)] mt-1">Visão geral da operação da agência</p>
       </div>
 
       {/* Cards de métricas principais */}
@@ -77,8 +77,8 @@ export default async function AnalyticsPage() {
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* Jobs por status */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-          <h3 className="text-sm font-semibold text-zinc-300 mb-4">Jobs por status</h3>
+        <div className="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-5">
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-4">Jobs por status</h3>
           <div className="space-y-3">
             {[
               { label: 'Backlog', value: jobsByStatus.backlog, color: 'bg-zinc-600' },
@@ -90,11 +90,11 @@ export default async function AnalyticsPage() {
               const pct = total > 0 ? (item.value / total) * 100 : 0
               return (
                 <div key={item.label} className="space-y-1">
-                  <div className="flex justify-between text-xs text-zinc-400">
+                  <div className="flex justify-between text-xs text-[var(--color-text-secondary)]">
                     <span>{item.label}</span>
                     <span>{item.value}</span>
                   </div>
-                  <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-[var(--color-bg-elevated)] rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all ${item.color}`}
                       style={{ width: `${pct}%` }}
@@ -107,10 +107,10 @@ export default async function AnalyticsPage() {
         </div>
 
         {/* Top agentes */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-          <h3 className="text-sm font-semibold text-zinc-300 mb-4">Agentes mais utilizados</h3>
+        <div className="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-5">
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-4">Agentes mais utilizados</h3>
           {topAgents.length === 0 ? (
-            <p className="text-sm text-zinc-500">Nenhum output gerado ainda</p>
+            <p className="text-sm text-[var(--color-text-muted)]">Nenhum output gerado ainda</p>
           ) : (
             <div className="space-y-3">
               {topAgents.map((agent, i) => {
@@ -118,14 +118,14 @@ export default async function AnalyticsPage() {
                 const pct = (agent.count / maxCount) * 100
                 return (
                   <div key={agent.name} className="space-y-1">
-                    <div className="flex justify-between text-xs text-zinc-400">
+                    <div className="flex justify-between text-xs text-[var(--color-text-secondary)]">
                       <span className="flex items-center gap-2">
-                        <span className="text-zinc-600">#{i + 1}</span>
+                        <span className="text-[var(--color-text-disabled)]">#{i + 1}</span>
                         {agent.name}
                       </span>
                       <span>{agent.count} outputs</span>
                     </div>
-                    <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[var(--color-bg-elevated)] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-violet-500 rounded-full transition-all"
                         style={{ width: `${pct}%` }}
@@ -139,11 +139,11 @@ export default async function AnalyticsPage() {
         </div>
 
         {/* Outputs por estágio */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-          <h3 className="text-sm font-semibold text-zinc-300 mb-4">Pipeline de aprovação</h3>
+        <div className="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-5">
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-4">Pipeline de aprovação</h3>
           <div className="space-y-2">
             {[
-              { label: 'Rascunho', value: outputsByStage.draft, color: 'text-zinc-400' },
+              { label: 'Rascunho', value: outputsByStage.draft, color: 'text-[var(--color-text-secondary)]' },
               { label: 'Revisão interna', value: outputsByStage.internal_review, color: 'text-yellow-400' },
               { label: 'Revisão do cliente', value: outputsByStage.client_review, color: 'text-blue-400' },
               { label: 'Aprovado', value: outputsByStage.approved, color: 'text-green-400' },
@@ -152,17 +152,17 @@ export default async function AnalyticsPage() {
             ].map((item) => (
               <div key={item.label} className="flex justify-between text-sm">
                 <span className={item.color}>{item.label}</span>
-                <span className="text-zinc-400">{item.value}</span>
+                <span className="text-[var(--color-text-secondary)]">{item.value}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Clientes */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-          <h3 className="text-sm font-semibold text-zinc-300 mb-4">Clientes ativos</h3>
+        <div className="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-5">
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-4">Clientes ativos</h3>
           {!clients?.length ? (
-            <p className="text-sm text-zinc-500">Nenhum cliente ativo</p>
+            <p className="text-sm text-[var(--color-text-muted)]">Nenhum cliente ativo</p>
           ) : (
             <div className="space-y-2">
               {clients.slice(0, 8).map((client) => {
@@ -171,10 +171,10 @@ export default async function AnalyticsPage() {
                   <Link
                     key={client.id}
                     href={`/analytics/${client.id}`}
-                    className="flex items-center justify-between rounded-lg p-2 hover:bg-zinc-800/50 transition-colors"
+                    className="flex items-center justify-between rounded-lg p-2 hover:bg-[var(--color-bg-hover)] transition-colors"
                   >
-                    <span className="text-sm text-zinc-300">{client.name}</span>
-                    <span className="text-xs text-zinc-500">{clientOutputs} outputs</span>
+                    <span className="text-sm text-[var(--color-text-primary)]">{client.name}</span>
+                    <span className="text-xs text-[var(--color-text-muted)]">{clientOutputs} outputs</span>
                   </Link>
                 )
               })}
@@ -204,10 +204,10 @@ function MetricCard({
     amber: 'text-amber-400',
   }
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
-      <p className="text-xs text-zinc-500">{label}</p>
+    <div className="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-4">
+      <p className="text-xs text-[var(--color-text-muted)]">{label}</p>
       <p className={`text-2xl font-bold mt-1 ${accentMap[accent]}`}>{value}</p>
-      <p className="text-xs text-zinc-600 mt-0.5">{sub}</p>
+      <p className="text-xs text-[var(--color-text-disabled)] mt-0.5">{sub}</p>
     </div>
   )
 }

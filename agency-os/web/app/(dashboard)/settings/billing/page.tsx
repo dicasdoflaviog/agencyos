@@ -98,26 +98,26 @@ export default async function BillingPage() {
         {/* RIGHT — Subscription */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <CreditCard size={15} className="text-zinc-400" />
+            <CreditCard size={15} className="text-[var(--color-text-secondary)]" />
             <h3 className="text-sm font-semibold text-white">Assinatura</h3>
           </div>
 
           {/* Current plan */}
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 mb-4">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-1">Plano Atual</p>
-            <p className="text-xl font-bold text-white">
+          <div className="rounded-2xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-5 mb-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)] mb-1">Plano Atual</p>
+            <p className="text-xl font-bold text-[var(--color-text-primary)]">
               {currentPlan ? currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1) : 'Sem assinatura'}
             </p>
             {subStatus && (
-              <p className="mt-1 text-sm text-zinc-400">
-                Status: <span className="text-zinc-200 font-medium capitalize">{subStatus}</span>
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+                Status: <span className="text-[var(--color-text-primary)] font-medium capitalize">{subStatus}</span>
                 {periodEnd && (
-                  <> · Renova em <span className="text-zinc-200 font-medium">{periodEnd}</span></>
+                  <> · Renova em <span className="text-[var(--color-text-primary)] font-medium">{periodEnd}</span></>
                 )}
               </p>
             )}
             {!subStatus && (
-              <p className="mt-1 text-xs text-zinc-500">
+              <p className="mt-1 text-xs text-[var(--color-text-muted)]">
                 Você está no modo de teste. Assine um plano para liberar todos os recursos.
               </p>
             )}

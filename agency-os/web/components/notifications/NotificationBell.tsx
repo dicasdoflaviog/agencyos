@@ -109,10 +109,10 @@ export default function NotificationBell() {
     <div className="relative" ref={wrapperRef}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="relative flex h-8 w-8 items-center justify-center rounded-lg hover:bg-zinc-800 transition-colors"
+        className="relative flex h-8 w-8 items-center justify-center rounded-lg hover:bg-[var(--color-bg-hover)] transition-colors"
         aria-label="Notificações"
       >
-        <svg className="h-4 w-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="h-4 w-4 text-[var(--color-text-secondary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
           />
@@ -125,9 +125,9 @@ export default function NotificationBell() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-10 z-50 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-zinc-800 bg-zinc-900 shadow-2xl shadow-black/40">
-            <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
-              <h3 className="text-sm font-semibold text-zinc-200">Notificações</h3>
+        <div className="absolute right-0 top-10 z-50 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-surface)] shadow-2xl shadow-black/40">
+            <div className="flex items-center justify-between border-b border-[var(--color-border-default)] px-4 py-3">
+              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">Notificações</h3>
               {unread > 0 && (
                 <button
                   onClick={markAllRead}
@@ -141,26 +141,26 @@ export default function NotificationBell() {
             <div className="max-h-80 overflow-y-auto">
               {notifications.length === 0 ? (
                 <div className="px-4 py-8 text-center">
-                  <p className="text-sm text-zinc-500">Sem notificações</p>
+                  <p className="text-sm text-[var(--color-text-muted)]">Sem notificações</p>
                 </div>
               ) : (
                 notifications.map((n) => (
                   <div
                     key={n.id}
                     onClick={() => markRead(n.id)}
-                    className={`flex gap-3 px-4 py-3 border-b border-zinc-800/50 last:border-0 transition-colors ${
-                      !n.read ? 'bg-violet-500/5' : 'hover:bg-zinc-800/30'
+                    className={`flex gap-3 px-4 py-3 border-b border-[var(--color-border-subtle)] last:border-0 transition-colors ${
+                      !n.read ? 'bg-violet-500/5' : 'hover:bg-[var(--color-bg-hover)]'
                     }`}
                   >
                     <div className={`mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${!n.read ? 'bg-violet-400' : 'bg-transparent'}`} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-zinc-200">{n.title}</p>
-                      {n.body && <p className="text-xs text-zinc-500 mt-0.5 truncate">{n.body}</p>}
+                      <p className="text-xs font-medium text-[var(--color-text-primary)]">{n.title}</p>
+                      {n.body && <p className="text-xs text-[var(--color-text-muted)] mt-0.5 truncate">{n.body}</p>}
                       <div className="flex items-center justify-between mt-1">
-                        <span className="text-[10px] text-zinc-600">
+                        <span className="text-[10px] text-[var(--color-text-disabled)]">
                           {TYPE_LABELS[n.type] ?? n.type}
                         </span>
-                        <span className="text-[10px] text-zinc-600">
+                        <span className="text-[10px] text-[var(--color-text-disabled)]">
                           {new Date(n.created_at).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}
                         </span>
                       </div>

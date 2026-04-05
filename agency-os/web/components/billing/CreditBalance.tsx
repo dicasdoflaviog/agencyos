@@ -160,7 +160,7 @@ export function CreditBalance() {
                   <span className={`text-xs font-bold tabular-nums ${TYPE_COLORS[tx.type] ?? 'text-[var(--color-text-secondary)]'}`}>
                     {tx.amount > 0 ? '+' : ''}{tx.amount.toLocaleString('pt-BR')} cr
                   </span>
-                  <span className="text-[10px] text-zinc-600 tabular-nums w-14 text-right">
+                  <span className="text-[10px] text-[var(--color-text-disabled)] tabular-nums w-14 text-right">
                     = {tx.balance_after?.toLocaleString('pt-BR') ?? '—'}
                   </span>
                 </div>
