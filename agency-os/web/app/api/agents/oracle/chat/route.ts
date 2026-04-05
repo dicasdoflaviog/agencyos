@@ -128,164 +128,189 @@ async function classifyIntent(message: string, client: Anthropic): Promise<Agent
 
 // ── Route ───────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
+  // ── 1. Environment guard ────────────────────────────────────────────────
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) return new Response('ANTHROPIC_API_KEY not configured', { status: 500 })
 
-  const anthropic = new Anthropic({ apiKey })
+  try {
+    // ── 2. Auth ─────────────────────────────────────────────────────────────
+    const anthropic = new Anthropic({ apiKey })
+    const supabase = await createClient()
 
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return new Response('Unauthorized', { status: 401 })
+    const authResult = await supabase.auth.getUser()
+    const user = authResult.data?.user
+    if (!user) return new Response('Unauthorized', { status: 401 })
 
-  const { message, job_id, client_id, history = [] } = await req.json() as {
-    message: string
-    job_id?: string
-    client_id?: string
-    history?: { role: string; content: string }[]
-  }
+    // ── 3. Parse body ───────────────────────────────────────────────────────
+    let body: { message?: string; job_id?: string; client_id?: string; history?: { role: string; content: string }[] }
+    try {
+      body = await req.json()
+    } catch {
+      return new Response('Invalid JSON body', { status: 400 })
+    }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('workspace_id')
-    .eq('id', user.id)
-    .single()
+    const { message, job_id, client_id, history = [] } = body
+    if (!message || typeof message !== 'string' || !message.trim()) {
+      return new Response('Missing required field: message', { status: 400 })
+    }
 
-  // Classify intent in parallel with saving user message
-  const [agent] = await Promise.all([
-    classifyIntent(message, anthropic),
-    supabase.from('agent_conversations').insert({
-      job_id: job_id ?? null,
-      workspace_id: profile?.workspace_id,
-      agent: 'oracle',
-      role: 'user',
-      content: message,
-    }),
-  ])
-
-  // Load client DNA context if client_id provided
-  let dnaContext = ''
-  if (client_id) {
-    const { data: dna } = await supabase
-      .from('client_dna')
-      .select('brand_name, brand_voice, target_audience, key_messages, visual_style')
-      .eq('client_id', client_id)
+    // ── 4. Profile ──────────────────────────────────────────────────────────
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('workspace_id')
+      .eq('id', user.id)
       .maybeSingle()
-    if (dna) {
-      dnaContext = `\n\nCONTEXTO DO CLIENTE:\n- Marca: ${dna.brand_name ?? ''}\n- Voz da Marca: ${dna.brand_voice ?? ''}\n- Público-alvo: ${dna.target_audience ?? ''}\n- Mensagens-chave: ${dna.key_messages ?? ''}\n- Estilo Visual: ${dna.visual_style ?? ''}`
-    }
-  }
 
-  // Load Instagram metrics context
-  let igContext = ''
-  if (client_id) {
-    // If user explicitly asks to sync/update, trigger a fresh Apify scrape
-    if (isIGSyncRequest(message)) {
-      const handle = extractIGHandle(message)
-        ?? (await supabase.from('clients').select('instagram_handle').eq('id', client_id).maybeSingle())
-            .data?.instagram_handle
-      if (handle) {
-        const fresh = await scrapeInstagramProfile(handle, client_id)
-        if (fresh) {
-          // Persist to ig_metrics table
-          const today = new Date().toISOString().split('T')[0]
-          await supabase.from('ig_metrics').upsert(
-            { client_id, date: today, username: fresh.username, followers: fresh.followers,
-              following: fresh.following, posts: fresh.posts, engagement_rate: fresh.engagement_rate },
-            { onConflict: 'client_id,date' },
-          )
-          igContext = formatIGContext(fresh)
-        }
-      }
-    } else {
-      // Otherwise load from DB (fast — already synced)
-      const [metrics, trend] = await Promise.all([
-        getClientIGMetrics(client_id, supabase),
-        getClientIGTrend(client_id, supabase),
-      ])
-      if (metrics) {
-        igContext = formatIGContext(metrics) + formatIGTrendContext(trend)
-      }
-    }
-  }
+    // ── 5. Classify intent + log user message (parallel) ───────────────────
+    const [agent] = await Promise.all([
+      classifyIntent(message, anthropic),
+      supabase.from('agent_conversations').insert({
+        job_id: job_id ?? null,
+        workspace_id: profile?.workspace_id ?? null,
+        agent: 'oracle',
+        role: 'user',
+        content: message,
+      }),
+    ])
 
-  const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
-
-  const messages: Anthropic.MessageParam[] = [
-    ...history.slice(-10).map((h) => ({
-      role: (h.role === 'assistant' ? 'assistant' : 'user') as 'user' | 'assistant',
-      content: h.content,
-    })),
-    { role: 'user' as const, content: message },
-  ]
-
-  const encoder = new TextEncoder()
-  let fullContent = ''
-
-  const readable = new ReadableStream({
-    async start(controller) {
+    // ── 6. Client DNA context ───────────────────────────────────────────────
+    let dnaContext = ''
+    if (client_id) {
       try {
-        const stream = anthropic.messages.stream({
-          model: ANTHROPIC_MODEL,
-          max_tokens: 2000,
-          system: systemPrompt,
-          messages,
-        })
-
-        for await (const event of stream) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            const text = event.delta.text
-            fullContent += text
-            controller.enqueue(encoder.encode(text))
-          }
+        const { data: dna } = await supabase
+          .from('client_dna')
+          .select('brand_name, brand_voice, target_audience, key_messages, visual_style')
+          .eq('client_id', client_id)
+          .maybeSingle()
+        if (dna) {
+          dnaContext = `\n\nCONTEXTO DO CLIENTE:\n- Marca: ${dna.brand_name ?? ''}\n- Voz da Marca: ${dna.brand_voice ?? ''}\n- Público-alvo: ${dna.target_audience ?? ''}\n- Mensagens-chave: ${dna.key_messages ?? ''}\n- Estilo Visual: ${dna.visual_style ?? ''}`
         }
-      } catch (err) {
-        const friendly = 'Erro ao processar resposta. Tente novamente.'
-        controller.enqueue(encoder.encode(friendly))
-        fullContent = friendly
-      } finally {
-        // Save assistant response
-        await supabase.from('agent_conversations').insert({
-          job_id: job_id ?? null,
-          workspace_id: profile?.workspace_id,
-          agent,
-          role: 'assistant',
-          content: fullContent,
-        })
+      } catch { /* DNA table may not exist yet — non-fatal */ }
+    }
 
-        // Auto-save to job_outputs gallery when job context exists
-        if (job_id && fullContent && agent !== 'oracle') {
-          const outputTypeMap: Partial<Record<AgentType, string>> = {
-            vera: 'copy', marco: 'script', atlas: 'image_prompt', vox: 'script',
-            volt: 'ads_copy', pulse: 'social_post', cipher: 'publish_plan',
-            vance: 'strategy', iris: 'research', vector: 'report',
-            prism: 'audience_insight', surge: 'growth_plan', anchor: 'cs_plan',
-            nexus: 'client_note', harbor: 'crm_note', ledger: 'financial_report',
-            aegis: 'review', bridge: 'onboarding', flux: 'automation',
-            genesis: 'agent_config', lore: 'knowledge',
+    // ── 7. Instagram metrics context ────────────────────────────────────────
+    let igContext = ''
+    if (client_id) {
+      try {
+        if (isIGSyncRequest(message)) {
+          const igHandleRes = await supabase
+            .from('clients')
+            .select('instagram_handle')
+            .eq('id', client_id)
+            .maybeSingle()
+          const handle = extractIGHandle(message) ?? igHandleRes.data?.instagram_handle
+          if (handle) {
+            const fresh = await scrapeInstagramProfile(handle, client_id)
+            if (fresh) {
+              const today = new Date().toISOString().split('T')[0]
+              await supabase.from('ig_metrics').upsert(
+                { client_id, date: today, username: fresh.username, followers: fresh.followers,
+                  following: fresh.following, posts: fresh.posts, engagement_rate: fresh.engagement_rate },
+                { onConflict: 'client_id,date' },
+              )
+              igContext = formatIGContext(fresh)
+            }
           }
-          await supabase.from('job_outputs').insert({
-            job_id,
-            client_id: client_id ?? null,
-            agent_id: agent,
-            agent_name: AGENT_LABELS[agent],
-            input_prompt: message,
-            output_content: fullContent,
-            output_type: outputTypeMap[agent] ?? 'text',
-            status: 'pending',
+        } else {
+          const [metrics, trend] = await Promise.all([
+            getClientIGMetrics(client_id, supabase),
+            getClientIGTrend(client_id, supabase),
+          ])
+          if (metrics) igContext = formatIGContext(metrics) + formatIGTrendContext(trend)
+        }
+      } catch { /* IG context is best-effort — non-fatal */ }
+    }
+
+    // ── 8. Build messages for Anthropic ────────────────────────────────────
+    const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
+
+    const safeHistory = Array.isArray(history) ? history : []
+    const anthropicMessages: Anthropic.MessageParam[] = [
+      ...safeHistory.slice(-10)
+        .filter((h) => h?.content && typeof h.content === 'string')
+        .map((h) => ({
+          role: (h.role === 'assistant' ? 'assistant' : 'user') as 'user' | 'assistant',
+          content: h.content,
+        })),
+      { role: 'user' as const, content: message },
+    ]
+
+    // ── 9. Stream response ──────────────────────────────────────────────────
+    const encoder = new TextEncoder()
+    let fullContent = ''
+
+    const readable = new ReadableStream({
+      async start(controller) {
+        try {
+          const stream = anthropic.messages.stream({
+            model: ANTHROPIC_MODEL,
+            max_tokens: 2000,
+            system: systemPrompt,
+            messages: anthropicMessages,
           })
+
+          for await (const event of stream) {
+            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+              const text = event.delta.text
+              fullContent += text
+              controller.enqueue(encoder.encode(text))
+            }
+          }
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : 'Erro desconhecido'
+          const friendly = `Erro ao processar resposta: ${msg}. Tente novamente.`
+          controller.enqueue(encoder.encode(friendly))
+          fullContent = friendly
+        } finally {
+          // Save assistant response (best-effort)
+          await supabase.from('agent_conversations').insert({
+            job_id: job_id ?? null,
+            workspace_id: profile?.workspace_id ?? null,
+            agent,
+            role: 'assistant',
+            content: fullContent,
+          }).catch(() => {})
+
+          // Auto-save to job_outputs when job context exists
+          if (job_id && fullContent && agent !== 'oracle') {
+            const outputTypeMap: Partial<Record<AgentType, string>> = {
+              vera: 'copy', marco: 'script', atlas: 'image_prompt', vox: 'script',
+              volt: 'ads_copy', pulse: 'social_post', cipher: 'publish_plan',
+              vance: 'strategy', iris: 'research', vector: 'report',
+              prism: 'audience_insight', surge: 'growth_plan', anchor: 'cs_plan',
+              nexus: 'client_note', harbor: 'crm_note', ledger: 'financial_report',
+              aegis: 'review', bridge: 'onboarding', flux: 'automation',
+              genesis: 'agent_config', lore: 'knowledge',
+            }
+            await supabase.from('job_outputs').insert({
+              job_id,
+              client_id: client_id ?? null,
+              agent_id: agent,
+              agent_name: AGENT_LABELS[agent],
+              input_prompt: message,
+              output_content: fullContent,
+              output_type: outputTypeMap[agent] ?? 'text',
+              status: 'pending',
+            }).catch(() => {})
+          }
+
+          controller.close()
         }
+      },
+    })
 
-        controller.close()
-      }
-    },
-  })
+    return new Response(readable, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Agent': agent,
+        'X-Agent-Label': AGENT_LABELS[agent],
+      },
+    })
 
-  return new Response(readable, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'X-Content-Type-Options': 'nosniff',
-      'X-Agent': agent,
-      'X-Agent-Label': AGENT_LABELS[agent],
-    },
-  })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('[oracle/chat] unhandled error:', msg)
+    return new Response(`Internal error: ${msg}`, { status: 500 })
+  }
 }
