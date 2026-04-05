@@ -13,24 +13,24 @@ export function PostCard({ post, clientId }: Props) {
   return (
     <Link
       href={`/clients/${clientId}/cms/${post.id}/edit`}
-      className="group flex flex-col gap-3 rounded-md border border-white/[0.07] bg-[#18181B] p-4 hover:border-white/[0.15] transition-colors"
+      className="group flex flex-col gap-3 rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-4 hover:border-[var(--color-border-strong)] transition-colors"
     >
       {post.cover_url && (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={post.cover_url} alt={post.title} className="w-full h-32 object-cover rounded" />
       )}
       {!post.cover_url && (
-        <div className="flex items-center justify-center w-full h-32 rounded bg-[#27272A]">
-          <FileText size={24} className="text-[#71717A]" />
+        <div className="flex items-center justify-center w-full h-32 rounded bg-[var(--color-bg-elevated)]">
+          <FileText size={24} className="text-[var(--color-text-muted)]" />
         </div>
       )}
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-sm font-semibold text-[#FAFAFA] group-hover:text-[#F59E0B] transition-colors line-clamp-2">
+        <h3 className="text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors line-clamp-2">
           {post.title}
         </h3>
         <PostStatusBadge status={post.status} />
       </div>
-      <div className="flex items-center gap-1.5 text-xs text-[#71717A]">
+      <div className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)]">
         <Calendar size={11} />
         {new Date(date).toLocaleDateString('pt-BR')}
       </div>

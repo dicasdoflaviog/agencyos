@@ -15,12 +15,12 @@ export default async function ClientsPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Clientes</h2>
-          <p className="mt-1 text-sm text-[#A1A1AA]">
+          <h2 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Clientes</h2>
+          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
             {clients?.length ?? 0} cliente{(clients?.length ?? 0) !== 1 ? 's' : ''} cadastrado{(clients?.length ?? 0) !== 1 ? 's' : ''}
           </p>
         </div>
-        <Button asChild className="bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer">
+        <Button asChild className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer">
           <Link href="/clients/new">
             <Plus size={15} strokeWidth={2.5} className="mr-1.5" />
             Novo Cliente
@@ -29,10 +29,10 @@ export default async function ClientsPage() {
       </div>
 
       {!clients?.length ? (
-        <div className="flex flex-col items-center justify-center rounded-md border border-white/[0.07] bg-[#18181B] py-16 text-center">
-          <p className="text-sm font-medium text-[#FAFAFA]">Nenhum cliente cadastrado</p>
-          <p className="mt-1 text-xs text-[#A1A1AA]">Crie seu primeiro cliente para começar</p>
-          <Button asChild className="mt-4 bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer">
+        <div className="flex flex-col items-center justify-center rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] py-16 text-center">
+          <p className="text-sm font-medium text-[var(--color-text-primary)]">Nenhum cliente cadastrado</p>
+          <p className="mt-1 text-xs text-[var(--color-text-secondary)]">Crie seu primeiro cliente para começar</p>
+          <Button asChild className="mt-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer">
             <Link href="/clients/new">
               <Plus size={14} strokeWidth={2.5} className="mr-1.5" />
               Novo Cliente

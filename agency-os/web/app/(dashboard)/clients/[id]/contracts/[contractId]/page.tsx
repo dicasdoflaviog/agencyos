@@ -7,10 +7,10 @@ import { InvoiceList } from '@/components/contracts/InvoiceList'
 import { cn } from '@/lib/utils'
 
 const STATUS_CONFIG = {
-  active:  { label: 'Ativo',      className: 'bg-[#22C55E]/10 text-[#22C55E]' },
-  paused:  { label: 'Pausado',    className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
-  ended:   { label: 'Encerrado',  className: 'bg-white/[0.06] text-[#71717A]' },
-  draft:   { label: 'Rascunho',   className: 'bg-white/[0.06] text-[#71717A]' },
+  active:  { label: 'Ativo',      className: 'bg-[var(--color-success)]/10 text-[var(--color-success)]' },
+  paused:  { label: 'Pausado',    className: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
+  ended:   { label: 'Encerrado',  className: 'bg-white/[0.06] text-[var(--color-text-muted)]' },
+  draft:   { label: 'Rascunho',   className: 'bg-white/[0.06] text-[var(--color-text-muted)]' },
 } as const
 
 const BILLING_LABELS = {
@@ -70,83 +70,83 @@ export default async function ContractDetailPage({
           <div className="flex items-center gap-2 mb-1">
             <Link
               href={`/clients/${id}/contracts`}
-              className="text-xs text-[#71717A] hover:text-[#A1A1AA] transition-colors inline-flex items-center gap-1"
+              className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors inline-flex items-center gap-1"
             >
               <ArrowLeft size={12} />
               {contract.client?.name ?? 'Cliente'} — Contratos
             </Link>
           </div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">
+            <h1 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">
               Contrato
             </h1>
             <span className={cn('rounded px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide', status.className)}>
               {status.label}
             </span>
           </div>
-          <p className="mt-0.5 text-xs text-[#71717A] font-mono">{contractId}</p>
+          <p className="mt-0.5 text-xs text-[var(--color-text-muted)] font-mono">{contractId}</p>
         </div>
       </div>
 
       {/* Overview cards */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
-          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Valor</p>
-          <p className="text-xl font-bold font-display text-[#FAFAFA]">
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-4">
+          <p className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-1">Valor</p>
+          <p className="text-xl font-bold font-display text-[var(--color-text-primary)]">
             {contract.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </p>
         </div>
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
-          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Cobrança</p>
-          <p className="text-xl font-bold font-display text-[#FAFAFA]">
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-4">
+          <p className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-1">Cobrança</p>
+          <p className="text-xl font-bold font-display text-[var(--color-text-primary)]">
             {BILLING_LABELS[contract.billing as keyof typeof BILLING_LABELS]}
           </p>
         </div>
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
-          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Pago</p>
-          <p className="text-xl font-bold text-[#22C55E]">
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-4">
+          <p className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-1">Pago</p>
+          <p className="text-xl font-bold text-[var(--color-success)]">
             {paidTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </p>
         </div>
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
-          <p className="text-xs text-[#71717A] uppercase tracking-wider mb-1">Pendente</p>
-          <p className="text-xl font-bold text-[#F59E0B]">
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-4">
+          <p className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-1">Pendente</p>
+          <p className="text-xl font-bold text-[var(--color-accent)]">
             {pendingTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </p>
         </div>
       </div>
 
       {/* Dates + notes info */}
-      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5 space-y-3">
+      <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5 space-y-3">
         <div className="flex items-center gap-2">
-          <Calendar size={14} className="text-[#71717A] shrink-0" />
-          <span className="text-xs text-[#71717A]">Início:</span>
-          <span className="text-sm text-[#FAFAFA] font-medium">{formatDate(contract.start_date)}</span>
+          <Calendar size={14} className="text-[var(--color-text-muted)] shrink-0" />
+          <span className="text-xs text-[var(--color-text-muted)]">Início:</span>
+          <span className="text-sm text-[var(--color-text-primary)] font-medium">{formatDate(contract.start_date)}</span>
           {contract.end_date && (
             <>
-              <span className="text-[#3F3F46] mx-1">→</span>
-              <span className="text-xs text-[#71717A]">Término:</span>
-              <span className="text-sm text-[#FAFAFA] font-medium">{formatDate(contract.end_date)}</span>
+              <span className="text-[var(--color-text-disabled)] mx-1">→</span>
+              <span className="text-xs text-[var(--color-text-muted)]">Término:</span>
+              <span className="text-sm text-[var(--color-text-primary)] font-medium">{formatDate(contract.end_date)}</span>
             </>
           )}
         </div>
         {contract.notes && (
-          <div className="flex gap-2 border-t border-white/[0.04] pt-3">
-            <FileText size={14} className="text-[#71717A] shrink-0 mt-0.5" />
-            <p className="text-sm text-[#A1A1AA] leading-relaxed">{contract.notes}</p>
+          <div className="flex gap-2 border-t border-[var(--color-border-subtle)] pt-3">
+            <FileText size={14} className="text-[var(--color-text-muted)] shrink-0 mt-0.5" />
+            <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">{contract.notes}</p>
           </div>
         )}
       </div>
 
       {/* Invoices */}
-      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
+      <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
         <InvoiceList contractId={contractId} initialInvoices={invoices ?? []} />
       </div>
 
       {/* Edit form */}
-      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-        <h3 className="text-sm font-semibold text-[#FAFAFA] mb-4 flex items-center gap-2">
-          <DollarSign size={14} className="text-[#F59E0B]" />
+      <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+        <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
+          <DollarSign size={14} className="text-[var(--color-accent)]" />
           Editar Contrato
         </h3>
         <ContractForm clientId={id} initialData={contract} mode="edit" />

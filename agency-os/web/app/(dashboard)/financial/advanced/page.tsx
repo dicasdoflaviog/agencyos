@@ -5,10 +5,10 @@ import { createClient } from '@/lib/supabase/server'
 import { cn } from '@/lib/utils'
 
 const STATUS_CONFIG = {
-  active:  { label: 'Ativo',      className: 'bg-[#22C55E]/10 text-[#22C55E]' },
-  paused:  { label: 'Pausado',    className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
-  ended:   { label: 'Encerrado',  className: 'bg-white/[0.06] text-[#71717A]' },
-  draft:   { label: 'Rascunho',   className: 'bg-white/[0.06] text-[#71717A]' },
+  active:  { label: 'Ativo',      className: 'bg-[var(--color-success)]/10 text-[var(--color-success)]' },
+  paused:  { label: 'Pausado',    className: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
+  ended:   { label: 'Encerrado',  className: 'bg-white/[0.06] text-[var(--color-text-muted)]' },
+  draft:   { label: 'Rascunho',   className: 'bg-white/[0.06] text-[var(--color-text-muted)]' },
 } as const
 
 const BILLING_LABELS = {
@@ -76,23 +76,23 @@ export default async function AdvancedFinancialPage() {
       value: formatCurrency(mrr),
       sub: 'Receita Recorrente Mensal',
       icon: DollarSign,
-      color: 'text-[#22C55E]',
-      iconBg: 'bg-[#22C55E]/10',
+      color: 'text-[var(--color-success)]',
+      iconBg: 'bg-[var(--color-success)]/10',
     },
     {
       label: 'ARR',
       value: formatCurrency(arr),
       sub: 'Receita Recorrente Anual',
       icon: TrendingUp,
-      color: 'text-[#F59E0B]',
-      iconBg: 'bg-[#F59E0B]/10',
+      color: 'text-[var(--color-accent)]',
+      iconBg: 'bg-[var(--color-accent)]/10',
     },
     {
       label: 'Contratos Ativos',
       value: activeCount.toLocaleString('pt-BR'),
       sub: `${pausedCount} pausado${pausedCount !== 1 ? 's' : ''}, ${endedCount} encerrado${endedCount !== 1 ? 's' : ''}`,
       icon: FileText,
-      color: 'text-[#A1A1AA]',
+      color: 'text-[var(--color-text-secondary)]',
       iconBg: 'bg-white/[0.06]',
     },
     {
@@ -100,7 +100,7 @@ export default async function AdvancedFinancialPage() {
       value: formatCurrency(pipelineValue),
       sub: `${draftCount} rascunho${draftCount !== 1 ? 's' : ''}`,
       icon: AlertCircle,
-      color: 'text-[#71717A]',
+      color: 'text-[var(--color-text-muted)]',
       iconBg: 'bg-white/[0.04]',
     },
   ]
@@ -109,66 +109,66 @@ export default async function AdvancedFinancialPage() {
     <div>
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Financeiro Avançado</h1>
-        <p className="mt-0.5 text-sm text-[#71717A]">MRR, ARR e visão completa de contratos</p>
+        <h1 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Financeiro Avançado</h1>
+        <p className="mt-0.5 text-sm text-[var(--color-text-muted)]">MRR, ARR e visão completa de contratos</p>
       </div>
 
       {/* Metrics */}
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {metrics.map(({ label, value, sub, icon: Icon, color, iconBg }) => (
-          <div key={label} className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
+          <div key={label} className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-medium text-[#71717A] uppercase tracking-wider">{label}</span>
+              <span className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">{label}</span>
               <div className={cn('rounded p-1.5', iconBg)}>
                 <Icon size={14} className={color} strokeWidth={2} />
               </div>
             </div>
-            <p className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight mb-1">{value}</p>
-            <p className="text-xs text-[#71717A]">{sub}</p>
+            <p className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight mb-1">{value}</p>
+            <p className="text-xs text-[var(--color-text-muted)]">{sub}</p>
           </div>
         ))}
       </div>
 
       {/* Contracts table */}
-      <div className="rounded-md border border-white/[0.07] overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 bg-white/[0.02] border-b border-white/[0.07]">
-          <h2 className="text-sm font-semibold text-[#FAFAFA]">Todos os Contratos</h2>
-          <span className="text-xs text-[#71717A]">{allContracts.length} contrato{allContracts.length !== 1 ? 's' : ''}</span>
+      <div className="rounded-md border border-[var(--color-border-subtle)] overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 bg-white/[0.02] border-b border-[var(--color-border-subtle)]">
+          <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">Todos os Contratos</h2>
+          <span className="text-xs text-[var(--color-text-muted)]">{allContracts.length} contrato{allContracts.length !== 1 ? 's' : ''}</span>
         </div>
 
         {allContracts.length === 0 ? (
-          <div className="bg-[#18181B] p-10 text-center">
-            <p className="text-sm text-[#71717A]">Nenhum contrato cadastrado.</p>
+          <div className="bg-[var(--color-bg-surface)] p-10 text-center">
+            <p className="text-sm text-[var(--color-text-muted)]">Nenhum contrato cadastrado.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/[0.07] bg-white/[0.01]">
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#71717A] uppercase tracking-wider">Cliente</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#71717A] uppercase tracking-wider">Valor</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#71717A] uppercase tracking-wider">Cobrança</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#71717A] uppercase tracking-wider">Início</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#71717A] uppercase tracking-wider">Status</th>
-                <th className="px-4 py-3 text-right text-xs font-medium text-[#71717A] uppercase tracking-wider">Detalhes</th>
+              <tr className="border-b border-[var(--color-border-subtle)] bg-white/[0.01]">
+                <th className="px-4 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Cliente</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Valor</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Cobrança</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Início</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Status</th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Detalhes</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04] bg-[#18181B]">
+            <tbody className="divide-y divide-white/[0.04] bg-[var(--color-bg-surface)]">
               {allContracts.map((contract) => {
                 const st = STATUS_CONFIG[contract.status as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.draft
                 return (
                   <tr key={contract.id} className="hover:bg-white/[0.02] transition-colors">
                     <td className="px-4 py-3">
-                      <span className="font-medium text-[#FAFAFA]">
+                      <span className="font-medium text-[var(--color-text-primary)]">
                         {contract.client?.name ?? '—'}
                       </span>
                     </td>
-                    <td className="px-4 py-3 font-semibold text-[#FAFAFA]">
+                    <td className="px-4 py-3 font-semibold text-[var(--color-text-primary)]">
                       {formatCurrency(contract.value)}
                     </td>
-                    <td className="px-4 py-3 text-[#A1A1AA]">
+                    <td className="px-4 py-3 text-[var(--color-text-secondary)]">
                       {BILLING_LABELS[contract.billing as keyof typeof BILLING_LABELS] ?? contract.billing}
                     </td>
-                    <td className="px-4 py-3 text-[#A1A1AA]">
+                    <td className="px-4 py-3 text-[var(--color-text-secondary)]">
                       {formatDate(contract.start_date)}
                     </td>
                     <td className="px-4 py-3">
@@ -180,7 +180,7 @@ export default async function AdvancedFinancialPage() {
                       {contract.client && (
                         <Link
                           href={`/clients/${contract.client_id}/contracts/${contract.id}`}
-                          className="text-xs text-[#F59E0B] hover:text-[#D97706] transition-colors"
+                          className="text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors"
                         >
                           Ver →
                         </Link>

@@ -21,14 +21,14 @@ export function VersionDiff({ oldContent, newContent }: Props) {
   }
 
   return (
-    <div className="rounded border border-white/[0.07] bg-[#09090B] p-3 font-mono text-xs overflow-auto max-h-80">
+    <div className="rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] p-3 font-mono text-xs overflow-auto max-h-80">
       {diffs.map((d, i) => (
         <div
           key={i}
           className={
-            d.type === 'added' ? 'bg-[#22C55E]/10 text-[#22C55E] px-2 py-0.5' :
-            d.type === 'removed' ? 'bg-[#EF4444]/10 text-[#EF4444] px-2 py-0.5' :
-            'text-[#A1A1AA] px-2 py-0.5'
+            d.type === 'added' ? 'bg-[var(--color-success)]/10 text-[var(--color-success)] px-2 py-0.5' :
+            d.type === 'removed' ? 'bg-[var(--color-error)]/10 text-[var(--color-error)] px-2 py-0.5' :
+            'text-[var(--color-text-secondary)] px-2 py-0.5'
           }
         >
           <span className="mr-2 opacity-50">{d.type === 'added' ? '+' : d.type === 'removed' ? '-' : ' '}</span>

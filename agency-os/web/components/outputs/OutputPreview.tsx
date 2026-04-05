@@ -6,7 +6,7 @@ import { Code2, Eye, Copy, Check } from 'lucide-react'
 
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react').then(m => m.default),
-  { ssr: false, loading: () => <div className="h-full bg-[#09090B] animate-pulse rounded" /> }
+  { ssr: false, loading: () => <div className="h-full bg-[var(--color-bg-base)] animate-pulse rounded" /> }
 )
 
 interface OutputPreviewProps {
@@ -28,28 +28,28 @@ export function OutputPreview({ content, type = 'text', title }: OutputPreviewPr
   const isHtml = type === 'html' || content.trimStart().startsWith('<')
 
   return (
-    <div className="flex flex-col border border-white/[0.07] rounded-xl overflow-hidden bg-[#09090B]">
+    <div className="flex flex-col border border-[var(--color-border-subtle)] rounded-xl overflow-hidden bg-[var(--color-bg-base)]">
       {/* Tab bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.07] bg-[#18181B]">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
         <div className="flex gap-1">
           {isHtml && (
             <button
               onClick={() => setTab('preview')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium transition-colors ${tab === 'preview' ? 'bg-[#27272A] text-[#FAFAFA]' : 'text-[#A1A1AA] hover:text-[#FAFAFA]'}`}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium transition-colors ${tab === 'preview' ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}`}
             >
               <Eye size={12} /> Preview
             </button>
           )}
           <button
             onClick={() => setTab('code')}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium transition-colors ${tab === 'code' ? 'bg-[#27272A] text-[#FAFAFA]' : 'text-[#A1A1AA] hover:text-[#FAFAFA]'}`}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium transition-colors ${tab === 'code' ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}`}
           >
             <Code2 size={12} /> {type === 'html' ? 'HTML' : type === 'json' ? 'JSON' : 'Texto'}
           </button>
         </div>
         <div className="flex items-center gap-2">
-          {title && <span className="text-xs text-[#52525B]">{title}</span>}
-          <button onClick={copy} className="flex items-center gap-1 text-xs text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors">
+          {title && <span className="text-xs text-[var(--color-text-muted)]">{title}</span>}
+          <button onClick={copy} className="flex items-center gap-1 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
             {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
             {copied ? 'Copiado' : 'Copiar'}
           </button>
@@ -66,7 +66,7 @@ export function OutputPreview({ content, type = 'text', title }: OutputPreviewPr
             title="Output Preview"
           />
         ) : (
-          <Suspense fallback={<div className="h-full bg-[#09090B]" />}>
+          <Suspense fallback={<div className="h-full bg-[var(--color-bg-base)]" />}>
             <MonacoEditor
               height="100%"
               language={type === 'json' ? 'json' : type === 'html' ? 'html' : 'plaintext'}

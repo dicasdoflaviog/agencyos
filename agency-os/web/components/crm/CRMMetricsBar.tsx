@@ -29,9 +29,9 @@ export function CRMMetricsBar({ leads }: Props) {
   return (
     <div className="grid grid-cols-2 gap-3 mb-6 lg:grid-cols-4">
       {metrics.map(m => (
-        <div key={m.label} className="rounded-md border border-white/[0.07] bg-[#18181B] p-4">
-          <p className="text-xs text-[#A1A1AA] mb-1">{m.label}</p>
-          <p className={`text-xl font-bold ${m.accent ? 'text-[#F59E0B]' : 'text-[#FAFAFA]'}`}>{m.value}</p>
+        <div key={m.label} className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-4">
+          <p className="text-xs text-[var(--color-text-secondary)] mb-1">{m.label}</p>
+          <p className={`text-xl font-bold ${m.accent ? 'text-[var(--color-accent)]' : 'text-[var(--color-text-primary)]'}`}>{m.value}</p>
         </div>
       ))}
     </div>

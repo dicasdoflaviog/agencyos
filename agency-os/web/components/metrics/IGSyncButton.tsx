@@ -51,7 +51,7 @@ export function IGSyncButton({ clientId, username }: IGSyncButtonProps) {
       <button
         onClick={handleSync}
         disabled={status === 'loading'}
-        className="flex items-center gap-2 rounded-lg border border-white/[0.07] bg-[#18181B] px-3 py-1.5 text-xs font-medium text-[#A1A1AA] hover:border-white/20 hover:text-[#FAFAFA] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+        className="flex items-center gap-2 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] hover:border-white/20 hover:text-[var(--color-text-primary)] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       >
         <RefreshCw size={13} className={status === 'loading' ? 'animate-spin' : ''} />
         {status === 'loading' ? 'Sincronizando...' : '↺ Sincronizar Instagram'}

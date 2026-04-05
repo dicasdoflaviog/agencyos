@@ -18,8 +18,8 @@ export default async function OraclePage({ params }: { params: Promise<{ id: str
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold text-[#FAFAFA]">ORACLE</h1>
-        <p className="text-sm text-[#A1A1AA] mt-0.5">Agente de orquestração</p>
+        <h1 className="text-xl font-semibold text-[var(--color-text-primary)]">ORACLE</h1>
+        <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">Agente de orquestração</p>
       </div>
       <OracleChat
         clientName={client.name}

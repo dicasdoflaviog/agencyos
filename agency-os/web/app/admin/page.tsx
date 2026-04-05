@@ -46,24 +46,24 @@ export default async function AdminPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#FAFAFA]">Admin Dashboard</h1>
-        <p className="mt-1 text-sm text-[#A1A1AA]">Visão geral da plataforma</p>
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Admin Dashboard</h1>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Visão geral da plataforma</p>
       </div>
 
       <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map(({ label, value, icon: Icon }) => (
-          <div key={label} className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
+          <div key={label} className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">{label}</span>
-              <Icon size={15} className="text-[#F59E0B]" strokeWidth={2} />
+              <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">{label}</span>
+              <Icon size={15} className="text-[var(--color-accent)]" strokeWidth={2} />
             </div>
-            <p className="text-2xl font-bold tracking-tight text-[#FAFAFA]">{value}</p>
+            <p className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">{value}</p>
           </div>
         ))}
       </div>
 
-      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-        <h2 className="mb-4 text-sm font-semibold text-[#FAFAFA]">Workspaces</h2>
+      <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+        <h2 className="mb-4 text-sm font-semibold text-[var(--color-text-primary)]">Workspaces</h2>
         <WorkspaceTable workspaces={workspaces} />
       </div>
     </div>

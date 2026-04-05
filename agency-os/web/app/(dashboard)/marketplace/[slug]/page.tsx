@@ -48,39 +48,39 @@ export default async function AgentDetailPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-6">
-        <Link href="/marketplace" className="text-sm text-[#A1A1AA] hover:text-[#FAFAFA]">← Marketplace</Link>
+        <Link href="/marketplace" className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">← Marketplace</Link>
       </div>
 
-      <div className="rounded-lg border border-white/[0.07] bg-[#18181B] p-8">
+      <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-8">
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
-            <span className="mb-2 inline-block rounded bg-[#F59E0B]/10 px-2 py-0.5 text-xs font-medium text-[#F59E0B]">
+            <span className="mb-2 inline-block rounded bg-[var(--color-accent)]/10 px-2 py-0.5 text-xs font-medium text-[var(--color-accent)]">
               {categoryLabels[typedAgent.category] ?? typedAgent.category}
             </span>
-            <h1 className="text-2xl font-bold font-display text-[#FAFAFA]">{typedAgent.name}</h1>
+            <h1 className="text-2xl font-bold font-display text-[var(--color-text-primary)]">{typedAgent.name}</h1>
           </div>
           <div className="text-right">
-            <p className="text-xl font-bold font-display text-[#FAFAFA]">{priceLabel}</p>
-            <p className="mt-1 text-xs text-[#71717A]">
+            <p className="text-xl font-bold font-display text-[var(--color-text-primary)]">{priceLabel}</p>
+            <p className="mt-1 text-xs text-[var(--color-text-muted)]">
               {typedAgent.price_type === 'subscription' ? 'Por mês' : typedAgent.price_type === 'one_time' ? 'Pagamento único' : ''}
             </p>
           </div>
         </div>
 
-        <p className="mb-6 text-sm leading-relaxed text-[#A1A1AA]">
+        <p className="mb-6 text-sm leading-relaxed text-[var(--color-text-secondary)]">
           {typedAgent.description ?? 'Sem descrição disponível.'}
         </p>
 
         <div className="mb-8 flex items-center gap-6">
           <div className="flex items-center gap-1.5">
-            <Star size={14} className="fill-[#F59E0B] text-[#F59E0B]" />
-            <span className="text-sm font-medium text-[#FAFAFA]">{typedAgent.rating.toFixed(1)}</span>
-            <span className="text-xs text-[#71717A]">avaliação</span>
+            <Star size={14} className="fill-[#F59E0B] text-[var(--color-accent)]" />
+            <span className="text-sm font-medium text-[var(--color-text-primary)]">{typedAgent.rating.toFixed(1)}</span>
+            <span className="text-xs text-[var(--color-text-muted)]">avaliação</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Download size={14} className="text-[#A1A1AA]" />
-            <span className="text-sm font-medium text-[#FAFAFA]">{typedAgent.install_count.toLocaleString('pt-BR')}</span>
-            <span className="text-xs text-[#71717A]">instalações</span>
+            <Download size={14} className="text-[var(--color-text-secondary)]" />
+            <span className="text-sm font-medium text-[var(--color-text-primary)]">{typedAgent.install_count.toLocaleString('pt-BR')}</span>
+            <span className="text-xs text-[var(--color-text-muted)]">instalações</span>
           </div>
         </div>
 

@@ -8,8 +8,8 @@ interface Props {
 export function ClientOutputList({ outputs }: Props) {
   if (!outputs.length) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-white/[0.07] bg-[#18181B] py-16">
-        <p className="text-sm text-[#A1A1AA]">Nenhum conteúdo disponível ainda.</p>
+      <div className="flex flex-col items-center justify-center rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] py-16">
+        <p className="text-sm text-[var(--color-text-secondary)]">Nenhum conteúdo disponível ainda.</p>
       </div>
     )
   }
@@ -21,7 +21,7 @@ export function ClientOutputList({ outputs }: Props) {
     <div className="space-y-6">
       {pending.length > 0 && (
         <div>
-          <h2 className="text-xs font-medium uppercase tracking-wider text-[#F59E0B] mb-3">
+          <h2 className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent)] mb-3">
             Aguardando sua aprovação ({pending.length})
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -33,7 +33,7 @@ export function ClientOutputList({ outputs }: Props) {
       )}
       {rest.length > 0 && (
         <div>
-          <h2 className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA] mb-3">
+          <h2 className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)] mb-3">
             Histórico
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">

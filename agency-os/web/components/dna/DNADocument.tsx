@@ -14,9 +14,9 @@ interface Props {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-white/[0.07] bg-[#18181B] p-5">
+    <div className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
       <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-amber-400">{title}</h3>
-      <div className="text-sm text-[#D4D4D8] leading-relaxed whitespace-pre-wrap">{children}</div>
+      <div className="text-sm text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-wrap">{children}</div>
     </div>
   )
 }
@@ -85,8 +85,8 @@ export function DNADocument({ clientId, clientName, memoryId, content, createdAt
             <Dna size={18} className="text-amber-400" />
           </div>
           <div>
-            <h2 className="text-base font-semibold text-[#FAFAFA]">Brand DNA — {clientName}</h2>
-            <div className="flex items-center gap-1 text-xs text-[#52525B]">
+            <h2 className="text-base font-semibold text-[var(--color-text-primary)]">Brand DNA — {clientName}</h2>
+            <div className="flex items-center gap-1 text-xs text-[var(--color-text-muted)]">
               <Clock size={11} />
               <span>Gerado em {date}</span>
             </div>
@@ -95,7 +95,7 @@ export function DNADocument({ clientId, clientName, memoryId, content, createdAt
         <div className="flex items-center gap-2">
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 rounded-lg border border-white/[0.07] px-3 py-1.5 text-xs text-[#A1A1AA] transition-all hover:border-white/20 hover:text-[#FAFAFA]"
+            className="flex items-center gap-1.5 rounded-lg border border-[var(--color-border-subtle)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] transition-all hover:border-white/20 hover:text-[var(--color-text-primary)]"
           >
             {copied ? <><Check size={12} className="text-green-400" /> Copiado</> : <><Copy size={12} /> Copiar</>}
           </button>

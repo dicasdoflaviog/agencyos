@@ -24,25 +24,25 @@ export default async function AdminWorkspacesPage() {
   const planColors: Record<string, string> = {
     starter: 'bg-blue-500/10 text-blue-400',
     pro: 'bg-purple-500/10 text-purple-400',
-    agency: 'bg-[#F59E0B]/10 text-[#F59E0B]',
+    agency: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]',
   }
 
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#FAFAFA]">Workspaces</h1>
-        <p className="mt-1 text-sm text-[#A1A1AA]">{workspaces.length} workspaces cadastradas</p>
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Workspaces</h1>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{workspaces.length} workspaces cadastradas</p>
       </div>
 
-      <div className="overflow-hidden rounded-md border border-white/[0.07] bg-[#18181B]">
+      <div className="overflow-hidden rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/[0.07]">
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Nome</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Slug</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Plano</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Status</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Criada em</th>
+            <tr className="border-b border-[var(--color-border-subtle)]">
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Nome</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Slug</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Plano</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Status</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Criada em</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -50,26 +50,26 @@ export default async function AdminWorkspacesPage() {
             {workspaces.map(ws => {
               const sub = subMap.get(ws.id)
               return (
-                <tr key={ws.id} className="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td className="px-4 py-3 font-medium text-[#FAFAFA]">{ws.name}</td>
-                  <td className="px-4 py-3 text-[#A1A1AA]">{ws.slug}</td>
+                <tr key={ws.id} className="border-b border-[var(--color-border-subtle)] hover:bg-white/[0.02]">
+                  <td className="px-4 py-3 font-medium text-[var(--color-text-primary)]">{ws.name}</td>
+                  <td className="px-4 py-3 text-[var(--color-text-secondary)]">{ws.slug}</td>
                   <td className="px-4 py-3">
                     {sub ? (
-                      <span className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${planColors[sub.plan] ?? 'bg-white/5 text-[#A1A1AA]'}`}>
+                      <span className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${planColors[sub.plan] ?? 'bg-white/5 text-[var(--color-text-secondary)]'}`}>
                         {sub.plan}
                       </span>
                     ) : (
-                      <span className="text-xs text-[#52525B]">—</span>
+                      <span className="text-xs text-[var(--color-text-muted)]">—</span>
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${sub?.status === 'active' ? 'bg-green-500/10 text-green-400' : 'bg-white/5 text-[#A1A1AA]'}`}>
+                    <span className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${sub?.status === 'active' ? 'bg-green-500/10 text-green-400' : 'bg-white/5 text-[var(--color-text-secondary)]'}`}>
                       {sub?.status ?? 'free'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-[#A1A1AA]">{new Date(ws.created_at).toLocaleDateString('pt-BR')}</td>
+                  <td className="px-4 py-3 text-[var(--color-text-secondary)]">{new Date(ws.created_at).toLocaleDateString('pt-BR')}</td>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/workspaces/${ws.id}`} className="text-xs text-[#F59E0B] hover:underline">
+                    <Link href={`/admin/workspaces/${ws.id}`} className="text-xs text-[var(--color-accent)] hover:underline">
                       Ver →
                     </Link>
                   </td>
@@ -79,7 +79,7 @@ export default async function AdminWorkspacesPage() {
           </tbody>
         </table>
         {workspaces.length === 0 && (
-          <div className="py-12 text-center text-sm text-[#71717A]">Nenhuma workspace encontrada</div>
+          <div className="py-12 text-center text-sm text-[var(--color-text-muted)]">Nenhuma workspace encontrada</div>
         )}
       </div>
     </div>

@@ -23,7 +23,7 @@ export function ClientTabs({ clientId }: { clientId: string }) {
   const base = `/clients/${clientId}`
 
   return (
-    <div className="flex items-center gap-1 border-b border-white/[0.07] mb-6">
+    <div className="flex items-center gap-1 border-b border-[var(--color-border-subtle)] mb-6">
       {TABS.map(({ label, suffix, icon: Icon }) => {
         const href = `${base}${suffix}`
         const isActive = suffix === ''
@@ -37,8 +37,8 @@ export function ClientTabs({ clientId }: { clientId: string }) {
             className={cn(
               'flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 transition-colors -mb-px',
               isActive
-                ? 'border-[#F59E0B] text-[#F59E0B]'
-                : 'border-transparent text-[#A1A1AA] hover:text-[#FAFAFA] hover:border-white/20'
+                ? 'border-[var(--color-accent)] text-[var(--color-accent)]'
+                : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-white/20'
             )}
           >
             <Icon size={14} strokeWidth={isActive ? 2.5 : 2} />

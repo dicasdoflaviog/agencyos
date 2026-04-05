@@ -7,9 +7,9 @@ import { Pencil, X } from 'lucide-react'
 import type { Client } from '@/types/database'
 
 const CONTRACT_STATUS = {
-  active:  { label: 'Em dia',    cls: 'bg-[#22C55E]/10 text-[#22C55E]' },
-  pending: { label: 'Pendente',  cls: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
-  overdue: { label: 'Atrasado',  cls: 'bg-[#EF4444]/10 text-[#EF4444]' },
+  active:  { label: 'Em dia',    cls: 'bg-[var(--color-success)]/10 text-[var(--color-success)]' },
+  pending: { label: 'Pendente',  cls: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
+  overdue: { label: 'Atrasado',  cls: 'bg-[var(--color-error)]/10 text-[var(--color-error)]' },
 }
 
 interface Props {
@@ -22,9 +22,9 @@ export function ClientDetailToggle({ client }: Props) {
   const cs = CONTRACT_STATUS[(client.contract_status ?? 'active') as keyof typeof CONTRACT_STATUS] ?? CONTRACT_STATUS.active
 
   return (
-    <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-6">
+    <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+        <h3 className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
           {editing ? 'Editar Dados' : 'Dados do Cliente'}
         </h3>
         <button
@@ -32,8 +32,8 @@ export function ClientDetailToggle({ client }: Props) {
           className={cn(
             'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all',
             editing
-              ? 'bg-white/[0.06] text-[#A1A1AA] hover:text-[#FAFAFA]'
-              : 'bg-[#F59E0B]/10 text-[#F59E0B] hover:bg-[#F59E0B]/20'
+              ? 'bg-white/[0.06] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+              : 'bg-[var(--color-accent)]/10 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20'
           )}
         >
           {editing ? <><X size={12} /> Cancelar</> : <><Pencil size={12} /> Editar</>}
@@ -53,8 +53,8 @@ export function ClientDetailToggle({ client }: Props) {
           {client.contract_value != null && (
             <Row label="Contrato / mês" value={formatCurrency(client.contract_value)} />
           )}
-          <div className="flex justify-between items-center py-1 border-b border-white/[0.04]">
-            <dt className="text-xs text-[#71717A] uppercase tracking-wider">Status Contrato</dt>
+          <div className="flex justify-between items-center py-1 border-b border-[var(--color-border-subtle)]">
+            <dt className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider">Status Contrato</dt>
             <dd>
               <span className={cn('rounded px-2 py-0.5 text-xs font-medium', cs.cls)}>
                 {cs.label}
@@ -71,9 +71,9 @@ export function ClientDetailToggle({ client }: Props) {
 
 function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
-    <div className="flex justify-between items-start py-1 border-b border-white/[0.04]">
-      <dt className="text-xs text-[#71717A] uppercase tracking-wider shrink-0 mr-4">{label}</dt>
-      <dd className={cn('text-sm text-[#FAFAFA] text-right', mono && 'font-mono text-xs text-[#A1A1AA]')}>{value}</dd>
+    <div className="flex justify-between items-start py-1 border-b border-[var(--color-border-subtle)]">
+      <dt className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider shrink-0 mr-4">{label}</dt>
+      <dd className={cn('text-sm text-[var(--color-text-primary)] text-right', mono && 'font-mono text-xs text-[var(--color-text-secondary)]')}>{value}</dd>
     </div>
   )
 }

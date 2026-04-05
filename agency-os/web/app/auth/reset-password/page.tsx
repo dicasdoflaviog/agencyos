@@ -45,33 +45,33 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#09090B]">
-      <div className="w-full max-w-[400px] rounded-lg border border-white/[0.07] bg-[#18181B] p-8">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-base)]">
+      <div className="w-full max-w-[400px] rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-8">
 
         {done ? (
           <div className="text-center py-4">
             <div className="flex justify-center mb-4">
               <CheckCircle2 size={40} className="text-emerald-400" />
             </div>
-            <h2 className="text-lg font-semibold text-[#FAFAFA] mb-2">Senha redefinida!</h2>
-            <p className="text-sm text-[#A1A1AA]">Redirecionando para o login...</p>
+            <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Senha redefinida!</h2>
+            <p className="text-sm text-[var(--color-text-secondary)]">Redirecionando para o login...</p>
           </div>
         ) : (
           <>
             <div className="mb-6">
-              <h1 className="text-xl font-bold text-[#FAFAFA]">Nova senha</h1>
-              <p className="mt-1 text-sm text-[#A1A1AA]">Escolha uma senha forte para sua conta.</p>
+              <h1 className="text-xl font-bold text-[var(--color-text-primary)]">Nova senha</h1>
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Escolha uma senha forte para sua conta.</p>
             </div>
 
             {!ready && (
-              <p className="text-xs text-[#A1A1AA] bg-white/[0.04] px-3 py-2 rounded mb-4">
+              <p className="text-xs text-[var(--color-text-secondary)] bg-white/[0.04] px-3 py-2 rounded mb-4">
                 Validando link... Se demorar, tente abrir o link do email novamente.
               </p>
             )}
 
             <form onSubmit={handleReset} className="space-y-4">
               <div className="space-y-1.5">
-                <Label className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">
+                <Label className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">
                   Nova Senha
                 </Label>
                 <div className="relative">
@@ -81,12 +81,12 @@ export default function ResetPasswordPage() {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     required
-                    className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20 pr-10"
+                    className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setShow(v => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#71717A] hover:text-[#A1A1AA]"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
                   >
                     {show ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
@@ -94,7 +94,7 @@ export default function ResetPasswordPage() {
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">
+                <Label className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">
                   Confirmar Senha
                 </Label>
                 <Input
@@ -103,18 +103,18 @@ export default function ResetPasswordPage() {
                   value={confirm}
                   onChange={e => setConfirm(e.target.value)}
                   required
-                  className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20"
+                  className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20"
                 />
               </div>
 
               {error && (
-                <p className="text-xs text-[#EF4444] bg-[#EF4444]/10 px-3 py-2 rounded">{error}</p>
+                <p className="text-xs text-[var(--color-error)] bg-[var(--color-error)]/10 px-3 py-2 rounded">{error}</p>
               )}
 
               <Button
                 type="submit"
                 disabled={loading || !ready}
-                className="w-full bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] transition-colors cursor-pointer"
+                className="w-full bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] transition-colors cursor-pointer"
               >
                 {loading ? 'Salvando...' : 'Redefinir senha'}
               </Button>

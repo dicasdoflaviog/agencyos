@@ -23,10 +23,10 @@ export default async function TeamSettingsPage() {
     <div>
       <div className="mb-6">
         <div className="flex items-center gap-2.5 mb-1">
-          <Users size={20} className="text-[#F59E0B]" />
-          <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Equipe</h2>
+          <Users size={20} className="text-[var(--color-accent)]" />
+          <h2 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Equipe</h2>
         </div>
-        <p className="text-sm text-[#A1A1AA]">
+        <p className="text-sm text-[var(--color-text-secondary)]">
           Gerencie os membros da sua equipe e seus níveis de acesso.
         </p>
       </div>

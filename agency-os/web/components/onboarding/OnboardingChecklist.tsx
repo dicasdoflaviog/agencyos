@@ -37,15 +37,15 @@ export function OnboardingChecklist() {
   const percent = Math.round((stepsDone.length / ALL_STEPS.length) * 100)
 
   return (
-    <div className="mb-6 rounded-md border border-[#F59E0B]/20 bg-[#F59E0B]/5 p-5">
+    <div className="mb-6 rounded-md border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 p-5">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-[#FAFAFA]">Configure sua agência</h3>
-        <span className="text-xs font-medium text-[#F59E0B]">{percent}%</span>
+        <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">Configure sua agência</h3>
+        <span className="text-xs font-medium text-[var(--color-accent)]">{percent}%</span>
       </div>
 
       <div className="mb-4 h-1.5 w-full rounded-full bg-white/[0.07]">
         <div
-          className="h-1.5 rounded-full bg-[#F59E0B] transition-all duration-500"
+          className="h-1.5 rounded-full bg-[var(--color-accent)] transition-all duration-500"
           style={{ width: `${percent}%` }}
         />
       </div>
@@ -56,10 +56,10 @@ export function OnboardingChecklist() {
           return (
             <div key={step} className="flex items-center gap-2 text-sm">
               {done
-                ? <CheckCircle size={14} className="flex-shrink-0 text-[#F59E0B]" />
-                : <Circle size={14} className="flex-shrink-0 text-[#52525B]" />
+                ? <CheckCircle size={14} className="flex-shrink-0 text-[var(--color-accent)]" />
+                : <Circle size={14} className="flex-shrink-0 text-[var(--color-text-muted)]" />
               }
-              <span className={done ? 'text-[#A1A1AA] line-through' : 'text-[#FAFAFA]'}>
+              <span className={done ? 'text-[var(--color-text-secondary)] line-through' : 'text-[var(--color-text-primary)]'}>
                 {STEP_LABELS[step]}
               </span>
             </div>
@@ -69,7 +69,7 @@ export function OnboardingChecklist() {
 
       <Link
         href="/onboarding"
-        className="inline-block rounded bg-[#F59E0B] px-4 py-1.5 text-xs font-medium text-[#0A0A0A] transition-colors hover:bg-[#D97706]"
+        className="inline-block rounded bg-[var(--color-accent)] px-4 py-1.5 text-xs font-medium text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-accent-hover)]"
       >
         Continuar configuração →
       </Link>

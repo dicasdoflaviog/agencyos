@@ -45,8 +45,8 @@ function DroppableColumn({ status, label, jobs }: { status: Status; label: strin
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">{label}</span>
-        <span className="rounded-full bg-white/[0.06] px-1.5 py-0.5 text-xs font-medium text-[#A1A1AA]">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-secondary)]">{label}</span>
+        <span className="rounded-full bg-white/[0.06] px-1.5 py-0.5 text-xs font-medium text-[var(--color-text-secondary)]">
           {jobs.length}
         </span>
       </div>
@@ -54,7 +54,7 @@ function DroppableColumn({ status, label, jobs }: { status: Status; label: strin
         ref={setNodeRef}
         className={cn(
           'flex flex-col gap-2 min-h-[80px] rounded-md p-1 transition-colors duration-150',
-          isOver && 'bg-[#F59E0B]/5 ring-1 ring-[#F59E0B]/20'
+          isOver && 'bg-[var(--color-accent)]/5 ring-1 ring-[#F59E0B]/20'
         )}
       >
         {jobs.map((job) => (
@@ -62,10 +62,10 @@ function DroppableColumn({ status, label, jobs }: { status: Status; label: strin
         ))}
         {jobs.length === 0 && (
           <div className={cn(
-            'rounded-md border border-dashed border-white/[0.07] p-4 text-center transition-colors duration-150',
-            isOver && 'border-[#F59E0B]/30'
+            'rounded-md border border-dashed border-[var(--color-border-subtle)] p-4 text-center transition-colors duration-150',
+            isOver && 'border-[var(--color-accent)]/30'
           )}>
-            <p className="text-xs text-[#A1A1AA]">Sem jobs</p>
+            <p className="text-xs text-[var(--color-text-secondary)]">Sem jobs</p>
           </div>
         )}
       </div>

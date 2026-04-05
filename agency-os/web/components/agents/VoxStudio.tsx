@@ -78,30 +78,30 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Generator */}
-      <div className="bg-[#18181B] border border-white/[0.07] rounded-xl p-5 space-y-4">
+      <div className="bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] rounded-xl p-5 space-y-4">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
             <Mic size={16} className="text-emerald-400" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#FAFAFA]">VOX</p>
-            <p className="text-xs text-[#A1A1AA]">Narração com IA · {clientName}</p>
+            <p className="text-sm font-semibold text-[var(--color-text-primary)]">VOX</p>
+            <p className="text-xs text-[var(--color-text-secondary)]">Narração com IA · {clientName}</p>
           </div>
         </div>
 
         {/* Voice selector */}
         <div>
-          <p className="text-xs text-[#A1A1AA] mb-2">Voz</p>
+          <p className="text-xs text-[var(--color-text-secondary)] mb-2">Voz</p>
           <div className="space-y-2">
             {voices.map(v => (
               <button key={v.id} onClick={() => setSelectedVoice(v.id)}
-                className={`w-full text-left p-3 rounded-lg border transition-all ${selectedVoice === v.id ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-white/[0.07] hover:border-white/20'}`}>
+                className={`w-full text-left p-3 rounded-lg border transition-all ${selectedVoice === v.id ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-[var(--color-border-subtle)] hover:border-white/20'}`}>
                 <div className="flex items-center gap-2">
-                  <Volume2 size={14} className={selectedVoice === v.id ? 'text-emerald-400' : 'text-[#A1A1AA]'} />
-                  <span className={`text-sm font-medium ${selectedVoice === v.id ? 'text-emerald-400' : 'text-[#FAFAFA]'}`}>{v.name}</span>
-                  <span className="text-xs text-[#52525B] ml-auto">{v.lang}</span>
+                  <Volume2 size={14} className={selectedVoice === v.id ? 'text-emerald-400' : 'text-[var(--color-text-secondary)]'} />
+                  <span className={`text-sm font-medium ${selectedVoice === v.id ? 'text-emerald-400' : 'text-[var(--color-text-primary)]'}`}>{v.name}</span>
+                  <span className="text-xs text-[var(--color-text-muted)] ml-auto">{v.lang}</span>
                 </div>
-                <p className="text-xs text-[#71717A] mt-0.5 pl-6">{v.description}</p>
+                <p className="text-xs text-[var(--color-text-muted)] mt-0.5 pl-6">{v.description}</p>
               </button>
             ))}
           </div>
@@ -109,14 +109,14 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
 
         {/* Text input */}
         <div>
-          <p className="text-xs text-[#A1A1AA] mb-2">Texto para narrar</p>
+          <p className="text-xs text-[var(--color-text-secondary)] mb-2">Texto para narrar</p>
           <textarea value={text} onChange={e => setText(e.target.value)} rows={4}
             placeholder="Cole aqui o texto que o VOX irá narrar..."
-            className="w-full resize-none rounded-lg bg-[#09090B] border border-white/[0.07] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:outline-none focus:border-emerald-500/40 transition-colors" />
+            className="w-full resize-none rounded-lg bg-[var(--color-bg-base)] border border-[var(--color-border-subtle)] px-3 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:outline-none focus:border-emerald-500/40 transition-colors" />
           <div className="flex flex-wrap gap-1.5 mt-2">
             {QUICK_TEXTS.map(q => (
               <button key={q} onClick={() => setText(q)}
-                className="text-[10px] px-2 py-1 rounded bg-[#27272A] text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors truncate max-w-[200px]">
+                className="text-[10px] px-2 py-1 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors truncate max-w-[200px]">
                 {q}
               </button>
             ))}
@@ -133,28 +133,28 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
 
       {/* Audio list */}
       <div className="space-y-3">
-        <p className="text-xs text-[#A1A1AA]">Narrações geradas</p>
+        <p className="text-xs text-[var(--color-text-secondary)]">Narrações geradas</p>
         {assets.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-48 bg-[#18181B] border border-white/[0.07] rounded-xl gap-3">
-            <Volume2 size={32} className="text-[#3F3F46]" />
-            <p className="text-sm text-[#52525B]">Suas narrações aparecem aqui</p>
+          <div className="flex flex-col items-center justify-center h-48 bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] rounded-xl gap-3">
+            <Volume2 size={32} className="text-[var(--color-text-disabled)]" />
+            <p className="text-sm text-[var(--color-text-muted)]">Suas narrações aparecem aqui</p>
           </div>
         ) : (
           assets.map(a => (
-            <div key={a.id} className="bg-[#18181B] border border-white/[0.07] rounded-xl p-4">
-              <p className="text-sm text-[#FAFAFA] line-clamp-2 mb-3">{a.text_content}</p>
+            <div key={a.id} className="bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] rounded-xl p-4">
+              <p className="text-sm text-[var(--color-text-primary)] line-clamp-2 mb-3">{a.text_content}</p>
               <div className="flex items-center gap-2">
                 <button onClick={() => togglePlay(a)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${playingId === a.id ? 'bg-emerald-500/20 text-emerald-400' : 'bg-[#27272A] text-[#A1A1AA] hover:text-[#FAFAFA]'}`}>
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${playingId === a.id ? 'bg-emerald-500/20 text-emerald-400' : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}`}>
                   {playingId === a.id
                     ? <><StopCircle size={12} /> Pausar</>
                     : <><Play size={12} /> Ouvir</>}
                 </button>
                 <a href={a.audio_url} download
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#27272A] text-[#A1A1AA] hover:text-[#FAFAFA] text-xs transition-colors">
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-xs transition-colors">
                   <Download size={12} /> Download
                 </a>
-                <span className="text-xs text-[#52525B] ml-auto">
+                <span className="text-xs text-[var(--color-text-muted)] ml-auto">
                   {new Date(a.created_at).toLocaleDateString('pt-BR')}
                 </span>
               </div>

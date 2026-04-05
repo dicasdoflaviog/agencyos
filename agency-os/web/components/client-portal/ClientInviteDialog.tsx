@@ -39,7 +39,7 @@ export function ClientInviteDialog({ clientId }: Props) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded border border-white/[0.07] bg-[#27272A] px-3 py-1.5 text-sm font-medium text-[#FAFAFA] hover:bg-[#3F3F46] transition-colors"
+        className="flex items-center gap-2 rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-1.5 text-sm font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-bg-overlay)] transition-colors"
       >
         <UserPlus size={14} />
         Convidar para Portal
@@ -49,33 +49,33 @@ export function ClientInviteDialog({ clientId }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="w-full max-w-md rounded-lg border border-white/[0.07] bg-[#18181B] p-6 shadow-xl">
+      <div className="w-full max-w-md rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6 shadow-xl">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-semibold text-[#FAFAFA]">Convidar para Portal</h2>
-          <button onClick={() => { setOpen(false); setInviteToken(null); setEmail('') }} className="text-[#A1A1AA] hover:text-[#FAFAFA]">
+          <h2 className="text-base font-semibold text-[var(--color-text-primary)]">Convidar para Portal</h2>
+          <button onClick={() => { setOpen(false); setInviteToken(null); setEmail('') }} className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
             <X size={18} />
           </button>
         </div>
 
         {inviteToken ? (
           <div className="space-y-4">
-            <p className="text-sm text-[#A1A1AA]">Convite criado! Compartilhe o link abaixo:</p>
+            <p className="text-sm text-[var(--color-text-secondary)]">Convite criado! Compartilhe o link abaixo:</p>
             <div className="flex gap-2">
               <input
                 readOnly
                 value={inviteUrl}
-                className="flex-1 rounded border border-white/[0.07] bg-[#27272A] px-3 py-2 text-xs text-[#FAFAFA] truncate"
+                className="flex-1 rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-2 text-xs text-[var(--color-text-primary)] truncate"
               />
               <button
                 onClick={() => { navigator.clipboard.writeText(inviteUrl); toast.success('Copiado!') }}
-                className="flex items-center gap-1.5 rounded border border-white/[0.07] bg-[#27272A] px-3 py-2 text-sm text-[#FAFAFA] hover:bg-[#3F3F46] transition-colors"
+                className="flex items-center gap-1.5 rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-2 text-sm text-[var(--color-text-primary)] hover:bg-[var(--color-bg-overlay)] transition-colors"
               >
                 <Copy size={14} />
               </button>
             </div>
             <button
               onClick={() => { setOpen(false); setInviteToken(null); setEmail('') }}
-              className="w-full rounded bg-[#27272A] px-4 py-2 text-sm font-medium text-[#FAFAFA] hover:bg-[#3F3F46] transition-colors"
+              className="w-full rounded bg-[var(--color-bg-elevated)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-bg-overlay)] transition-colors"
             >
               Fechar
             </button>
@@ -83,28 +83,28 @@ export function ClientInviteDialog({ clientId }: Props) {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-[#A1A1AA] mb-1.5">E-mail do cliente</label>
+              <label className="block text-xs font-medium text-[var(--color-text-secondary)] mb-1.5">E-mail do cliente</label>
               <input
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="cliente@empresa.com"
                 required
-                className="w-full rounded border border-white/[0.07] bg-[#27272A] px-3 py-2 text-sm text-[#FAFAFA] placeholder:text-[#A1A1AA] focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+                className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
               />
             </div>
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="flex-1 rounded border border-white/[0.07] px-4 py-2 text-sm font-medium text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors"
+                className="flex-1 rounded border border-[var(--color-border-subtle)] px-4 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 flex items-center justify-center gap-2 rounded bg-[#F59E0B] px-4 py-2 text-sm font-semibold text-[#0A0A0A] hover:bg-[#D97706] disabled:opacity-60 transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 rounded bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-text-inverse)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 transition-colors"
               >
                 {loading && <Loader2 size={14} className="animate-spin" />}
                 Criar convite

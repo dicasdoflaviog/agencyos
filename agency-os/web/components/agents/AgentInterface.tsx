@@ -13,11 +13,11 @@ export function AgentInterface({ jobId, clientId }: AgentInterfaceProps) {
   const [selectedAgent, setSelectedAgent] = useState<AgentId | null>(null)
 
   return (
-    <div className="rounded-md border border-white/[0.07] bg-[#18181B] overflow-hidden">
+    <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-[200px_1fr]">
         {/* Selector panel */}
-        <div className="border-b border-white/[0.07] md:border-b-0 md:border-r md:border-white/[0.07] p-4 md:max-h-[480px] md:overflow-y-auto">
-          <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-[#A1A1AA]">
+        <div className="border-b border-[var(--color-border-subtle)] md:border-b-0 md:border-r md:border-[var(--color-border-subtle)] p-4 md:max-h-[480px] md:overflow-y-auto">
+          <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-[var(--color-text-secondary)]">
             21 Agentes
           </p>
           <AgentSelector selectedId={selectedAgent} onSelect={setSelectedAgent} />
@@ -33,7 +33,7 @@ export function AgentInterface({ jobId, clientId }: AgentInterfaceProps) {
             />
           ) : (
             <div className="flex h-full min-h-[200px] items-center justify-center">
-              <p className="text-sm text-[#A1A1AA]">Selecione um agente para começar</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Selecione um agente para começar</p>
             </div>
           )}
         </div>

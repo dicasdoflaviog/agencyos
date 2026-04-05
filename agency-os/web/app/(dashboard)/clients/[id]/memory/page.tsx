@@ -23,12 +23,12 @@ export default async function MemoryPage({
     <div>
       <div className="mb-6">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded bg-[#F59E0B]/10">
-            <Brain size={16} className="text-[#F59E0B]" />
+          <div className="flex h-8 w-8 items-center justify-center rounded bg-[var(--color-accent)]/10">
+            <Brain size={16} className="text-[var(--color-accent)]" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold font-display tracking-tight text-[#FAFAFA]">Memória IA</h2>
-            <p className="text-sm text-[#A1A1AA]">
+            <h2 className="text-2xl font-bold font-display tracking-tight text-[var(--color-text-primary)]">Memória IA</h2>
+            <p className="text-sm text-[var(--color-text-secondary)]">
               Contexto e conhecimento acumulado sobre este cliente
             </p>
           </div>

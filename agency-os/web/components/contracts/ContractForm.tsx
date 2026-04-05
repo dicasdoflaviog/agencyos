@@ -76,8 +76,8 @@ export function ContractForm({ clientId, initialData, mode }: ContractFormProps)
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {/* Value */}
         <div className="space-y-1.5">
-          <Label htmlFor="value" className="text-xs font-medium text-[#A1A1AA]">
-            Valor (R$) <span className="text-[#EF4444]">*</span>
+          <Label htmlFor="value" className="text-xs font-medium text-[var(--color-text-secondary)]">
+            Valor (R$) <span className="text-[var(--color-error)]">*</span>
           </Label>
           <Input
             id="value"
@@ -88,47 +88,47 @@ export function ContractForm({ clientId, initialData, mode }: ContractFormProps)
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="5000.00"
-            className="bg-white/[0.04] border-white/[0.08] text-[#FAFAFA] placeholder:text-[#3F3F46] focus-visible:border-[#F59E0B]/50 focus-visible:ring-0"
+            className="bg-white/[0.04] border-[var(--color-border-default)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-disabled)] focus-visible:border-[var(--color-accent)]/50 focus-visible:ring-0"
           />
         </div>
 
         {/* Billing type */}
         <div className="space-y-1.5">
-          <Label className="text-xs font-medium text-[#A1A1AA]">
-            Tipo de Cobrança <span className="text-[#EF4444]">*</span>
+          <Label className="text-xs font-medium text-[var(--color-text-secondary)]">
+            Tipo de Cobrança <span className="text-[var(--color-error)]">*</span>
           </Label>
           <Select value={billing} onValueChange={(v) => setBilling(v as Contract['billing'])}>
-            <SelectTrigger className="bg-white/[0.04] border-white/[0.08] text-[#FAFAFA] focus:ring-0 focus:border-[#F59E0B]/50">
+            <SelectTrigger className="bg-white/[0.04] border-[var(--color-border-default)] text-[var(--color-text-primary)] focus:ring-0 focus:border-[var(--color-accent)]/50">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-[#18181B] border-white/[0.08]">
-              <SelectItem value="monthly" className="text-[#FAFAFA] focus:bg-white/[0.06]">Mensal</SelectItem>
-              <SelectItem value="project" className="text-[#FAFAFA] focus:bg-white/[0.06]">Por Projeto</SelectItem>
-              <SelectItem value="retainer" className="text-[#FAFAFA] focus:bg-white/[0.06]">Retainer</SelectItem>
+            <SelectContent className="bg-[var(--color-bg-surface)] border-[var(--color-border-default)]">
+              <SelectItem value="monthly" className="text-[var(--color-text-primary)] focus:bg-white/[0.06]">Mensal</SelectItem>
+              <SelectItem value="project" className="text-[var(--color-text-primary)] focus:bg-white/[0.06]">Por Projeto</SelectItem>
+              <SelectItem value="retainer" className="text-[var(--color-text-primary)] focus:bg-white/[0.06]">Retainer</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         {/* Status */}
         <div className="space-y-1.5">
-          <Label className="text-xs font-medium text-[#A1A1AA]">Status</Label>
+          <Label className="text-xs font-medium text-[var(--color-text-secondary)]">Status</Label>
           <Select value={status} onValueChange={(v) => setStatus(v as Contract['status'])}>
-            <SelectTrigger className="bg-white/[0.04] border-white/[0.08] text-[#FAFAFA] focus:ring-0 focus:border-[#F59E0B]/50">
+            <SelectTrigger className="bg-white/[0.04] border-[var(--color-border-default)] text-[var(--color-text-primary)] focus:ring-0 focus:border-[var(--color-accent)]/50">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-[#18181B] border-white/[0.08]">
-              <SelectItem value="draft" className="text-[#FAFAFA] focus:bg-white/[0.06]">Rascunho</SelectItem>
-              <SelectItem value="active" className="text-[#FAFAFA] focus:bg-white/[0.06]">Ativo</SelectItem>
-              <SelectItem value="paused" className="text-[#FAFAFA] focus:bg-white/[0.06]">Pausado</SelectItem>
-              <SelectItem value="ended" className="text-[#FAFAFA] focus:bg-white/[0.06]">Encerrado</SelectItem>
+            <SelectContent className="bg-[var(--color-bg-surface)] border-[var(--color-border-default)]">
+              <SelectItem value="draft" className="text-[var(--color-text-primary)] focus:bg-white/[0.06]">Rascunho</SelectItem>
+              <SelectItem value="active" className="text-[var(--color-text-primary)] focus:bg-white/[0.06]">Ativo</SelectItem>
+              <SelectItem value="paused" className="text-[var(--color-text-primary)] focus:bg-white/[0.06]">Pausado</SelectItem>
+              <SelectItem value="ended" className="text-[var(--color-text-primary)] focus:bg-white/[0.06]">Encerrado</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         {/* Start date */}
         <div className="space-y-1.5">
-          <Label htmlFor="start_date" className="text-xs font-medium text-[#A1A1AA]">
-            Data de Início <span className="text-[#EF4444]">*</span>
+          <Label htmlFor="start_date" className="text-xs font-medium text-[var(--color-text-secondary)]">
+            Data de Início <span className="text-[var(--color-error)]">*</span>
           </Label>
           <Input
             id="start_date"
@@ -136,29 +136,29 @@ export function ContractForm({ clientId, initialData, mode }: ContractFormProps)
             required
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="bg-white/[0.04] border-white/[0.08] text-[#FAFAFA] focus-visible:border-[#F59E0B]/50 focus-visible:ring-0 [color-scheme:dark]"
+            className="bg-white/[0.04] border-[var(--color-border-default)] text-[var(--color-text-primary)] focus-visible:border-[var(--color-accent)]/50 focus-visible:ring-0 [color-scheme:dark]"
           />
         </div>
 
         {/* End date */}
         <div className="space-y-1.5 sm:col-span-2">
-          <Label htmlFor="end_date" className="text-xs font-medium text-[#A1A1AA]">
-            Data de Término <span className="text-[#3F3F46] text-[10px] font-normal">(opcional)</span>
+          <Label htmlFor="end_date" className="text-xs font-medium text-[var(--color-text-secondary)]">
+            Data de Término <span className="text-[var(--color-text-disabled)] text-[10px] font-normal">(opcional)</span>
           </Label>
           <Input
             id="end_date"
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="bg-white/[0.04] border-white/[0.08] text-[#FAFAFA] focus-visible:border-[#F59E0B]/50 focus-visible:ring-0 [color-scheme:dark]"
+            className="bg-white/[0.04] border-[var(--color-border-default)] text-[var(--color-text-primary)] focus-visible:border-[var(--color-accent)]/50 focus-visible:ring-0 [color-scheme:dark]"
           />
         </div>
       </div>
 
       {/* Notes */}
       <div className="space-y-1.5">
-        <Label htmlFor="notes" className="text-xs font-medium text-[#A1A1AA]">
-          Observações <span className="text-[#3F3F46] text-[10px] font-normal">(opcional)</span>
+        <Label htmlFor="notes" className="text-xs font-medium text-[var(--color-text-secondary)]">
+          Observações <span className="text-[var(--color-text-disabled)] text-[10px] font-normal">(opcional)</span>
         </Label>
         <Textarea
           id="notes"
@@ -166,7 +166,7 @@ export function ContractForm({ clientId, initialData, mode }: ContractFormProps)
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Detalhes do contrato, condições especiais..."
-          className="bg-white/[0.04] border-white/[0.08] text-[#FAFAFA] placeholder:text-[#3F3F46] focus-visible:border-[#F59E0B]/50 focus-visible:ring-0 resize-none"
+          className="bg-white/[0.04] border-[var(--color-border-default)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-disabled)] focus-visible:border-[var(--color-accent)]/50 focus-visible:ring-0 resize-none"
         />
       </div>
 
@@ -174,7 +174,7 @@ export function ContractForm({ clientId, initialData, mode }: ContractFormProps)
         <Button
           type="submit"
           disabled={loading}
-          className="bg-[#F59E0B] hover:bg-[#D97706] text-[#0A0A0A] font-semibold"
+          className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text-inverse)] font-semibold"
         >
           {loading && <Loader2 size={14} className="mr-1.5 animate-spin" />}
           {mode === 'create' ? 'Criar Contrato' : 'Salvar Alterações'}
@@ -183,7 +183,7 @@ export function ContractForm({ clientId, initialData, mode }: ContractFormProps)
           type="button"
           variant="ghost"
           onClick={() => router.back()}
-          className="text-[#71717A] hover:text-[#A1A1AA] hover:bg-white/[0.04]"
+          className="text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-white/[0.04]"
         >
           Cancelar
         </Button>

@@ -44,8 +44,8 @@ export function AgentCard({ agent, isInstalled }: Props) {
   return (
     <Link
       href={`/marketplace/${agent.slug}`}
-      className="group flex gap-4 rounded-xl border border-white/[0.07] bg-[#18181B] p-5
-                 transition-all duration-200 hover:border-amber-500/25 hover:bg-[#1C1C1F]"
+      className="group flex gap-4 rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5
+                 transition-all duration-200 hover:border-amber-500/25 hover:bg-[var(--color-bg-surface)]"
     >
       {/* Avatar */}
       <div
@@ -61,7 +61,7 @@ export function AgentCard({ agent, isInstalled }: Props) {
         {/* Row 1: name + badge + price */}
         <div className="flex items-start justify-between gap-2 mb-0.5">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-semibold text-[#FAFAFA] group-hover:text-amber-400 transition-colors text-sm leading-tight">
+            <span className="font-semibold text-[var(--color-text-primary)] group-hover:text-amber-400 transition-colors text-sm leading-tight">
               {agent.name}
             </span>
             <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${style.badge}`}>
@@ -73,16 +73,16 @@ export function AgentCard({ agent, isInstalled }: Props) {
               </span>
             )}
           </div>
-          <span className="flex-shrink-0 text-xs font-semibold text-[#FAFAFA]">
+          <span className="flex-shrink-0 text-xs font-semibold text-[var(--color-text-primary)]">
             {priceLabel(agent)}
           </span>
         </div>
 
         {/* Handle */}
-        <p className="font-mono text-[11px] text-[#52525B] mb-2">@{agent.slug}</p>
+        <p className="font-mono text-[11px] text-[var(--color-text-muted)] mb-2">@{agent.slug}</p>
 
         {/* Description */}
-        <p className="text-xs text-[#A1A1AA] line-clamp-2 mb-3 leading-relaxed">
+        <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 mb-3 leading-relaxed">
           {agent.description ?? 'Sem descrição disponível.'}
         </p>
 
@@ -90,11 +90,11 @@ export function AgentCard({ agent, isInstalled }: Props) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1">
             <Star size={11} className="fill-amber-400 text-amber-400" />
-            <span className="font-mono text-[11px] text-[#A1A1AA]">{agent.rating.toFixed(1)}</span>
+            <span className="font-mono text-[11px] text-[var(--color-text-secondary)]">{agent.rating.toFixed(1)}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Users size={11} className="text-[#71717A]" />
-            <span className="font-mono text-[11px] text-[#71717A]">{formatCount(agent.install_count)} instalações</span>
+            <Users size={11} className="text-[var(--color-text-muted)]" />
+            <span className="font-mono text-[11px] text-[var(--color-text-muted)]">{formatCount(agent.install_count)} instalações</span>
           </div>
         </div>
       </div>

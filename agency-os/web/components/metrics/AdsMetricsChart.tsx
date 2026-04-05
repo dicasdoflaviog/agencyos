@@ -33,13 +33,13 @@ export function AdsMetricsChart({ data }: { data: AdsMetric[] }) {
   }))
 
   return (
-    <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-      <h3 className="mb-1 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+    <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+      <h3 className="mb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
         Performance de Anúncios
       </h3>
-      <p className="mb-4 text-xs text-[#A1A1AA]">Impressões em milhares (k)</p>
+      <p className="mb-4 text-xs text-[var(--color-text-secondary)]">Impressões em milhares (k)</p>
       {!data.length ? (
-        <p className="py-8 text-center text-xs text-[#A1A1AA]">Sem dados disponíveis</p>
+        <p className="py-8 text-center text-xs text-[var(--color-text-secondary)]">Sem dados disponíveis</p>
       ) : (
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={chartData} margin={{ top: 4, right: 16, left: -8, bottom: 0 }}>

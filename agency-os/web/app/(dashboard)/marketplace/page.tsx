@@ -49,11 +49,11 @@ export default async function MarketplacePage({ searchParams }: Props) {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/10">
             <Bot size={18} className="text-amber-400" />
           </div>
-          <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">
+          <h1 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">
             Marketplace de Agentes
           </h1>
         </div>
-        <p className="text-sm text-[#71717A] ml-12">
+        <p className="text-sm text-[var(--color-text-muted)] ml-12">
           Expanda as capacidades da sua agência com agentes especializados
         </p>
       </div>
@@ -66,14 +66,14 @@ export default async function MarketplacePage({ searchParams }: Props) {
             href={cat.value ? `/marketplace?category=${cat.value}` : '/marketplace'}
             className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all ${
               activeCategory === cat.value
-                ? 'bg-amber-500 text-[#09090B] shadow-lg shadow-amber-500/20'
-                : 'bg-white/[0.05] text-[#A1A1AA] border border-white/[0.07] hover:bg-white/[0.08] hover:text-[#FAFAFA]'
+                ? 'bg-amber-500 text-[var(--color-text-inverse)] shadow-lg shadow-amber-500/20'
+                : 'bg-white/[0.05] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)] hover:bg-white/[0.08] hover:text-[var(--color-text-primary)]'
             }`}
           >
             {cat.label}
           </a>
         ))}
-        <span className="ml-auto text-xs text-[#52525B] self-center">
+        <span className="ml-auto text-xs text-[var(--color-text-muted)] self-center">
           {agents.length} agente{agents.length !== 1 ? 's' : ''}
         </span>
       </div>
@@ -90,9 +90,9 @@ export default async function MarketplacePage({ searchParams }: Props) {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.07] bg-[#18181B] py-20 text-center">
-          <Bot size={32} className="text-[#3F3F46] mb-3" />
-          <p className="text-sm text-[#71717A]">Nenhum agente encontrado nesta categoria</p>
+        <div className="flex flex-col items-center justify-center rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] py-20 text-center">
+          <Bot size={32} className="text-[var(--color-text-disabled)] mb-3" />
+          <p className="text-sm text-[var(--color-text-muted)]">Nenhum agente encontrado nesta categoria</p>
         </div>
       )}
     </div>

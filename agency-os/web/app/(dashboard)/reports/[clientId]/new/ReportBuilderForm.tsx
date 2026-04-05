@@ -79,50 +79,50 @@ export default function ReportBuilderForm({ clientId, clientName }: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
       <div className="space-y-2">
-        <Label className="text-[#A1A1AA] text-xs uppercase tracking-wider">Título</Label>
+        <Label className="text-[var(--color-text-secondary)] text-xs uppercase tracking-wider">Título</Label>
         <Input
           {...register('title')}
-          className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] placeholder:text-[#A1A1AA]"
+          className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]"
         />
-        {errors.title && <p className="text-xs text-[#EF4444]">{errors.title.message}</p>}
+        {errors.title && <p className="text-xs text-[var(--color-error)]">{errors.title.message}</p>}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label className="text-[#A1A1AA] text-xs uppercase tracking-wider">Data Inicial</Label>
+          <Label className="text-[var(--color-text-secondary)] text-xs uppercase tracking-wider">Data Inicial</Label>
           <Input
             type="date"
             {...register('period_start')}
-            className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA]"
+            className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)]"
           />
-          {errors.period_start && <p className="text-xs text-[#EF4444]">{errors.period_start.message}</p>}
+          {errors.period_start && <p className="text-xs text-[var(--color-error)]">{errors.period_start.message}</p>}
         </div>
         <div className="space-y-2">
-          <Label className="text-[#A1A1AA] text-xs uppercase tracking-wider">Data Final</Label>
+          <Label className="text-[var(--color-text-secondary)] text-xs uppercase tracking-wider">Data Final</Label>
           <Input
             type="date"
             {...register('period_end')}
-            className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA]"
+            className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)]"
           />
-          {errors.period_end && <p className="text-xs text-[#EF4444]">{errors.period_end.message}</p>}
+          {errors.period_end && <p className="text-xs text-[var(--color-error)]">{errors.period_end.message}</p>}
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label className="text-[#A1A1AA] text-xs uppercase tracking-wider">Formato</Label>
+        <Label className="text-[var(--color-text-secondary)] text-xs uppercase tracking-wider">Formato</Label>
         <Select defaultValue="pdf" onValueChange={(v) => setValue('format', v as 'pdf' | 'excel')}>
-          <SelectTrigger className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA]">
+          <SelectTrigger className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)]">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="bg-[#27272A] border-white/[0.07]">
-            <SelectItem value="pdf" className="text-[#FAFAFA] focus:bg-white/[0.05]">PDF</SelectItem>
-            <SelectItem value="excel" className="text-[#FAFAFA] focus:bg-white/[0.05]">Excel</SelectItem>
+          <SelectContent className="bg-[var(--color-bg-elevated)] border-[var(--color-border-subtle)]">
+            <SelectItem value="pdf" className="text-[var(--color-text-primary)] focus:bg-white/[0.05]">PDF</SelectItem>
+            <SelectItem value="excel" className="text-[var(--color-text-primary)] focus:bg-white/[0.05]">Excel</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="space-y-2">
-        <Label className="text-[#A1A1AA] text-xs uppercase tracking-wider">Seções</Label>
+        <Label className="text-[var(--color-text-secondary)] text-xs uppercase tracking-wider">Seções</Label>
         <div className="grid grid-cols-2 gap-2">
           {SECTIONS.map(s => (
             <button
@@ -131,14 +131,14 @@ export default function ReportBuilderForm({ clientId, clientName }: Props) {
               onClick={() => toggleSection(s.id)}
               className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-colors cursor-pointer ${
                 sections.includes(s.id)
-                  ? 'border-[#F59E0B]/40 bg-[#F59E0B]/10 text-[#F59E0B]'
-                  : 'border-white/[0.07] bg-transparent text-[#A1A1AA] hover:border-white/[0.12] hover:text-[#FAFAFA]'
+                  ? 'border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
+                  : 'border-[var(--color-border-subtle)] bg-transparent text-[var(--color-text-secondary)] hover:border-[var(--color-border-default)] hover:text-[var(--color-text-primary)]'
               }`}
             >
               <div className={`h-3 w-3 rounded-sm border flex items-center justify-center ${
-                sections.includes(s.id) ? 'border-[#F59E0B] bg-[#F59E0B]' : 'border-[#A1A1AA]'
+                sections.includes(s.id) ? 'border-[var(--color-accent)] bg-[var(--color-accent)]' : 'border-[var(--color-text-secondary)]'
               }`}>
-                {sections.includes(s.id) && <span className="text-[#0A0A0A] text-[8px] font-bold">✓</span>}
+                {sections.includes(s.id) && <span className="text-[var(--color-text-inverse)] text-[8px] font-bold">✓</span>}
               </div>
               {s.label}
             </button>
@@ -150,7 +150,7 @@ export default function ReportBuilderForm({ clientId, clientName }: Props) {
         <Button
           type="submit"
           disabled={loading || sections.length === 0}
-          className="bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer disabled:opacity-50"
+          className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="mr-1.5 animate-spin" /> : <FileText size={14} className="mr-1.5" />}
           Gerar Relatório
@@ -159,7 +159,7 @@ export default function ReportBuilderForm({ clientId, clientName }: Props) {
           type="button"
           variant="ghost"
           onClick={() => router.back()}
-          className="text-[#A1A1AA] hover:text-[#FAFAFA] cursor-pointer"
+          className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] cursor-pointer"
         >
           Cancelar
         </Button>

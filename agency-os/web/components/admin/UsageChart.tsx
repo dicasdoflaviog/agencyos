@@ -13,7 +13,7 @@ interface Props {
 export function UsageChart({ data }: Props) {
   if (data.length === 0) {
     return (
-      <div className="flex h-48 items-center justify-center text-sm text-[#71717A]">
+      <div className="flex h-48 items-center justify-center text-sm text-[var(--color-text-muted)]">
         Sem dados de uso ainda
       </div>
     )

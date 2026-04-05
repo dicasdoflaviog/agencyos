@@ -64,50 +64,50 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#09090B]">
-      <div className="w-full max-w-[400px] rounded-lg border border-white/[0.07] bg-[#18181B] p-8">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-base)]">
+      <div className="w-full max-w-[400px] rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-8">
 
         {/* ── LOGIN ── */}
         {view === 'login' && (
           <>
             <div className="mb-8">
-              <h1 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Agency OS</h1>
-              <p className="mt-1 text-sm text-[#A1A1AA]">Acesso interno da agência</p>
+              <h1 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Agency OS</h1>
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Acesso interno da agência</p>
             </div>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-1.5">
-                <Label htmlFor="email" className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">Email</Label>
+                <Label htmlFor="email" className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">Email</Label>
                 <Input id="email" type="email" placeholder="seu@email.com" value={email}
                   onChange={e => setEmail(e.target.value)} required
-                  className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20" />
+                  className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20" />
               </div>
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">Senha</Label>
+                  <Label htmlFor="password" className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">Senha</Label>
                   <button type="button" onClick={() => reset('forgot')}
-                    className="text-xs text-[#F59E0B] hover:text-[#D97706] transition-colors">
+                    className="text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors">
                     Esqueci minha senha
                   </button>
                 </div>
                 <div className="relative">
                   <Input id="password" type={showPw ? 'text' : 'password'} placeholder="••••••••"
                     value={password} onChange={e => setPassword(e.target.value)} required
-                    className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20 pr-10" />
+                    className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20 pr-10" />
                   <button type="button" onClick={() => setShowPw(v => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#71717A] hover:text-[#A1A1AA]">
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]">
                     {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </div>
-              {error && <p className="text-xs text-[#EF4444] bg-[#EF4444]/10 px-3 py-2 rounded">{error}</p>}
+              {error && <p className="text-xs text-[var(--color-error)] bg-[var(--color-error)]/10 px-3 py-2 rounded">{error}</p>}
               <Button type="submit" disabled={loading}
-                className="w-full bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] transition-colors cursor-pointer mt-2">
+                className="w-full bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] transition-colors cursor-pointer mt-2">
                 {loading ? 'Entrando...' : 'Entrar'}
               </Button>
             </form>
-            <p className="mt-6 text-center text-sm text-[#71717A]">
+            <p className="mt-6 text-center text-sm text-[var(--color-text-muted)]">
               Não tem conta?{' '}
-              <button onClick={() => reset('signup')} className="text-[#F59E0B] hover:text-[#D97706] font-medium transition-colors">
+              <button onClick={() => reset('signup')} className="text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] font-medium transition-colors">
                 Criar conta
               </button>
             </p>
@@ -117,39 +117,39 @@ export default function LoginPage() {
         {/* ── SIGN UP ── */}
         {view === 'signup' && (
           <>
-            <button onClick={() => reset('login')} className="flex items-center gap-1.5 text-xs text-[#71717A] hover:text-[#A1A1AA] mb-6 transition-colors">
+            <button onClick={() => reset('login')} className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] mb-6 transition-colors">
               <ArrowLeft size={13} /> Voltar
             </button>
             <div className="mb-6">
-              <h2 className="text-xl font-bold font-display text-[#FAFAFA]">Criar conta</h2>
-              <p className="mt-1 text-sm text-[#A1A1AA]">Preencha os dados para acessar o Agency OS.</p>
+              <h2 className="text-xl font-bold font-display text-[var(--color-text-primary)]">Criar conta</h2>
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Preencha os dados para acessar o Agency OS.</p>
             </div>
             <form onSubmit={handleSignup} className="space-y-4">
               <div className="space-y-1.5">
-                <Label className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">Nome completo</Label>
+                <Label className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">Nome completo</Label>
                 <Input type="text" placeholder="Seu nome" value={name} onChange={e => setName(e.target.value)} required
-                  className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20" />
+                  className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">Email</Label>
+                <Label className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">Email</Label>
                 <Input type="email" placeholder="seu@email.com" value={email} onChange={e => setEmail(e.target.value)} required
-                  className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20" />
+                  className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">Senha</Label>
+                <Label className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">Senha</Label>
                 <div className="relative">
                   <Input type={showPw ? 'text' : 'password'} placeholder="Mínimo 8 caracteres"
                     value={password} onChange={e => setPassword(e.target.value)} required
-                    className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20 pr-10" />
+                    className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20 pr-10" />
                   <button type="button" onClick={() => setShowPw(v => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#71717A] hover:text-[#A1A1AA]">
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]">
                     {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </div>
-              {error && <p className="text-xs text-[#EF4444] bg-[#EF4444]/10 px-3 py-2 rounded">{error}</p>}
+              {error && <p className="text-xs text-[var(--color-error)] bg-[var(--color-error)]/10 px-3 py-2 rounded">{error}</p>}
               <Button type="submit" disabled={loading}
-                className="w-full bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] transition-colors cursor-pointer">
+                className="w-full bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] transition-colors cursor-pointer">
                 {loading ? 'Criando conta...' : 'Criar conta'}
               </Button>
             </form>
@@ -162,13 +162,13 @@ export default function LoginPage() {
             <div className="flex justify-center mb-4">
               <CheckCircle2 size={40} className="text-emerald-400" />
             </div>
-            <h2 className="text-lg font-semibold text-[#FAFAFA] mb-2">Verifique seu email</h2>
-            <p className="text-sm text-[#A1A1AA] mb-6">
+            <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Verifique seu email</h2>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-6">
               Enviamos um link de confirmação para{' '}
-              <span className="text-[#FAFAFA]">{email}</span>.
+              <span className="text-[var(--color-text-primary)]">{email}</span>.
               Clique no link para ativar sua conta.
             </p>
-            <button onClick={() => reset('login')} className="text-sm text-[#F59E0B] hover:text-[#D97706] transition-colors">
+            <button onClick={() => reset('login')} className="text-sm text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors">
               Voltar ao login
             </button>
           </div>
@@ -177,22 +177,22 @@ export default function LoginPage() {
         {/* ── FORGOT PASSWORD ── */}
         {view === 'forgot' && (
           <>
-            <button onClick={() => reset('login')} className="flex items-center gap-1.5 text-xs text-[#71717A] hover:text-[#A1A1AA] mb-6 transition-colors">
+            <button onClick={() => reset('login')} className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] mb-6 transition-colors">
               <ArrowLeft size={13} /> Voltar
             </button>
             <div className="mb-6">
-              <h2 className="text-xl font-bold font-display text-[#FAFAFA]">Redefinir senha</h2>
-              <p className="mt-1 text-sm text-[#A1A1AA]">Enviaremos um link para redefinir sua senha.</p>
+              <h2 className="text-xl font-bold font-display text-[var(--color-text-primary)]">Redefinir senha</h2>
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Enviaremos um link para redefinir sua senha.</p>
             </div>
             <form onSubmit={handleForgot} className="space-y-4">
               <div className="space-y-1.5">
-                <Label className="text-[#A1A1AA] text-xs font-medium uppercase tracking-wider">Email</Label>
+                <Label className="text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider">Email</Label>
                 <Input type="email" placeholder="seu@email.com" value={email} onChange={e => setEmail(e.target.value)} required
-                  className="bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] focus:ring-[#F59E0B]/20" />
+                  className="bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] focus:ring-[#F59E0B]/20" />
               </div>
-              {error && <p className="text-xs text-[#EF4444] bg-[#EF4444]/10 px-3 py-2 rounded">{error}</p>}
+              {error && <p className="text-xs text-[var(--color-error)] bg-[var(--color-error)]/10 px-3 py-2 rounded">{error}</p>}
               <Button type="submit" disabled={loading}
-                className="w-full bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] transition-colors cursor-pointer">
+                className="w-full bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] transition-colors cursor-pointer">
                 {loading ? 'Enviando...' : 'Enviar link de redefinição'}
               </Button>
             </form>
@@ -205,12 +205,12 @@ export default function LoginPage() {
             <div className="flex justify-center mb-4">
               <CheckCircle2 size={40} className="text-emerald-400" />
             </div>
-            <h2 className="text-lg font-semibold text-[#FAFAFA] mb-2">Email enviado!</h2>
-            <p className="text-sm text-[#A1A1AA] mb-6">
+            <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Email enviado!</h2>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-6">
               Verifique sua caixa de entrada em{' '}
-              <span className="text-[#FAFAFA]">{email}</span> e clique no link para redefinir sua senha.
+              <span className="text-[var(--color-text-primary)]">{email}</span> e clique no link para redefinir sua senha.
             </p>
-            <button onClick={() => reset('login')} className="text-sm text-[#F59E0B] hover:text-[#D97706] transition-colors">
+            <button onClick={() => reset('login')} className="text-sm text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors">
               Voltar ao login
             </button>
           </div>

@@ -39,7 +39,7 @@ export function SchedulePostCard({ platform, title, publishAt, status, errorMsg 
   const StatusIcon = st.icon
 
   return (
-    <div className="rounded-lg border border-zinc-800 bg-[#18181B] p-4">
+    <div className="rounded-lg border border-zinc-800 bg-[var(--color-bg-surface)] p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="mb-2 flex items-center gap-2">
@@ -51,7 +51,7 @@ export function SchedulePostCard({ platform, title, publishAt, status, errorMsg 
               {st.label}
             </span>
           </div>
-          <p className="truncate text-sm font-medium text-[#FAFAFA]">
+          <p className="truncate text-sm font-medium text-[var(--color-text-primary)]">
             {title ?? 'Post sem título'}
           </p>
           <p className="mt-1 text-xs text-zinc-500">{formatDateTime(publishAt)}</p>

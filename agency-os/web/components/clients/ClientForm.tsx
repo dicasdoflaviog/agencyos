@@ -132,8 +132,8 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
     }
   }
 
-  const inputClass = 'bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B]'
-  const labelClass = 'text-[#A1A1AA] text-xs font-medium uppercase tracking-wider'
+  const inputClass = 'bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)]'
+  const labelClass = 'text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider'
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 max-w-xl">
@@ -148,17 +148,17 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
               <button
                 type="button"
                 onClick={() => { setLogoFile(null); setLogoPreview('') }}
-                className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#EF4444] text-white"
+                className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-error)] text-white"
               >
                 <X size={10} />
               </button>
             </div>
           ) : (
-            <div className="flex h-12 w-12 items-center justify-center rounded border border-dashed border-white/10 bg-white/[0.02] text-[#A1A1AA] flex-shrink-0">
+            <div className="flex h-12 w-12 items-center justify-center rounded border border-dashed border-white/10 bg-white/[0.02] text-[var(--color-text-secondary)] flex-shrink-0">
               <Upload size={14} />
             </div>
           )}
-          <label className="cursor-pointer rounded border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-[#A1A1AA] hover:bg-white/[0.07] hover:text-[#FAFAFA] transition-colors">
+          <label className="cursor-pointer rounded border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] hover:bg-white/[0.07] hover:text-[var(--color-text-primary)] transition-colors">
             {logoPreview ? 'Trocar logo' : 'Selecionar logo'}
             <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={handleLogoChange} className="hidden" />
           </label>
@@ -172,13 +172,13 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
           placeholder="Nome do cliente"
           className={inputClass}
         />
-        {errors.name && <p className="text-xs text-[#EF4444]">{errors.name.message}</p>}
+        {errors.name && <p className="text-xs text-[var(--color-error)]">{errors.name.message}</p>}
       </div>
 
       <div className="space-y-1.5">
         <Label className={labelClass}>Slug</Label>
         <Input {...register('slug')} placeholder="nome-do-cliente" className={inputClass} />
-        {errors.slug && <p className="text-xs text-[#EF4444]">{errors.slug.message}</p>}
+        {errors.slug && <p className="text-xs text-[var(--color-error)]">{errors.slug.message}</p>}
       </div>
 
       <div className="space-y-1.5">
@@ -189,14 +189,14 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
       <div className="space-y-1.5">
         <Label className={labelClass}>Instagram</Label>
         <div className="relative">
-          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-[#A1A1AA] text-sm">@</span>
+          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-[var(--color-text-secondary)] text-sm">@</span>
           <Input
             {...register('instagram_handle')}
             placeholder="handle_do_cliente"
             className={`${inputClass} pl-7`}
           />
         </div>
-        <p className="text-[10px] text-[#52525B]">Usado para sincronizar métricas do Instagram via Apify</p>
+        <p className="text-[10px] text-[var(--color-text-muted)]">Usado para sincronizar métricas do Instagram via Apify</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -213,7 +213,7 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
             <SelectTrigger className={inputClass}>
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-[#27272A] border-white/[0.07] text-[#FAFAFA]">
+            <SelectContent className="bg-[var(--color-bg-elevated)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)]">
               <SelectItem value="active">Em dia</SelectItem>
               <SelectItem value="pending">Pendente</SelectItem>
               <SelectItem value="overdue">Atrasado</SelectItem>
@@ -231,7 +231,7 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer"
+          className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer"
         >
           {isSubmitting ? 'Salvando...' : mode === 'create' ? 'Criar Cliente' : 'Salvar Alterações'}
         </Button>
@@ -239,7 +239,7 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
           type="button"
           variant="ghost"
           onClick={() => router.back()}
-          className="border border-white/10 text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-white/[0.05] cursor-pointer"
+          className="border border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/[0.05] cursor-pointer"
         >
           Cancelar
         </Button>

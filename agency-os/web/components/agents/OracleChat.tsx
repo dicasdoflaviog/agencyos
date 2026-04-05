@@ -15,10 +15,10 @@ type Message = {
 
 const AGENT_STYLES: Record<AgentType, { color: string; bg: string; border: string }> = {
   // Orchestration — amber
-  oracle:  { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
-  nexus:   { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
-  genesis: { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
-  lore:    { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
+  oracle:  { color: 'text-[var(--color-accent)]',   bg: 'bg-[var(--color-accent)]/10',   border: 'border-[var(--color-accent)]/20' },
+  nexus:   { color: 'text-[var(--color-accent)]',   bg: 'bg-[var(--color-accent)]/10',   border: 'border-[var(--color-accent)]/20' },
+  genesis: { color: 'text-[var(--color-accent)]',   bg: 'bg-[var(--color-accent)]/10',   border: 'border-[var(--color-accent)]/20' },
+  lore:    { color: 'text-[var(--color-accent)]',   bg: 'bg-[var(--color-accent)]/10',   border: 'border-[var(--color-accent)]/20' },
   // Production — blue
   vance:   { color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
   vera:    { color: 'text-violet-400',  bg: 'bg-violet-500/10',  border: 'border-violet-500/20' },
@@ -178,19 +178,19 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
   }
 
   return (
-    <div className="flex flex-col h-[600px] bg-[#09090B] border border-white/[0.07] rounded-xl overflow-hidden">
+    <div className="flex flex-col h-[600px] bg-[var(--color-bg-base)] border border-[var(--color-border-subtle)] rounded-xl overflow-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.07] bg-[#18181B]">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#F59E0B]/10">
-          <Sparkles size={16} className="text-[#F59E0B]" />
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-accent)]/10">
+          <Sparkles size={16} className="text-[var(--color-accent)]" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#FAFAFA]">ORACLE</p>
-          <p className="text-xs text-[#A1A1AA]">{clientName ? `Contexto: ${clientName}` : 'Orquestra VERA · ATLAS · VOX'}</p>
+          <p className="text-sm font-semibold text-[var(--color-text-primary)]">ORACLE</p>
+          <p className="text-xs text-[var(--color-text-secondary)]">{clientName ? `Contexto: ${clientName}` : 'Orquestra VERA · ATLAS · VOX'}</p>
         </div>
         <div className="ml-auto flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs text-[#A1A1AA]">Online</span>
+          <span className="text-xs text-[var(--color-text-secondary)]">Online</span>
         </div>
       </div>
 
@@ -198,11 +198,11 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-[#F59E0B]/10 flex items-center justify-center">
-              <Bot size={24} className="text-[#F59E0B]" />
+            <div className="h-12 w-12 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
+              <Bot size={24} className="text-[var(--color-accent)]" />
             </div>
-            <p className="text-[#FAFAFA] font-medium">Como posso ajudar?</p>
-            <p className="text-sm text-[#A1A1AA] max-w-xs">
+            <p className="text-[var(--color-text-primary)] font-medium">Como posso ajudar?</p>
+            <p className="text-sm text-[var(--color-text-secondary)] max-w-xs">
               Descreva o que precisa. Eu identifico a melhor IA e orquestro automaticamente.
             </p>
             <div className="grid grid-cols-1 gap-2 mt-2 w-full max-w-xs">
@@ -215,10 +215,10 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                 <button
                   key={s.label}
                   onClick={() => setInput(s.label.replace(/^.{2} /, ''))}
-                  className="flex items-center justify-between text-xs px-3 py-2 rounded-lg border border-white/[0.07] text-[#A1A1AA] hover:text-[#FAFAFA] hover:border-white/20 transition-colors text-left"
+                  className="flex items-center justify-between text-xs px-3 py-2 rounded-lg border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-white/20 transition-colors text-left"
                 >
                   <span>{s.label}</span>
-                  <span className="text-[10px] text-[#52525B]">{s.hint}</span>
+                  <span className="text-[10px] text-[var(--color-text-muted)]">{s.hint}</span>
                 </button>
               ))}
             </div>
@@ -231,7 +231,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           const isUser = msg.role === 'user'
           return (
             <div key={i} className={`flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`}>
-              <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${isUser ? 'bg-[#27272A] text-[#A1A1AA]' : `${style.bg} ${style.color}`}`}>
+              <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${isUser ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]' : `${style.bg} ${style.color}`}`}>
                 {isUser ? <User size={13} /> : AGENT_ICONS[agent]}
               </div>
               <div className="flex flex-col gap-1 max-w-[80%]">
@@ -240,9 +240,9 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                     {msg.agentLabel}
                   </span>
                 )}
-                <div className={`rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${isUser ? 'bg-[#27272A] text-[#FAFAFA] rounded-tr-none' : `bg-[#18181B] border ${style.border} text-[#FAFAFA] rounded-tl-none`}`}>
+                <div className={`rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${isUser ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] rounded-tr-none' : `bg-[var(--color-bg-surface)] border ${style.border} text-[var(--color-text-primary)] rounded-tl-none`}`}>
                   {msg.attachmentName && (
-                    <div className="flex items-center gap-1.5 mb-2 px-2 py-1 rounded-md bg-white/[0.06] border border-white/[0.08] text-[11px] text-[#A1A1AA]">
+                    <div className="flex items-center gap-1.5 mb-2 px-2 py-1 rounded-md bg-white/[0.06] border border-[var(--color-border-default)] text-[11px] text-[var(--color-text-secondary)]">
                       {msg.attachmentName.match(/\.(png|jpg|jpeg|gif|webp)$/i)
                         ? <Image size={12} />
                         : <FileText size={12} />}
@@ -258,7 +258,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                   <div className="flex gap-1.5 mt-0.5">
                     <button
                       onClick={() => copyText(msg.content, i)}
-                      className="flex items-center gap-1 text-[10px] px-2 py-1 rounded-md bg-white/[0.04] text-[#71717A] hover:text-[#FAFAFA] transition-colors"
+                      className="flex items-center gap-1 text-[10px] px-2 py-1 rounded-md bg-white/[0.04] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
                     >
                       {copiedIdx === i ? <Check size={10} /> : <Copy size={10} />}
                       {copiedIdx === i ? 'Copiado!' : 'Copiar'}
@@ -280,7 +280,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
                     {jobId && agent !== 'oracle' && savedIdx !== i && (
                       <button
                         onClick={() => setSavedIdx(i)}
-                        className="flex items-center gap-1 text-[10px] px-2 py-1 rounded-md bg-[#F59E0B]/10 text-[#F59E0B] hover:bg-[#F59E0B]/20 transition-colors"
+                        className="flex items-center gap-1 text-[10px] px-2 py-1 rounded-md bg-[var(--color-accent)]/10 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20 transition-colors"
                       >
                         <Save size={10} />
                         Salvo na Galeria
@@ -295,15 +295,15 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
 
         {isLoading && messages[messages.length - 1]?.role !== 'assistant' && (
           <div className="flex gap-3">
-            <div className="h-7 w-7 rounded-lg bg-[#F59E0B]/10 flex items-center justify-center">
-              <Loader2 size={14} className="text-[#F59E0B] animate-spin" />
+            <div className="h-7 w-7 rounded-lg bg-[var(--color-accent)]/10 flex items-center justify-center">
+              <Loader2 size={14} className="text-[var(--color-accent)] animate-spin" />
             </div>
-            <div className="bg-[#18181B] rounded-xl rounded-tl-none px-4 py-2.5 border border-white/[0.05]">
+            <div className="bg-[var(--color-bg-surface)] rounded-xl rounded-tl-none px-4 py-2.5 border border-[var(--color-border-subtle)]">
               <div className="flex gap-1 items-center">
-                <span className="text-[10px] text-[#52525B] mr-1">Analisando...</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#A1A1AA] animate-bounce [animation-delay:0ms]" />
-                <span className="h-1.5 w-1.5 rounded-full bg-[#A1A1AA] animate-bounce [animation-delay:150ms]" />
-                <span className="h-1.5 w-1.5 rounded-full bg-[#A1A1AA] animate-bounce [animation-delay:300ms]" />
+                <span className="text-[10px] text-[var(--color-text-muted)] mr-1">Analisando...</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-secondary)] animate-bounce [animation-delay:0ms]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-secondary)] animate-bounce [animation-delay:150ms]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-secondary)] animate-bounce [animation-delay:300ms]" />
               </div>
             </div>
           </div>
@@ -312,14 +312,14 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-white/[0.07]">
+      <div className="p-4 border-t border-[var(--color-border-subtle)]">
         {attachedFile && (
-          <div className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.07] text-[12px] text-[#A1A1AA]">
+          <div className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-[var(--color-border-subtle)] text-[12px] text-[var(--color-text-secondary)]">
             {attachedFile.mimeType.startsWith('image/')
               ? <Image size={13} className="shrink-0" />
               : <FileText size={13} className="shrink-0" />}
             <span className="truncate flex-1">{attachedFile.name}</span>
-            <button onClick={() => setAttachedFile(null)} className="hover:text-[#FAFAFA] transition-colors">
+            <button onClick={() => setAttachedFile(null)} className="hover:text-[var(--color-text-primary)] transition-colors">
               <X size={13} />
             </button>
           </div>
@@ -328,7 +328,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
           <button
             onClick={() => fileInputRef.current?.click()}
             title="Anexar arquivo"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/[0.04] border border-white/[0.07] text-[#71717A] hover:text-[#FAFAFA] hover:border-white/[0.15] transition-all"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/[0.04] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)] transition-all"
           >
             <Paperclip size={16} />
           </button>
@@ -345,12 +345,12 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
             onKeyDown={handleKeyDown}
             placeholder="Descreva o que precisa... (Enter para enviar)"
             rows={1}
-            className="flex-1 resize-none rounded-lg bg-[#18181B] border border-white/[0.07] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:outline-none focus:border-[#F59E0B]/40 transition-colors"
+            className="flex-1 resize-none rounded-lg bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] px-3 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:outline-none focus:border-[var(--color-accent)]/40 transition-colors"
           />
           <button
             onClick={sendMessage}
             disabled={isLoading || (!input.trim() && !attachedFile)}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F59E0B] text-[#0A0A0A] hover:bg-[#F59E0B]/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:bg-[var(--color-accent)]/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
           >
             <Send size={16} strokeWidth={2.5} />
           </button>
@@ -369,7 +369,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
               </button>
             )
           })}
-          <span className="text-[9px] text-[#52525B] ml-auto">auto-roteamento · 22 agentes</span>
+          <span className="text-[9px] text-[var(--color-text-muted)] ml-auto">auto-roteamento · 22 agentes</span>
         </div>
       </div>
     </div>

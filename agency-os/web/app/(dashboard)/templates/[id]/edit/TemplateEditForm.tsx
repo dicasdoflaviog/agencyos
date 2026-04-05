@@ -134,7 +134,7 @@ export default function TemplateEditForm({ template }: { template: JobTemplate }
                 className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm text-left transition-colors ${
                   selectedAgents.includes(agent.id)
                     ? 'bg-violet-600/15 border-violet-500/40 text-violet-300'
-                    : 'bg-white/[0.02] border-white/[0.06] text-zinc-400 hover:border-zinc-600'
+                    : 'bg-white/[0.02] border-[var(--color-border-subtle)] text-zinc-400 hover:border-zinc-600'
                 }`}
               >
                 <span className="font-semibold text-xs">{agent.name}</span>
@@ -148,7 +148,7 @@ export default function TemplateEditForm({ template }: { template: JobTemplate }
           <button
             type="submit"
             disabled={saving}
-            className="rounded-lg bg-[#F59E0B] hover:bg-[#D97706] text-[#0A0A0A] disabled:opacity-60 px-5 py-2 text-sm font-semibold text-[#0A0A0A] transition-colors"
+            className="rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text-inverse)] disabled:opacity-60 px-5 py-2 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors"
           >
             {saving ? 'Salvando...' : 'Salvar alterações'}
           </button>

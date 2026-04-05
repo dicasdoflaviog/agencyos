@@ -56,14 +56,14 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="flex h-screen w-[220px] flex-shrink-0 flex-col border-r border-white/[0.07] bg-[#18181B]">
+    <aside className="flex h-screen w-[220px] flex-shrink-0 flex-col border-r border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
       {/* Logo */}
-      <div className="flex h-14 items-center border-b border-white/[0.07] px-4">
+      <div className="flex h-14 items-center border-b border-[var(--color-border-subtle)] px-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded bg-[#F59E0B]">
-            <Bot size={14} className="text-[#0A0A0A]" strokeWidth={2.5} />
+          <div className="flex h-7 w-7 items-center justify-center rounded bg-[var(--color-accent)]">
+            <Bot size={14} className="text-[var(--color-text-inverse)]" strokeWidth={2.5} />
           </div>
-          <span className="text-sm font-semibold text-[#FAFAFA] tracking-tight">Agency OS</span>
+          <span className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight">Agency OS</span>
         </div>
       </div>
 
@@ -79,8 +79,8 @@ export function Sidebar() {
                 'flex items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium transition-colors duration-150 cursor-pointer',
                 indent && 'pl-6 text-xs',
                 isActive
-                  ? 'bg-[#F59E0B]/10 text-[#F59E0B]'
-                  : 'text-[#A1A1AA] hover:bg-white/[0.05] hover:text-[#FAFAFA]'
+                  ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
+                  : 'text-[var(--color-text-secondary)] hover:bg-white/[0.05] hover:text-[var(--color-text-primary)]'
               )}
             >
               <Icon size={indent ? 13 : 15} strokeWidth={isActive ? 2.5 : 2} />
@@ -90,8 +90,8 @@ export function Sidebar() {
         })}
 
         {/* Settings section */}
-        <div className="pt-3 mt-1 border-t border-white/[0.07]">
-          <p className="px-2.5 pb-1 text-[10px] font-semibold uppercase tracking-widest text-[#71717A]">Configurações</p>
+        <div className="pt-3 mt-1 border-t border-[var(--color-border-subtle)]">
+          <p className="px-2.5 pb-1 text-[10px] font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">Configurações</p>
           {SETTINGS_ITEMS.map(({ href, label, icon: Icon }) => {
             const isActive = pathname.startsWith(href)
             return (
@@ -101,8 +101,8 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium transition-colors duration-150 cursor-pointer',
                   isActive
-                    ? 'bg-[#F59E0B]/10 text-[#F59E0B]'
-                    : 'text-[#A1A1AA] hover:bg-white/[0.05] hover:text-[#FAFAFA]'
+                    ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
+                    : 'text-[var(--color-text-secondary)] hover:bg-white/[0.05] hover:text-[var(--color-text-primary)]'
                 )}
               >
                 <Icon size={15} strokeWidth={isActive ? 2.5 : 2} />
@@ -114,10 +114,10 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-white/[0.07] p-2">
+      <div className="border-t border-[var(--color-border-subtle)] p-2">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium text-[#A1A1AA] transition-colors duration-150 hover:bg-white/[0.05] hover:text-[#FAFAFA] cursor-pointer"
+          className="flex w-full items-center gap-2.5 rounded px-2.5 py-1.5 text-sm font-medium text-[var(--color-text-secondary)] transition-colors duration-150 hover:bg-white/[0.05] hover:text-[var(--color-text-primary)] cursor-pointer"
         >
           <LogOut size={15} strokeWidth={2} />
           Sair

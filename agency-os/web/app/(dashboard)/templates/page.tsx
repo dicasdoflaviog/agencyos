@@ -27,7 +27,7 @@ export default async function TemplatesPage() {
         </div>
         <Link
           href="/templates/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-[#F59E0B] hover:bg-[#D97706] px-4 py-2 text-sm font-medium text-[#0A0A0A] transition-colors"
+          className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] px-4 py-2 text-sm font-medium text-[var(--color-text-inverse)] transition-colors"
         >
           + Novo template
         </Link>
@@ -41,7 +41,7 @@ export default async function TemplatesPage() {
           </p>
           <Link
             href="/templates/new"
-            className="mt-4 inline-flex items-center rounded-lg bg-[#F59E0B] hover:bg-[#D97706] px-4 py-2 text-sm font-medium text-[#0A0A0A] transition-colors"
+            className="mt-4 inline-flex items-center rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] px-4 py-2 text-sm font-medium text-[var(--color-text-inverse)] transition-colors"
           >
             Criar primeiro template
           </Link>
@@ -83,7 +83,7 @@ export default async function TemplatesPage() {
               <div className="flex gap-2 pt-1">
                 <Link
                   href={`/jobs/new?template=${template.id}`}
-                  className="flex-1 text-center rounded-lg bg-[#F59E0B] hover:bg-[#D97706] px-3 py-1.5 text-xs font-medium text-[#0A0A0A] transition-colors"
+                  className="flex-1 text-center rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] px-3 py-1.5 text-xs font-medium text-[var(--color-text-inverse)] transition-colors"
                 >
                   Usar template
                 </Link>

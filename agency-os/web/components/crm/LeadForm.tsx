@@ -124,61 +124,61 @@ export default function LeadForm({ lead, onClose, onSaved }: Props) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1">
-          <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">
-            Nome <span className="text-[#EF4444]">*</span>
+          <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">
+            Nome <span className="text-[var(--color-error)]">*</span>
           </Label>
           <Input
             {...register('name')}
             placeholder="João Silva"
-            className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] placeholder:text-[#52525B] h-9"
+            className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] h-9"
           />
-          {errors.name && <p className="text-xs text-[#EF4444]">{errors.name.message}</p>}
+          {errors.name && <p className="text-xs text-[var(--color-error)]">{errors.name.message}</p>}
         </div>
         <div className="space-y-1">
-          <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">Empresa</Label>
+          <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">Empresa</Label>
           <Input
             {...register('company')}
             placeholder="Acme Ltda."
-            className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] placeholder:text-[#52525B] h-9"
+            className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] h-9"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1">
-          <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">E-mail</Label>
+          <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">E-mail</Label>
           <Input
             {...register('email')}
             type="email"
             placeholder="joao@empresa.com"
-            className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] placeholder:text-[#52525B] h-9"
+            className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] h-9"
           />
-          {errors.email && <p className="text-xs text-[#EF4444]">{errors.email.message}</p>}
+          {errors.email && <p className="text-xs text-[var(--color-error)]">{errors.email.message}</p>}
         </div>
         <div className="space-y-1">
-          <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">Telefone</Label>
+          <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">Telefone</Label>
           <Input
             {...register('phone')}
             type="tel"
             placeholder="+55 11 9xxxx-xxxx"
-            className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] placeholder:text-[#52525B] h-9"
+            className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] h-9"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1">
-          <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">Stage</Label>
+          <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">Stage</Label>
           <Select
             defaultValue={lead?.stage ?? 'lead'}
             onValueChange={(v) => setValue('stage', v)}
           >
-            <SelectTrigger className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] h-9">
+            <SelectTrigger className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] h-9">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-[#27272A] border-white/[0.07]">
+            <SelectContent className="bg-[var(--color-bg-elevated)] border-[var(--color-border-subtle)]">
               {LEAD_STAGES.map(s => (
-                <SelectItem key={s.value} value={s.value} className="text-[#FAFAFA] focus:bg-white/[0.05]">
+                <SelectItem key={s.value} value={s.value} className="text-[var(--color-text-primary)] focus:bg-white/[0.05]">
                   {s.label}
                 </SelectItem>
               ))}
@@ -186,17 +186,17 @@ export default function LeadForm({ lead, onClose, onSaved }: Props) {
           </Select>
         </div>
         <div className="space-y-1">
-          <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">Origem</Label>
+          <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">Origem</Label>
           <Select
             defaultValue={lead?.source ?? ''}
             onValueChange={(v) => setValue('source', v)}
           >
-            <SelectTrigger className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] h-9">
+            <SelectTrigger className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] h-9">
               <SelectValue placeholder="Selecionar" />
             </SelectTrigger>
-            <SelectContent className="bg-[#27272A] border-white/[0.07]">
+            <SelectContent className="bg-[var(--color-bg-elevated)] border-[var(--color-border-subtle)]">
               {SOURCE_OPTIONS.map(s => (
-                <SelectItem key={s.value} value={s.value} className="text-[#FAFAFA] focus:bg-white/[0.05]">
+                <SelectItem key={s.value} value={s.value} className="text-[var(--color-text-primary)] focus:bg-white/[0.05]">
                   {s.label}
                 </SelectItem>
               ))}
@@ -206,25 +206,25 @@ export default function LeadForm({ lead, onClose, onSaved }: Props) {
       </div>
 
       <div className="space-y-1">
-        <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">Valor do Negócio (R$)</Label>
+        <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">Valor do Negócio (R$)</Label>
         <Input
           {...register('deal_value')}
           type="number"
           step="0.01"
           min="0"
           placeholder="5000"
-          className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] placeholder:text-[#52525B] h-9"
+          className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] h-9"
         />
-        {errors.deal_value && <p className="text-xs text-[#EF4444]">{errors.deal_value.message}</p>}
+        {errors.deal_value && <p className="text-xs text-[var(--color-error)]">{errors.deal_value.message}</p>}
       </div>
 
       <div className="space-y-1">
-        <Label className="text-xs text-[#A1A1AA] uppercase tracking-wider">Notas</Label>
+        <Label className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">Notas</Label>
         <Textarea
           {...register('notes')}
           placeholder="Contexto relevante sobre este lead..."
           rows={3}
-          className="bg-[#18181B] border-white/[0.07] text-[#FAFAFA] placeholder:text-[#52525B] resize-none"
+          className="bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] resize-none"
         />
       </div>
 
@@ -232,7 +232,7 @@ export default function LeadForm({ lead, onClose, onSaved }: Props) {
         <Button
           type="submit"
           disabled={loading}
-          className="bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer disabled:opacity-50"
+          className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="mr-1.5 animate-spin" /> : <Save size={14} className="mr-1.5" />}
           {isEdit ? 'Salvar Alterações' : 'Criar Lead'}
@@ -241,7 +241,7 @@ export default function LeadForm({ lead, onClose, onSaved }: Props) {
           type="button"
           variant="ghost"
           onClick={onClose}
-          className="text-[#A1A1AA] hover:text-[#FAFAFA] cursor-pointer"
+          className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] cursor-pointer"
         >
           Cancelar
         </Button>

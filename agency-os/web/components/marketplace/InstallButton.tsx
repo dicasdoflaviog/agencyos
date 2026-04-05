@@ -43,7 +43,7 @@ export function InstallButton({ agent, isInstalled: initialInstalled }: Props) {
       className={`w-full rounded px-4 py-2 text-sm font-medium transition-colors ${
         installed
           ? 'bg-green-500/10 text-green-400 cursor-default'
-          : 'bg-[#F59E0B] text-[#0A0A0A] hover:bg-[#D97706] disabled:opacity-50 disabled:cursor-not-allowed'
+          : 'bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:bg-[var(--color-accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed'
       }`}
     >
       {label}

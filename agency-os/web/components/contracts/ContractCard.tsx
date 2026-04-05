@@ -18,10 +18,10 @@ export interface Contract {
 }
 
 const STATUS_CONFIG: Record<Contract['status'], { label: string; className: string }> = {
-  active:  { label: 'Ativo',   className: 'bg-[#22C55E]/10 text-[#22C55E]' },
-  paused:  { label: 'Pausado', className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
-  ended:   { label: 'Encerrado', className: 'bg-white/[0.06] text-[#71717A]' },
-  draft:   { label: 'Rascunho', className: 'bg-white/[0.06] text-[#71717A]' },
+  active:  { label: 'Ativo',   className: 'bg-[var(--color-success)]/10 text-[var(--color-success)]' },
+  paused:  { label: 'Pausado', className: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
+  ended:   { label: 'Encerrado', className: 'bg-white/[0.06] text-[var(--color-text-muted)]' },
+  draft:   { label: 'Rascunho', className: 'bg-white/[0.06] text-[var(--color-text-muted)]' },
 }
 
 const BILLING_LABELS: Record<Contract['billing'], string> = {
@@ -54,18 +54,18 @@ export function ContractCard({ contract, clientId }: ContractCardProps) {
   return (
     <Link
       href={`/clients/${cid}/contracts/${contract.id}`}
-      className="block rounded-md border border-white/[0.07] bg-[#18181B] p-5 hover:border-white/[0.12] hover:bg-[#1C1C1F] transition-colors"
+      className="block rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5 hover:border-[var(--color-border-default)] hover:bg-[var(--color-bg-surface)] transition-colors"
     >
       <div className="flex items-start justify-between gap-3 mb-4">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="rounded bg-[#F59E0B]/10 p-1.5">
-            <FileText size={14} className="text-[#F59E0B]" />
+          <div className="rounded bg-[var(--color-accent)]/10 p-1.5">
+            <FileText size={14} className="text-[var(--color-accent)]" />
           </div>
           <div className="min-w-0">
             {contract.client && (
-              <p className="text-xs text-[#71717A] truncate">{contract.client.name}</p>
+              <p className="text-xs text-[var(--color-text-muted)] truncate">{contract.client.name}</p>
             )}
-            <p className="text-xs font-medium text-[#A1A1AA]">{BILLING_LABELS[contract.billing]}</p>
+            <p className="text-xs font-medium text-[var(--color-text-secondary)]">{BILLING_LABELS[contract.billing]}</p>
           </div>
         </div>
         <span className={cn('shrink-0 rounded px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide', status.className)}>
@@ -74,28 +74,28 @@ export function ContractCard({ contract, clientId }: ContractCardProps) {
       </div>
 
       <div className="flex items-center gap-2 mb-3">
-        <DollarSign size={14} className="text-[#A1A1AA] shrink-0" />
-        <span className="text-xl font-bold font-display text-[#FAFAFA] tracking-tight">
+        <DollarSign size={14} className="text-[var(--color-text-secondary)] shrink-0" />
+        <span className="text-xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">
           {formatCurrency(contract.value)}
         </span>
       </div>
 
-      <div className="flex items-center gap-1.5 text-xs text-[#71717A]">
+      <div className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)]">
         <Calendar size={12} className="shrink-0" />
         <span>{formatDate(contract.start_date)}</span>
         {contract.end_date && (
           <>
-            <span className="text-[#3F3F46]">→</span>
+            <span className="text-[var(--color-text-disabled)]">→</span>
             <span>{formatDate(contract.end_date)}</span>
           </>
         )}
         {!contract.end_date && (
-          <span className="text-[#3F3F46] italic">sem data de término</span>
+          <span className="text-[var(--color-text-disabled)] italic">sem data de término</span>
         )}
       </div>
 
       {contract.notes && (
-        <p className="mt-3 text-xs text-[#71717A] line-clamp-2 border-t border-white/[0.04] pt-3">
+        <p className="mt-3 text-xs text-[var(--color-text-muted)] line-clamp-2 border-t border-[var(--color-border-subtle)] pt-3">
           {contract.notes}
         </p>
       )}

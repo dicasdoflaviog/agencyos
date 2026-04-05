@@ -38,8 +38,8 @@ export function ClientApproveForm({ outputId }: Props) {
   }
 
   return (
-    <div className="rounded-lg border border-white/[0.07] bg-[#18181B] p-6">
-      <h2 className="text-sm font-semibold text-[#FAFAFA] mb-4">Sua avaliação</h2>
+    <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
+      <h2 className="text-sm font-semibold text-[var(--color-text-primary)] mb-4">Sua avaliação</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <button
@@ -47,8 +47,8 @@ export function ClientApproveForm({ outputId }: Props) {
             onClick={() => setAction('approved')}
             className={`flex items-center justify-center gap-2 rounded border py-3 text-sm font-medium transition-colors ${
               action === 'approved'
-                ? 'border-[#22C55E] bg-[#22C55E]/10 text-[#22C55E]'
-                : 'border-white/[0.07] text-[#A1A1AA] hover:border-white/[0.12] hover:text-[#FAFAFA]'
+                ? 'border-[var(--color-success)] bg-[var(--color-success)]/10 text-[var(--color-success)]'
+                : 'border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-default)] hover:text-[var(--color-text-primary)]'
             }`}
           >
             <ThumbsUp size={15} />
@@ -59,8 +59,8 @@ export function ClientApproveForm({ outputId }: Props) {
             onClick={() => setAction('rejected')}
             className={`flex items-center justify-center gap-2 rounded border py-3 text-sm font-medium transition-colors ${
               action === 'rejected'
-                ? 'border-[#EF4444] bg-[#EF4444]/10 text-[#EF4444]'
-                : 'border-white/[0.07] text-[#A1A1AA] hover:border-white/[0.12] hover:text-[#FAFAFA]'
+                ? 'border-[var(--color-error)] bg-[var(--color-error)]/10 text-[var(--color-error)]'
+                : 'border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-default)] hover:text-[var(--color-text-primary)]'
             }`}
           >
             <RotateCcw size={15} />
@@ -68,7 +68,7 @@ export function ClientApproveForm({ outputId }: Props) {
           </button>
         </div>
         <div>
-          <label className="block text-xs font-medium text-[#A1A1AA] mb-1.5">
+          <label className="block text-xs font-medium text-[var(--color-text-secondary)] mb-1.5">
             {action === 'approved' ? 'Comentário (opcional)' : 'O que precisa ser ajustado?'}
           </label>
           <textarea
@@ -76,13 +76,13 @@ export function ClientApproveForm({ outputId }: Props) {
             onChange={e => setNotes(e.target.value)}
             rows={3}
             placeholder={action === 'approved' ? 'Algum comentário...' : 'Descreva os ajustes necessários...'}
-            className="w-full rounded border border-white/[0.07] bg-[#27272A] px-3 py-2 text-sm text-[#FAFAFA] placeholder:text-[#A1A1AA] focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B] resize-none"
+            className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B] resize-none"
           />
         </div>
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded bg-[#F59E0B] px-4 py-2 text-sm font-semibold text-[#0A0A0A] hover:bg-[#D97706] disabled:opacity-60 transition-colors"
+          className="w-full flex items-center justify-center gap-2 rounded bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-text-inverse)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 transition-colors"
         >
           {loading && <Loader2 size={14} className="animate-spin" />}
           Confirmar

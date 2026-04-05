@@ -28,27 +28,27 @@ export function WorkspaceTable({ workspaces }: Props) {
           placeholder="Buscar por nome ou slug..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full rounded border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-[#F59E0B]/50 focus:outline-none"
+          className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:border-[var(--color-accent)]/50 focus:outline-none"
         />
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/[0.07]">
-              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Nome</th>
-              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Slug</th>
-              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Criada</th>
-              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[#71717A]">Ações</th>
+            <tr className="border-b border-[var(--color-border-subtle)]">
+              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Nome</th>
+              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Slug</th>
+              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Criada</th>
+              <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Ações</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map(ws => (
-              <tr key={ws.id} className="border-b border-white/[0.04] transition-colors hover:bg-white/[0.02]">
-                <td className="py-3 font-medium text-[#FAFAFA]">{ws.name}</td>
-                <td className="py-3 text-[#A1A1AA]">{ws.slug}</td>
-                <td className="py-3 text-[#A1A1AA]">{new Date(ws.created_at).toLocaleDateString('pt-BR')}</td>
+              <tr key={ws.id} className="border-b border-[var(--color-border-subtle)] transition-colors hover:bg-white/[0.02]">
+                <td className="py-3 font-medium text-[var(--color-text-primary)]">{ws.name}</td>
+                <td className="py-3 text-[var(--color-text-secondary)]">{ws.slug}</td>
+                <td className="py-3 text-[var(--color-text-secondary)]">{new Date(ws.created_at).toLocaleDateString('pt-BR')}</td>
                 <td className="py-3">
-                  <Link href={`/admin/workspaces/${ws.id}`} className="text-xs font-medium text-[#F59E0B] hover:underline">
+                  <Link href={`/admin/workspaces/${ws.id}`} className="text-xs font-medium text-[var(--color-accent)] hover:underline">
                     Detalhes →
                   </Link>
                 </td>
@@ -57,7 +57,7 @@ export function WorkspaceTable({ workspaces }: Props) {
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <div className="py-8 text-center text-sm text-[#71717A]">
+          <div className="py-8 text-center text-sm text-[var(--color-text-muted)]">
             {search ? 'Nenhum resultado encontrado' : 'Nenhuma workspace'}
           </div>
         )}

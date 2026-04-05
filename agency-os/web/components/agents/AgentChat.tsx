@@ -78,18 +78,18 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
     setOutput(null)
   }
 
-  const inputClass = 'bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B] resize-none'
+  const inputClass = 'bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)] resize-none'
 
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center gap-2.5">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#F59E0B] text-[11px] font-bold text-[#0A0A0A]">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-accent)] text-[11px] font-bold text-[var(--color-text-inverse)]">
           {agent.name[0]}
         </span>
         <div>
-          <p className="text-sm font-semibold text-[#FAFAFA]">{agent.name}</p>
-          <p className="text-[11px] text-[#A1A1AA]">{agent.role}</p>
+          <p className="text-sm font-semibold text-[var(--color-text-primary)]">{agent.name}</p>
+          <p className="text-[11px] text-[var(--color-text-secondary)]">{agent.role}</p>
         </div>
       </div>
 
@@ -110,7 +110,7 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
           <Button
             onClick={handleRun}
             disabled={!message.trim() || stage === 'loading'}
-            className="self-end bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer disabled:opacity-50"
+            className="self-end bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer disabled:opacity-50"
           >
             {stage === 'loading' ? (
               <>
@@ -130,8 +130,8 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
       {/* Output */}
       {stage === 'output' && output && (
         <div className="flex flex-col gap-3">
-          <div className="rounded-md border border-white/[0.07] bg-[#0D0D0D] p-4 max-h-96 overflow-y-auto">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed text-[#D4D4D8] font-sans">
+          <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] p-4 max-h-96 overflow-y-auto">
+            <pre className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-secondary)] font-sans">
               {output.content}
             </pre>
           </div>
@@ -140,7 +140,7 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
               size="sm"
               disabled={actionLoading === 'approve'}
               onClick={() => patchStatus('approved')}
-              className="bg-[#22C55E]/10 text-[#22C55E] border border-[#22C55E]/20 hover:bg-[#22C55E]/20 cursor-pointer"
+              className="bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20 hover:bg-[var(--color-success)]/20 cursor-pointer"
             >
               {actionLoading === 'approve' ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} className="mr-1" />}
               Salvar aprovado
@@ -150,7 +150,7 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
               disabled={actionLoading === 'revision'}
               onClick={() => patchStatus('revision')}
               variant="ghost"
-              className="border border-white/10 text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-white/[0.05] cursor-pointer"
+              className="border border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/[0.05] cursor-pointer"
             >
               {actionLoading === 'revision' ? <Loader2 size={13} className="animate-spin" /> : <RotateCcw size={13} className="mr-1" />}
               Pedir revisão
@@ -160,7 +160,7 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
               disabled={actionLoading === 'reject'}
               onClick={() => patchStatus('rejected')}
               variant="ghost"
-              className="border border-white/10 text-[#EF4444] hover:text-[#EF4444] hover:bg-[#EF4444]/5 cursor-pointer"
+              className="border border-white/10 text-[var(--color-error)] hover:text-[var(--color-error)] hover:bg-[var(--color-error)]/5 cursor-pointer"
             >
               {actionLoading === 'reject' ? <Loader2 size={13} className="animate-spin" /> : <X size={13} className="mr-1" />}
               Descartar
@@ -176,7 +176,7 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
             value={revisionNote}
             onChange={(e) => setRevisionNote(e.target.value)}
             placeholder="Descreva o que precisa ser ajustado…"
-            className={cn(inputClass, 'border-[#F59E0B]/30')}
+            className={cn(inputClass, 'border-[var(--color-accent)]/30')}
             rows={3}
           />
           <div className="flex gap-2">
@@ -184,7 +184,7 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
               size="sm"
               onClick={handleRevisionSubmit}
               disabled={!revisionNote.trim()}
-              className="bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer"
+              className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer"
             >
               Enviar feedback
             </Button>
@@ -192,7 +192,7 @@ export function AgentChat({ agentId, jobId, clientId, onOutputSaved }: AgentChat
               size="sm"
               variant="ghost"
               onClick={() => setStage('output')}
-              className="border border-white/10 text-[#A1A1AA] hover:text-[#FAFAFA] cursor-pointer"
+              className="border border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] cursor-pointer"
             >
               Voltar
             </Button>

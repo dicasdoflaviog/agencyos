@@ -38,7 +38,7 @@ function Avatar({ name, avatarUrl }: { name: string; avatarUrl: string | null })
     return <img src={avatarUrl} alt={name} className="h-7 w-7 rounded-full object-cover" />
   }
   return (
-    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#27272A] text-xs font-semibold text-[#FAFAFA]">
+    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-xs font-semibold text-[var(--color-text-primary)]">
       {name.slice(0, 2).toUpperCase()}
     </div>
   )
@@ -69,20 +69,20 @@ export function MemberList({ members, pendingInvites }: MemberListProps) {
   const hasRows = members.length > 0 || pendingInvites.length > 0
 
   return (
-    <div className="rounded-md border border-white/[0.07] bg-[#18181B] overflow-hidden">
+    <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] overflow-hidden">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-white/[0.07] bg-[#F59E0B]/5">
-            <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-[#F59E0B]">
+          <tr className="border-b border-[var(--color-border-subtle)] bg-[var(--color-accent)]/5">
+            <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-accent)]">
               Nome / E-mail
             </th>
-            <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-[#F59E0B]">
+            <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-accent)]">
               Papel
             </th>
-            <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-[#F59E0B]">
+            <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-accent)]">
               Status
             </th>
-            <th className="px-5 py-3 text-right text-xs font-medium uppercase tracking-wider text-[#F59E0B]">
+            <th className="px-5 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--color-accent)]">
               Ações
             </th>
           </tr>
@@ -90,14 +90,14 @@ export function MemberList({ members, pendingInvites }: MemberListProps) {
         <tbody>
           {!hasRows && (
             <tr>
-              <td colSpan={4} className="px-5 py-10 text-center text-xs text-[#A1A1AA]">
+              <td colSpan={4} className="px-5 py-10 text-center text-xs text-[var(--color-text-secondary)]">
                 Nenhum membro na equipe ainda.
               </td>
             </tr>
           )}
 
           {members.map((member) => (
-            <tr key={member.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
+            <tr key={member.id} className="border-b border-[var(--color-border-subtle)] hover:bg-white/[0.02] transition-colors">
               <td className="px-5 py-3.5">
                 <div className="flex items-center gap-2.5">
                   <Avatar
@@ -105,10 +105,10 @@ export function MemberList({ members, pendingInvites }: MemberListProps) {
                     avatarUrl={member.profile?.avatar_url ?? null}
                   />
                   <div>
-                    <p className="text-sm font-medium text-[#FAFAFA]">
+                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
                       {member.profile?.name ?? '—'}
                     </p>
-                    <p className="text-xs text-[#A1A1AA]">{member.profile?.email ?? '—'}</p>
+                    <p className="text-xs text-[var(--color-text-secondary)]">{member.profile?.email ?? '—'}</p>
                   </div>
                 </div>
               </td>
@@ -116,7 +116,7 @@ export function MemberList({ members, pendingInvites }: MemberListProps) {
                 <RoleBadge role={member.role} />
               </td>
               <td className="px-5 py-3.5">
-                <span className="inline-flex items-center gap-1.5 text-xs text-[#22C55E]">
+                <span className="inline-flex items-center gap-1.5 text-xs text-[var(--color-success)]">
                   <CheckCircle2 size={13} />
                   Ativo
                 </span>
@@ -125,7 +125,7 @@ export function MemberList({ members, pendingInvites }: MemberListProps) {
                 <button
                   onClick={() => handleRemove(member.id)}
                   disabled={removing === member.id}
-                  className="inline-flex items-center gap-1.5 rounded px-2.5 py-1.5 text-xs text-[#A1A1AA] hover:bg-[#EF4444]/10 hover:text-[#EF4444] transition-colors disabled:opacity-50 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 rounded px-2.5 py-1.5 text-xs text-[var(--color-text-secondary)] hover:bg-[var(--color-error)]/10 hover:text-[var(--color-error)] transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   <Trash2 size={13} />
                   {removing === member.id ? 'Removendo…' : 'Remover'}
@@ -135,15 +135,15 @@ export function MemberList({ members, pendingInvites }: MemberListProps) {
           ))}
 
           {pendingInvites.map((invite) => (
-            <tr key={invite.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors opacity-70">
+            <tr key={invite.id} className="border-b border-[var(--color-border-subtle)] hover:bg-white/[0.02] transition-colors opacity-70">
               <td className="px-5 py-3.5">
                 <div className="flex items-center gap-2.5">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#27272A] text-xs font-semibold text-[#A1A1AA]">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-xs font-semibold text-[var(--color-text-secondary)]">
                     {invite.email.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-xs text-[#A1A1AA]">{invite.email}</p>
-                    <p className="text-xs text-[#71717A]">Convite pendente</p>
+                    <p className="text-xs text-[var(--color-text-secondary)]">{invite.email}</p>
+                    <p className="text-xs text-[var(--color-text-muted)]">Convite pendente</p>
                   </div>
                 </div>
               </td>
@@ -151,13 +151,13 @@ export function MemberList({ members, pendingInvites }: MemberListProps) {
                 <RoleBadge role={invite.role} />
               </td>
               <td className="px-5 py-3.5">
-                <span className="inline-flex items-center gap-1.5 text-xs text-[#A1A1AA]">
+                <span className="inline-flex items-center gap-1.5 text-xs text-[var(--color-text-secondary)]">
                   <Clock size={13} />
                   Pendente
                 </span>
               </td>
               <td className="px-5 py-3.5 text-right">
-                <span className="text-xs text-[#71717A]">—</span>
+                <span className="text-xs text-[var(--color-text-muted)]">—</span>
               </td>
             </tr>
           ))}

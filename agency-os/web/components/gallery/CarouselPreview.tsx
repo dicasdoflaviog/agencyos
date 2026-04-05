@@ -45,7 +45,7 @@ export function CarouselPreview({ content }: Props) {
   return (
     <div className="relative">
       {/* Slide container */}
-      <div className="min-h-[180px] rounded-lg border border-white/[0.07] bg-[#09090B] p-5">
+      <div className="min-h-[180px] rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] p-5">
         <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-amber-400">
           {slide.title}
         </p>
@@ -56,7 +56,7 @@ export function CarouselPreview({ content }: Props) {
       <div className="mt-3 flex items-center justify-between">
         <button
           onClick={prev}
-          className="flex h-7 w-7 items-center justify-center rounded border border-white/[0.07] text-[#A1A1AA] transition hover:border-amber-500/30 hover:text-amber-400"
+          className="flex h-7 w-7 items-center justify-center rounded border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] transition hover:border-amber-500/30 hover:text-amber-400"
         >
           <ChevronLeft size={14} />
         </button>
@@ -76,13 +76,13 @@ export function CarouselPreview({ content }: Props) {
 
         <button
           onClick={next}
-          className="flex h-7 w-7 items-center justify-center rounded border border-white/[0.07] text-[#A1A1AA] transition hover:border-amber-500/30 hover:text-amber-400"
+          className="flex h-7 w-7 items-center justify-center rounded border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] transition hover:border-amber-500/30 hover:text-amber-400"
         >
           <ChevronRight size={14} />
         </button>
       </div>
 
-      <p className="mt-1.5 text-center text-[10px] text-[#52525B]">
+      <p className="mt-1.5 text-center text-[10px] text-[var(--color-text-muted)]">
         {current + 1} / {total} slides
       </p>
     </div>

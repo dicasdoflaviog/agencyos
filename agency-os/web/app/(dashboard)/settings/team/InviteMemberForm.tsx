@@ -41,29 +41,29 @@ export function InviteMemberForm() {
   }
 
   return (
-    <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-      <h3 className="mb-1 text-sm font-semibold text-[#FAFAFA]">Convidar membro</h3>
-      <p className="mb-4 text-xs text-[#A1A1AA]">Envie um convite por e-mail para adicionar alguém à equipe.</p>
+    <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+      <h3 className="mb-1 text-sm font-semibold text-[var(--color-text-primary)]">Convidar membro</h3>
+      <p className="mb-4 text-xs text-[var(--color-text-secondary)]">Envie um convite por e-mail para adicionar alguém à equipe.</p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:items-end">
         <div className="flex-1">
-          <label className="mb-1.5 block text-xs font-medium text-[#A1A1AA]">E-mail</label>
+          <label className="mb-1.5 block text-xs font-medium text-[var(--color-text-secondary)]">E-mail</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="colaborador@empresa.com"
             required
-            className="w-full rounded-md border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] outline-none focus:border-[#F59E0B]/50 focus:ring-1 focus:ring-[#F59E0B]/30 transition-colors"
+            className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] outline-none focus:border-[var(--color-accent)]/50 focus:ring-1 focus:ring-[#F59E0B]/30 transition-colors"
           />
         </div>
 
         <div className="w-full sm:w-44">
-          <label className="mb-1.5 block text-xs font-medium text-[#A1A1AA]">Papel</label>
+          <label className="mb-1.5 block text-xs font-medium text-[var(--color-text-secondary)]">Papel</label>
           <select
             value={role}
             onChange={(e) => setRole(e.target.value as 'collaborator' | 'viewer')}
-            className="w-full rounded-md border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] outline-none focus:border-[#F59E0B]/50 focus:ring-1 focus:ring-[#F59E0B]/30 transition-colors cursor-pointer"
+            className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-accent)]/50 focus:ring-1 focus:ring-[#F59E0B]/30 transition-colors cursor-pointer"
           >
             <option value="collaborator">Colaborador</option>
             <option value="viewer">Visualizador</option>
@@ -73,7 +73,7 @@ export function InviteMemberForm() {
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex items-center justify-center gap-2 rounded-md bg-[#F59E0B] px-4 py-2 text-sm font-semibold text-[#0A0A0A] transition-colors hover:bg-[#D97706] disabled:opacity-60 cursor-pointer whitespace-nowrap"
+          className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-accent-hover)] disabled:opacity-60 cursor-pointer whitespace-nowrap"
         >
           {loading ? (
             <Loader2 size={15} className="animate-spin" />

@@ -8,7 +8,7 @@ import { MDRenderer } from './MDRenderer'
 import { CarouselPreview } from './CarouselPreview'
 
 const STATUS_CONFIG = {
-  pending:  { label: 'Pendente',  cls: 'bg-white/[0.06] text-[#A1A1AA]' },
+  pending:  { label: 'Pendente',  cls: 'bg-white/[0.06] text-[var(--color-text-secondary)]' },
   approved: { label: 'Aprovado',  cls: 'bg-green-500/10 text-green-400' },
   rejected: { label: 'Rejeitado', cls: 'bg-red-500/10 text-red-400' },
   revision: { label: 'Revisão',   cls: 'bg-amber-500/10 text-amber-400' },
@@ -66,11 +66,11 @@ export function GalleryCard({ output }: Props) {
   const PREVIEW_THRESHOLD = 600
 
   return (
-    <div className="group flex flex-col rounded-xl border border-white/[0.07] bg-[#18181B] overflow-hidden transition-all hover:border-white/[0.12]">
+    <div className="group flex flex-col rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] overflow-hidden transition-all hover:border-[var(--color-border-default)]">
       {/* Header */}
       <div className="flex items-center justify-between gap-2 px-4 pt-3 pb-2">
         <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 rounded bg-[#27272A] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#FAFAFA]">
+          <span className="flex items-center gap-1.5 rounded bg-[var(--color-bg-elevated)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--color-text-primary)]">
             {output.agent_name}
           </span>
           <span className={cn('flex items-center gap-1 text-[10px] font-medium', typeConfig.accent)}>
@@ -82,13 +82,13 @@ export function GalleryCard({ output }: Props) {
           <span className={cn('rounded px-1.5 py-0.5 text-[10px] font-medium', status.cls)}>
             {status.label}
           </span>
-          <span className="text-[10px] text-[#52525B]">{formatDate(output.created_at)}</span>
+          <span className="text-[10px] text-[var(--color-text-muted)]">{formatDate(output.created_at)}</span>
         </div>
       </div>
 
       {/* Prompt / title */}
       {output.input_prompt && (
-        <p className="truncate px-4 pb-2 text-[11px] text-[#71717A]">
+        <p className="truncate px-4 pb-2 text-[11px] text-[var(--color-text-muted)]">
           ↳ {output.input_prompt}
         </p>
       )}
@@ -137,10 +137,10 @@ export function GalleryCard({ output }: Props) {
 
       {/* Footer */}
       {isText && (
-        <div className="flex items-center justify-end border-t border-white/[0.05] px-4 py-2">
+        <div className="flex items-center justify-end border-t border-[var(--color-border-subtle)] px-4 py-2">
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 text-[11px] text-[#71717A] transition-colors hover:text-[#FAFAFA]"
+            className="flex items-center gap-1.5 text-[11px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
           >
             {copied ? <><Check size={11} className="text-green-400" /> Copiado</> : <><Copy size={11} /> Copiar</>}
           </button>

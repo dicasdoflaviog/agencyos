@@ -20,7 +20,7 @@ export default async function ClientCMSPage({ params }: { params: Promise<{ id: 
       <div className="flex items-center justify-end">
         <Link
           href={`/clients/${id}/cms/new`}
-          className="flex items-center gap-2 rounded bg-[#F59E0B] px-3 py-1.5 text-sm font-semibold text-[#09090B] hover:bg-[#D97706] transition-colors"
+          className="flex items-center gap-2 rounded bg-[var(--color-accent)] px-3 py-1.5 text-sm font-semibold text-[var(--color-text-inverse)] hover:bg-[var(--color-accent-hover)] transition-colors"
         >
           <Plus size={14} strokeWidth={2.5} />
           Novo Post
@@ -34,11 +34,11 @@ export default async function ClientCMSPage({ params }: { params: Promise<{ id: 
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-md border border-white/[0.07] bg-[#18181B] py-16 text-center">
-          <p className="text-sm text-[#71717A] mb-3">Nenhum post criado ainda.</p>
+        <div className="flex flex-col items-center justify-center rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] py-16 text-center">
+          <p className="text-sm text-[var(--color-text-muted)] mb-3">Nenhum post criado ainda.</p>
           <Link
             href={`/clients/${id}/cms/new`}
-            className="flex items-center gap-2 rounded bg-[#F59E0B] px-3 py-1.5 text-sm font-semibold text-[#09090B] hover:bg-[#D97706] transition-colors"
+            className="flex items-center gap-2 rounded bg-[var(--color-accent)] px-3 py-1.5 text-sm font-semibold text-[var(--color-text-inverse)] hover:bg-[var(--color-accent-hover)] transition-colors"
           >
             <Plus size={14} strokeWidth={2.5} />
             Criar primeiro post

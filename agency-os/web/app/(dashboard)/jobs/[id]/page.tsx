@@ -9,18 +9,18 @@ import BriefingCard from '@/components/briefing/BriefingCard'
 import { cn, formatDate } from '@/lib/utils'
 
 const STATUS_CONFIG = {
-  backlog:     { label: 'Backlog',      className: 'bg-white/[0.06] text-[#A1A1AA]' },
-  in_progress: { label: 'Em Andamento', className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
+  backlog:     { label: 'Backlog',      className: 'bg-white/[0.06] text-[var(--color-text-secondary)]' },
+  in_progress: { label: 'Em Andamento', className: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
   review:      { label: 'Revisão',      className: 'bg-blue-500/10 text-blue-400' },
-  done:        { label: 'Concluído',    className: 'bg-[#22C55E]/10 text-[#22C55E]' },
-  cancelled:   { label: 'Cancelado',   className: 'bg-[#EF4444]/10 text-[#EF4444]' },
+  done:        { label: 'Concluído',    className: 'bg-[var(--color-success)]/10 text-[var(--color-success)]' },
+  cancelled:   { label: 'Cancelado',   className: 'bg-[var(--color-error)]/10 text-[var(--color-error)]' },
 }
 
 const PRIORITY_CONFIG = {
-  low:    { label: 'Baixa',   className: 'bg-white/[0.06] text-[#A1A1AA]' },
+  low:    { label: 'Baixa',   className: 'bg-white/[0.06] text-[var(--color-text-secondary)]' },
   normal: { label: 'Normal',  className: 'bg-blue-500/10 text-blue-400' },
-  high:   { label: 'Alta',    className: 'bg-[#F97316]/10 text-[#F97316]' },
-  urgent: { label: 'Urgente', className: 'bg-[#EF4444]/10 text-[#EF4444]' },
+  high:   { label: 'Alta',    className: 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]' },
+  urgent: { label: 'Urgente', className: 'bg-[var(--color-error)]/10 text-[var(--color-error)]' },
 }
 
 export default async function JobDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -42,16 +42,16 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
   return (
     <div>
       <div className="mb-6">
-        <Link href="/jobs" className="inline-flex items-center gap-1.5 text-xs text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors cursor-pointer mb-4">
+        <Link href="/jobs" className="inline-flex items-center gap-1.5 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer mb-4">
           <ArrowLeft size={13} strokeWidth={2} />
           Voltar para Jobs
         </Link>
         <div className="flex flex-wrap items-start gap-3">
           <div className="flex-1 min-w-0">
-            <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight truncate">{job.title}</h2>
+            <h2 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight truncate">{job.title}</h2>
             {job.client && (
-              <p className="mt-1 text-sm text-[#A1A1AA]">
-                <Link href={`/clients/${job.client.id}`} className="hover:text-[#FAFAFA] transition-colors cursor-pointer">
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+                <Link href={`/clients/${job.client.id}`} className="hover:text-[var(--color-text-primary)] transition-colors cursor-pointer">
                   {job.client.name}
                 </Link>
               </p>
@@ -61,7 +61,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
             <span className={cn('rounded px-2 py-0.5 text-xs font-medium', priority.className)}>{priority.label}</span>
             <span className={cn('rounded px-2 py-0.5 text-xs font-medium', status.className)}>{status.label}</span>
             {job.due_date && (
-              <span className="text-xs text-[#A1A1AA]">Prazo: {formatDate(job.due_date)}</span>
+              <span className="text-xs text-[var(--color-text-secondary)]">Prazo: {formatDate(job.due_date)}</span>
             )}
           </div>
         </div>
@@ -74,8 +74,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
 
           {/* Outputs */}
           {outputs && outputs.length > 0 && (
-            <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-              <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+            <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+              <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
                 Outputs ({outputs.length})
               </h3>
               <div className="space-y-3">
@@ -99,7 +99,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
               <p className="text-xs text-zinc-600 mt-1 mb-3">Crie um briefing para melhorar os outputs dos agentes</p>
               <Link
                 href={`/jobs/${id}/briefing`}
-                className="inline-flex items-center rounded-lg bg-[#F59E0B] hover:bg-[#D97706] px-3 py-1.5 text-xs font-medium text-[#0A0A0A] transition-colors"
+                className="inline-flex items-center rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] px-3 py-1.5 text-xs font-medium text-[var(--color-text-inverse)] transition-colors"
               >
                 + Criar briefing
               </Link>
@@ -107,8 +107,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
           )}
 
           {/* Editar job */}
-          <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-            <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Editar Job</h3>
+          <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+            <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Editar Job</h3>
             <JobForm clients={clients ?? []} initialData={job} mode="edit" />
           </div>
         </div>

@@ -36,26 +36,26 @@ export default async function ClientOutputDetailPage({ params }: { params: Promi
 
   return (
     <div>
-      <Link href="/client/outputs" className="inline-flex items-center gap-1.5 text-xs text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors mb-4">
+      <Link href="/client/outputs" className="inline-flex items-center gap-1.5 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors mb-4">
         <ArrowLeft size={13} strokeWidth={2} />
         Voltar
       </Link>
 
       <div className="mb-4">
-        <h1 className="text-xl font-bold text-[#FAFAFA] tracking-tight">{output.job?.title ?? 'Conteúdo'}</h1>
+        <h1 className="text-xl font-bold text-[var(--color-text-primary)] tracking-tight">{output.job?.title ?? 'Conteúdo'}</h1>
         <span className={`mt-1 inline-block rounded px-2 py-0.5 text-xs font-medium ${
-          output.approval_stage === 'client_review' ? 'bg-[#F59E0B]/10 text-[#F59E0B]' :
-          output.approval_stage === 'approved' ? 'bg-[#22C55E]/10 text-[#22C55E]' :
+          output.approval_stage === 'client_review' ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' :
+          output.approval_stage === 'approved' ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' :
           output.approval_stage === 'published' ? 'bg-blue-500/10 text-blue-400' :
-          'bg-white/[0.06] text-[#A1A1AA]'
+          'bg-white/[0.06] text-[var(--color-text-secondary)]'
         }`}>
           {STAGE_LABELS[output.approval_stage] ?? output.approval_stage}
         </span>
       </div>
 
-      <div className="rounded-lg border border-white/[0.07] bg-[#18181B] p-6 mb-4">
-        <h2 className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA] mb-3">Conteúdo</h2>
-        <p className="text-sm text-[#FAFAFA] whitespace-pre-wrap leading-relaxed">{output.output_content}</p>
+      <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6 mb-4">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)] mb-3">Conteúdo</h2>
+        <p className="text-sm text-[var(--color-text-primary)] whitespace-pre-wrap leading-relaxed">{output.output_content}</p>
       </div>
 
       {output.approval_stage === 'client_review' && (

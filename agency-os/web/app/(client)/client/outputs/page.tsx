@@ -16,10 +16,10 @@ export default async function ClientOutputsPage() {
 
   if (!profile?.client_id) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-white/[0.07] bg-[#18181B] py-16 text-center">
-        <FileText size={28} className="text-[#3F3F46] mb-3" />
-        <p className="text-sm text-[#A1A1AA]">Sua conta não está vinculada a nenhum cliente.</p>
-        <p className="text-xs text-[#71717A] mt-1">Entre em contato com a agência.</p>
+      <div className="flex flex-col items-center justify-center rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] py-16 text-center">
+        <FileText size={28} className="text-[var(--color-text-disabled)] mb-3" />
+        <p className="text-sm text-[var(--color-text-secondary)]">Sua conta não está vinculada a nenhum cliente.</p>
+        <p className="text-xs text-[var(--color-text-muted)] mt-1">Entre em contato com a agência.</p>
       </div>
     )
   }
@@ -36,10 +36,10 @@ export default async function ClientOutputsPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)] tracking-tight">
           Olá{profile.name ? `, ${profile.name.split(' ')[0]}` : ''} 👋
         </h1>
-        <p className="mt-1 text-sm text-[#A1A1AA]">
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
           {pendingCount > 0
             ? `Você tem ${pendingCount} conteúdo${pendingCount > 1 ? 's' : ''} aguardando sua aprovação.`
             : outputs?.length

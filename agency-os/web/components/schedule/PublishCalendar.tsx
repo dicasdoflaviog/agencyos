@@ -92,7 +92,7 @@ export function PublishCalendar({ scheduledPosts }: PublishCalendarProps) {
           >
             <ChevronLeft size={14} />
           </button>
-          <h3 className="text-sm font-semibold text-[#FAFAFA]">
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
             {MONTHS[month]} {year}
           </h3>
           <button
@@ -127,11 +127,11 @@ export function PublishCalendar({ scheduledPosts }: PublishCalendarProps) {
                 className={cn(
                   'aspect-square flex flex-col items-center justify-start rounded-lg border p-1 transition-colors text-xs font-medium',
                   isSelected
-                    ? 'border-[#F59E0B] bg-[#F59E0B]/10 text-[#F59E0B]'
+                    ? 'border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]'
                     : isToday
-                    ? 'border-zinc-700 bg-zinc-800 text-[#FAFAFA]'
+                    ? 'border-zinc-700 bg-zinc-800 text-[var(--color-text-primary)]'
                     : posts.length > 0
-                    ? 'border-zinc-800 bg-[#18181B] text-zinc-300 hover:border-zinc-700 hover:bg-zinc-800'
+                    ? 'border-zinc-800 bg-[var(--color-bg-surface)] text-zinc-300 hover:border-zinc-700 hover:bg-zinc-800'
                     : 'border-transparent text-zinc-500 hover:border-zinc-800 hover:bg-zinc-900',
                 )}
               >
@@ -165,7 +165,7 @@ export function PublishCalendar({ scheduledPosts }: PublishCalendarProps) {
       {/* Side panel */}
       {selectedDay !== null && (
         <div className="w-72 shrink-0">
-          <h4 className="mb-3 text-sm font-semibold text-[#FAFAFA]">
+          <h4 className="mb-3 text-sm font-semibold text-[var(--color-text-primary)]">
             {String(selectedDay).padStart(2, '0')}/{String(month + 1).padStart(2, '0')}/{year}
           </h4>
           {selectedPosts.length > 0 ? (
@@ -182,7 +182,7 @@ export function PublishCalendar({ scheduledPosts }: PublishCalendarProps) {
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-zinc-800 bg-[#18181B] p-4 text-center text-sm text-zinc-500">
+            <div className="rounded-lg border border-zinc-800 bg-[var(--color-bg-surface)] p-4 text-center text-sm text-zinc-500">
               Nenhum post agendado
             </div>
           )}

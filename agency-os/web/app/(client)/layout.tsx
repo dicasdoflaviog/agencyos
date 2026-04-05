@@ -25,23 +25,23 @@ export default async function ClientLayout({ children }: { children: React.React
   }
 
   return (
-    <div className="min-h-dvh bg-[#09090B]">
-      <header className="fixed inset-x-0 top-0 z-40 h-14 border-b border-white/[0.07] bg-[#09090B]/80 backdrop-blur-md">
+    <div className="min-h-dvh bg-[var(--color-bg-base)]">
+      <header className="fixed inset-x-0 top-0 z-40 h-14 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-base)]/80 backdrop-blur-md">
         <div className="mx-auto flex h-full max-w-4xl items-center justify-between px-6">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded bg-[#F59E0B]">
-              <Bot size={14} className="text-[#0A0A0A]" strokeWidth={2.5} />
+            <div className="flex h-7 w-7 items-center justify-center rounded bg-[var(--color-accent)]">
+              <Bot size={14} className="text-[var(--color-text-inverse)]" strokeWidth={2.5} />
             </div>
-            <span className="text-sm font-semibold text-[#FAFAFA]">Agency OS</span>
+            <span className="text-sm font-semibold text-[var(--color-text-primary)]">Agency OS</span>
           </div>
 
           {/* Client name + logout */}
           <div className="flex items-center gap-3">
             {clientName && (
               <>
-                <span className="hidden text-xs text-[#71717A] sm:block">Portal de</span>
-                <span className="rounded-md border border-white/[0.07] bg-[#18181B] px-3 py-1 text-xs font-medium text-[#FAFAFA]">
+                <span className="hidden text-xs text-[var(--color-text-muted)] sm:block">Portal de</span>
+                <span className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] px-3 py-1 text-xs font-medium text-[var(--color-text-primary)]">
                   {clientName}
                 </span>
               </>

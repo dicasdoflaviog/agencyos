@@ -78,7 +78,7 @@ export default async function OnboardingPage() {
   const stepsDone = (progress?.steps_done ?? []) as string[]
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#09090B] p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--color-bg-base)] p-4">
       <OnboardingWizard workspaceId={workspaceId} stepsDone={stepsDone} />
     </div>
   )

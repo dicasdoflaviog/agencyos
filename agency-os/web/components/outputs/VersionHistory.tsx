@@ -41,40 +41,40 @@ export function VersionHistory({ outputId, currentContent }: Props) {
 
   if (loading) return (
     <div className="flex items-center justify-center py-8">
-      <Loader2 size={20} className="animate-spin text-[#A1A1AA]" />
+      <Loader2 size={20} className="animate-spin text-[var(--color-text-secondary)]" />
     </div>
   )
 
   if (!versions.length) return (
-    <p className="text-sm text-[#A1A1AA] text-center py-8">Nenhuma versão anterior encontrada.</p>
+    <p className="text-sm text-[var(--color-text-secondary)] text-center py-8">Nenhuma versão anterior encontrada.</p>
   )
 
   return (
     <div className="space-y-2">
       {versions.map(v => (
-        <div key={v.id} className="rounded border border-white/[0.07] bg-[#18181B]">
+        <div key={v.id} className="rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
           <div className="flex items-center gap-3 p-3">
             <button
               onClick={() => setExpandedId(expandedId === v.id ? null : v.id)}
               className="flex items-center gap-2 flex-1 text-left"
             >
-              {expandedId === v.id ? <ChevronDown size={14} className="text-[#A1A1AA]" /> : <ChevronRight size={14} className="text-[#A1A1AA]" />}
-              <span className="text-xs font-medium text-[#FAFAFA]">v{v.version_number}</span>
-              <span className="text-xs text-[#A1A1AA]">{formatDate(v.created_at)}</span>
-              {v.change_note && <span className="text-xs text-[#A1A1AA] truncate max-w-[200px]">— {v.change_note}</span>}
+              {expandedId === v.id ? <ChevronDown size={14} className="text-[var(--color-text-secondary)]" /> : <ChevronRight size={14} className="text-[var(--color-text-secondary)]" />}
+              <span className="text-xs font-medium text-[var(--color-text-primary)]">v{v.version_number}</span>
+              <span className="text-xs text-[var(--color-text-secondary)]">{formatDate(v.created_at)}</span>
+              {v.change_note && <span className="text-xs text-[var(--color-text-secondary)] truncate max-w-[200px]">— {v.change_note}</span>}
             </button>
             <button
               onClick={() => handleRollback(v.id)}
               disabled={rollingBack === v.id}
-              className="flex items-center gap-1.5 rounded border border-white/[0.07] px-2 py-1 text-xs text-[#A1A1AA] hover:text-[#FAFAFA] hover:border-white/[0.12] transition-colors disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded border border-[var(--color-border-subtle)] px-2 py-1 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-default)] transition-colors disabled:opacity-50"
             >
               {rollingBack === v.id ? <Loader2 size={12} className="animate-spin" /> : <RotateCcw size={12} />}
               Restaurar
             </button>
           </div>
           {expandedId === v.id && (
-            <div className="border-t border-white/[0.07] p-3">
-              <p className="text-xs text-[#A1A1AA] mb-2">Diferença em relação ao conteúdo atual:</p>
+            <div className="border-t border-[var(--color-border-subtle)] p-3">
+              <p className="text-xs text-[var(--color-text-secondary)] mb-2">Diferença em relação ao conteúdo atual:</p>
               <VersionDiff oldContent={v.content} newContent={currentContent} />
             </div>
           )}

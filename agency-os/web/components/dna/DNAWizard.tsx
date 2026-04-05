@@ -71,7 +71,7 @@ const DEFAULT: FormData = {
 function ColorSwatch({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs text-[#A1A1AA]">{label}</label>
+      <label className="text-xs text-[var(--color-text-secondary)]">{label}</label>
       <div className="flex items-center gap-2">
         <input
           type="color"
@@ -83,7 +83,7 @@ function ColorSwatch({ label, value, onChange }: { label: string; value: string;
           type="text"
           value={value}
           onChange={e => onChange(e.target.value)}
-          className="h-9 flex-1 rounded border border-white/[0.07] bg-[#27272A] px-3 text-xs font-mono text-[#FAFAFA] focus:border-amber-500/50 focus:outline-none"
+          className="h-9 flex-1 rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 text-xs font-mono text-[var(--color-text-primary)] focus:border-amber-500/50 focus:outline-none"
         />
       </div>
     </div>
@@ -93,10 +93,10 @@ function ColorSwatch({ label, value, onChange }: { label: string; value: string;
 function Input({ label, value, onChange, placeholder, multiline }: {
   label: string; value: string; onChange: (v: string) => void; placeholder?: string; multiline?: boolean
 }) {
-  const base = 'w-full rounded border border-white/[0.07] bg-[#27272A] px-3 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-amber-500/50 focus:outline-none'
+  const base = 'w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:border-amber-500/50 focus:outline-none'
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs text-[#A1A1AA]">{label}</label>
+      <label className="text-xs text-[var(--color-text-secondary)]">{label}</label>
       {multiline ? (
         <textarea value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
           className={`${base} py-2.5 min-h-[80px] resize-none`} />
@@ -159,8 +159,8 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
           <Dna size={20} className="text-amber-400" />
         </div>
         <div>
-          <h2 className="text-lg font-semibold text-[#FAFAFA]">Brand DNA — {clientName}</h2>
-          <p className="text-xs text-[#71717A]">Capture a identidade completa da marca para gerar materiais consistentes</p>
+          <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">Brand DNA — {clientName}</h2>
+          <p className="text-xs text-[var(--color-text-muted)]">Capture a identidade completa da marca para gerar materiais consistentes</p>
         </div>
       </div>
 
@@ -179,15 +179,15 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
                   ? 'border-amber-500/40 bg-amber-500/10'
                   : done
                   ? 'border-green-500/20 bg-green-500/5'
-                  : 'border-white/[0.07] bg-[#18181B] hover:border-white/[0.15]'
+                  : 'border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] hover:border-[var(--color-border-strong)]'
               }`}
             >
               {done
                 ? <Check size={14} className="text-green-400" />
-                : <Icon size={14} className={active ? 'text-amber-400' : 'text-[#71717A]'} />
+                : <Icon size={14} className={active ? 'text-amber-400' : 'text-[var(--color-text-muted)]'} />
               }
               <span className={`hidden text-[10px] font-medium sm:block ${
-                active ? 'text-amber-400' : done ? 'text-green-400' : 'text-[#71717A]'
+                active ? 'text-amber-400' : done ? 'text-green-400' : 'text-[var(--color-text-muted)]'
               }`}>{s.label}</span>
             </button>
           )
@@ -195,10 +195,10 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
       </div>
 
       {/* Step content */}
-      <div className="rounded-xl border border-white/[0.07] bg-[#18181B] p-6 space-y-4">
+      <div className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6 space-y-4">
         {step === 'visual' && (
           <>
-            <p className="text-xs text-[#71717A] mb-2">Defina as cores que compõem a identidade visual da marca.</p>
+            <p className="text-xs text-[var(--color-text-muted)] mb-2">Defina as cores que compõem a identidade visual da marca.</p>
             <div className="grid grid-cols-2 gap-4">
               <ColorSwatch label="Cor Primária" value={form.primaryColor} onChange={v => set('primaryColor', v)} />
               <ColorSwatch label="Cor Secundária" value={form.secondaryColor} onChange={v => set('secondaryColor', v)} />
@@ -217,7 +217,7 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
 
         {step === 'typography' && (
           <>
-            <p className="text-xs text-[#71717A] mb-2">Fontes utilizadas na identidade da marca.</p>
+            <p className="text-xs text-[var(--color-text-muted)] mb-2">Fontes utilizadas na identidade da marca.</p>
             <Input label="Fonte de Títulos (Heading)" value={form.headingFont} onChange={v => set('headingFont', v)} placeholder="Ex: Sora Bold, Montserrat 700, Playfair Display" />
             <Input label="Fonte de Corpo (Body)" value={form.bodyFont} onChange={v => set('bodyFont', v)} placeholder="Ex: Inter Regular, DM Sans 400, Nunito" />
             <Input
@@ -232,10 +232,10 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
 
         {step === 'voice' && (
           <>
-            <p className="text-xs text-[#71717A] mb-2">Como a marca fala e se comporta em sua comunicação.</p>
+            <p className="text-xs text-[var(--color-text-muted)] mb-2">Como a marca fala e se comporta em sua comunicação.</p>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-[#A1A1AA]">Arquétipo da Marca</label>
+              <label className="text-xs text-[var(--color-text-secondary)]">Arquétipo da Marca</label>
               <div className="flex flex-wrap gap-2">
                 {ARCHETYPES.map(a => (
                   <button
@@ -243,8 +243,8 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
                     onClick={() => set('archetype', a)}
                     className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
                       form.archetype === a
-                        ? 'bg-amber-500 text-[#09090B]'
-                        : 'bg-white/[0.05] text-[#A1A1AA] hover:bg-white/[0.10] hover:text-[#FAFAFA]'
+                        ? 'bg-amber-500 text-[var(--color-text-inverse)]'
+                        : 'bg-white/[0.05] text-[var(--color-text-secondary)] hover:bg-white/[0.10] hover:text-[var(--color-text-primary)]'
                     }`}
                   >{a}</button>
                 ))}
@@ -252,7 +252,7 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-[#A1A1AA]">Tom de Voz <span className="text-[#52525B]">(escolha até 4)</span></label>
+              <label className="text-xs text-[var(--color-text-secondary)]">Tom de Voz <span className="text-[var(--color-text-muted)]">(escolha até 4)</span></label>
               <div className="flex flex-wrap gap-2">
                 {TONES.map(t => {
                   const sel = form.tones.includes(t)
@@ -263,7 +263,7 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
                       className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all ${
                         sel
                           ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                          : 'bg-white/[0.05] text-[#A1A1AA] border border-transparent hover:border-white/[0.1] hover:text-[#FAFAFA]'
+                          : 'bg-white/[0.05] text-[var(--color-text-secondary)] border border-transparent hover:border-[var(--color-border-default)] hover:text-[var(--color-text-primary)]'
                       }`}
                     >
                       {sel && <Check size={10} />}
@@ -283,7 +283,7 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
 
         {step === 'references' && (
           <>
-            <p className="text-xs text-[#71717A] mb-2">Contexto competitivo e de posicionamento da marca.</p>
+            <p className="text-xs text-[var(--color-text-muted)] mb-2">Contexto competitivo e de posicionamento da marca.</p>
             <Input label="Público-alvo" value={form.targetAudience} onChange={v => set('targetAudience', v)} placeholder="Ex: Empreendedores 28-45 anos, dono de pequenos negócios, buscam escalar sem contratar mais" multiline />
             <Input label="Principais concorrentes" value={form.competitors} onChange={v => set('competitors', v)} placeholder="Ex: Agência X, Ferramenta Y — o que eles fazem bem/mal" multiline />
             <Input label="Marcas de inspiração (não concorrentes)" value={form.inspiration} onChange={v => set('inspiration', v)} placeholder="Ex: Apple (minimalismo), Nubank (linguagem direta), Nike (posicionamento emocional)" multiline />
@@ -304,7 +304,7 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
         <button
           onClick={() => setStep(STEPS[stepIndex - 1].id)}
           disabled={stepIndex === 0}
-          className="flex items-center gap-1.5 rounded-lg border border-white/[0.07] px-4 py-2 text-sm text-[#A1A1AA] transition-all hover:border-white/20 hover:text-[#FAFAFA] disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex items-center gap-1.5 rounded-lg border border-[var(--color-border-subtle)] px-4 py-2 text-sm text-[var(--color-text-secondary)] transition-all hover:border-white/20 hover:text-[var(--color-text-primary)] disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <ChevronLeft size={14} /> Anterior
         </button>
@@ -312,7 +312,7 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
         {!isLast ? (
           <button
             onClick={() => setStep(STEPS[stepIndex + 1].id)}
-            className="flex items-center gap-2 rounded-lg bg-[#27272A] px-4 py-2 text-sm font-medium text-[#FAFAFA] transition-all hover:bg-[#3F3F46]"
+            className="flex items-center gap-2 rounded-lg bg-[var(--color-bg-elevated)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] transition-all hover:bg-[var(--color-bg-overlay)]"
           >
             Próximo <ChevronRight size={14} />
           </button>
@@ -320,7 +320,7 @@ export function DNAWizard({ clientId, clientName, niche }: Props) {
           <button
             onClick={handleGenerate}
             disabled={loading}
-            className="flex items-center gap-2 rounded-lg bg-amber-500 px-5 py-2 text-sm font-semibold text-[#09090B] shadow-lg shadow-amber-500/20 transition-all hover:bg-amber-400 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 rounded-lg bg-amber-500 px-5 py-2 text-sm font-semibold text-[var(--color-text-inverse)] shadow-lg shadow-amber-500/20 transition-all hover:bg-amber-400 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {loading ? (
               <><Loader2 size={14} className="animate-spin" /> Gerando DNA...</>

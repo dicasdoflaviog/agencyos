@@ -29,47 +29,47 @@ export default function ClientLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#09090B] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[var(--color-bg-base)] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="flex h-8 w-8 items-center justify-center rounded bg-[#F59E0B]">
-            <Bot size={16} className="text-[#0A0A0A]" strokeWidth={2.5} />
+          <div className="flex h-8 w-8 items-center justify-center rounded bg-[var(--color-accent)]">
+            <Bot size={16} className="text-[var(--color-text-inverse)]" strokeWidth={2.5} />
           </div>
-          <span className="text-base font-semibold text-[#FAFAFA]">Agency OS</span>
+          <span className="text-base font-semibold text-[var(--color-text-primary)]">Agency OS</span>
         </div>
 
-        <div className="rounded-lg border border-white/[0.07] bg-[#18181B] p-6">
-          <h1 className="text-lg font-semibold text-[#FAFAFA] mb-1">Portal do Cliente</h1>
-          <p className="text-sm text-[#A1A1AA] mb-6">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
+          <h1 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">Portal do Cliente</h1>
+          <p className="text-sm text-[var(--color-text-secondary)] mb-6">
             Digite seu e-mail para receber um link de acesso.
           </p>
 
           {sent ? (
             <div className="flex flex-col items-center gap-3 py-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#22C55E]/10">
-                <Mail size={20} className="text-[#22C55E]" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-success)]/10">
+                <Mail size={20} className="text-[var(--color-success)]" />
               </div>
-              <p className="text-sm text-center text-[#A1A1AA]">
-                Verifique sua caixa de entrada em <span className="text-[#FAFAFA] font-medium">{email}</span>
+              <p className="text-sm text-center text-[var(--color-text-secondary)]">
+                Verifique sua caixa de entrada em <span className="text-[var(--color-text-primary)] font-medium">{email}</span>
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-[#A1A1AA] mb-1.5">E-mail</label>
+                <label className="block text-xs font-medium text-[var(--color-text-secondary)] mb-1.5">E-mail</label>
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="seu@email.com"
                   required
-                  className="w-full rounded border border-white/[0.07] bg-[#27272A] px-3 py-2 text-sm text-[#FAFAFA] placeholder:text-[#A1A1AA] focus:border-[#F59E0B] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+                  className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
                 />
               </div>
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 rounded bg-[#F59E0B] px-4 py-2 text-sm font-semibold text-[#0A0A0A] hover:bg-[#D97706] disabled:opacity-60 transition-colors"
+                className="w-full flex items-center justify-center gap-2 rounded bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-text-inverse)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 transition-colors"
               >
                 {loading && <Loader2 size={14} className="animate-spin" />}
                 Enviar link de acesso

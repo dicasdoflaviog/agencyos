@@ -79,15 +79,15 @@ export function JobForm({ clients, initialData, mode }: JobFormProps) {
     }
   }
 
-  const inputClass = 'bg-white/[0.04] border-white/10 text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#F59E0B]'
-  const labelClass = 'text-[#A1A1AA] text-xs font-medium uppercase tracking-wider'
+  const inputClass = 'bg-white/[0.04] border-white/10 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)]/50 focus:border-[var(--color-accent)]'
+  const labelClass = 'text-[var(--color-text-secondary)] text-xs font-medium uppercase tracking-wider'
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 max-w-xl">
       <div className="space-y-1.5">
         <Label className={labelClass}>Título *</Label>
         <Input {...register('title')} placeholder="Título do job" className={inputClass} />
-        {errors.title && <p className="text-xs text-[#EF4444]">{errors.title.message}</p>}
+        {errors.title && <p className="text-xs text-[var(--color-error)]">{errors.title.message}</p>}
       </div>
 
       <div className="space-y-1.5">
@@ -104,13 +104,13 @@ export function JobForm({ clients, initialData, mode }: JobFormProps) {
           <SelectTrigger className={inputClass}>
             <SelectValue placeholder="Selecionar cliente" />
           </SelectTrigger>
-          <SelectContent className="bg-[#27272A] border-white/[0.07] text-[#FAFAFA]">
+          <SelectContent className="bg-[var(--color-bg-elevated)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)]">
             {clients.map((c) => (
               <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
             ))}
           </SelectContent>
         </Select>
-        {errors.client_id && <p className="text-xs text-[#EF4444]">{errors.client_id.message}</p>}
+        {errors.client_id && <p className="text-xs text-[var(--color-error)]">{errors.client_id.message}</p>}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -123,7 +123,7 @@ export function JobForm({ clients, initialData, mode }: JobFormProps) {
             <SelectTrigger className={inputClass}>
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-[#27272A] border-white/[0.07] text-[#FAFAFA]">
+            <SelectContent className="bg-[var(--color-bg-elevated)] border-[var(--color-border-subtle)] text-[var(--color-text-primary)]">
               <SelectItem value="low">Baixa</SelectItem>
               <SelectItem value="normal">Normal</SelectItem>
               <SelectItem value="high">Alta</SelectItem>
@@ -138,10 +138,10 @@ export function JobForm({ clients, initialData, mode }: JobFormProps) {
       </div>
 
       <div className="flex gap-3 pt-2">
-        <Button type="submit" disabled={isSubmitting} className="bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer">
+        <Button type="submit" disabled={isSubmitting} className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer">
           {isSubmitting ? 'Salvando...' : mode === 'create' ? 'Criar Job' : 'Salvar'}
         </Button>
-        <Button type="button" variant="ghost" onClick={() => router.back()} className="border border-white/10 text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-white/[0.05] cursor-pointer">
+        <Button type="button" variant="ghost" onClick={() => router.back()} className="border border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/[0.05] cursor-pointer">
           Cancelar
         </Button>
       </div>

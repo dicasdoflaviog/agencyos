@@ -16,10 +16,10 @@ export default async function JobsPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Jobs</h2>
-          <p className="mt-1 text-sm text-[#A1A1AA]">{jobs?.length ?? 0} job{(jobs?.length ?? 0) !== 1 ? 's' : ''} ativos</p>
+          <h2 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Jobs</h2>
+          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{jobs?.length ?? 0} job{(jobs?.length ?? 0) !== 1 ? 's' : ''} ativos</p>
         </div>
-        <Button asChild className="bg-[#F59E0B] text-[#0A0A0A] font-semibold hover:bg-[#D97706] cursor-pointer">
+        <Button asChild className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-semibold hover:bg-[var(--color-accent-hover)] cursor-pointer">
           <Link href="/jobs/new">
             <Plus size={15} strokeWidth={2.5} className="mr-1.5" />
             Novo Job

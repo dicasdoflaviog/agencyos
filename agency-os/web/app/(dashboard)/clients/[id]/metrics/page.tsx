@@ -32,7 +32,7 @@ export default async function ClientMetricsPage({ params }: { params: Promise<{ 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-[#FAFAFA]">Métricas — {client.name}</h2>
+        <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">Métricas — {client.name}</h2>
         <IGSyncButton clientId={id} username={(client as { instagram_handle?: string }).instagram_handle} />
       </div>
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
@@ -44,20 +44,20 @@ export default async function ClientMetricsPage({ params }: { params: Promise<{ 
 
       <div className="space-y-4">
         {igMetrics && igMetrics.length > 0 && (
-          <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-            <h3 className="mb-4 text-sm font-semibold text-[#FAFAFA]">Instagram — Crescimento</h3>
+          <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+            <h3 className="mb-4 text-sm font-semibold text-[var(--color-text-primary)]">Instagram — Crescimento</h3>
             <IGMetricsChart data={igMetrics} />
           </div>
         )}
         {adsMetrics && adsMetrics.length > 0 && (
-          <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-            <h3 className="mb-4 text-sm font-semibold text-[#FAFAFA]">Ads — Performance por Campanha</h3>
+          <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+            <h3 className="mb-4 text-sm font-semibold text-[var(--color-text-primary)]">Ads — Performance por Campanha</h3>
             <AdsMetricsChart data={adsMetrics} />
           </div>
         )}
         {(!igMetrics || igMetrics.length === 0) && (!adsMetrics || adsMetrics.length === 0) && (
-          <div className="flex items-center justify-center rounded-md border border-white/[0.07] bg-[#18181B] py-16">
-            <p className="text-sm text-[#71717A]">Nenhuma métrica disponível para este cliente.</p>
+          <div className="flex items-center justify-center rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] py-16">
+            <p className="text-sm text-[var(--color-text-muted)]">Nenhuma métrica disponível para este cliente.</p>
           </div>
         )}
       </div>

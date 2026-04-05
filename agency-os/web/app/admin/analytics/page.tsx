@@ -30,27 +30,27 @@ export default async function AdminAnalyticsPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#FAFAFA]">Analytics</h1>
-        <p className="mt-1 text-sm text-[#A1A1AA]">Eventos de uso dos últimos 30 dias</p>
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Analytics</h1>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Eventos de uso dos últimos 30 dias</p>
       </div>
 
-      <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-        <h2 className="mb-4 text-sm font-semibold text-[#FAFAFA]">Eventos por dia</h2>
+      <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+        <h2 className="mb-4 text-sm font-semibold text-[var(--color-text-primary)]">Eventos por dia</h2>
         <UsageChart data={chartData} />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-          <p className="text-xs uppercase tracking-wider text-[#A1A1AA]">Total de eventos</p>
-          <p className="mt-2 text-2xl font-bold text-[#FAFAFA]">{events.length.toLocaleString('pt-BR')}</p>
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+          <p className="text-xs uppercase tracking-wider text-[var(--color-text-secondary)]">Total de eventos</p>
+          <p className="mt-2 text-2xl font-bold text-[var(--color-text-primary)]">{events.length.toLocaleString('pt-BR')}</p>
         </div>
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-          <p className="text-xs uppercase tracking-wider text-[#A1A1AA]">Dias com atividade</p>
-          <p className="mt-2 text-2xl font-bold text-[#FAFAFA]">{chartData.length}</p>
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+          <p className="text-xs uppercase tracking-wider text-[var(--color-text-secondary)]">Dias com atividade</p>
+          <p className="mt-2 text-2xl font-bold text-[var(--color-text-primary)]">{chartData.length}</p>
         </div>
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-          <p className="text-xs uppercase tracking-wider text-[#A1A1AA]">Média diária</p>
-          <p className="mt-2 text-2xl font-bold text-[#FAFAFA]">
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+          <p className="text-xs uppercase tracking-wider text-[var(--color-text-secondary)]">Média diária</p>
+          <p className="mt-2 text-2xl font-bold text-[var(--color-text-primary)]">
             {chartData.length > 0 ? Math.round(events.length / chartData.length) : 0}
           </p>
         </div>

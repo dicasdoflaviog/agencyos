@@ -18,55 +18,55 @@ export default async function FinancialPage() {
   const overdueCount = activeClients.filter((c) => c.contract_status === 'overdue').length
 
   const STATUS_MAP: Record<string, { label: string; className: string }> = {
-    active:  { label: 'Ativo',    className: 'bg-[#22C55E]/10 text-[#22C55E]' },
-    pending: { label: 'Pendente', className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
-    overdue: { label: 'Atrasado', className: 'bg-[#EF4444]/10 text-[#EF4444]' },
+    active:  { label: 'Ativo',    className: 'bg-[var(--color-success)]/10 text-[var(--color-success)]' },
+    pending: { label: 'Pendente', className: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
+    overdue: { label: 'Atrasado', className: 'bg-[var(--color-error)]/10 text-[var(--color-error)]' },
   }
 
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Financeiro</h2>
-        <p className="mt-1 text-sm text-[#A1A1AA]">Receita recorrente mensal dos contratos ativos</p>
+        <h2 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Financeiro</h2>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Receita recorrente mensal dos contratos ativos</p>
       </div>
 
       {/* Stats */}
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">MRR</p>
-          <p className="text-3xl font-bold font-display tracking-tight text-[#F59E0B]">{fmt(mrr)}</p>
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">MRR</p>
+          <p className="text-3xl font-bold font-display tracking-tight text-[var(--color-accent)]">{fmt(mrr)}</p>
         </div>
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Clientes ativos</p>
-          <p className="text-3xl font-bold font-display tracking-tight text-[#FAFAFA]">{activeClients.length}</p>
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Clientes ativos</p>
+          <p className="text-3xl font-bold font-display tracking-tight text-[var(--color-text-primary)]">{activeClients.length}</p>
         </div>
-        <div className="rounded-md border border-white/[0.07] bg-[#18181B] p-5">
-          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Contratos em atraso</p>
-          <p className={`text-3xl font-bold font-display tracking-tight ${overdueCount > 0 ? 'text-[#EF4444]' : 'text-[#FAFAFA]'}`}>
+        <div className="rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-5">
+          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Contratos em atraso</p>
+          <p className={`text-3xl font-bold font-display tracking-tight ${overdueCount > 0 ? 'text-[var(--color-error)]' : 'text-[var(--color-text-primary)]'}`}>
             {overdueCount}
           </p>
         </div>
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-md border border-white/[0.07]">
+      <div className="overflow-x-auto rounded-md border border-[var(--color-border-subtle)]">
         <table className="w-full min-w-[600px] text-sm">
           <thead>
-            <tr className="border-b border-white/[0.07] bg-[#18181B]">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Cliente</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Nicho</th>
-              <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Contrato / mês</th>
-              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">Status</th>
+            <tr className="border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Cliente</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Nicho</th>
+              <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Contrato / mês</th>
+              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">Status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/[0.04]">
             {clients?.map((client) => {
               const s = STATUS_MAP[client.contract_status] ?? STATUS_MAP.pending
               return (
-                <tr key={client.id} className="bg-[#09090B] hover:bg-[#18181B]/60 transition-colors">
-                  <td className="px-4 py-3 font-medium text-[#FAFAFA]">{client.name}</td>
-                  <td className="px-4 py-3 text-[#A1A1AA]">{client.niche ?? '—'}</td>
-                  <td className="px-4 py-3 text-right font-mono text-[#FAFAFA]">
+                <tr key={client.id} className="bg-[var(--color-bg-base)] hover:bg-[var(--color-bg-surface)]/60 transition-colors">
+                  <td className="px-4 py-3 font-medium text-[var(--color-text-primary)]">{client.name}</td>
+                  <td className="px-4 py-3 text-[var(--color-text-secondary)]">{client.niche ?? '—'}</td>
+                  <td className="px-4 py-3 text-right font-mono text-[var(--color-text-primary)]">
                     {client.contract_value ? fmt(client.contract_value) : '—'}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -79,7 +79,7 @@ export default async function FinancialPage() {
             })}
             {!clients?.length && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-sm text-[#A1A1AA]">
+                <td colSpan={4} className="px-4 py-8 text-center text-sm text-[var(--color-text-secondary)]">
                   Nenhum cliente cadastrado ainda
                 </td>
               </tr>

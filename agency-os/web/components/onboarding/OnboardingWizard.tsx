@@ -158,18 +158,18 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
   return (
     <div className="w-full max-w-lg">
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-bold font-display text-[#FAFAFA]">Configuração inicial</h1>
-        <p className="mt-1 text-sm text-[#A1A1AA]">Vamos deixar sua agência pronta em 5 passos</p>
+        <h1 className="text-2xl font-bold font-display text-[var(--color-text-primary)]">Configuração inicial</h1>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Vamos deixar sua agência pronta em 5 passos</p>
       </div>
 
       <div className="mb-8">
-        <div className="mb-2 flex items-center justify-between text-xs text-[#A1A1AA]">
+        <div className="mb-2 flex items-center justify-between text-xs text-[var(--color-text-secondary)]">
           <span>{stepsDone.length} de {STEPS.length} concluídos</span>
           <span>{Math.round(progress)}%</span>
         </div>
         <div className="h-1.5 w-full rounded-full bg-white/[0.07]">
           <div
-            className="h-1.5 rounded-full bg-[#F59E0B] transition-all duration-500"
+            className="h-1.5 rounded-full bg-[var(--color-accent)] transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -182,19 +182,19 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
           return (
             <div
               key={step.id}
-              className={`h-1 flex-1 rounded-sm ${done ? 'bg-[#F59E0B]' : active ? 'bg-[#F59E0B]/50' : 'bg-white/[0.07]'}`}
+              className={`h-1 flex-1 rounded-sm ${done ? 'bg-[var(--color-accent)]' : active ? 'bg-[var(--color-accent)]/50' : 'bg-white/[0.07]'}`}
             />
           )
         })}
       </div>
 
       {currentStep < STEPS.length && (
-        <div className="rounded-lg border border-white/[0.07] bg-[#18181B] p-6">
-          <div className="mb-1 text-xs font-medium uppercase tracking-wider text-[#71717A]">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-6">
+          <div className="mb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-muted)]">
             Passo {currentStep + 1} de {STEPS.length}
           </div>
-          <h2 className="mb-1 text-lg font-semibold text-[#FAFAFA]">{STEPS[currentStep].label}</h2>
-          <p className="mb-6 text-sm text-[#A1A1AA]">{STEPS[currentStep].description}</p>
+          <h2 className="mb-1 text-lg font-semibold text-[var(--color-text-primary)]">{STEPS[currentStep].label}</h2>
+          <p className="mb-6 text-sm text-[var(--color-text-secondary)]">{STEPS[currentStep].description}</p>
 
           {STEPS[currentStep].id === 'agency_name' && (
             <input
@@ -202,7 +202,7 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
               placeholder="Ex: Studio Digital Criativo"
               value={agencyName}
               onChange={e => setAgencyName(e.target.value)}
-              className="w-full rounded border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-[#F59E0B]/50 focus:outline-none"
+              className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:border-[var(--color-accent)]/50 focus:outline-none"
             />
           )}
 
@@ -221,10 +221,10 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
                     accept="image/jpeg,image/png,image/webp,image/svg+xml"
                     onChange={e => handleUploadLogo(e.target.files?.[0])}
                     disabled={logoUploading}
-                    className="w-full cursor-pointer text-xs text-[#A1A1AA] file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-[#F59E0B] file:px-4 file:py-2 file:text-xs file:font-medium file:text-[#0A0A0A] hover:file:bg-[#D97706] disabled:opacity-50"
+                    className="w-full cursor-pointer text-xs text-[var(--color-text-secondary)] file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-[var(--color-accent)] file:px-4 file:py-2 file:text-xs file:font-medium file:text-[var(--color-text-inverse)] hover:file:bg-[var(--color-accent-hover)] disabled:opacity-50"
                   />
                   {logoUploading && (
-                    <p className="mt-1.5 text-xs text-[#A1A1AA]">Fazendo upload...</p>
+                    <p className="mt-1.5 text-xs text-[var(--color-text-secondary)]">Fazendo upload...</p>
                   )}
                   {logoUrl && !logoUploading && (
                     <p className="mt-1.5 text-xs text-emerald-400">✓ Logo enviado com sucesso</p>
@@ -241,14 +241,14 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
                 placeholder="Nome do cliente"
                 value={clientName}
                 onChange={e => setClientName(e.target.value)}
-                className="w-full rounded border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-[#F59E0B]/50 focus:outline-none"
+                className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:border-[var(--color-accent)]/50 focus:outline-none"
               />
               <input
                 type="email"
                 placeholder="Email (opcional)"
                 value={clientEmail}
                 onChange={e => setClientEmail(e.target.value)}
-                className="w-full rounded border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-[#F59E0B]/50 focus:outline-none"
+                className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:border-[var(--color-accent)]/50 focus:outline-none"
               />
             </div>
           )}
@@ -259,7 +259,7 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
               placeholder="Ex: Campanha de Janeiro"
               value={jobTitle}
               onChange={e => setJobTitle(e.target.value)}
-              className="w-full rounded border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-[#F59E0B]/50 focus:outline-none"
+              className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:border-[var(--color-accent)]/50 focus:outline-none"
             />
           )}
 
@@ -269,7 +269,7 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
               placeholder="email@exemplo.com"
               value={memberEmail}
               onChange={e => setMemberEmail(e.target.value)}
-              className="w-full rounded border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder-[#52525B] focus:border-[#F59E0B]/50 focus:outline-none"
+              className="w-full rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[#52525B] focus:border-[var(--color-accent)]/50 focus:outline-none"
             />
           )}
 
@@ -278,7 +278,7 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
           <div className="mt-6 flex items-center justify-between">
             <button
               onClick={() => markStepDone(STEPS[currentStep].id)}
-              className="text-sm text-[#71717A] transition-colors hover:text-[#A1A1AA]"
+              className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
               type="button"
             >
               Pular este passo
@@ -286,7 +286,7 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
             <button
               onClick={handleStep}
               disabled={loading}
-              className="rounded bg-[#F59E0B] px-5 py-2 text-sm font-medium text-[#0A0A0A] transition-colors hover:bg-[#D97706] disabled:opacity-50"
+              className="rounded bg-[var(--color-accent)] px-5 py-2 text-sm font-medium text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-accent-hover)] disabled:opacity-50"
               type="button"
             >
               {loading ? 'Salvando...' : 'Continuar →'}
@@ -300,8 +300,8 @@ export function OnboardingWizard({ workspaceId, stepsDone: initialStepsDone }: P
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10">
             <Check size={24} className="text-green-400" />
           </div>
-          <h2 className="text-lg font-semibold text-[#FAFAFA]">Configuração concluída!</h2>
-          <p className="mt-1 text-sm text-[#A1A1AA]">Sua agência está pronta para começar.</p>
+          <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">Configuração concluída!</h2>
+          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">Sua agência está pronta para começar.</p>
         </div>
       )}
     </div>

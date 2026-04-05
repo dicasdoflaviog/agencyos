@@ -8,12 +8,12 @@ interface Props {
 }
 
 const STAGE_CONFIG = {
-  client_review: { label: 'Aguardando aprovação', className: 'bg-[#F59E0B]/10 text-[#F59E0B]' },
-  approved:      { label: 'Aprovado',             className: 'bg-[#22C55E]/10 text-[#22C55E]' },
+  client_review: { label: 'Aguardando aprovação', className: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
+  approved:      { label: 'Aprovado',             className: 'bg-[var(--color-success)]/10 text-[var(--color-success)]' },
   published:     { label: 'Publicado',            className: 'bg-blue-500/10 text-blue-400' },
-  rejected:      { label: 'Revisão solicitada',   className: 'bg-[#EF4444]/10 text-[#EF4444]' },
-  draft:         { label: 'Rascunho',             className: 'bg-white/[0.06] text-[#A1A1AA]' },
-  internal_review: { label: 'Revisão interna',    className: 'bg-white/[0.06] text-[#A1A1AA]' },
+  rejected:      { label: 'Revisão solicitada',   className: 'bg-[var(--color-error)]/10 text-[var(--color-error)]' },
+  draft:         { label: 'Rascunho',             className: 'bg-white/[0.06] text-[var(--color-text-secondary)]' },
+  internal_review: { label: 'Revisão interna',    className: 'bg-white/[0.06] text-[var(--color-text-secondary)]' },
 }
 
 export function ClientOutputCard({ output, highlight }: Props) {
@@ -24,17 +24,17 @@ export function ClientOutputCard({ output, highlight }: Props) {
     <Link
       href={`/client/outputs/${output.id}`}
       className={cn(
-        'block rounded-lg border p-4 transition-colors hover:bg-[#27272A] cursor-pointer',
-        highlight ? 'border-[#F59E0B]/20 bg-[#F59E0B]/5' : 'border-white/[0.07] bg-[#18181B]'
+        'block rounded-lg border p-4 transition-colors hover:bg-[var(--color-bg-elevated)] cursor-pointer',
+        highlight ? 'border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5' : 'border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]'
       )}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
-        <span className="text-sm font-medium text-[#FAFAFA] truncate">{output.job?.title ?? 'Conteúdo'}</span>
+        <span className="text-sm font-medium text-[var(--color-text-primary)] truncate">{output.job?.title ?? 'Conteúdo'}</span>
         <span className={cn('shrink-0 rounded px-2 py-0.5 text-xs font-medium', stage.className)}>
           {stage.label}
         </span>
       </div>
-      <p className="text-xs text-[#A1A1AA] line-clamp-3 leading-relaxed">
+      <p className="text-xs text-[var(--color-text-secondary)] line-clamp-3 leading-relaxed">
         {preview}{output.output_content.length > 200 ? '…' : ''}
       </p>
     </Link>

@@ -67,20 +67,20 @@ export default async function BillingPage() {
     <div>
       <div className="mb-6">
         <div className="flex items-center gap-2.5 mb-1">
-          <CreditCard size={20} className="text-[#F59E0B]" />
-          <h2 className="text-2xl font-bold font-display text-[#FAFAFA] tracking-tight">Faturamento</h2>
+          <CreditCard size={20} className="text-[var(--color-accent)]" />
+          <h2 className="text-2xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Faturamento</h2>
         </div>
-        <p className="text-sm text-[#A1A1AA]">
+        <p className="text-sm text-[var(--color-text-secondary)]">
           Gerencie sua assinatura e plano de cobrança.
         </p>
       </div>
 
       {/* Current plan summary */}
-      <div className="mb-6 rounded-xl border border-zinc-800 bg-[#18181B] p-5">
+      <div className="mb-6 rounded-xl border border-zinc-800 bg-[var(--color-bg-surface)] p-5">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Plano Atual</p>
-            <p className="mt-1 text-xl font-bold font-display text-[#FAFAFA]">
+            <p className="mt-1 text-xl font-bold font-display text-[var(--color-text-primary)]">
               {currentPlan ? currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1) : 'Teste Gratuito'}
             </p>
             {subStatus && (

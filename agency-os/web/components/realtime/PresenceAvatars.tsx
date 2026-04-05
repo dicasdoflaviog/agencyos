@@ -51,7 +51,7 @@ export function PresenceAvatars({ channelName, currentUser }: Props) {
           <div
             key={u.user_id}
             title={u.name}
-            className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#18181B] bg-[#27272A] text-xs font-medium text-[#FAFAFA] overflow-hidden"
+            className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] text-xs font-medium text-[var(--color-text-primary)] overflow-hidden"
           >
             {u.avatar_url ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -62,12 +62,12 @@ export function PresenceAvatars({ channelName, currentUser }: Props) {
           </div>
         ))}
         {overflow > 0 && (
-          <div className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#18181B] bg-[#27272A] text-xs font-medium text-[#A1A1AA]">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] text-xs font-medium text-[var(--color-text-secondary)]">
             +{overflow}
           </div>
         )}
       </div>
-      <span className="text-xs text-[#A1A1AA]">{users.length === 1 ? '1 visualizando' : `${users.length} visualizando`}</span>
+      <span className="text-xs text-[var(--color-text-secondary)]">{users.length === 1 ? '1 visualizando' : `${users.length} visualizando`}</span>
     </div>
   )
 }

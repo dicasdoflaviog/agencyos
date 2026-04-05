@@ -125,7 +125,7 @@ export default function PipelineEditForm({ pipeline }: { pipeline: AgentPipeline
 
         <div className="flex items-center gap-3 pt-2">
           <button type="submit" disabled={saving}
-            className="rounded-lg bg-[#F59E0B] hover:bg-[#D97706] text-[#0A0A0A] disabled:opacity-60 px-5 py-2 text-sm font-semibold text-[#0A0A0A] transition-colors">
+            className="rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text-inverse)] disabled:opacity-60 px-5 py-2 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors">
             {saving ? 'Salvando...' : 'Salvar alterações'}
           </button>
           <Link href={`/pipelines/${pipeline.id}`}

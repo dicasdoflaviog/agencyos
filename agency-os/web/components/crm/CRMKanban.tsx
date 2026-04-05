@@ -30,13 +30,13 @@ function LeadCard({ lead, isDragging }: { lead: Lead; isDragging?: boolean }) {
       style={style}
       {...attributes}
       {...listeners}
-      className="rounded border border-white/[0.07] bg-[#27272A] p-3 cursor-grab active:cursor-grabbing select-none"
+      className="rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] p-3 cursor-grab active:cursor-grabbing select-none"
     >
       <Link href={`/crm/leads/${lead.id}`} onClick={e => e.stopPropagation()} className="block">
-        <p className="text-sm font-medium text-[#FAFAFA] truncate">{lead.name}</p>
-        {lead.company && <p className="text-xs text-[#A1A1AA] truncate mt-0.5">{lead.company}</p>}
+        <p className="text-sm font-medium text-[var(--color-text-primary)] truncate">{lead.name}</p>
+        {lead.company && <p className="text-xs text-[var(--color-text-secondary)] truncate mt-0.5">{lead.company}</p>}
         {lead.deal_value != null && (
-          <p className="text-xs text-[#F59E0B] mt-1 font-medium">
+          <p className="text-xs text-[var(--color-accent)] mt-1 font-medium">
             {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(lead.deal_value)}
           </p>
         )}
@@ -102,15 +102,15 @@ export function CRMKanban({ leads: initialLeads }: Props) {
               <div
                 key={stage.id}
                 id={stage.id}
-                className="w-64 flex-shrink-0 rounded-md border border-white/[0.07] bg-[#18181B]"
+                className="w-64 flex-shrink-0 rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]"
               >
-                <div className="p-3 border-b border-white/[0.07]">
+                <div className="p-3 border-b border-[var(--color-border-subtle)]">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#FAFAFA] uppercase tracking-wider">{stage.label}</span>
-                    <span className="text-xs text-[#A1A1AA] bg-[#27272A] rounded px-1.5 py-0.5">{stageLeads.length}</span>
+                    <span className="text-xs font-semibold text-[var(--color-text-primary)] uppercase tracking-wider">{stage.label}</span>
+                    <span className="text-xs text-[var(--color-text-secondary)] bg-[var(--color-bg-elevated)] rounded px-1.5 py-0.5">{stageLeads.length}</span>
                   </div>
                   {totalValue > 0 && (
-                    <p className="text-xs text-[#A1A1AA] mt-1">
+                    <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                       {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(totalValue)}
                     </p>
                   )}
@@ -132,8 +132,8 @@ export function CRMKanban({ leads: initialLeads }: Props) {
       </div>
       <DragOverlay>
         {activeLead && (
-          <div className="rounded border border-[#F59E0B]/30 bg-[#27272A] p-3 shadow-xl rotate-2">
-            <p className="text-sm font-medium text-[#FAFAFA]">{activeLead.name}</p>
+          <div className="rounded border border-[var(--color-accent)]/30 bg-[var(--color-bg-elevated)] p-3 shadow-xl rotate-2">
+            <p className="text-sm font-medium text-[var(--color-text-primary)]">{activeLead.name}</p>
           </div>
         )}
       </DragOverlay>

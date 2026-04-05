@@ -87,7 +87,7 @@ export function PostEditor({ clientId, initialData, mode }: PostEditorProps) {
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Title */}
       <div className="space-y-1.5">
-        <label className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+        <label className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
           Título
         </label>
         <input
@@ -95,13 +95,13 @@ export function PostEditor({ clientId, initialData, mode }: PostEditorProps) {
           value={title}
           onChange={(e) => handleTitleChange(e.target.value)}
           placeholder="Título do post..."
-          className="w-full rounded-md border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
         />
       </div>
 
       {/* Slug */}
       <div className="space-y-1.5">
-        <label className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+        <label className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
           Slug
         </label>
         <input
@@ -109,13 +109,13 @@ export function PostEditor({ clientId, initialData, mode }: PostEditorProps) {
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
           placeholder="slug-do-post"
-          className="w-full rounded-md border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
         />
       </div>
 
       {/* Content */}
       <div className="space-y-1.5" data-color-mode="dark">
-        <label className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+        <label className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
           Conteúdo
         </label>
         <MDEditor
@@ -128,7 +128,7 @@ export function PostEditor({ clientId, initialData, mode }: PostEditorProps) {
 
       {/* Cover URL */}
       <div className="space-y-1.5">
-        <label className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+        <label className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
           URL da Capa
         </label>
         <input
@@ -136,7 +136,7 @@ export function PostEditor({ clientId, initialData, mode }: PostEditorProps) {
           value={coverUrl}
           onChange={(e) => setCoverUrl(e.target.value)}
           placeholder="https://..."
-          className="w-full rounded-md border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
         />
         {coverUrl && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -146,13 +146,13 @@ export function PostEditor({ clientId, initialData, mode }: PostEditorProps) {
 
       {/* Status */}
       <div className="space-y-1.5">
-        <label className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA]">
+        <label className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
           Status
         </label>
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value as Post['status'])}
-          className="w-full rounded-md border border-white/[0.07] bg-[#09090B] px-3 py-2 text-sm text-[#FAFAFA] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
         >
           <option value="draft">Rascunho</option>
           <option value="review">Revisão</option>
@@ -164,7 +164,7 @@ export function PostEditor({ clientId, initialData, mode }: PostEditorProps) {
         <button
           type="submit"
           disabled={loading}
-          className="cursor-pointer rounded-md bg-[#F59E0B] px-4 py-2 text-sm font-semibold text-[#09090B] transition-colors hover:bg-[#D97706] disabled:opacity-60"
+          className="cursor-pointer rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-accent-hover)] disabled:opacity-60"
         >
           {loading ? 'Salvando...' : mode === 'create' ? 'Criar Post' : 'Salvar Alterações'}
         </button>

@@ -38,8 +38,8 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <Images size={18} className="text-amber-400" />
         </div>
         <div>
-          <h2 className="text-xl font-bold font-display text-[#FAFAFA] tracking-tight">Galeria</h2>
-          <p className="text-xs text-[#71717A]">Outputs visuais e criativos gerados pelos agentes</p>
+          <h2 className="text-xl font-bold font-display text-[var(--color-text-primary)] tracking-tight">Galeria</h2>
+          <p className="text-xs text-[var(--color-text-muted)]">Outputs visuais e criativos gerados pelos agentes</p>
         </div>
       </div>
 
