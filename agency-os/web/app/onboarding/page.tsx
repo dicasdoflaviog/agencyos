@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation'
 import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard'
 
 async function getOrCreateWorkspace(userId: string, userEmail: string) {
-  // Use session client to read (respects RLS for read)
   const supabase = await createClient()
 
+  // Check existing membership via workspace_members.workspace_id
   const { data: member } = await supabase
     .from('workspace_members')
     .select('workspace_id')
@@ -15,8 +15,16 @@ async function getOrCreateWorkspace(userId: string, userEmail: string) {
 
   if (member?.workspace_id) return member.workspace_id
 
-  // Use admin client to create workspace + member — bypasses RLS
-  // (new user has no role yet, so RLS would block INSERT)
+  // Fallback: check profiles directly (handles users created before migration 014)
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('workspace_id')
+    .eq('id', userId)
+    .maybeSingle()
+
+  if (profile?.workspace_id) return profile.workspace_id
+
+  // No workspace yet — create one using admin client (new user has no role → RLS blocks INSERT)
   const admin = createAdminClient()
 
   const name = userEmail?.split('@')[0] ?? 'Minha Agência'

@@ -13,15 +13,24 @@ export async function POST(
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  // Verify user belongs to this workspace via profiles (workspace_members has no workspace_id column)
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('workspace_id')
-    .eq('id', user.id)
+  // Verify user belongs to this workspace (migration 014 added workspace_id to workspace_members)
+  const { data: member } = await supabase
+    .from('workspace_members')
+    .select('role')
+    .eq('workspace_id', workspaceId)
+    .eq('user_id', user.id)
     .maybeSingle()
 
-  if (!profile || profile.workspace_id !== workspaceId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  // Fallback: check profiles.workspace_id for users created before migration 014
+  if (!member) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('workspace_id')
+      .eq('id', user.id)
+      .maybeSingle()
+    if (!profile || profile.workspace_id !== workspaceId) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
   }
 
   // Use admin client to bypass RLS for the UPDATE

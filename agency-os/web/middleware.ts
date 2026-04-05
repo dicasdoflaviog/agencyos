@@ -37,14 +37,14 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Unauthenticated: only allow /login
+  // Unauthenticated: only allow /login and /auth/*
   if (!user) {
-    if (path === '/login') return supabaseResponse
+    if (path === '/login' || path.startsWith('/auth/')) return supabaseResponse
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // Authenticated on login page → app
-  if (path === '/login') {
+  // Authenticated on login/reset pages → app
+  if (path === '/login' || path.startsWith('/auth/')) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
