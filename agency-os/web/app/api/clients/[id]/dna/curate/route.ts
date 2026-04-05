@@ -7,19 +7,20 @@ type Params = { params: Promise<{ id: string }> }
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
 
-const CURATOR_PROMPT = `Você é o @ORACLE, o Estrategista-Chefe da Agency OS. Sua missão é extrair a essência de uma marca a partir dos documentos e informações fornecidas, preenchendo o DNA de Campanha com precisão cirúrgica.
+const CURATOR_PROMPT = `Você é o @ORACLE, Estrategista-Chefe da Agency OS. Analise TODO o conteúdo fornecido e preencha o DNA de Campanha da marca.
 
-Analise todo o conteúdo disponível e retorne um JSON com exatamente estas 4 chaves:
+RESPONDA APENAS COM UM OBJETO JSON VÁLIDO, sem markdown, sem texto antes ou depois, sem bloco de código. Comece com { e termine com }.
 
+Estrutura obrigatória:
 {
-  "biografia": "Texto fluido e inspirador sobre a história, missão, visão e marcos principais. Foco no 'porquê' do negócio.",
-  "voz": "Lista de diretrizes de escrita em Markdown. Inclua: adjetivos de personalidade, tom (formal/informal), ritmo, exemplos de frases.",
-  "credenciais": "Bullet points em Markdown com fatos incontestáveis: números, prêmios, tempo de mercado, depoimentos, selos de autoridade.",
-  "proibidas": "Lista em Markdown de termos, gírias, promessas e conceitos que a marca NUNCA usa."
+  "biografia": "Texto fluido sobre história, missão, visão e marcos. Foco no porquê do negócio. Mínimo 2 parágrafos.",
+  "voz": "Diretrizes em Markdown: adjetivos de personalidade, tom (formal/informal), ritmo, exemplos de frases.",
+  "credenciais": "Bullet points Markdown: números, prêmios, tempo de mercado, depoimentos, selos de autoridade.",
+  "proibidas": "Lista Markdown de termos, gírias, promessas e conceitos que a marca NUNCA usa."
 }
 
-REGRA CRÍTICA: Se uma informação não estiver clara, use o marcador [Pendente: descreva o que falta] no lugar.
-Retorne APENAS o JSON, sem texto extra.`
+REGRA: Se uma informação não estiver clara no contexto, preencha com "[Pendente: descreva o que falta]".
+JAMAIS deixe um campo vazio ou null. Sempre preencha algo baseado no contexto disponível.`
 
 export async function POST(req: Request, { params }: Params) {
   const { id } = await params
@@ -28,29 +29,51 @@ export async function POST(req: Request, { params }: Params) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  // Verificar workspace e créditos ANTES de chamar a IA
+  const { data: member } = await supabase
+    .from('workspace_members')
+    .select('workspace_id')
+    .eq('user_id', user.id)
+    .single()
+
+  if (member?.workspace_id) {
+    const credit = await checkAndDeductCredits(member.workspace_id, 'dna_curate', 'DNA — curadoria com IA')
+    if (!credit.ok) {
+      return NextResponse.json({ error: credit.error, balance: credit.balance, cost: credit.cost }, { status: 402 })
+    }
+  }
+
   // Gather context: existing DNA + knowledge files content + client info
   const [{ data: client }, { data: existingDNA }, { data: knowledgeFiles }, { data: memories }] =
     await Promise.all([
-      supabase.from('clients').select('name, niche').eq('id', id).single(),
+      supabase.from('clients').select('name, niche, description').eq('id', id).single(),
       supabase.from('client_dna').select('*').eq('client_id', id).maybeSingle(),
       supabase.from('knowledge_files').select('name, content_text').eq('client_id', id).eq('sync_status', 'synced'),
-      supabase.from('client_memories').select('content, source').eq('client_id', id).limit(10),
+      supabase.from('client_memories').select('content, source').eq('client_id', id).limit(20),
     ])
 
   const contextParts: string[] = []
 
   if (client) {
-    contextParts.push(`## Cliente\nNome: ${client.name}\nNicho: ${client.niche ?? 'Não informado'}`)
+    const desc = (client as Record<string, unknown>).description as string | undefined
+    contextParts.push(
+      `## Cliente\nNome: ${client.name}\nNicho: ${client.niche ?? 'Não informado'}${desc ? `\nDescrição: ${desc}` : ''}`
+    )
   }
 
   if (existingDNA && (existingDNA.biografia || existingDNA.voz || existingDNA.credenciais || existingDNA.proibidas)) {
-    contextParts.push(`## DNA Atual (para melhorar)\n${JSON.stringify(existingDNA, null, 2)}`)
+    contextParts.push(`## DNA Atual (refine e melhore)\n${JSON.stringify({
+      biografia: existingDNA.biografia,
+      voz: existingDNA.voz,
+      credenciais: existingDNA.credenciais,
+      proibidas: existingDNA.proibidas,
+    }, null, 2)}`)
   }
 
   if (knowledgeFiles && knowledgeFiles.length > 0) {
     const filesText = knowledgeFiles
       .filter(f => f.content_text)
-      .map(f => `### Arquivo: ${f.name}\n${f.content_text}`)
+      .map(f => `### Arquivo: ${f.name}\n${(f.content_text as string).slice(0, 3000)}`)
       .join('\n\n')
     if (filesText) contextParts.push(`## Arquivos de Conhecimento\n${filesText}`)
   }
@@ -60,53 +83,59 @@ export async function POST(req: Request, { params }: Params) {
       .filter(m => m.source !== 'knowledge_file')
       .map(m => m.content)
       .join('\n\n')
-    if (memText) contextParts.push(`## Memórias e Briefings Anteriores\n${memText.slice(0, 4000)}`)
+    if (memText) contextParts.push(`## Histórico de Conversas\n${memText.slice(0, 4000)}`)
   }
 
-  if (contextParts.length === 0) {
-    return NextResponse.json(
-      { error: 'Nenhum conteúdo disponível para análise. Adicione arquivos de conhecimento ou converse com o ORACLE primeiro.' },
-      { status: 400 }
-    )
-  }
-
-  const userMessage = contextParts.join('\n\n---\n\n')
+  // Mesmo com pouco contexto, prosseguimos — a IA usará [Pendente:] nos campos vazios
+  const userMessage = contextParts.length > 0
+    ? contextParts.join('\n\n---\n\n')
+    : `## Cliente\nNome: desconhecido\nNenhuma informação disponível ainda.`
 
   try {
+    // Prefill com '{' força o modelo a retornar JSON puro sem preâmbulo
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-5-20250929',
       max_tokens: 2048,
       system: CURATOR_PROMPT,
-      messages: [{ role: 'user', content: userMessage }],
+      messages: [
+        { role: 'user', content: userMessage },
+        { role: 'assistant', content: '{' }, // prefill — força JSON
+      ],
     })
 
-    const raw = response.content[0].type === 'text' ? response.content[0].text : ''
+    // O modelo continua de onde paramos ('{'), então precisamos re-adicionar o '{'
+    const continuation = response.content[0].type === 'text' ? response.content[0].text : ''
+    const raw = '{' + continuation
 
-    // Parse JSON from response (handle markdown code blocks)
-    const jsonMatch = raw.match(/\{[\s\S]*\}/)
-    if (!jsonMatch) throw new Error('Resposta inválida da IA')
-    const parsed = JSON.parse(jsonMatch[0]) as {
-      biografia?: string
-      voz?: string
-      credenciais?: string
-      proibidas?: string
-    }
+    // Extrai JSON (lida com blocos markdown e texto extra)
+    let parsed: { biografia?: string; voz?: string; credenciais?: string; proibidas?: string } | null = null
 
-    const { data: member } = await supabase
-      .from('workspace_members')
-      .select('workspace_id')
-      .eq('user_id', user.id)
-      .single()
-
-    // Credit check
-    if (member?.workspace_id) {
-      const credit = await checkAndDeductCredits(member.workspace_id, 'dna_curate', 'DNA — curadoria com IA')
-      if (!credit.ok) {
-        return NextResponse.json({ error: credit.error, balance: credit.balance, cost: credit.cost }, { status: 402 })
+    // Tentativa 1: parse direto
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      // Tentativa 2: extrair primeiro bloco {...}
+      const jsonMatch = raw.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        try {
+          parsed = JSON.parse(jsonMatch[0])
+        } catch {
+          // Tentativa 3: extrair de bloco markdown ```json ... ```
+          const mdMatch = raw.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/)
+          if (mdMatch) parsed = JSON.parse(mdMatch[1])
+        }
       }
     }
 
-    // Save to client_dna (only fill non-empty fields from AI)
+    if (!parsed) {
+      console.error('[DNA Curate] Falha ao parsear resposta da IA:', raw.slice(0, 500))
+      return NextResponse.json(
+        { error: 'A IA não retornou um formato válido. Tente novamente ou adicione mais contexto ao cliente.' },
+        { status: 500 }
+      )
+    }
+
+    // Salvar no client_dna
     const updatePayload: Record<string, string> = {}
     if (parsed.biografia) updatePayload.biografia = parsed.biografia
     if (parsed.voz) updatePayload.voz = parsed.voz
@@ -127,6 +156,7 @@ export async function POST(req: Request, { params }: Params) {
     return NextResponse.json({ data: saved, parsed })
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Erro desconhecido'
+    console.error('[DNA Curate] Erro:', msg)
     return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
