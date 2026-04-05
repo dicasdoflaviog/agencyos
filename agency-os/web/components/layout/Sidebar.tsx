@@ -63,7 +63,7 @@ export function Sidebar() {
           <div className="flex h-7 w-7 items-center justify-center rounded bg-[var(--color-accent)]">
             <Bot size={14} className="text-[var(--color-text-inverse)]" strokeWidth={2.5} />
           </div>
-          <span className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight">Agency OS</span>
+          <span className="font-sans text-sm font-bold tracking-tight text-[var(--color-text-primary)]">Agency OS</span>
         </div>
       </div>
 

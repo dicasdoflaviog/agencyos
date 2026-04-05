@@ -262,7 +262,7 @@
   /* Fonts — Next.js font vars */
   --font-sans:    var(--font-inter);
   --font-display: var(--font-calistoga);
-  --font-mono:    var(--font-mono);
+  --font-mono:    var(--font-jetbrains);
 }
 
 /* ── Base styles ──────────────────────────────────────────── */
@@ -294,7 +294,7 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
 
 /* ── Typography utilities ────────────────────────────────── */
-.font-display { font-family: var(--font-calistoga), serif; }
+.font-display { font-family: var(--font-calistoga), sans-serif; }
 .font-mono    { font-family: var(--font-mono), monospace; }
 
 /* ── Keyframes ───────────────────────────────────────────── */
