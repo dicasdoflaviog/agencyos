@@ -98,7 +98,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
     if (!files.length) return
     setAttachError(null)
     const MAX_BYTES = 10 * 1024 * 1024
-    const MAX_FILES = 5
+    const MAX_FILES = 10
 
     const oversized = files.find(f => f.size > MAX_BYTES)
     if (oversized) {
@@ -132,7 +132,7 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
 
     setAttachError(null)
     const MAX_BYTES = 10 * 1024 * 1024
-    const MAX_FILES = 5
+    const MAX_FILES = 10
     const toProcess: DataTransferItem[] = []
 
     for (const item of items) {
