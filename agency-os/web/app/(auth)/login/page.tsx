@@ -41,8 +41,14 @@ export default function LoginPage() {
       options: { data: { full_name: name.trim() } },
     })
     setLoading(false)
-    if (error) setError(error.message)
-    else setView('signup_sent')
+    if (error) { setError(error.message) } else {
+      fetch('/api/email/welcome', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name: name.trim() }),
+      }).catch(() => {/* silent — não bloqueia o fluxo */})
+      setView('signup_sent')
+    }
   }
 
   async function handleForgot(e: React.FormEvent) {

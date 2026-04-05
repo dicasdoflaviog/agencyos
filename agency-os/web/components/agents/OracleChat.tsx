@@ -13,14 +13,43 @@ type Message = {
 }
 
 const AGENT_STYLES: Record<AgentType, { color: string; bg: string; border: string }> = {
-  oracle: { color: 'text-[#F59E0B]', bg: 'bg-[#F59E0B]/10', border: 'border-[#F59E0B]/20' },
-  vera:   { color: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20' },
-  atlas:  { color: 'text-sky-400',    bg: 'bg-sky-500/10',    border: 'border-sky-500/20' },
-  vox:    { color: 'text-emerald-400',bg: 'bg-emerald-500/10',border: 'border-emerald-500/20' },
+  // Orchestration — amber
+  oracle:  { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
+  nexus:   { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
+  genesis: { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
+  lore:    { color: 'text-[#F59E0B]',   bg: 'bg-[#F59E0B]/10',   border: 'border-[#F59E0B]/20' },
+  // Production — blue
+  vance:   { color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
+  vera:    { color: 'text-violet-400',  bg: 'bg-violet-500/10',  border: 'border-violet-500/20' },
+  marco:   { color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
+  atlas:   { color: 'text-sky-400',     bg: 'bg-sky-500/10',     border: 'border-sky-500/20' },
+  volt:    { color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
+  pulse:   { color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
+  cipher:  { color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
+  flux:    { color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
+  // Intelligence — purple
+  iris:    { color: 'text-purple-400',  bg: 'bg-purple-500/10',  border: 'border-purple-500/20' },
+  vector:  { color: 'text-purple-400',  bg: 'bg-purple-500/10',  border: 'border-purple-500/20' },
+  prism:   { color: 'text-purple-400',  bg: 'bg-purple-500/10',  border: 'border-purple-500/20' },
+  // Operations — emerald
+  bridge:  { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+  aegis:   { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+  harbor:  { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+  ledger:  { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+  // Growth — pink
+  surge:   { color: 'text-pink-400',    bg: 'bg-pink-500/10',    border: 'border-pink-500/20' },
+  anchor:  { color: 'text-pink-400',    bg: 'bg-pink-500/10',    border: 'border-pink-500/20' },
+  // Media — cyan
+  vox:     { color: 'text-cyan-400',    bg: 'bg-cyan-500/10',    border: 'border-cyan-500/20' },
 }
 
 const AGENT_ICONS: Record<AgentType, string> = {
-  oracle: '✦', vera: 'V', atlas: 'A', vox: '◎',
+  oracle: '✦', nexus: 'N', genesis: 'G', lore: 'L',
+  vance: 'V', vera: 'V', marco: 'M', atlas: 'A', volt: '⚡', pulse: 'P', cipher: 'C', flux: 'F',
+  iris: 'I', vector: 'Vc', prism: 'Pr',
+  bridge: 'Br', aegis: 'Ae', harbor: 'H', ledger: 'Le',
+  surge: 'Su', anchor: 'An',
+  vox: '◎',
 }
 
 interface OracleChatProps {
@@ -261,16 +290,21 @@ export function OracleChat({ jobId, clientId, clientName, initialHistory = [] }:
             <Send size={16} strokeWidth={2.5} />
           </button>
         </div>
-        <div className="mt-2 flex gap-3">
-          {(['vera','atlas','vox','oracle'] as AgentType[]).map(a => {
+        <div className="mt-2 flex flex-wrap gap-1.5 items-center">
+          {(['oracle','vera','atlas','vox','vance','marco','volt','pulse','iris','vector','harbor','ledger','surge'] as AgentType[]).map(a => {
             const s = AGENT_STYLES[a]
             return (
-              <span key={a} className={`text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded ${s.bg} ${s.color}`}>
-                {a.toUpperCase()}
-              </span>
+              <button
+                key={a}
+                onClick={() => setInput(`@${a} `)}
+                className={`text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded ${s.bg} ${s.color} hover:opacity-80 transition-opacity`}
+                title={`Chamar ${a.toUpperCase()} diretamente`}
+              >
+                @{a.toUpperCase()}
+              </button>
             )
           })}
-          <span className="text-[9px] text-[#52525B] ml-auto">auto-roteamento ativo</span>
+          <span className="text-[9px] text-[#52525B] ml-auto">auto-roteamento · 22 agentes</span>
         </div>
       </div>
     </div>
