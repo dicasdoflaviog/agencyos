@@ -2,10 +2,11 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { FileText, BarChart2, Brain, BookOpen, LayoutDashboard, CalendarDays, Sparkles, ImageIcon, Video, Mic } from 'lucide-react'
+import { FileText, BarChart2, Brain, BookOpen, LayoutDashboard, CalendarDays, Sparkles, ImageIcon, Video, Mic, Dna } from 'lucide-react'
 
 const TABS = [
   { label: 'Overview',    suffix: '',            icon: LayoutDashboard },
+  { label: 'DNA',         suffix: '/dna',        icon: Dna },
   { label: 'Contratos',   suffix: '/contracts',  icon: FileText },
   { label: 'CMS',         suffix: '/cms',        icon: BookOpen },
   { label: 'Agenda',      suffix: '/schedule',   icon: CalendarDays },
