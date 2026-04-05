@@ -9,6 +9,7 @@ interface Voice {
   name: string
   lang: string
   description: string
+  preview_url: string | null
 }
 
 export interface AudioAsset {
@@ -38,8 +39,10 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
   const [isGenerating, setIsGenerating] = useState(false)
   const [assets, setAssets] = useState<AudioAsset[]>(initialAssets)
   const [playingId, setPlayingId] = useState<string | null>(null)
+  const [playingPreviewId, setPlayingPreviewId] = useState<string | null>(null)
   const [showCloneModal, setShowCloneModal] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const previewAudioRef = useRef<HTMLAudioElement | null>(null)
 
   const loadVoices = () => {
     fetch('/api/agents/vox/voices')
@@ -49,6 +52,24 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
   }
 
   useEffect(() => { loadVoices() }, [])
+
+  const togglePreview = (voice: Voice, e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!voice.preview_url) return
+
+    if (playingPreviewId === voice.id) {
+      previewAudioRef.current?.pause()
+      setPlayingPreviewId(null)
+      return
+    }
+
+    previewAudioRef.current?.pause()
+    const audio = new Audio(voice.preview_url)
+    previewAudioRef.current = audio
+    audio.play().catch(() => {})
+    audio.onended = () => setPlayingPreviewId(null)
+    setPlayingPreviewId(voice.id)
+  }
 
   const generate = async () => {
     if (!text.trim() || isGenerating) return
@@ -107,11 +128,29 @@ export function VoxStudio({ clientId, clientName, initialAssets = [] }: VoxStudi
               <button key={v.id} onClick={() => setSelectedVoice(v.id)}
                 className={`w-full text-left p-3 rounded-lg border transition-all ${selectedVoice === v.id ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-[var(--color-border-subtle)] hover:border-white/20'}`}>
                 <div className="flex items-center gap-2">
+                  {/* Preview play button */}
+                  <button
+                    onClick={e => togglePreview(v, e)}
+                    disabled={!v.preview_url}
+                    title={v.preview_url ? 'Ouvir amostra' : 'Sem preview'}
+                    className={`shrink-0 h-6 w-6 rounded-full flex items-center justify-center transition-all
+                      ${v.preview_url
+                        ? playingPreviewId === v.id
+                          ? 'bg-emerald-500/30 text-emerald-300'
+                          : 'bg-white/5 text-[var(--color-text-muted)] hover:bg-emerald-500/20 hover:text-emerald-400'
+                        : 'opacity-30 cursor-not-allowed text-[var(--color-text-muted)]'
+                      }`}
+                  >
+                    {playingPreviewId === v.id
+                      ? <StopCircle size={11} />
+                      : <Play size={11} className="translate-x-[1px]" />}
+                  </button>
+
                   <Volume2 size={14} className={selectedVoice === v.id ? 'text-emerald-400' : 'text-[var(--color-text-secondary)]'} />
-                  <span className={`text-sm font-medium ${selectedVoice === v.id ? 'text-emerald-400' : 'text-[var(--color-text-primary)]'}`}>{v.name}</span>
-                  <span className="text-xs text-[var(--color-text-muted)] ml-auto">{v.lang}</span>
+                  <span className={`text-sm font-medium truncate flex-1 ${selectedVoice === v.id ? 'text-emerald-400' : 'text-[var(--color-text-primary)]'}`}>{v.name}</span>
+                  <span className="text-xs text-[var(--color-text-muted)] shrink-0">{v.lang}</span>
                 </div>
-                <p className="text-xs text-[var(--color-text-muted)] mt-0.5 pl-6">{v.description}</p>
+                <p className="text-xs text-[var(--color-text-muted)] mt-0.5 pl-14">{v.description}</p>
               </button>
             ))}
           </div>
