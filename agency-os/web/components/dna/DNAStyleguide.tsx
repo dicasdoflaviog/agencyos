@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback, ElementType, ReactNode } from 'react'
 import {
   Palette, FileCode, ChevronDown, RefreshCw,
-  Type, Layers, Ruler, Square, GripVertical, AlertTriangle,
+  Type, Layers, Ruler, Square, Eye, AlertTriangle,
 } from 'lucide-react'
 import { extractDesignTokens } from '@/lib/ai/extract-design-tokens'
 
@@ -163,15 +163,15 @@ function RadiusBlocks({ radii }: { radii: Record<string, string> }) {
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
+type ViewMode = 'preview' | 'code'
+
 export function DNAStyleguide({ files }: DNAStyleguideProps) {
   const [selected, setSelected]               = useState<string>(files[0]?.id ?? '')
+  const [viewMode, setViewMode]               = useState<ViewMode>('preview')
   const [editableContent, setEditableContent] = useState<string>(files[0]?.content_text ?? '')
   const [liveContent, setLiveContent]         = useState<string>(files[0]?.content_text ?? '')
-  const [splitPos, setSplitPos]               = useState(65)
 
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isDragging   = useRef(false)
-  const debounceRef  = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const activeFile = files.find(f => f.id === selected) ?? files[0]
 
@@ -185,33 +185,6 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
     setEditableContent(value)
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => setLiveContent(value), 300)
-  }, [])
-
-  const handleResizerMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-    isDragging.current = true
-    document.body.style.cursor = 'col-resize'
-    document.body.style.userSelect = 'none'
-  }, [])
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      if (!isDragging.current || !containerRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-      setSplitPos(Math.min(Math.max(((e.clientX - rect.left) / rect.width) * 100, 30), 80))
-    }
-    const onUp = () => {
-      if (!isDragging.current) return
-      isDragging.current = false
-      document.body.style.cursor = ''
-      document.body.style.userSelect = ''
-    }
-    window.addEventListener('mousemove', onMove)
-    window.addEventListener('mouseup', onUp)
-    return () => {
-      window.removeEventListener('mousemove', onMove)
-      window.removeEventListener('mouseup', onUp)
-    }
   }, [])
 
   const htmlContent = useMemo(() => {
@@ -230,7 +203,7 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
     return !tail.includes('</html') && !tail.includes('</body')
   }, [liveContent, activeFile])
 
-  const tokens       = useMemo(() => liveContent ? extractDesignTokens(liveContent) : null, [liveContent])
+  const tokens         = useMemo(() => liveContent ? extractDesignTokens(liveContent) : null, [liveContent])
   const cssForPreviews = useMemo(
     () => liveContent ? extractCss(liveContent, activeFile?.file_type ?? '') : '',
     [liveContent, activeFile],
@@ -248,8 +221,7 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
         <p className="mt-1 max-w-xs text-xs text-[var(--color-text-muted)]">
           Faça upload de um arquivo <span className="font-mono text-amber-400">.html</span> ou{' '}
           <span className="font-mono text-amber-400">.css</span> na aba{' '}
-          <strong className="text-[var(--color-text-secondary)]">Arquivos de Conhecimento</strong>,
-          depois clique em <strong className="text-[var(--color-text-secondary)]">Sincronizar</strong>.
+          <strong className="text-[var(--color-text-secondary)]">Arquivos de Conhecimento</strong>.
         </p>
       </div>
     )
@@ -271,142 +243,173 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
   }
 
   return (
-    <div className="flex flex-col gap-2.5" style={{ height: 'calc(100vh - 240px)', minHeight: 560 }}>
+    <div className="flex gap-3" style={{ height: 'calc(100vh - 240px)', minHeight: 560 }}>
 
-      {/* ── File bar ── */}
-      <div className="flex shrink-0 items-center gap-3">
-        {files.length > 1 ? (
-          <div className="relative">
-            <select
-              value={selected}
-              onChange={e => setSelected(e.target.value)}
-              className="appearance-none rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] py-1.5 pl-3 pr-8 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-amber-500/40"
+      {/* ── MAIN CANVAS ─────────────────────────────────────────────────────── */}
+      <div className="flex flex-1 min-w-0 flex-col overflow-hidden rounded-xl border border-[var(--color-border-subtle)]">
+
+        {/* Top bar: file selector + toggle */}
+        <div className="flex shrink-0 items-center gap-3 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-2">
+
+          {/* File selector */}
+          {files.length > 1 ? (
+            <div className="relative">
+              <select
+                value={selected}
+                onChange={e => setSelected(e.target.value)}
+                className="appearance-none rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] py-1 pl-3 pr-7 text-xs text-[var(--color-text-primary)] focus:outline-none focus:border-amber-500/40"
+              >
+                {files.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+              </select>
+              <ChevronDown size={11} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 text-xs text-[var(--color-text-secondary)]">
+              <FileCode size={12} className="text-amber-400" />
+              <span>{activeFile?.name}</span>
+            </div>
+          )}
+
+          {/* Preview / Code toggle */}
+          <div className="flex rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] p-0.5">
+            <button
+              onClick={() => setViewMode('preview')}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                viewMode === 'preview'
+                  ? 'bg-amber-500/15 text-amber-400'
+                  : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+              }`}
             >
-              {files.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
-            </select>
-            <ChevronDown size={12} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />
+              <Eye size={11} />
+              Preview
+            </button>
+            <button
+              onClick={() => setViewMode('code')}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                viewMode === 'code'
+                  ? 'bg-amber-500/15 text-amber-400'
+                  : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+              }`}
+            >
+              <FileCode size={11} />
+              Código
+            </button>
           </div>
-        ) : (
-          <div className="flex items-center gap-1.5 text-sm text-[var(--color-text-secondary)]">
-            <FileCode size={13} className="text-amber-400" />
-            <span>{activeFile?.name}</span>
-          </div>
-        )}
-        <span className="text-[10px] text-[var(--color-text-muted)]">Edite o código — preview atualiza em tempo real</span>
-      </div>
 
-      {/* ── Main: Preview | Resizer | Right panel ── */}
-      <div
-        ref={containerRef}
-        className="flex flex-1 min-h-0 overflow-hidden rounded-xl border border-[var(--color-border-subtle)]"
-      >
-        {/* ── LEFT: Full-height iframe canvas ── */}
-        <div
-          className="relative shrink-0 flex flex-col"
-          style={{ width: `${splitPos}%`, height: '100%' }}
-        >
-          {/* Truncation warning banner */}
+          {viewMode === 'code' && (
+            <span className="ml-auto text-[9px] text-[var(--color-text-muted)]">
+              Edições atualizam o preview em tempo real
+            </span>
+          )}
+        </div>
+
+        {/* Canvas area — full remaining height */}
+        <div className="relative flex-1 min-h-0">
+
+          {/* Truncation warning */}
           {isTruncated && (
-            <div className="shrink-0 flex items-center gap-2 bg-amber-500/10 border-b border-amber-500/30 px-3 py-2 z-10">
+            <div className="absolute top-0 left-0 right-0 z-10 flex items-center gap-2 bg-amber-500/10 border-b border-amber-500/30 px-3 py-2">
               <AlertTriangle size={12} className="text-amber-400 shrink-0" />
-              <p className="text-[10px] text-amber-400/90 leading-snug">
+              <p className="text-[10px] text-amber-400/90">
                 Preview incompleto — arquivo sincronizado antes da correção.{' '}
-                <strong>Vá em Arquivos de Conhecimento e clique Sincronizar novamente.</strong>
+                <strong>Vá em Arquivos de Conhecimento e clique Sincronizar.</strong>
               </p>
             </div>
           )}
-          <div className="relative flex-1">
-            <iframe
-              srcDoc={htmlContent ?? '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body></body></html>'}
-              sandbox="allow-scripts"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
-              title="Styleguide Preview"
-            />
-          </div>
-        </div>
 
-        {/* ── DRAG HANDLE ── */}
-        <div
-          className="relative flex w-1.5 shrink-0 cursor-col-resize flex-col items-center justify-center bg-[var(--color-border-subtle)] transition-colors hover:bg-amber-500/60 active:bg-amber-500"
-          onMouseDown={handleResizerMouseDown}
-          title="Arraste para redimensionar"
-        >
-          <GripVertical size={14} className="text-[var(--color-text-muted)] opacity-50" />
-        </div>
+          {/* PREVIEW — iframe fills canvas */}
+          <iframe
+            srcDoc={htmlContent ?? '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body></body></html>'}
+            sandbox="allow-scripts"
+            title="Styleguide Preview"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              display: viewMode === 'preview' ? 'block' : 'none',
+            }}
+          />
 
-        {/* ── RIGHT PANEL: Code (top) + Tokens (bottom) + Oracle badge (footer) ── */}
-        <div className="flex flex-1 min-w-0 flex-col overflow-hidden bg-[var(--color-bg-surface)]">
-
-          {/* Code editor — top ~30% */}
-          <div className="flex shrink-0 flex-col border-b border-[var(--color-border-subtle)]" style={{ height: '30%', minHeight: 100 }}>
-            <div className="flex shrink-0 items-center gap-2 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-1.5">
-              <FileCode size={11} className="shrink-0 text-amber-400" />
-              <span className="truncate text-[10px] font-mono text-[var(--color-text-muted)]">{activeFile?.name}</span>
-              <span className="ml-auto shrink-0 rounded-full bg-amber-500/10 px-1.5 py-0.5 text-[8px] font-medium text-amber-400/80">live</span>
-            </div>
+          {/* CODE EDITOR — same space, toggled */}
+          {viewMode === 'code' && (
             <textarea
               value={editableContent}
               onChange={e => handleCodeChange(e.target.value)}
-              className="flex-1 resize-none bg-transparent p-2.5 text-[10.5px] leading-relaxed text-[var(--color-text-secondary)] outline-none"
+              className="absolute inset-0 w-full h-full resize-none bg-[var(--color-bg-surface)] p-4 text-[11px] leading-relaxed text-[var(--color-text-secondary)] outline-none"
               style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace" }}
               spellCheck={false}
               autoCapitalize="off"
               autoCorrect="off"
             />
-          </div>
-
-          {/* Token cards — fill remaining space, scroll */}
-          <div className="flex-1 min-h-0 overflow-y-auto p-2.5 space-y-2.5">
-
-            {colorEntries.length > 0 && (
-              <Section title="Paleta de Cores" icon={Palette}>
-                <div className="grid grid-cols-2 gap-2">
-                  {colorEntries.slice(0, 6).map(([k, v]) => <ColorSwatch key={k} name={k} value={v} />)}
-                </div>
-                {tokens && tokens.palette.length > 0 && (
-                  <div className="mt-2.5 flex flex-wrap gap-1.5 border-t border-[var(--color-border-subtle)] pt-2.5">
-                    {tokens.palette.slice(0, 12).map(hex => (
-                      <div key={hex} className="flex flex-col items-center gap-0.5">
-                        <div className="h-5 w-5 rounded border border-white/10" style={{ background: hex }} title={hex} />
-                        <span className="text-[6px] font-mono text-[var(--color-text-muted)]">{hex}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </Section>
-            )}
-
-            {cssForPreviews && (
-              <Section title="Tipografia" icon={Type}>
-                <TypographyPreview cssContent={cssForPreviews} />
-              </Section>
-            )}
-
-            {cssForPreviews && (
-              <Section title="Componentes Ativos" icon={Layers}>
-                <ComponentGallery cssContent={cssForPreviews} />
-              </Section>
-            )}
-
-            <Section title="Espaçamento" icon={Ruler}>
-              <SpacingBlocks spacings={tokens?.spacings ?? {}} />
-            </Section>
-
-            <Section title="Border Radius" icon={Square}>
-              <RadiusBlocks radii={tokens?.radii ?? {}} />
-            </Section>
-
-          </div>
-
-          {/* ── Oracle badge — sticky footer ── */}
-          <div className="shrink-0 border-t border-amber-500/20 bg-amber-500/5 px-3 py-2">
-            <p className="flex items-center gap-1.5 text-[9px] text-amber-400/80">
-              <Palette size={9} />
-              Tokens extraídos e injetados no contexto do @ORACLE automaticamente.
-            </p>
-          </div>
+          )}
         </div>
       </div>
+
+      {/* ── TOKEN SIDEBAR ───────────────────────────────────────────────────── */}
+      <div className="flex w-60 shrink-0 flex-col overflow-hidden rounded-xl border border-[var(--color-border-subtle)]">
+
+        {/* Sidebar header */}
+        <div className="shrink-0 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-2">
+          <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
+            <Palette size={10} className="text-amber-400/70" />
+            Design Tokens
+          </p>
+        </div>
+
+        {/* Scrollable token cards */}
+        <div className="flex-1 min-h-0 overflow-y-auto p-2.5 space-y-2.5 bg-[var(--color-bg-surface)]">
+
+          {colorEntries.length > 0 && (
+            <Section title="Paleta de Cores" icon={Palette}>
+              <div className="grid grid-cols-2 gap-2">
+                {colorEntries.slice(0, 6).map(([k, v]) => <ColorSwatch key={k} name={k} value={v} />)}
+              </div>
+              {tokens && tokens.palette.length > 0 && (
+                <div className="mt-2.5 flex flex-wrap gap-1.5 border-t border-[var(--color-border-subtle)] pt-2.5">
+                  {tokens.palette.slice(0, 12).map(hex => (
+                    <div key={hex} className="flex flex-col items-center gap-0.5">
+                      <div className="h-5 w-5 rounded border border-white/10" style={{ background: hex }} title={hex} />
+                      <span className="text-[6px] font-mono text-[var(--color-text-muted)]">{hex}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Section>
+          )}
+
+          {cssForPreviews && (
+            <Section title="Tipografia" icon={Type}>
+              <TypographyPreview cssContent={cssForPreviews} />
+            </Section>
+          )}
+
+          {cssForPreviews && (
+            <Section title="Componentes Ativos" icon={Layers}>
+              <ComponentGallery cssContent={cssForPreviews} />
+            </Section>
+          )}
+
+          <Section title="Espaçamento" icon={Ruler}>
+            <SpacingBlocks spacings={tokens?.spacings ?? {}} />
+          </Section>
+
+          <Section title="Border Radius" icon={Square}>
+            <RadiusBlocks radii={tokens?.radii ?? {}} />
+          </Section>
+
+        </div>
+
+        {/* Oracle badge */}
+        <div className="shrink-0 border-t border-amber-500/20 bg-amber-500/5 px-3 py-2">
+          <p className="flex items-center gap-1.5 text-[9px] text-amber-400/80">
+            <Palette size={9} />
+            Tokens injetados no contexto do @ORACLE.
+          </p>
+        </div>
+      </div>
+
     </div>
   )
 }
