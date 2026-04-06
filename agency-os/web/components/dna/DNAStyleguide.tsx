@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback, ElementType, ReactNode } from 'react'
 import {
   Palette, FileCode, ChevronDown, RefreshCw,
-  Type, Layers, Ruler, Square, GripVertical,
+  Type, Layers, Ruler, Square, GripVertical, AlertTriangle,
 } from 'lucide-react'
 import { extractDesignTokens } from '@/lib/ai/extract-design-tokens'
 
@@ -221,6 +221,15 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
     return prepareHtml(liveContent)
   }, [liveContent, activeFile])
 
+  // Detect truncated HTML: if it doesn't end with </html> it was cut off by the old sync
+  const isTruncated  = useMemo(() => {
+    if (!liveContent) return false
+    const ft = (activeFile?.file_type ?? '').toUpperCase()
+    if (ft !== 'HTML' && !activeFile?.name.toLowerCase().endsWith('.html')) return false
+    const tail = liveContent.slice(-200).toLowerCase()
+    return !tail.includes('</html') && !tail.includes('</body')
+  }, [liveContent, activeFile])
+
   const tokens       = useMemo(() => liveContent ? extractDesignTokens(liveContent) : null, [liveContent])
   const cssForPreviews = useMemo(
     () => liveContent ? extractCss(liveContent, activeFile?.file_type ?? '') : '',
@@ -293,15 +302,27 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
       >
         {/* ── LEFT: Full-height iframe canvas ── */}
         <div
-          className="relative shrink-0"
+          className="relative shrink-0 flex flex-col"
           style={{ width: `${splitPos}%`, height: '100%' }}
         >
-          <iframe
-            srcDoc={htmlContent ?? '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body></body></html>'}
-            sandbox="allow-scripts"
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
-            title="Styleguide Preview"
-          />
+          {/* Truncation warning banner */}
+          {isTruncated && (
+            <div className="shrink-0 flex items-center gap-2 bg-amber-500/10 border-b border-amber-500/30 px-3 py-2 z-10">
+              <AlertTriangle size={12} className="text-amber-400 shrink-0" />
+              <p className="text-[10px] text-amber-400/90 leading-snug">
+                Preview incompleto — arquivo sincronizado antes da correção.{' '}
+                <strong>Vá em Arquivos de Conhecimento e clique Sincronizar novamente.</strong>
+              </p>
+            </div>
+          )}
+          <div className="relative flex-1">
+            <iframe
+              srcDoc={htmlContent ?? '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body></body></html>'}
+              sandbox="allow-scripts"
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+              title="Styleguide Preview"
+            />
+          </div>
         </div>
 
         {/* ── DRAG HANDLE ── */}
