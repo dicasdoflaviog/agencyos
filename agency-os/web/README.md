@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agency OS
 
-## Getting Started
+> **Sistema operacional para agências criativas — orquestrado por 22 agentes de IA.**
 
-First, run the development server:
+Agency OS é uma plataforma SaaS multi-tenant que centraliza toda a operação de uma agência de marketing digital: DNA de marca, produção de conteúdo, automação via IA, gestão de clientes, contratos, voz e criativos — tudo em um único painel.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**URL de produção:** https://agencyos-cyan.vercel.app
+
+---
+
+## Stack Tecnológica
+
+| Camada | Tecnologia |
+|--------|-----------|
+| Frontend | Next.js 15 (App Router) + TypeScript |
+| Estilização | Tailwind CSS + shadcn/ui |
+| Banco de dados | Supabase (PostgreSQL) |
+| Auth | Supabase Auth (JWT) |
+| Storage | Supabase Storage |
+| IA Principal | Anthropic Claude (Haiku 4.5 / Sonnet) |
+| IA de Imagem | Google Gemini Flash Image |
+| Web Scraping | Apify |
+| Email | Resend |
+| Pagamentos | Stripe |
+| Deploy | Vercel |
+
+---
+
+## Arquitetura
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        Agency OS                            │
+│                                                             │
+│  ┌─────────────┐   ┌──────────────┐   ┌─────────────────┐  │
+│  │  Dashboard  │   │  Client DNA  │   │  Oracle Chat    │  │
+│  │  Analytics  │   │  Styleguide  │   │  22 AI Agents   │  │
+│  │  Gallery    │   │  Knowledge   │   │  Orchestration  │  │
+│  └─────────────┘   └──────────────┘   └─────────────────┘  │
+│                                                             │
+│  ┌─────────────┐   ┌──────────────┐   ┌─────────────────┐  │
+│  │    ATLAS    │   │     VOX      │   │   Credit Meter  │  │
+│  │  Criativos  │   │    Áudio     │   │  Starter/Pro/   │  │
+│  │  Carousel   │   │  Clone Voice │   │  Agency plans   │  │
+│  └─────────────┘   └──────────────┘   └─────────────────┘  │
+│                                                             │
+│              Supabase (Auth + DB + Storage)                 │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Módulos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Dashboard Global
+- Visão geral de todos os clientes
+- Gallery de criativos gerados
+- Time de Agentes (22 agentes)
+- Templates de conteúdo
+- Financial / Reports
 
-## Learn More
+### DNA de Marca (`/clients/[id]/dna`)
 
-To learn more about Next.js, take a look at the following resources:
+| Aba | Função |
+|-----|--------|
+| DNA Estruturado | Campos de marca (tom, persona, valores, posicionamento) |
+| Documento Gerado | Documento completo gerado por IA |
+| Arquivos de Conhecimento | Upload PDF/TXT/HTML/CSS/JSON/MD — auto-sync |
+| Styleguide | Render de identidade visual + extrator de design tokens |
+| Produtos & Ofertas | Inventário de produtos para contexto de vendas |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Oracle Chat
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Orquestração inteligente de 22 agentes. Injeta DNA + Styleguide + Produtos no contexto. Suporta @mention, anexos, sessões persistentes.
 
-## Deploy on Vercel
+### ATLAS — Creative Studio
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Geração de imagens via Gemini. Formatos: Post, Story, Carousel (3-10 slides). Upload de referência visual, histórico com Iterar.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### VOX — Áudio com IA
+
+Narração por texto. Clone de voz da marca. Histórico de áudios.
+
+---
+
+## Os 22 Agentes
+
+**Orquestração:** ORACLE · NEXUS · GENESIS · LORE
+
+**Produção:** VANCE · VERA · MARCO · ATLAS · VOLT · PULSE · CIPHER · FLUX
+
+**Inteligência:** IRIS · VECTOR · PRISM
+
+**Operações:** BRIDGE · AEGIS · HARBOR · LEDGER
+
+**Crescimento:** SURGE · ANCHOR
+
+**Mídia:** VOX
+
+---
+
+## Sistema de Créditos
+
+| Plano | Créditos/mês |
+|-------|-------------|
+| Starter | 500 |
+| Pro | 1.500 |
+| Agency | 5.000 |
+
+| Ação | Custo |
+|------|-------|
+| Oracle message | 10 cr |
+| Geração de conteúdo | 15 cr |
+| DNA curate | 20 cr |
+| Knowledge sync | 10 cr |
+| VOX narração | 30 cr |
+| Apify scrape | 30 cr |
+
+---
+
+## Setup Local
+
+```bash
+cd agency-os/web
+cp .env.example .env.local   # preencha as variáveis
+npm install
+npm run dev
+```
+
+### Variáveis necessárias
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+ANTHROPIC_API_KEY=
+GOOGLE_GENERATIVE_AI_API_KEY=
+APIFY_API_TOKEN=
+RESEND_API_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_APP_URL=
+```
+
+---
+
+## Roadmap
+
+**Concluído:** Multi-tenant auth · DNA de marca completo · Styleguide + tokens · Produtos & Ofertas · Oracle com 22 agentes · @mention routing · Anexos no chat · ATLAS carousel · Referência visual · VOX narração · Créditos por plano · Auto-sync arquivos texto
+
+**Em breve:** Editor de DNA inline · Pipeline AEGIS · Publicação CIPHER · Analytics VECTOR · Assinatura digital · Webhooks · White-label · App mobile · Marketplace · API pública
+
+---
+
+## Licença
+
+Propriedade de Flávio G. Todos os direitos reservados.
