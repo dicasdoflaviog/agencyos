@@ -59,6 +59,7 @@ export async function POST(req: Request, { params }: Params) {
   if (TEXT_TYPES.has(fileType)) {
     const contentText = new TextDecoder('utf-8').decode(buffer)
     const isVisual = fileType === 'HTML' || fileType === 'CSS'
+    const forOracle = contentText.slice(0, isVisual ? 16000 : 8000)
 
     autoSyncFields = {
       sync_status: 'synced',
