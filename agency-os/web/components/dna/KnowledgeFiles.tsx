@@ -58,6 +58,7 @@ export function KnowledgeFiles({ clientId, initialFiles }: Props) {
   const router = useRouter()
   const [files, setFiles] = useState<KnowledgeFile[]>(initialFiles)
   const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
   const [syncingId, setSyncingId] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [dragOver, setDragOver] = useState(false)
@@ -65,12 +66,19 @@ export function KnowledgeFiles({ clientId, initialFiles }: Props) {
 
   async function uploadFile(file: File) {
     setUploading(true)
+    setUploadError(null)
     const form = new FormData()
     form.append('file', file)
-    const res = await fetch(`/api/clients/${clientId}/knowledge`, { method: 'POST', body: form })
-    if (res.ok) {
-      const { data } = await res.json()
-      setFiles(prev => [data, ...prev])
+    try {
+      const res = await fetch(`/api/clients/${clientId}/knowledge`, { method: 'POST', body: form })
+      const body = await res.json()
+      if (res.ok) {
+        setFiles(prev => [body.data, ...prev])
+      } else {
+        setUploadError(body.error ?? `Erro ${res.status} ao enviar o arquivo.`)
+      }
+    } catch {
+      setUploadError('Falha na conexão. Verifique sua internet e tente novamente.')
     }
     setUploading(false)
   }
@@ -157,7 +165,14 @@ export function KnowledgeFiles({ clientId, initialFiles }: Props) {
         </div>
       </div>
 
-      {/* File list */}
+      {/* Upload error */}
+      {uploadError && (
+        <div className="flex items-start gap-2 rounded-lg border border-[var(--color-error)]/30 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-error)]">
+          <AlertCircle size={14} className="mt-0.5 shrink-0" />
+          <span>{uploadError}</span>
+          <button onClick={() => setUploadError(null)} className="ml-auto shrink-0 opacity-60 hover:opacity-100">✕</button>
+        </div>
+      )}
       {files.length === 0 ? (
         <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] px-6 py-10 text-center">
           <FileText size={28} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
