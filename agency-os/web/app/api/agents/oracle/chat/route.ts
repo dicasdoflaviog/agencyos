@@ -12,8 +12,7 @@ import {
   isIGSyncRequest,
   extractIGHandle,
 } from '@/lib/apify/tools'
-import { openrouter } from '@/lib/openrouter/client'
-import { getProviderModel } from '@/lib/openrouter/models'
+import { routeChatStream, routeChat, extractStyleguideTokens, getModelForAgent } from '@/lib/openrouter/IntelligenceRouter'
 
 export const dynamic = 'force-dynamic'
 
@@ -170,12 +169,11 @@ async function classifyIntent(message: string): Promise<AgentType> {
   }
 
   try {
-    const res = await openrouter.chat.completions.create({
-      model: getProviderModel('classifier'),
-      max_tokens: 20,
-      messages: [{ role: 'user', content: CLASSIFIER_PROMPT.replace('{message}', message) }],
-    })
-    const text = res.choices[0]?.message?.content?.trim().toLowerCase() ?? 'oracle'
+    // routeChat usa IntelligenceRouter com fallback automático (gemma → gpt-4o-mini)
+    const result = await routeChat('classifier', [
+      { role: 'user', content: CLASSIFIER_PROMPT.replace('{message}', message) },
+    ], { maxTokens: 20 })
+    const text = result.content.trim().toLowerCase()
     if (VALID_AGENTS.has(text)) return text as AgentType
   } catch { /* fallback to oracle */ }
   return 'oracle'
@@ -287,7 +285,30 @@ export async function POST(req: NextRequest) {
     }
 
     // ── 8. Build messages for OpenRouter ───────────────────────────────────
-    const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
+    let systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
+
+    // ── 8b. Styleguide tokens → ATLAS (ORACLE injeta design context no ATLAS) ──
+    if (agent === 'atlas' && client_id) {
+      try {
+        const { data: styleguideFile } = await supabase
+          .from('knowledge_files')
+          .select('content_text')
+          .eq('client_id', client_id)
+          .eq('sync_status', 'synced')
+          .in('file_type', ['HTML', 'CSS'])
+          .not('content_text', 'is', null)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+
+        if (styleguideFile?.content_text) {
+          const tokens = extractStyleguideTokens(styleguideFile.content_text)
+          if (Object.keys(tokens.colors).length > 0) {
+            systemPrompt += `\n\n${tokens.raw}\n\nIMPORTANTE: Use obrigatoriamente as cores e tipografia acima em todos os prompts de imagem gerados para este cliente.`
+          }
+        }
+      } catch { /* styleguide context é melhor-esforço */ }
+    }
 
     const safeHistory = Array.isArray(history) ? history : []
     const userContent = await buildUserContent(message, attachments?.filter(a => a?.storagePath), supabase)
@@ -304,21 +325,23 @@ export async function POST(req: NextRequest) {
     // ── 9. Stream response ──────────────────────────────────────────────────
     const encoder = new TextEncoder()
     let fullContent = ''
+    let activeModel = getModelForAgent(agent)
 
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          const stream = await openrouter.chat.completions.create({
-            model: getProviderModel(agent),
-            max_tokens: 4096,
-            stream: true,
-            messages: [
-              { role: 'system', content: systemPrompt },
-              ...chatMessages,
-            ],
-          })
+          // routeChatStream: tenta modelo primário, fallback automático se falhar antes do stream iniciar
+          const result = await routeChatStream(agent, [
+            { role: 'system', content: systemPrompt },
+            ...chatMessages,
+          ], { maxTokens: 4096 })
 
-          for await (const chunk of stream) {
+          activeModel = result.model
+          if (result.usedFallback) {
+            console.warn(`[oracle/chat] Usando fallback para ${agent}: ${result.model}`)
+          }
+
+          for await (const chunk of result.stream) {
             const text = chunk.choices[0]?.delta?.content ?? ''
             if (text) {
               fullContent += text
@@ -374,6 +397,7 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'text/plain; charset=utf-8',
         'X-Content-Type-Options': 'nosniff',
         'X-Agent': agent,
+        'X-Model': activeModel,
         // HTTP headers only accept ASCII (0-255) — replace em dash and strip remaining non-ASCII
         'X-Agent-Label': AGENT_LABELS[agent].replace(/\u2014/g, '-').replace(/[^\x00-\xFF]/g, '').trim(),
       },
