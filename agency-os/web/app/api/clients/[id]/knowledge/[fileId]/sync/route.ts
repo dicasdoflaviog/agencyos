@@ -78,9 +78,15 @@ export async function POST(_req: Request, { params }: Params) {
       throw new Error(`Formato ${file.file_type} não suportado. Use PDF, TXT, HTML, CSS, JSON, MD ou DOCX.`)
     }
 
-    // HTML/CSS/JSON get more space since they're structured data; others stay at 8000 chars
+    // For Oracle/RAG memory: keep compact (16K structured, 8K prose)
     const isStructured = ['HTML', 'CSS', 'JSON'].includes(file.file_type)
-    const truncated = contentText.slice(0, isStructured ? 16000 : 8000)
+    const forOracle = contentText.slice(0, isStructured ? 16000 : 8000)
+
+    // For rendering (content_text): store full HTML/CSS so the iframe renders completely.
+    // Other formats keep the same truncation since they're not rendered visually.
+    const forStorage = ['HTML', 'CSS'].includes(file.file_type)
+      ? contentText          // full content — Postgres text has no practical size limit
+      : forOracle            // same as Oracle limit for non-visual formats
 
     // Remove old memory for this file and insert fresh
     await supabase
@@ -94,7 +100,7 @@ export async function POST(_req: Request, { params }: Params) {
       client_id: id,
       source: 'knowledge_file',
       source_id: fileId,
-      content: `[Arquivo: ${file.name}]\n\n${truncated}`,
+      content: `[Arquivo: ${file.name}]\n\n${forOracle}`,
     })
 
     await supabase
@@ -102,7 +108,7 @@ export async function POST(_req: Request, { params }: Params) {
       .update({
         sync_status: 'synced',
         synced_at: new Date().toISOString(),
-        content_text: truncated,
+        content_text: forStorage,
         sync_error: null,
       })
       .eq('id', fileId)

@@ -293,13 +293,13 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
       >
         {/* ── LEFT: Full-height iframe canvas ── */}
         <div
-          className="relative shrink-0 overflow-hidden"
-          style={{ width: `${splitPos}%` }}
+          className="relative shrink-0"
+          style={{ width: `${splitPos}%`, height: '100%' }}
         >
           <iframe
-            srcDoc={htmlContent ?? ''}
+            srcDoc={htmlContent ?? '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body></body></html>'}
             sandbox="allow-scripts"
-            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
             title="Styleguide Preview"
           />
         </div>
