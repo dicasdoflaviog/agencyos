@@ -83,6 +83,48 @@ export async function getClientDNAContext(
     }
   }
 
+  // 5. Inject product ecosystem (active products ordered by funnel stage)
+  const { data: clientProducts } = await supabase
+    .from('client_products')
+    .select('name, category, type, price_label, promise, target_audience, checkout_url, funnel_stage, next_product_id, status')
+    .eq('client_id', clientId)
+    .eq('status', 'active')
+    .order('funnel_stage', { ascending: true })
+
+  if (clientProducts && clientProducts.length > 0) {
+    const stageOrder = { tofu: 0, mofu: 1, bofu: 2 }
+    const stageNames = { tofu: 'TOPO (Atrair/Educar)', mofu: 'MEIO (Engajar/Qualificar)', bofu: 'FUNDO (Converter/Vender)' }
+
+    // Group by funnel stage
+    const byStage: Record<string, typeof clientProducts> = { tofu: [], mofu: [], bofu: [] }
+    for (const p of clientProducts) {
+      const stage = (p.funnel_stage as string) in byStage ? p.funnel_stage as string : 'tofu'
+      byStage[stage].push(p)
+    }
+
+    const productLines: string[] = []
+    for (const stage of ['tofu', 'mofu', 'bofu'] as const) {
+      if (byStage[stage].length === 0) continue
+      productLines.push(`\n${stageNames[stage]}:`)
+      for (const p of byStage[stage]) {
+        const price = p.price_label ? ` (${p.price_label})` : p.type === 'free' ? ' (Grátis)' : ''
+        const cta = p.checkout_url ? ` | CTA: ${p.checkout_url}` : ''
+        const promise = p.promise ? ` — "${p.promise}"` : ''
+        productLines.push(`• ${p.name}${price}${promise}${cta}`)
+      }
+    }
+
+    if (productLines.length > 0) {
+      parts.push(`ECOSSISTEMA DE PRODUTOS (use para sugerir o CTA mais adequado ao contexto do conteúdo):${productLines.join('\n')}
+
+REGRA DE FUNIL:
+- Conteúdo de topo (educativo/atrativo) → sugira produto TOFU ou MOFU como CTA
+- Conteúdo de fundo (case, prova social, comparação) → sugira produto BOFU como CTA
+- Nunca ofereça High Ticket para audiência fria
+- Sempre inclua o link de checkout no CTA quando disponível`)
+    }
+  }
+
   if (parts.length === 0) return ''
 
   return `\n\n---\n${parts.join('\n\n---\n')}\n---\n`

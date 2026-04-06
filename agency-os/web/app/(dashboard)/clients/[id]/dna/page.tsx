@@ -7,6 +7,7 @@ import { DNAStructured } from '@/components/dna/DNAStructured'
 import { KnowledgeFiles } from '@/components/dna/KnowledgeFiles'
 import { DNATabNav } from '@/components/dna/DNATabNav'
 import { DNAStyleguide } from '@/components/dna/DNAStyleguide'
+import { ProductEcosystem } from '@/components/dna/ProductEcosystem'
 
 type PageProps = {
   params: Promise<{ id: string }>
@@ -27,7 +28,7 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
   if (!client) notFound()
 
   // Fetch all data in parallel
-  const [{ data: dnaMemory }, { data: structuredDNA }, { data: knowledgeFiles }] =
+  const [{ data: dnaMemory }, { data: structuredDNA }, { data: knowledgeFiles }, { data: products }] =
     await Promise.all([
       supabase
         .from('client_memories')
@@ -47,12 +48,17 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
         .select('*')
         .eq('client_id', id)
         .order('created_at', { ascending: false }),
+      supabase
+        .from('client_products')
+        .select('*')
+        .eq('client_id', id)
+        .order('funnel_stage', { ascending: true })
+        .order('created_at', { ascending: true }),
     ])
 
   const allFiles = knowledgeFiles ?? []
   const syncedFiles = allFiles.filter(f => f.sync_status === 'synced')
 
-  // Styleguide: .html and .css files that are synced
   const styleguideFiles = syncedFiles.filter(f => {
     const name = (f.name as string).toLowerCase()
     return name.endsWith('.html') || name.endsWith('.css') || f.file_type === 'html' || f.file_type === 'css'
@@ -101,6 +107,11 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
           content_text: f.content_text as string | null,
           sync_status: f.sync_status as string,
         }))} />
+      )}
+
+      {tab === 'products' && (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        <ProductEcosystem clientId={id} initialProducts={(products ?? []) as any} />
       )}
     </div>
   )

@@ -1,14 +1,15 @@
 'use client'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { Layers, FileCode2, FolderOpen, Palette } from 'lucide-react'
+import { Layers, FileCode2, FolderOpen, Palette, ShoppingBag } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const TABS = [
-  { key: 'structured', label: 'DNA Estruturado',          icon: Layers    },
-  { key: 'document',   label: 'Documento Gerado',         icon: FileCode2 },
-  { key: 'knowledge',  label: 'Arquivos de Conhecimento', icon: FolderOpen },
-  { key: 'styleguide', label: 'Styleguide',               icon: Palette   },
+  { key: 'structured', label: 'DNA Estruturado',          icon: Layers      },
+  { key: 'document',   label: 'Documento Gerado',         icon: FileCode2   },
+  { key: 'knowledge',  label: 'Arquivos de Conhecimento', icon: FolderOpen  },
+  { key: 'styleguide', label: 'Styleguide',               icon: Palette     },
+  { key: 'products',   label: 'Produtos & Ofertas',       icon: ShoppingBag },
 ]
 
 export function DNATabNav({ clientId }: { clientId: string }) {
@@ -17,7 +18,7 @@ export function DNATabNav({ clientId }: { clientId: string }) {
   const activeTab = searchParams.get('tab') ?? 'structured'
 
   return (
-    <div className="flex items-center gap-1 mb-6 border-b border-[var(--color-border-subtle)]">
+    <div className="flex items-center gap-1 mb-6 border-b border-[var(--color-border-subtle)] overflow-x-auto">
       {TABS.map(({ key, label, icon: Icon }) => (
         <Link
           key={key}
