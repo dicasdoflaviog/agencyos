@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
-import { Upload, RefreshCw, Download, Trash2, FileText, CheckCircle2, AlertCircle, Clock } from 'lucide-react'
+import { Upload, RefreshCw, Download, Trash2, FileText, CheckCircle2, AlertCircle, Clock, Code2, FileJson, FileCode } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 interface KnowledgeFile {
   id: string
@@ -40,9 +41,21 @@ const TYPE_COLORS: Record<string, string> = {
   PDF:  'bg-red-500/10 text-red-400 border-red-500/20',
   TXT:  'bg-blue-500/10 text-blue-400 border-blue-500/20',
   DOCX: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)] border-[var(--color-accent)]/20',
+  HTML: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+  CSS:  'bg-purple-500/10 text-purple-400 border-purple-500/20',
+  JSON: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
+  MD:   'bg-teal-500/10 text-teal-400 border-teal-500/20',
+}
+
+const TYPE_ICONS: Record<string, React.ElementType> = {
+  HTML: Code2,
+  CSS:  FileCode,
+  JSON: FileJson,
+  MD:   FileText,
 }
 
 export function KnowledgeFiles({ clientId, initialFiles }: Props) {
+  const router = useRouter()
   const [files, setFiles] = useState<KnowledgeFile[]>(initialFiles)
   const [uploading, setUploading] = useState(false)
   const [syncingId, setSyncingId] = useState<string | null>(null)
@@ -80,12 +93,15 @@ export function KnowledgeFiles({ clientId, initialFiles }: Props) {
     setFiles(prev => prev.map(f => f.id === fileId ? { ...f, sync_status: 'syncing' } : f))
     const res = await fetch(`/api/clients/${clientId}/knowledge/${fileId}/sync`, { method: 'POST' })
     const body = await res.json()
+    const synced = res.ok
     setFiles(prev => prev.map(f =>
       f.id === fileId
-        ? { ...f, sync_status: res.ok ? 'synced' : 'error', sync_error: body.error ?? null, synced_at: res.ok ? new Date().toISOString() : null }
+        ? { ...f, sync_status: synced ? 'synced' : 'error', sync_error: body.error ?? null, synced_at: synced ? new Date().toISOString() : null }
         : f
     ))
     setSyncingId(null)
+    // Refresh server data so Styleguide tab picks up the new HTML/CSS content
+    if (synced) router.refresh()
   }
 
   async function downloadFile(fileId: string, fileName: string) {
@@ -124,7 +140,7 @@ export function KnowledgeFiles({ clientId, initialFiles }: Props) {
         <input
           ref={fileInputRef}
           type="file"
-          accept=".pdf,.txt,.docx,.doc"
+          accept=".pdf,.txt,.docx,.doc,.html,.css,.json,.md"
           className="hidden"
           onChange={handleFileInput}
         />
@@ -137,7 +153,7 @@ export function KnowledgeFiles({ clientId, initialFiles }: Props) {
           <p className="text-sm font-medium text-[var(--color-text-primary)]">
             {uploading ? 'Enviando arquivo…' : 'Clique ou arraste um arquivo'}
           </p>
-          <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">PDF, TXT, DOCX — até 10 MB</p>
+          <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">PDF, TXT, DOCX, HTML, CSS, JSON ou MD — até 10 MB</p>
         </div>
       </div>
 
@@ -173,7 +189,7 @@ export function KnowledgeFiles({ clientId, initialFiles }: Props) {
                   <tr key={file.id} className="border-b border-[var(--color-border-subtle)] last:border-0 hover:bg-[var(--color-bg-elevated)]/40 transition-colors">
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2 min-w-0">
-                        <FileText size={14} className="shrink-0 text-[var(--color-text-muted)]" />
+                        {(() => { const Icon = TYPE_ICONS[file.file_type] ?? FileText; return <Icon size={14} className="shrink-0 text-[var(--color-text-muted)]" /> })()}
                         <span className="truncate font-medium text-[var(--color-text-primary)] max-w-[180px]" title={file.name}>
                           {file.name}
                         </span>

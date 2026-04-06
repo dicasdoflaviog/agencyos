@@ -47,7 +47,9 @@ export async function POST(_req: Request, { params }: Params) {
     const fileBuffer = await fileData.arrayBuffer()
     let contentText = ''
 
-    if (file.file_type === 'TXT') {
+    if (file.file_type === 'TXT' || file.file_type === 'HTML' || file.file_type === 'CSS' ||
+        file.file_type === 'JSON' || file.file_type === 'MD') {
+      // All text-based formats: decode as raw UTF-8 text
       contentText = new TextDecoder('utf-8').decode(fileBuffer)
     } else if (file.file_type === 'PDF') {
       const base64 = Buffer.from(fileBuffer).toString('base64')
@@ -66,11 +68,19 @@ export async function POST(_req: Request, { params }: Params) {
         }] as Anthropic.MessageParam[],
       })
       contentText = response.content[0].type === 'text' ? response.content[0].text : ''
+    } else if (file.file_type === 'DOCX') {
+      // DOCX is binary — extract raw readable text as best-effort
+      // Replace null bytes and binary chars, keep printable ASCII + Latin + line breaks
+      const raw = new TextDecoder('utf-8', { fatal: false }).decode(fileBuffer)
+      contentText = raw.replace(/[^\x09\x0A\x0D\x20-\x7E\xA0-\xFF]/g, ' ').replace(/ {3,}/g, ' ').trim()
+      if (contentText.length < 100) throw new Error('DOCX com conteúdo binário não legível. Converta para PDF ou TXT antes de sincronizar.')
     } else {
-      throw new Error(`Extração de texto não suportada para ${file.file_type}. Use PDF ou TXT.`)
+      throw new Error(`Formato ${file.file_type} não suportado. Use PDF, TXT, HTML, CSS, JSON, MD ou DOCX.`)
     }
 
-    const truncated = contentText.slice(0, 8000)
+    // HTML/CSS/JSON get more space since they're structured data; others stay at 8000 chars
+    const isStructured = ['HTML', 'CSS', 'JSON'].includes(file.file_type)
+    const truncated = contentText.slice(0, isStructured ? 16000 : 8000)
 
     // Remove old memory for this file and insert fresh
     await supabase
