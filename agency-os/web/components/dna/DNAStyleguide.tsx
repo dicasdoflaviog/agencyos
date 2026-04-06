@@ -320,28 +320,29 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
     <div className="space-y-4">
       <FileSelector files={files} selected={selected} onSelect={setSelected} activeFile={activeFile} view={view} onViewChange={setView} />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* ── Main preview / code ── */}
-        <div
-          className="lg:col-span-2 overflow-hidden rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]"
-          style={{ minHeight: 520 }}
-        >
+      {/* Fixed-height grid so both columns can use height:100% */}
+      <div
+        className="grid grid-cols-1 gap-4 lg:grid-cols-3"
+        style={{ height: 'calc(100vh - 280px)', minHeight: 560 }}
+      >
+        {/* ── Main preview / code — fills full height, scrolls inside ── */}
+        <div className="lg:col-span-2 flex flex-col overflow-hidden rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
           {view === 'preview' ? (
             <iframe
               srcDoc={htmlContent ?? ''}
               sandbox="allow-scripts"
-              style={{ width: '100%', height: '100%', minHeight: 520, border: 'none', display: 'block' }}
+              style={{ width: '100%', height: '100%', border: 'none', display: 'block', flex: 1 }}
               title="Styleguide Preview"
             />
           ) : (
-            <pre className="h-[520px] overflow-auto p-4 text-[11px] leading-relaxed text-[var(--color-text-secondary)] font-mono whitespace-pre-wrap break-words">
+            <pre className="h-full overflow-auto p-4 text-[11px] leading-relaxed text-[var(--color-text-secondary)] font-mono whitespace-pre-wrap break-words">
               {activeFile?.content_text ?? ''}
             </pre>
           )}
         </div>
 
-        {/* ── Token panel ── */}
-        <div className="space-y-3 overflow-y-auto lg:max-h-[calc(100vh-200px)]">
+        {/* ── Token panel — independent scroll, never pushes iframe ── */}
+        <div className="h-full overflow-y-auto space-y-3 pr-0.5">
 
           {/* Paleta de Cores */}
           {colorEntries.length > 0 && (
