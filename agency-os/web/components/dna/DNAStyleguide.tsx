@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useMemo, ElementType, ReactNode } from 'react'
+import { useState, useMemo, useEffect, useRef, useCallback, ElementType, ReactNode } from 'react'
 import {
-  Palette, Code2, ChevronDown, FileCode, Monitor,
-  RefreshCw, Type, Layers, Ruler, Square,
+  Palette, FileCode, ChevronDown, RefreshCw,
+  Type, Layers, Ruler, Square, GripVertical,
 } from 'lucide-react'
 import { extractDesignTokens } from '@/lib/ai/extract-design-tokens'
 
@@ -36,7 +36,6 @@ function prepareHtml(html: string): string {
   return html
 }
 
-/** Extracts raw CSS from a CSS file or from <style> blocks inside HTML. */
 function extractCss(content: string, fileType: string): string {
   if (fileType.toUpperCase() === 'CSS') return content
   const blocks: string[] = []
@@ -46,7 +45,6 @@ function extractCss(content: string, fileType: string): string {
   return blocks.join('\n')
 }
 
-/** Prevents </style> inside injected CSS from breaking srcDoc parsing. */
 function escapeCss(css: string): string {
   return css.replace(/<\/style>/gi, '<\\/style>')
 }
@@ -197,83 +195,83 @@ function RadiusBlocks({ radii }: { radii: Record<string, string> }) {
   )
 }
 
-// ── FileSelector ──────────────────────────────────────────────────────────────
-
-function FileSelector({
-  files, selected, onSelect, activeFile, view, onViewChange,
-}: {
-  files: StyleguideFile[]
-  selected: string
-  onSelect: (id: string) => void
-  activeFile: StyleguideFile | undefined
-  view: 'preview' | 'code'
-  onViewChange: (v: 'preview' | 'code') => void
-}) {
-  return (
-    <div className="flex items-center justify-between gap-3">
-      {files.length > 1 ? (
-        <div className="relative">
-          <select
-            value={selected}
-            onChange={e => onSelect(e.target.value)}
-            className="appearance-none rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] py-1.5 pl-3 pr-8 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-amber-500/40"
-          >
-            {files.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
-          </select>
-          <ChevronDown size={12} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />
-        </div>
-      ) : (
-        <div className="flex items-center gap-1.5 text-sm text-[var(--color-text-secondary)]">
-          <FileCode size={13} className="text-amber-400" />
-          {activeFile?.name}
-        </div>
-      )}
-
-      <div className="flex items-center rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] p-0.5">
-        {([['preview', Monitor, 'Preview'], ['code', Code2, 'Código']] as const).map(([id, Icon, label]) => (
-          <button
-            key={id}
-            onClick={() => onViewChange(id)}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
-              view === id
-                ? 'bg-[var(--color-bg-overlay)] text-[var(--color-text-primary)]'
-                : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
-            }`}
-          >
-            <Icon size={12} /> {label}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 // ── Main Component ────────────────────────────────────────────────────────────
 
 export function DNAStyleguide({ files }: DNAStyleguideProps) {
-  const [selected, setSelected] = useState<string>(files[0]?.id ?? '')
-  const [view, setView] = useState<'preview' | 'code'>('preview')
+  const [selected, setSelected]             = useState<string>(files[0]?.id ?? '')
+  const [editableContent, setEditableContent] = useState<string>(files[0]?.content_text ?? '')
+  const [liveContent, setLiveContent]       = useState<string>(files[0]?.content_text ?? '')
+  const [splitPos, setSplitPos]             = useState(60)
+
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isDragging   = useRef(false)
+  const debounceRef  = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const activeFile = files.find(f => f.id === selected) ?? files[0]
 
-  const htmlContent = useMemo(() => {
-    if (!activeFile?.content_text) return null
-    const ft = (activeFile.file_type ?? '').toUpperCase()
-    if (ft === 'CSS' || activeFile.name.toLowerCase().endsWith('.css')) {
-      return wrapCss(activeFile.content_text)
+  // Reset content when switching files
+  useEffect(() => {
+    const c = activeFile?.content_text ?? ''
+    setEditableContent(c)
+    setLiveContent(c)
+  }, [activeFile?.id])  // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Debounce live preview update by 300ms so typing feels instant
+  const handleCodeChange = useCallback((value: string) => {
+    setEditableContent(value)
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => setLiveContent(value), 300)
+  }, [])
+
+  // Resizer drag logic
+  const handleResizerMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    isDragging.current = true
+    document.body.style.cursor = 'col-resize'
+    document.body.style.userSelect = 'none'
+  }, [])
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      if (!isDragging.current || !containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      const pct  = ((e.clientX - rect.left) / rect.width) * 100
+      setSplitPos(Math.min(Math.max(pct, 20), 80))
     }
-    return prepareHtml(activeFile.content_text)
-  }, [activeFile])
+    const onUp = () => {
+      if (!isDragging.current) return
+      isDragging.current = false
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [])
 
-  const tokens = useMemo(() => {
-    if (!activeFile?.content_text) return null
-    return extractDesignTokens(activeFile.content_text)
-  }, [activeFile])
+  // Derive iframe HTML from live (debounced) content
+  const htmlContent = useMemo(() => {
+    if (!liveContent) return null
+    const ft = (activeFile?.file_type ?? '').toUpperCase()
+    if (ft === 'CSS' || activeFile?.name.toLowerCase().endsWith('.css')) {
+      return wrapCss(liveContent)
+    }
+    return prepareHtml(liveContent)
+  }, [liveContent, activeFile])
 
-  const cssForPreviews = useMemo(() => {
-    if (!activeFile?.content_text) return ''
-    return extractCss(activeFile.content_text, activeFile.file_type ?? '')
-  }, [activeFile])
+  // Derive tokens from live content for the sidebar
+  const tokens = useMemo(
+    () => (liveContent ? extractDesignTokens(liveContent) : null),
+    [liveContent],
+  )
+
+  const cssForPreviews = useMemo(
+    () => (liveContent ? extractCss(liveContent, activeFile?.file_type ?? '') : ''),
+    [liveContent, activeFile],
+  )
 
   const colorEntries = useMemo(
     () => (tokens ? Object.entries(tokens.colors) : []),
@@ -299,52 +297,99 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
   }
 
   // ── Not synced ───────────────────────────────────────────────────────────────
-  if (!htmlContent && view === 'preview') {
+  if (!activeFile?.content_text) {
     return (
-      <div className="space-y-4">
-        <FileSelector files={files} selected={selected} onSelect={setSelected} activeFile={activeFile} view={view} onViewChange={setView} />
-        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-amber-500/30 bg-amber-500/5 py-16 text-center">
-          <RefreshCw size={22} className="mb-3 text-amber-400/70" />
-          <p className="text-sm font-medium text-[var(--color-text-primary)]">Arquivo não sincronizado</p>
-          <p className="mt-1 max-w-xs text-xs text-[var(--color-text-muted)]">
-            Vá para a aba <strong className="text-amber-400">Arquivos de Conhecimento</strong>, localize{' '}
-            <span className="font-mono text-amber-400">{activeFile?.name}</span> e clique em{' '}
-            <strong className="text-[var(--color-text-secondary)]">Sincronizar</strong>.
-          </p>
-        </div>
+      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-amber-500/30 bg-amber-500/5 py-16 text-center">
+        <RefreshCw size={22} className="mb-3 text-amber-400/70" />
+        <p className="text-sm font-medium text-[var(--color-text-primary)]">Arquivo não sincronizado</p>
+        <p className="mt-1 max-w-xs text-xs text-[var(--color-text-muted)]">
+          Vá para a aba <strong className="text-amber-400">Arquivos de Conhecimento</strong>, localize{' '}
+          <span className="font-mono text-amber-400">{activeFile?.name}</span> e clique em{' '}
+          <strong className="text-[var(--color-text-secondary)]">Sincronizar</strong>.
+        </p>
       </div>
     )
   }
 
   return (
-    <div className="space-y-4">
-      <FileSelector files={files} selected={selected} onSelect={setSelected} activeFile={activeFile} view={view} onViewChange={setView} />
+    <div className="flex flex-col gap-3" style={{ height: 'calc(100vh - 240px)', minHeight: 560 }}>
 
-      {/* Fixed-height grid so both columns can use height:100% */}
-      <div
-        className="grid grid-cols-1 gap-4 lg:grid-cols-3"
-        style={{ height: 'calc(100vh - 280px)', minHeight: 560 }}
-      >
-        {/* ── Main preview / code — fills full height, scrolls inside ── */}
-        <div className="lg:col-span-2 flex flex-col overflow-hidden rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]">
-          {view === 'preview' ? (
+      {/* ── File bar ── */}
+      <div className="flex items-center gap-3">
+        {files.length > 1 ? (
+          <div className="relative">
+            <select
+              value={selected}
+              onChange={e => {
+                setSelected(e.target.value)
+              }}
+              className="appearance-none rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] py-1.5 pl-3 pr-8 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-amber-500/40"
+            >
+              {files.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+            </select>
+            <ChevronDown size={12} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />
+          </div>
+        ) : (
+          <div className="flex items-center gap-1.5 text-sm text-[var(--color-text-secondary)]">
+            <FileCode size={13} className="text-amber-400" />
+            <span>{activeFile?.name}</span>
+          </div>
+        )}
+        <span className="text-[10px] text-[var(--color-text-muted)]">
+          Edite o código — o preview atualiza automaticamente
+        </span>
+      </div>
+
+      {/* ── Split view + token sidebar ── */}
+      <div className="flex flex-1 gap-3 overflow-hidden min-h-0">
+
+        {/* ── Preview | Resizer | Code ── */}
+        <div ref={containerRef} className="flex flex-1 min-w-0 overflow-hidden rounded-xl border border-[var(--color-border-subtle)]">
+
+          {/* Preview */}
+          <div
+            className="relative overflow-hidden bg-white"
+            style={{ width: `${splitPos}%`, flexShrink: 0 }}
+          >
             <iframe
               srcDoc={htmlContent ?? ''}
               sandbox="allow-scripts"
-              style={{ width: '100%', height: '100%', border: 'none', display: 'block', flex: 1 }}
+              style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
               title="Styleguide Preview"
             />
-          ) : (
-            <pre className="h-full overflow-auto p-4 text-[11px] leading-relaxed text-[var(--color-text-secondary)] font-mono whitespace-pre-wrap break-words">
-              {activeFile?.content_text ?? ''}
-            </pre>
-          )}
+          </div>
+
+          {/* Drag handle */}
+          <div
+            className="relative flex w-1.5 shrink-0 cursor-col-resize flex-col items-center justify-center bg-[var(--color-border-subtle)] transition-colors hover:bg-amber-500/60 active:bg-amber-500"
+            onMouseDown={handleResizerMouseDown}
+            title="Arraste para redimensionar"
+          >
+            <GripVertical size={14} className="text-[var(--color-text-muted)] opacity-60" />
+          </div>
+
+          {/* Code editor */}
+          <div className="flex min-w-0 flex-1 flex-col overflow-hidden bg-[var(--color-bg-surface)]">
+            <div className="flex items-center gap-2 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-1.5 shrink-0">
+              <FileCode size={11} className="text-amber-400 shrink-0" />
+              <span className="truncate text-[10px] font-mono text-[var(--color-text-muted)]">{activeFile?.name}</span>
+              <span className="ml-auto shrink-0 text-[9px] text-[var(--color-text-muted)] opacity-60">live</span>
+            </div>
+            <textarea
+              value={editableContent}
+              onChange={e => handleCodeChange(e.target.value)}
+              className="h-full flex-1 resize-none bg-transparent p-3 text-[11px] leading-relaxed text-[var(--color-text-secondary)] outline-none"
+              style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace" }}
+              spellCheck={false}
+              autoCapitalize="off"
+              autoCorrect="off"
+            />
+          </div>
         </div>
 
-        {/* ── Token panel — independent scroll, never pushes iframe ── */}
-        <div className="h-full overflow-y-auto space-y-3 pr-0.5">
+        {/* ── Token sidebar ── */}
+        <div className="w-64 shrink-0 space-y-3 overflow-y-auto">
 
-          {/* Paleta de Cores */}
           {colorEntries.length > 0 && (
             <Section title="Paleta de Cores" icon={Palette}>
               <div className="grid grid-cols-2 gap-x-3 gap-y-3">
@@ -369,26 +414,22 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
             </Section>
           )}
 
-          {/* Tipografia */}
           {cssForPreviews && (
             <Section title="Tipografia" icon={Type}>
               <TypographyPreview cssContent={cssForPreviews} />
             </Section>
           )}
 
-          {/* Componentes Ativos */}
           {cssForPreviews && (
             <Section title="Componentes Ativos" icon={Layers}>
               <ComponentGallery cssContent={cssForPreviews} />
             </Section>
           )}
 
-          {/* Espaçamento */}
           <Section title="Espaçamento" icon={Ruler}>
             <SpacingBlocks spacings={tokens?.spacings ?? {}} />
           </Section>
 
-          {/* Border Radius */}
           <Section title="Border Radius" icon={Square}>
             <RadiusBlocks radii={tokens?.radii ?? {}} />
           </Section>
@@ -397,7 +438,7 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
             <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
               <p className="flex items-center gap-1.5 text-[10px] text-amber-400/80">
                 <Palette size={10} />
-                Tokens extraídos e injetados no contexto do @ORACLE automaticamente.
+                Tokens injetados no contexto do @ORACLE automaticamente.
               </p>
             </div>
           )}
