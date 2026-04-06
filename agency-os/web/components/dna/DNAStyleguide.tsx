@@ -49,7 +49,7 @@ function escapeCss(css: string): string {
   return css.replace(/<\/style>/gi, '<\\/style>')
 }
 
-// ── Sub-components ────────────────────────────────────────────────────────────
+// ── Token section wrapper ─────────────────────────────────────────────────────
 
 function Section({ title, icon: Icon, children }: {
   title: string
@@ -57,26 +57,24 @@ function Section({ title, icon: Icon, children }: {
   children: ReactNode
 }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] overflow-hidden">
-      <div className="flex items-center gap-2 border-b border-[var(--color-border-subtle)] px-3.5 py-2.5">
-        <Icon size={11} className="text-amber-400/70 shrink-0" />
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">{title}</p>
+    <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] overflow-hidden">
+      <div className="flex items-center gap-1.5 border-b border-[var(--color-border-subtle)] px-3 py-2">
+        <Icon size={10} className="text-amber-400/70 shrink-0" />
+        <p className="text-[9px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">{title}</p>
       </div>
-      <div className="p-3.5">{children}</div>
+      <div className="p-3">{children}</div>
     </div>
   )
 }
 
+// ── Token sub-components ──────────────────────────────────────────────────────
+
 function ColorSwatch({ name, value }: { name: string; value: string }) {
   return (
-    <div className="flex flex-col gap-1">
-      <div
-        className="h-9 w-full rounded-lg border border-white/10"
-        style={{ background: value }}
-        title={`--${name}: ${value}`}
-      />
+    <div className="flex flex-col gap-0.5">
+      <div className="h-8 w-full rounded-md border border-white/10" style={{ background: value }} title={`--${name}: ${value}`} />
       <p className="truncate text-[8px] font-mono text-[var(--color-text-muted)] leading-tight">--{name}</p>
-      <p className="truncate text-[9px] font-mono text-[var(--color-text-secondary)] -mt-0.5">{value}</p>
+      <p className="truncate text-[8px] font-mono text-[var(--color-text-secondary)]">{value}</p>
     </div>
   )
 }
@@ -85,62 +83,44 @@ function TypographyPreview({ cssContent }: { cssContent: string }) {
   const src = useMemo(() => {
     const safe = escapeCss(cssContent)
     return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-*{box-sizing:border-box;margin:0;padding:0;}
-${safe}
-body{background:transparent;padding:12px 14px;font-family:var(--font-body,var(--font-family,var(--font-sans,system-ui,sans-serif)));color:var(--color-text-primary,var(--text-primary,#f4f4f5));}
-.lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#52525b;margin-bottom:3px;}
-.h1{font-family:var(--font-heading,var(--font-display,var(--font-family,system-ui,sans-serif)));font-size:20px;font-weight:700;line-height:1.2;color:var(--color-text-primary,var(--text-primary,#f4f4f5));margin-bottom:10px;}
-.h2{font-family:var(--font-heading,var(--font-display,var(--font-family,system-ui,sans-serif)));font-size:14px;font-weight:600;color:var(--color-text-secondary,var(--text-secondary,#a1a1aa));margin-bottom:10px;}
-.body-t{font-size:12px;line-height:1.6;color:var(--color-text-muted,var(--text-muted,#71717a));margin-bottom:10px;}
-.mono-t{font-family:var(--font-mono,'Fira Code',monospace);font-size:10px;color:var(--color-accent,var(--accent,var(--primary,#f59e0b)));}
+*{box-sizing:border-box;margin:0;padding:0;}${safe}
+body{background:transparent;padding:10px 12px;font-family:var(--font-body,var(--font-family,system-ui,sans-serif));color:var(--color-text-primary,#f4f4f5);}
+.lbl{font-size:7px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#52525b;margin-bottom:2px;}
+.h1{font-family:var(--font-heading,var(--font-display,system-ui,sans-serif));font-size:18px;font-weight:700;color:var(--color-text-primary,#f4f4f5);margin-bottom:8px;}
+.h2{font-family:var(--font-heading,var(--font-display,system-ui,sans-serif));font-size:13px;font-weight:600;color:var(--color-text-secondary,#a1a1aa);margin-bottom:8px;}
+.body-t{font-size:11px;line-height:1.55;color:var(--color-text-muted,#71717a);margin-bottom:8px;}
+.mono-t{font-family:var(--font-mono,'Fira Code',monospace);font-size:9px;color:var(--color-accent,var(--accent,#f59e0b));}
 </style></head><body>
-<p class="lbl">H1 — Heading</p><p class="h1">Agency OS Platform</p>
-<p class="lbl">H2 — Subtitle</p><p class="h2">Gestão de Criativos com IA</p>
-<p class="lbl">Body</p><p class="body-t">Crie e publique conteúdo de alto impacto para seus clientes.</p>
+<p class="lbl">H1</p><p class="h1">Agency OS Platform</p>
+<p class="lbl">H2</p><p class="h2">Gestão de Criativos com IA</p>
+<p class="lbl">Body</p><p class="body-t">Crie conteúdo de alto impacto para seus clientes.</p>
 <p class="lbl">Mono</p><p class="mono-t">const brand = await oracle.analyze()</p>
 </body></html>`
   }, [cssContent])
-
-  return (
-    <iframe
-      srcDoc={src}
-      sandbox="allow-scripts"
-      style={{ width: '100%', height: 188, border: 'none', display: 'block' }}
-      title="Typography Preview"
-    />
-  )
+  return <iframe srcDoc={src} sandbox="allow-scripts" style={{ width: '100%', height: 170, border: 'none', display: 'block' }} title="Typography" />
 }
 
 function ComponentGallery({ cssContent }: { cssContent: string }) {
   const src = useMemo(() => {
     const safe = escapeCss(cssContent)
     return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-*{box-sizing:border-box;margin:0;padding:0;}
-${safe}
-body{background:transparent;padding:12px 14px;font-family:var(--font-body,var(--font-family,system-ui,sans-serif));display:flex;flex-direction:column;gap:11px;}
-.lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#52525b;margin-bottom:5px;}
-.row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
-.btn{background:var(--color-primary,var(--primary,var(--accent,var(--color-accent,#f59e0b))));color:var(--color-on-primary,var(--on-primary,#09090b));border:none;border-radius:var(--radius-md,var(--radius,var(--border-radius,6px)));padding:6px 14px;font-size:12px;font-weight:600;font-family:inherit;cursor:default;}
-.btn-ghost{background:transparent;color:var(--color-text-secondary,var(--text-secondary,#a1a1aa));border:1px solid var(--color-border,var(--border,rgba(255,255,255,.15)));border-radius:var(--radius-md,var(--radius,6px));padding:5px 14px;font-size:12px;font-family:inherit;cursor:default;}
-.badge{background:var(--color-primary,var(--primary,var(--accent,#f59e0b)));color:var(--color-on-primary,var(--on-primary,#09090b));border-radius:999px;padding:2px 9px;font-size:10px;font-weight:600;font-family:inherit;}
-.badge-ghost{background:var(--color-bg-elevated,var(--surface,rgba(255,255,255,.06)));color:var(--color-text-secondary,var(--text-secondary,#a1a1aa));border:1px solid var(--color-border,var(--border,rgba(255,255,255,.12)));border-radius:999px;padding:2px 9px;font-size:10px;font-family:inherit;}
-.input{border:1px solid var(--color-border,var(--border,rgba(255,255,255,.12)));background:var(--color-bg-elevated,var(--surface,rgba(255,255,255,.04)));color:var(--color-text-primary,var(--text-primary,#f4f4f5));border-radius:var(--radius-md,var(--radius,6px));padding:6px 10px;font-size:12px;font-family:inherit;width:100%;outline:none;}
-.input::placeholder{color:var(--color-text-muted,var(--text-muted,#52525b));}
+*{box-sizing:border-box;margin:0;padding:0;}${safe}
+body{background:transparent;padding:10px 12px;font-family:var(--font-body,var(--font-family,system-ui,sans-serif));display:flex;flex-direction:column;gap:9px;}
+.lbl{font-size:7px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#52525b;margin-bottom:4px;}
+.row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.btn{background:var(--color-primary,var(--primary,var(--accent,#f59e0b)));color:var(--color-on-primary,var(--on-primary,#09090b));border:none;border-radius:var(--radius-md,var(--radius,6px));padding:5px 12px;font-size:11px;font-weight:600;font-family:inherit;cursor:default;}
+.btn-ghost{background:transparent;color:var(--color-text-secondary,#a1a1aa);border:1px solid var(--color-border,rgba(255,255,255,.15));border-radius:var(--radius-md,var(--radius,6px));padding:4px 12px;font-size:11px;font-family:inherit;cursor:default;}
+.badge{background:var(--color-primary,var(--primary,var(--accent,#f59e0b)));color:var(--color-on-primary,#09090b);border-radius:999px;padding:1px 8px;font-size:9px;font-weight:600;font-family:inherit;}
+.badge-ghost{background:rgba(255,255,255,.06);color:var(--color-text-secondary,#a1a1aa);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:1px 8px;font-size:9px;font-family:inherit;}
+.input{border:1px solid var(--color-border,rgba(255,255,255,.12));background:rgba(255,255,255,.04);color:var(--color-text-primary,#f4f4f5);border-radius:var(--radius-md,var(--radius,6px));padding:5px 9px;font-size:11px;font-family:inherit;width:100%;outline:none;}
+.input::placeholder{color:#52525b;}
 </style></head><body>
 <div><p class="lbl">Botões</p><div class="row"><button class="btn">Primário</button><button class="btn-ghost">Ghost</button></div></div>
 <div><p class="lbl">Badges</p><div class="row"><span class="badge">Ativo</span><span class="badge-ghost">Rascunho</span></div></div>
 <div><p class="lbl">Input</p><input class="input" placeholder="Digite aqui..." readonly /></div>
 </body></html>`
   }, [cssContent])
-
-  return (
-    <iframe
-      srcDoc={src}
-      sandbox="allow-scripts"
-      style={{ width: '100%', height: 188, border: 'none', display: 'block' }}
-      title="Component Gallery"
-    />
-  )
+  return <iframe srcDoc={src} sandbox="allow-scripts" style={{ width: '100%', height: 170, border: 'none', display: 'block' }} title="Components" />
 }
 
 function SpacingBlocks({ spacings }: { spacings: Record<string, string> }) {
@@ -148,20 +128,14 @@ function SpacingBlocks({ spacings }: { spacings: Record<string, string> }) {
   const scale = hasTokens
     ? Object.entries(spacings).slice(0, 8)
     : [['4px', '4px'], ['8px', '8px'], ['12px', '12px'], ['16px', '16px'], ['24px', '24px'], ['32px', '32px']]
-
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       {scale.map(([k, v]) => {
         const px = parseFloat(v) || parseFloat(k) || 8
         return (
-          <div key={k} className="flex items-center gap-2.5">
-            <div
-              className="shrink-0 h-[10px] rounded-sm bg-amber-500/40"
-              style={{ width: Math.min(px * 2.5, 100) }}
-            />
-            <span className="text-[10px] font-mono text-[var(--color-text-muted)]">
-              {hasTokens ? `--${k}: ${v}` : v}
-            </span>
+          <div key={k} className="flex items-center gap-2">
+            <div className="shrink-0 h-2 rounded-sm bg-amber-500/40" style={{ width: Math.min(px * 2.5, 90) }} />
+            <span className="text-[9px] font-mono text-[var(--color-text-muted)]">{hasTokens ? `--${k}: ${v}` : v}</span>
           </div>
         )
       })}
@@ -174,21 +148,13 @@ function RadiusBlocks({ radii }: { radii: Record<string, string> }) {
   const entries = hasTokens
     ? Object.entries(radii).slice(0, 6)
     : [['sm', '4px'], ['md', '8px'], ['lg', '12px'], ['xl', '16px'], ['2xl', '24px'], ['full', '9999px']]
-
   return (
-    <div className="grid grid-cols-3 gap-2.5">
+    <div className="grid grid-cols-3 gap-2">
       {entries.map(([k, v]) => (
-        <div key={k} className="flex flex-col items-center gap-1.5">
-          <div
-            className="h-8 w-8 border-2 border-amber-500/50 bg-amber-500/10"
-            style={{ borderRadius: v }}
-          />
-          <div className="text-center">
-            <p className="text-[8px] font-mono text-[var(--color-text-muted)] leading-tight truncate max-w-[60px]">
-              {hasTokens ? `--${k}` : k}
-            </p>
-            <p className="text-[9px] text-[var(--color-text-secondary)]">{v}</p>
-          </div>
+        <div key={k} className="flex flex-col items-center gap-1">
+          <div className="h-7 w-7 border-2 border-amber-500/50 bg-amber-500/10" style={{ borderRadius: v }} />
+          <p className="text-[7px] font-mono text-[var(--color-text-muted)] truncate max-w-[52px]">{hasTokens ? `--${k}` : k}</p>
+          <p className="text-[8px] text-[var(--color-text-secondary)] -mt-0.5">{v}</p>
         </div>
       ))}
     </div>
@@ -198,10 +164,10 @@ function RadiusBlocks({ radii }: { radii: Record<string, string> }) {
 // ── Main Component ────────────────────────────────────────────────────────────
 
 export function DNAStyleguide({ files }: DNAStyleguideProps) {
-  const [selected, setSelected]             = useState<string>(files[0]?.id ?? '')
+  const [selected, setSelected]               = useState<string>(files[0]?.id ?? '')
   const [editableContent, setEditableContent] = useState<string>(files[0]?.content_text ?? '')
-  const [liveContent, setLiveContent]       = useState<string>(files[0]?.content_text ?? '')
-  const [splitPos, setSplitPos]             = useState(60)
+  const [liveContent, setLiveContent]         = useState<string>(files[0]?.content_text ?? '')
+  const [splitPos, setSplitPos]               = useState(65)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const isDragging   = useRef(false)
@@ -209,21 +175,18 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
 
   const activeFile = files.find(f => f.id === selected) ?? files[0]
 
-  // Reset content when switching files
   useEffect(() => {
     const c = activeFile?.content_text ?? ''
     setEditableContent(c)
     setLiveContent(c)
   }, [activeFile?.id])  // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Debounce live preview update by 300ms so typing feels instant
   const handleCodeChange = useCallback((value: string) => {
     setEditableContent(value)
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => setLiveContent(value), 300)
   }, [])
 
-  // Resizer drag logic
   const handleResizerMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     isDragging.current = true
@@ -235,8 +198,7 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
     const onMove = (e: MouseEvent) => {
       if (!isDragging.current || !containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
-      const pct  = ((e.clientX - rect.left) / rect.width) * 100
-      setSplitPos(Math.min(Math.max(pct, 20), 80))
+      setSplitPos(Math.min(Math.max(((e.clientX - rect.left) / rect.width) * 100, 30), 80))
     }
     const onUp = () => {
       if (!isDragging.current) return
@@ -252,31 +214,19 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
     }
   }, [])
 
-  // Derive iframe HTML from live (debounced) content
   const htmlContent = useMemo(() => {
     if (!liveContent) return null
     const ft = (activeFile?.file_type ?? '').toUpperCase()
-    if (ft === 'CSS' || activeFile?.name.toLowerCase().endsWith('.css')) {
-      return wrapCss(liveContent)
-    }
+    if (ft === 'CSS' || activeFile?.name.toLowerCase().endsWith('.css')) return wrapCss(liveContent)
     return prepareHtml(liveContent)
   }, [liveContent, activeFile])
 
-  // Derive tokens from live content for the sidebar
-  const tokens = useMemo(
-    () => (liveContent ? extractDesignTokens(liveContent) : null),
-    [liveContent],
-  )
-
+  const tokens       = useMemo(() => liveContent ? extractDesignTokens(liveContent) : null, [liveContent])
   const cssForPreviews = useMemo(
-    () => (liveContent ? extractCss(liveContent, activeFile?.file_type ?? '') : ''),
+    () => liveContent ? extractCss(liveContent, activeFile?.file_type ?? '') : '',
     [liveContent, activeFile],
   )
-
-  const colorEntries = useMemo(
-    () => (tokens ? Object.entries(tokens.colors) : []),
-    [tokens],
-  )
+  const colorEntries = useMemo(() => tokens ? Object.entries(tokens.colors) : [], [tokens])
 
   // ── Empty state ──────────────────────────────────────────────────────────────
   if (files.length === 0) {
@@ -290,7 +240,7 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
           Faça upload de um arquivo <span className="font-mono text-amber-400">.html</span> ou{' '}
           <span className="font-mono text-amber-400">.css</span> na aba{' '}
           <strong className="text-[var(--color-text-secondary)]">Arquivos de Conhecimento</strong>,
-          depois clique em <strong className="text-[var(--color-text-secondary)]">Sincronizar</strong> para visualizar aqui.
+          depois clique em <strong className="text-[var(--color-text-secondary)]">Sincronizar</strong>.
         </p>
       </div>
     )
@@ -303,7 +253,7 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
         <RefreshCw size={22} className="mb-3 text-amber-400/70" />
         <p className="text-sm font-medium text-[var(--color-text-primary)]">Arquivo não sincronizado</p>
         <p className="mt-1 max-w-xs text-xs text-[var(--color-text-muted)]">
-          Vá para a aba <strong className="text-amber-400">Arquivos de Conhecimento</strong>, localize{' '}
+          Vá para <strong className="text-amber-400">Arquivos de Conhecimento</strong>, localize{' '}
           <span className="font-mono text-amber-400">{activeFile?.name}</span> e clique em{' '}
           <strong className="text-[var(--color-text-secondary)]">Sincronizar</strong>.
         </p>
@@ -312,17 +262,15 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
   }
 
   return (
-    <div className="flex flex-col gap-3" style={{ height: 'calc(100vh - 240px)', minHeight: 560 }}>
+    <div className="flex flex-col gap-2.5" style={{ height: 'calc(100vh - 240px)', minHeight: 560 }}>
 
       {/* ── File bar ── */}
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-3">
         {files.length > 1 ? (
           <div className="relative">
             <select
               value={selected}
-              onChange={e => {
-                setSelected(e.target.value)
-              }}
+              onChange={e => setSelected(e.target.value)}
               className="appearance-none rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] py-1.5 pl-3 pr-8 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-amber-500/40"
             >
               {files.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
@@ -335,113 +283,107 @@ export function DNAStyleguide({ files }: DNAStyleguideProps) {
             <span>{activeFile?.name}</span>
           </div>
         )}
-        <span className="text-[10px] text-[var(--color-text-muted)]">
-          Edite o código — o preview atualiza automaticamente
-        </span>
+        <span className="text-[10px] text-[var(--color-text-muted)]">Edite o código — preview atualiza em tempo real</span>
       </div>
 
-      {/* ── Split view + token sidebar ── */}
-      <div className="flex flex-1 gap-3 overflow-hidden min-h-0">
+      {/* ── Main: Preview | Resizer | Right panel ── */}
+      <div
+        ref={containerRef}
+        className="flex flex-1 min-h-0 overflow-hidden rounded-xl border border-[var(--color-border-subtle)]"
+      >
+        {/* ── LEFT: Full-height iframe canvas ── */}
+        <div
+          className="relative shrink-0 overflow-hidden"
+          style={{ width: `${splitPos}%` }}
+        >
+          <iframe
+            srcDoc={htmlContent ?? ''}
+            sandbox="allow-scripts"
+            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+            title="Styleguide Preview"
+          />
+        </div>
 
-        {/* ── Preview | Resizer | Code ── */}
-        <div ref={containerRef} className="flex flex-1 min-w-0 overflow-hidden rounded-xl border border-[var(--color-border-subtle)]">
+        {/* ── DRAG HANDLE ── */}
+        <div
+          className="relative flex w-1.5 shrink-0 cursor-col-resize flex-col items-center justify-center bg-[var(--color-border-subtle)] transition-colors hover:bg-amber-500/60 active:bg-amber-500"
+          onMouseDown={handleResizerMouseDown}
+          title="Arraste para redimensionar"
+        >
+          <GripVertical size={14} className="text-[var(--color-text-muted)] opacity-50" />
+        </div>
 
-          {/* Preview */}
-          <div
-            className="relative overflow-hidden bg-white"
-            style={{ width: `${splitPos}%`, flexShrink: 0 }}
-          >
-            <iframe
-              srcDoc={htmlContent ?? ''}
-              sandbox="allow-scripts"
-              style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-              title="Styleguide Preview"
-            />
-          </div>
+        {/* ── RIGHT PANEL: Code (top) + Tokens (bottom) + Oracle badge (footer) ── */}
+        <div className="flex flex-1 min-w-0 flex-col overflow-hidden bg-[var(--color-bg-surface)]">
 
-          {/* Drag handle */}
-          <div
-            className="relative flex w-1.5 shrink-0 cursor-col-resize flex-col items-center justify-center bg-[var(--color-border-subtle)] transition-colors hover:bg-amber-500/60 active:bg-amber-500"
-            onMouseDown={handleResizerMouseDown}
-            title="Arraste para redimensionar"
-          >
-            <GripVertical size={14} className="text-[var(--color-text-muted)] opacity-60" />
-          </div>
-
-          {/* Code editor */}
-          <div className="flex min-w-0 flex-1 flex-col overflow-hidden bg-[var(--color-bg-surface)]">
-            <div className="flex items-center gap-2 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-1.5 shrink-0">
-              <FileCode size={11} className="text-amber-400 shrink-0" />
+          {/* Code editor — top ~30% */}
+          <div className="flex shrink-0 flex-col border-b border-[var(--color-border-subtle)]" style={{ height: '30%', minHeight: 100 }}>
+            <div className="flex shrink-0 items-center gap-2 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-1.5">
+              <FileCode size={11} className="shrink-0 text-amber-400" />
               <span className="truncate text-[10px] font-mono text-[var(--color-text-muted)]">{activeFile?.name}</span>
-              <span className="ml-auto shrink-0 text-[9px] text-[var(--color-text-muted)] opacity-60">live</span>
+              <span className="ml-auto shrink-0 rounded-full bg-amber-500/10 px-1.5 py-0.5 text-[8px] font-medium text-amber-400/80">live</span>
             </div>
             <textarea
               value={editableContent}
               onChange={e => handleCodeChange(e.target.value)}
-              className="h-full flex-1 resize-none bg-transparent p-3 text-[11px] leading-relaxed text-[var(--color-text-secondary)] outline-none"
+              className="flex-1 resize-none bg-transparent p-2.5 text-[10.5px] leading-relaxed text-[var(--color-text-secondary)] outline-none"
               style={{ fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace" }}
               spellCheck={false}
               autoCapitalize="off"
               autoCorrect="off"
             />
           </div>
-        </div>
 
-        {/* ── Token sidebar ── */}
-        <div className="w-64 shrink-0 space-y-3 overflow-y-auto">
+          {/* Token cards — fill remaining space, scroll */}
+          <div className="flex-1 min-h-0 overflow-y-auto p-2.5 space-y-2.5">
 
-          {colorEntries.length > 0 && (
-            <Section title="Paleta de Cores" icon={Palette}>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-3">
-                {colorEntries.slice(0, 8).map(([k, v]) => (
-                  <ColorSwatch key={k} name={k} value={v} />
-                ))}
-              </div>
-              {tokens && tokens.palette.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2 border-t border-[var(--color-border-subtle)] pt-3">
-                  {tokens.palette.slice(0, 14).map(hex => (
-                    <div key={hex} className="flex flex-col items-center gap-0.5">
-                      <div
-                        className="h-6 w-6 rounded-md border border-white/10"
-                        style={{ background: hex }}
-                        title={hex}
-                      />
-                      <span className="text-[7px] font-mono text-[var(--color-text-muted)]">{hex}</span>
-                    </div>
-                  ))}
+            {colorEntries.length > 0 && (
+              <Section title="Paleta de Cores" icon={Palette}>
+                <div className="grid grid-cols-2 gap-2">
+                  {colorEntries.slice(0, 6).map(([k, v]) => <ColorSwatch key={k} name={k} value={v} />)}
                 </div>
-              )}
+                {tokens && tokens.palette.length > 0 && (
+                  <div className="mt-2.5 flex flex-wrap gap-1.5 border-t border-[var(--color-border-subtle)] pt-2.5">
+                    {tokens.palette.slice(0, 12).map(hex => (
+                      <div key={hex} className="flex flex-col items-center gap-0.5">
+                        <div className="h-5 w-5 rounded border border-white/10" style={{ background: hex }} title={hex} />
+                        <span className="text-[6px] font-mono text-[var(--color-text-muted)]">{hex}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </Section>
+            )}
+
+            {cssForPreviews && (
+              <Section title="Tipografia" icon={Type}>
+                <TypographyPreview cssContent={cssForPreviews} />
+              </Section>
+            )}
+
+            {cssForPreviews && (
+              <Section title="Componentes Ativos" icon={Layers}>
+                <ComponentGallery cssContent={cssForPreviews} />
+              </Section>
+            )}
+
+            <Section title="Espaçamento" icon={Ruler}>
+              <SpacingBlocks spacings={tokens?.spacings ?? {}} />
             </Section>
-          )}
 
-          {cssForPreviews && (
-            <Section title="Tipografia" icon={Type}>
-              <TypographyPreview cssContent={cssForPreviews} />
+            <Section title="Border Radius" icon={Square}>
+              <RadiusBlocks radii={tokens?.radii ?? {}} />
             </Section>
-          )}
 
-          {cssForPreviews && (
-            <Section title="Componentes Ativos" icon={Layers}>
-              <ComponentGallery cssContent={cssForPreviews} />
-            </Section>
-          )}
+          </div>
 
-          <Section title="Espaçamento" icon={Ruler}>
-            <SpacingBlocks spacings={tokens?.spacings ?? {}} />
-          </Section>
-
-          <Section title="Border Radius" icon={Square}>
-            <RadiusBlocks radii={tokens?.radii ?? {}} />
-          </Section>
-
-          {tokens?.rawSummary && (
-            <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
-              <p className="flex items-center gap-1.5 text-[10px] text-amber-400/80">
-                <Palette size={10} />
-                Tokens injetados no contexto do @ORACLE automaticamente.
-              </p>
-            </div>
-          )}
+          {/* ── Oracle badge — sticky footer ── */}
+          <div className="shrink-0 border-t border-amber-500/20 bg-amber-500/5 px-3 py-2">
+            <p className="flex items-center gap-1.5 text-[9px] text-amber-400/80">
+              <Palette size={9} />
+              Tokens extraídos e injetados no contexto do @ORACLE automaticamente.
+            </p>
+          </div>
         </div>
       </div>
     </div>
