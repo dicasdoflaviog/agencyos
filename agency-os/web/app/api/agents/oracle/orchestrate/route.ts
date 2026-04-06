@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
 import { type AgentType, AGENT_LABELS } from '@/types/agents'
 import { getClientIGMetrics, getClientIGTrend, formatIGContext, formatIGTrendContext } from '@/lib/apify/tools'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 
 export const dynamic = 'force-dynamic'
-
-const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001'
 
 // ── Agent system prompts (same as oracle/chat) ────────────────────────────────
 const AGENT_SYSTEMS: Partial<Record<AgentType, string>> = {
@@ -66,8 +65,7 @@ const OUTPUT_TYPE_MAP: Partial<Record<AgentType, string>> = {
 
 // ── Route ──────────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.ANTHROPIC_API_KEY
-  if (!apiKey) return NextResponse.json({ error: 'ANTHROPIC_API_KEY not configured' }, { status: 500 })
+  if (!process.env.OPENROUTER_API_KEY) return NextResponse.json({ error: 'OPENROUTER_API_KEY not configured' }, { status: 500 })
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -80,8 +78,6 @@ export async function POST(req: NextRequest) {
   }
 
   if (!message?.trim()) return NextResponse.json({ error: 'message required' }, { status: 400 })
-
-  const anthropic = new Anthropic({ apiKey })
 
   const { data: profile } = await supabase
     .from('profiles').select('workspace_id').eq('id', user.id).single()
@@ -114,12 +110,12 @@ export async function POST(req: NextRequest) {
   // ── Step 1: Planner — decide which agents and their tasks ───────────────────
   let plan: { campaign_title: string; agents: Array<{ agent: string; task: string }> }
   try {
-    const planRes = await anthropic.messages.create({
-      model: ANTHROPIC_MODEL,
+    const planRes = await openrouter.chat.completions.create({
+      model: getProviderModel('dna'),
       max_tokens: 800,
       messages: [{ role: 'user', content: PLANNER_PROMPT(message, clientContext) }],
     })
-    const planText = planRes.content[0]?.type === 'text' ? planRes.content[0].text.trim() : ''
+    const planText = planRes.choices[0]?.message?.content?.trim() ?? ''
     // Strip markdown code fences if present
     const jsonText = planText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim()
     plan = JSON.parse(jsonText) as typeof plan
@@ -144,17 +140,16 @@ export async function POST(req: NextRequest) {
       const agentId = agent as AgentType
       const systemPrompt = (AGENT_SYSTEMS[agentId] ?? AGENT_SYSTEMS.vera!) + systemSuffix
 
-      const msg = await anthropic.messages.create({
-        model: ANTHROPIC_MODEL,
+      const msg = await openrouter.chat.completions.create({
+        model: getProviderModel(agentId),
         max_tokens: 1500,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: task }],
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: task },
+        ],
       })
 
-      const content = msg.content
-        .filter(b => b.type === 'text')
-        .map(b => ('text' in b ? b.text : ''))
-        .join('\n')
+      const content = msg.choices[0]?.message?.content ?? ''
 
       // Save to job_outputs
       const { data: savedOutput } = await supabase

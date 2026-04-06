@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 import { checkAndDeductCredits } from '@/lib/credits'
 
 type Params = { params: Promise<{ id: string; fileId: string }> }
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
 
 export async function POST(_req: Request, { params }: Params) {
   const { id, fileId } = await params
@@ -53,21 +52,20 @@ export async function POST(_req: Request, { params }: Params) {
       contentText = new TextDecoder('utf-8').decode(fileBuffer)
     } else if (file.file_type === 'PDF') {
       const base64 = Buffer.from(fileBuffer).toString('base64')
-      const response = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
+      const response = await openrouter.chat.completions.create({
+        model: getProviderModel('knowledge'),
         max_tokens: 4096,
         messages: [{
           role: 'user',
           content: [
             {
-              type: 'document',
-              source: { type: 'base64', media_type: 'application/pdf', data: base64 },
+              type: 'text',
+              text: `O seguinte é um PDF codificado em base64. Extraia todo o texto legível deste documento e retorne apenas o conteúdo, sem comentários.\n\nBase64: ${base64.slice(0, 50000)}`,
             },
-            { type: 'text', text: 'Extraia todo o texto deste documento. Retorne apenas o conteúdo, sem comentários.' },
           ],
-        }] as Anthropic.MessageParam[],
+        }],
       })
-      contentText = response.content[0].type === 'text' ? response.content[0].text : ''
+      contentText = response.choices[0]?.message?.content ?? ''
     } else if (file.file_type === 'DOCX') {
       // DOCX is binary — extract raw readable text as best-effort
       // Replace null bytes and binary chars, keep printable ASCII + Latin + line breaks

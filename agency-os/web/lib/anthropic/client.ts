@@ -1,5 +1,5 @@
-import Anthropic from '@anthropic-ai/sdk'
-
-export const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
+/**
+ * @deprecated Use lib/openrouter/client.ts directly.
+ * This re-export exists only for backward compatibility during migration.
+ */
+export { openrouter as anthropic } from '@/lib/openrouter/client'

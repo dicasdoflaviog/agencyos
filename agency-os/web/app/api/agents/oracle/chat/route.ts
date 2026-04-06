@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import OpenAI from 'openai'
 import { createClient } from '@/lib/supabase/server'
 import { type AgentType, AGENT_LABELS } from '@/types/agents'
 import { checkAndDeductCredits } from '@/lib/credits'
@@ -12,6 +12,8 @@ import {
   isIGSyncRequest,
   extractIGHandle,
 } from '@/lib/apify/tools'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 
 export const dynamic = 'force-dynamic'
 
@@ -104,9 +106,6 @@ Responda APENAS com uma palavra (${ALL_AGENTS}).`
 
 const VALID_AGENTS = new Set(Object.keys(AGENT_SYSTEMS))
 
-const ANTHROPIC_MODEL_FAST = 'claude-haiku-4-5-20251001'   // classifier, quick tasks
-const ANTHROPIC_MODEL_MAIN = 'claude-sonnet-4-5-20250929'  // main Oracle responses
-
 // Attachments are now uploaded to Supabase Storage; only the path is in the request body.
 type StorageAttachment = { name: string; mimeType: string; storagePath: string }
 const VALID_IMG_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'] as const
@@ -132,38 +131,38 @@ async function downloadAttachment(
   }
 }
 
-// Build a single attachment's content blocks from resolved base64
-function attachmentBlocks(file: { name: string; base64: string; mimeType: string }): Anthropic.ContentBlockParam[] {
-  const blocks: Anthropic.ContentBlockParam[] = []
+// Build a single attachment's content parts from resolved base64 (OpenAI format)
+function attachmentBlocks(file: { name: string; base64: string; mimeType: string }): OpenAI.ChatCompletionContentPart[] {
+  const parts: OpenAI.ChatCompletionContentPart[] = []
   if ((VALID_IMG_TYPES as readonly string[]).includes(file.mimeType)) {
-    blocks.push({ type: 'image', source: { type: 'base64', media_type: file.mimeType as ImgMime, data: file.base64 } })
-  } else if (file.mimeType === 'application/pdf') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    blocks.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: file.base64 } } as any)
+    parts.push({
+      type: 'image_url',
+      image_url: { url: `data:${file.mimeType as ImgMime};base64,${file.base64}` },
+    })
   } else {
     try {
       const decoded = Buffer.from(file.base64, 'base64').toString('utf-8')
-      blocks.push({ type: 'text', text: `[Arquivo: ${file.name}]\n\`\`\`\n${decoded.slice(0, 20000)}\n\`\`\`\n\n` })
+      parts.push({ type: 'text', text: `[Arquivo: ${file.name}]\n\`\`\`\n${decoded.slice(0, 20000)}\n\`\`\`\n\n` })
     } catch { /* ignore decode errors */ }
   }
-  return blocks
+  return parts
 }
 
-// Build Claude content blocks: download from Storage, then build blocks
+// Build OpenAI content parts: download from Storage, then build parts
 async function buildUserContent(
   text: string,
   storageFiles: StorageAttachment[] | undefined,
   supabase: Awaited<ReturnType<typeof import('@/lib/supabase/server').createClient>>
-): Promise<string | Anthropic.ContentBlockParam[]> {
+): Promise<string | OpenAI.ChatCompletionContentPart[]> {
   if (!storageFiles || !storageFiles.length) return text
   const resolved = (await Promise.all(storageFiles.map(f => downloadAttachment(f, supabase)))).filter(Boolean) as { name: string; base64: string; mimeType: string }[]
   if (!resolved.length) return text
-  const blocks: Anthropic.ContentBlockParam[] = resolved.flatMap(attachmentBlocks)
-  blocks.push({ type: 'text', text })
-  return blocks
+  const parts: OpenAI.ChatCompletionContentPart[] = resolved.flatMap(attachmentBlocks)
+  parts.push({ type: 'text', text })
+  return parts
 }
 
-async function classifyIntent(message: string, client: Anthropic): Promise<AgentType> {
+async function classifyIntent(message: string): Promise<AgentType> {
   // @mention override: "@marco escreva um roteiro..." → marco
   const mention = message.match(/^@(\w+)\s/)
   if (mention && VALID_AGENTS.has(mention[1].toLowerCase())) {
@@ -171,14 +170,12 @@ async function classifyIntent(message: string, client: Anthropic): Promise<Agent
   }
 
   try {
-    const res = await client.messages.create({
-      model: ANTHROPIC_MODEL_FAST,
+    const res = await openrouter.chat.completions.create({
+      model: getProviderModel('classifier'),
       max_tokens: 20,
       messages: [{ role: 'user', content: CLASSIFIER_PROMPT.replace('{message}', message) }],
     })
-    const text = res.content[0]?.type === 'text'
-      ? res.content[0].text.trim().toLowerCase()
-      : 'oracle'
+    const text = res.choices[0]?.message?.content?.trim().toLowerCase() ?? 'oracle'
     if (VALID_AGENTS.has(text)) return text as AgentType
   } catch { /* fallback to oracle */ }
   return 'oracle'
@@ -187,12 +184,10 @@ async function classifyIntent(message: string, client: Anthropic): Promise<Agent
 // ── Route ───────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   // ── 1. Environment guard ────────────────────────────────────────────────
-  const apiKey = process.env.ANTHROPIC_API_KEY
-  if (!apiKey) return new Response('ANTHROPIC_API_KEY not configured', { status: 500 })
+  if (!process.env.OPENROUTER_API_KEY) return new Response('OPENROUTER_API_KEY not configured', { status: 500 })
 
   try {
     // ── 2. Auth ─────────────────────────────────────────────────────────────
-    const anthropic = new Anthropic({ apiKey })
     const supabase = await createClient()
 
     const authResult = await supabase.auth.getUser()
@@ -232,7 +227,7 @@ export async function POST(req: NextRequest) {
 
     // ── 5. Classify intent + log user message (parallel) ───────────────────
     const [agent] = await Promise.all([
-      classifyIntent(message, anthropic),
+      classifyIntent(message),
       supabase.from('agent_conversations').insert({
         session_id: session_id ?? null,
         job_id: job_id ?? null,
@@ -291,12 +286,12 @@ export async function POST(req: NextRequest) {
       } catch { /* IG context is best-effort — non-fatal */ }
     }
 
-    // ── 8. Build messages for Anthropic ────────────────────────────────────
+    // ── 8. Build messages for OpenRouter ───────────────────────────────────
     const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
 
     const safeHistory = Array.isArray(history) ? history : []
     const userContent = await buildUserContent(message, attachments?.filter(a => a?.storagePath), supabase)
-    const anthropicMessages: Anthropic.MessageParam[] = [
+    const chatMessages: OpenAI.ChatCompletionMessageParam[] = [
       ...safeHistory.slice(-10)
         .filter((h) => h?.content && typeof h.content === 'string')
         .map((h) => ({
@@ -313,16 +308,19 @@ export async function POST(req: NextRequest) {
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          const stream = anthropic.messages.stream({
-            model: ANTHROPIC_MODEL_MAIN,
+          const stream = await openrouter.chat.completions.create({
+            model: getProviderModel(agent),
             max_tokens: 4096,
-            system: systemPrompt,
-            messages: anthropicMessages,
+            stream: true,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              ...chatMessages,
+            ],
           })
 
-          for await (const event of stream) {
-            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-              const text = event.delta.text
+          for await (const chunk of stream) {
+            const text = chunk.choices[0]?.delta?.content ?? ''
+            if (text) {
               fullContent += text
               controller.enqueue(encoder.encode(text))
             }

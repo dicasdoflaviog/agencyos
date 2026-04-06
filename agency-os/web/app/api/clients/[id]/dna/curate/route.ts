@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 import { checkAndDeductCredits } from '@/lib/credits'
 
 type Params = { params: Promise<{ id: string }> }
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
 
 const CURATOR_PROMPT = `Você é o @ORACLE, Estrategista-Chefe da Agency OS. Analise TODO o conteúdo fornecido e preencha o DNA de Campanha da marca.
 
@@ -92,20 +91,18 @@ export async function POST(req: Request, { params }: Params) {
     : `## Cliente\nNome: desconhecido\nNenhuma informação disponível ainda.`
 
   try {
-    // Prefill com '{' força o modelo a retornar JSON puro sem preâmbulo
-    const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250929',
+    // Prefill with '{' is Anthropic-specific; with OpenAI-compat we just ask for JSON directly
+    const response = await openrouter.chat.completions.create({
+      model: getProviderModel('oracle'),
       max_tokens: 2048,
-      system: CURATOR_PROMPT,
       messages: [
+        { role: 'system', content: CURATOR_PROMPT },
         { role: 'user', content: userMessage },
-        { role: 'assistant', content: '{' }, // prefill — força JSON
       ],
     })
 
-    // O modelo continua de onde paramos ('{'), então precisamos re-adicionar o '{'
-    const continuation = response.content[0].type === 'text' ? response.content[0].text : ''
-    const raw = '{' + continuation
+    const continuation = response.choices[0]?.message?.content ?? ''
+    const raw = continuation
 
     // Extrai JSON (lida com blocos markdown e texto extra)
     let parsed: { biografia?: string; voz?: string; credenciais?: string; proibidas?: string } | null = null

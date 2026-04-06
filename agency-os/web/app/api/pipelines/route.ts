@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { AGENTS, getSystemPrompt, type AgentId } from '@/lib/anthropic/agents'
-import { anthropic } from '@/lib/anthropic/client'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 
 type PipelineStep = {
   order: number
@@ -104,17 +105,16 @@ export async function POST(req: NextRequest) {
     const userContent = `${baseContext}\n\n---\n\n${instruction}`
 
     try {
-      const message = await anthropic.messages.create({
-        model: 'claude-sonnet-4-6',
+      const message = await openrouter.chat.completions.create({
+        model: getProviderModel(agentId),
         max_tokens: 4096,
-        system: getSystemPrompt(agentId),
-        messages: [{ role: 'user', content: userContent }],
+        messages: [
+          { role: 'system', content: getSystemPrompt(agentId) },
+          { role: 'user', content: userContent },
+        ],
       })
 
-      const content = message.content
-        .filter((b) => b.type === 'text')
-        .map((b) => ('text' in b ? b.text : ''))
-        .join('\n')
+      const content = message.choices[0]?.message?.content ?? ''
 
       // Salvar output
       const { data: savedOutput } = await supabase

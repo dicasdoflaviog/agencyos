@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
@@ -14,23 +13,20 @@ export async function POST(req: NextRequest) {
   const { image } = await req.json() as { image?: string }
   if (!image) return NextResponse.json({ error: 'image required' }, { status: 400 })
 
-  // Extract base64 data and MIME type from data URL
   const match = image.match(/^data:([^;]+);base64,(.+)$/)
   if (!match) return NextResponse.json({ error: 'Invalid image format' }, { status: 400 })
 
-  const [, mimeType, base64Data] = match
-
   try {
-    const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+    const response = await openrouter.chat.completions.create({
+      model: getProviderModel('atlas'),
       max_tokens: 400,
       messages: [
         {
           role: 'user',
           content: [
             {
-              type: 'image',
-              source: { type: 'base64', media_type: mimeType as 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp', data: base64Data },
+              type: 'image_url',
+              image_url: { url: image },
             },
             {
               type: 'text',
@@ -46,12 +42,7 @@ Seja conciso e técnico. Foco em informações úteis para replicar o estilo em 
       ],
     })
 
-    const analysis = message.content
-      .filter(b => b.type === 'text')
-      .map(b => ('text' in b ? b.text : ''))
-      .join('')
-      .trim()
-
+    const analysis = response.choices[0]?.message?.content?.trim() ?? ''
     return NextResponse.json({ analysis })
   } catch (err) {
     return NextResponse.json({ error: String(err) }, { status: 502 })

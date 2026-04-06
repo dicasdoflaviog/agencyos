@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { anthropic } from '@/lib/anthropic/client'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 import { AGENTS, getSystemPrompt, type AgentId } from '@/lib/anthropic/agents'
 import { getClientIGMetrics, getClientIGTrend, formatIGContext, formatIGTrendContext } from '@/lib/apify/tools'
 
@@ -102,17 +103,16 @@ export async function POST(req: NextRequest) {
         ]
       : [{ role: 'user', content: contextBlock + userMessage }]
 
-  const message = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
+  const message = await openrouter.chat.completions.create({
+    model: getProviderModel(agentId),
     max_tokens: 4096,
-    system: systemPrompt,
-    messages,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      ...messages,
+    ],
   })
 
-  const outputContent = message.content
-    .filter((block) => block.type === 'text')
-    .map((block) => ('text' in block ? block.text : ''))
-    .join('\n')
+  const outputContent = message.choices[0]?.message?.content ?? ''
 
   const { data: savedOutput, error } = await supabase
     .from('job_outputs')

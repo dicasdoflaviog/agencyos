@@ -13,7 +13,14 @@ const CREATIVE_TYPES: Record<string, { size: '1024x1024' | '1792x1024' | '1024x1
 }
 
 export async function POST(req: NextRequest) {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  const openai = new OpenAI({
+    apiKey: process.env.OPENROUTER_API_KEY!,
+    baseURL: 'https://openrouter.ai/api/v1',
+    defaultHeaders: {
+      'HTTP-Referer': 'https://agencyos-cyan.vercel.app',
+      'X-Title': 'Agency OS',
+    },
+  })
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })

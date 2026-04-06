@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
+import { openrouter } from '@/lib/openrouter/client'
+import { getProviderModel } from '@/lib/openrouter/models'
 import { generateEmbedding } from '@/lib/ai/embeddings'
 
 export const dynamic = 'force-dynamic'
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
 
 // Full document prompt — uses form data + knowledge files as context
 const DNA_PROMPT = (data: Record<string, unknown>, knowledgeContext: string) => `
@@ -72,8 +71,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
   const body = await req.json()
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ error: 'ANTHROPIC_API_KEY não configurada' }, { status: 500 })
+  if (!process.env.OPENROUTER_API_KEY) {
+    return NextResponse.json({ error: 'OPENROUTER_API_KEY não configurada' }, { status: 500 })
   }
 
   // 1. Read client info + synced knowledge files in parallel
@@ -99,17 +98,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
   let dnaContent: string
   try {
-    const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+    const res = await openrouter.chat.completions.create({
+      model: getProviderModel('dna'),
       max_tokens: 3000,
       messages: [{ role: 'user', content: prompt }],
     })
-    dnaContent = message.content
-      .filter(b => b.type === 'text')
-      .map(b => ('text' in b ? b.text : ''))
-      .join('\n')
+    dnaContent = res.choices[0]?.message?.content ?? ''
   } catch (err) {
-    return NextResponse.json({ error: `Claude error: ${String(err)}` }, { status: 502 })
+    return NextResponse.json({ error: `OpenRouter error: ${String(err)}` }, { status: 502 })
   }
 
   if (!dnaContent.trim()) {
@@ -131,15 +127,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
   // 4. Extract structured fields from the document and save to client_dna
   try {
-    const extractMsg = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+    const extractRes = await openrouter.chat.completions.create({
+      model: getProviderModel('dna'),
       max_tokens: 1500,
       messages: [
         { role: 'user', content: EXTRACT_PROMPT(dnaContent) },
-        { role: 'assistant', content: '{' },
       ],
     })
-    const raw = '{' + extractMsg.content.filter(b => b.type === 'text').map(b => ('text' in b ? b.text : '')).join('')
+    const raw = extractRes.choices[0]?.message?.content ?? ''
 
     let extracted: Record<string, string> | null = null
     try { extracted = JSON.parse(raw) } catch { /* ignore */ }
