@@ -6,6 +6,7 @@ import { DNADocument } from '@/components/dna/DNADocument'
 import { DNAStructured } from '@/components/dna/DNAStructured'
 import { KnowledgeFiles } from '@/components/dna/KnowledgeFiles'
 import { DNATabNav } from '@/components/dna/DNATabNav'
+import { DNAStyleguide } from '@/components/dna/DNAStyleguide'
 
 type PageProps = {
   params: Promise<{ id: string }>
@@ -48,6 +49,15 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
         .order('created_at', { ascending: false }),
     ])
 
+  const allFiles = knowledgeFiles ?? []
+  const syncedFiles = allFiles.filter(f => f.sync_status === 'synced')
+
+  // Styleguide: .html and .css files that are synced
+  const styleguideFiles = syncedFiles.filter(f => {
+    const name = (f.name as string).toLowerCase()
+    return name.endsWith('.html') || name.endsWith('.css') || f.file_type === 'html' || f.file_type === 'css'
+  })
+
   return (
     <div>
       <Suspense>
@@ -73,14 +83,24 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
               clientId={id}
               clientName={client.name}
               niche={client.niche}
-              syncedFilesCount={(knowledgeFiles ?? []).filter(f => f.sync_status === 'synced').length}
+              syncedFilesCount={syncedFiles.length}
             />
           )}
         </div>
       )}
 
       {tab === 'knowledge' && (
-        <KnowledgeFiles clientId={id} initialFiles={knowledgeFiles ?? []} />
+        <KnowledgeFiles clientId={id} initialFiles={allFiles} />
+      )}
+
+      {tab === 'styleguide' && (
+        <DNAStyleguide files={styleguideFiles.map(f => ({
+          id: f.id as string,
+          name: f.name as string,
+          file_type: f.file_type as string,
+          content_text: f.content_text as string | null,
+          sync_status: f.sync_status as string,
+        }))} />
       )}
     </div>
   )

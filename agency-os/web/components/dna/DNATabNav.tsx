@@ -1,13 +1,14 @@
 'use client'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { Layers, FileCode2, FolderOpen } from 'lucide-react'
+import { Layers, FileCode2, FolderOpen, Palette } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const TABS = [
-  { key: 'structured', label: 'DNA Estruturado',       icon: Layers },
-  { key: 'document',   label: 'Documento Gerado',      icon: FileCode2 },
+  { key: 'structured', label: 'DNA Estruturado',          icon: Layers    },
+  { key: 'document',   label: 'Documento Gerado',         icon: FileCode2 },
   { key: 'knowledge',  label: 'Arquivos de Conhecimento', icon: FolderOpen },
+  { key: 'styleguide', label: 'Styleguide',               icon: Palette   },
 ]
 
 export function DNATabNav({ clientId }: { clientId: string }) {
