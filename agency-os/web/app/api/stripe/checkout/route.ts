@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await request.json() as { price_id?: string; workspace_id?: string }
-  const { price_id } = body
+  const { price_id, workspace_id } = body
 
   if (!price_id) {
     return NextResponse.json({ error: 'price_id is required' }, { status: 400 })
@@ -18,6 +18,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ url: '/settings/billing?demo=true' })
   }
 
+  // Fetch workspace_id from DB if not provided
+  let resolvedWorkspaceId = workspace_id
+  if (!resolvedWorkspaceId) {
+    const { data: ws } = await supabase
+      .from('workspaces')
+      .select('id')
+      .eq('owner_id', user.id)
+      .limit(1)
+      .maybeSingle()
+    resolvedWorkspaceId = ws?.id
+  }
+
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
   const params = new URLSearchParams()
@@ -25,6 +37,10 @@ export async function POST(request: NextRequest) {
   params.append('line_items[0][price]', price_id)
   params.append('line_items[0][quantity]', '1')
   params.append('subscription_data[trial_period_days]', '14')
+  if (resolvedWorkspaceId) {
+    params.append('subscription_data[metadata][workspace_id]', resolvedWorkspaceId)
+  }
+  params.append('customer_email', user.email ?? '')
   params.append('success_url', `${baseUrl}/settings/billing?success=true`)
   params.append('cancel_url', `${baseUrl}/settings/billing`)
 

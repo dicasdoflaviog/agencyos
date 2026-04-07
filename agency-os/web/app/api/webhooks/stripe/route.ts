@@ -64,15 +64,31 @@ export async function POST(request: NextRequest) {
       const session = event.data.object as {
         customer?: string
         subscription?: string
+        customer_email?: string
+        subscription_data?: { metadata?: { workspace_id?: string } }
         metadata?: { workspace_id?: string }
       }
       if (session.customer && session.subscription) {
+        // workspace_id comes from subscription_data.metadata (set during checkout)
+        const workspaceId =
+          session.subscription_data?.metadata?.workspace_id ??
+          session.metadata?.workspace_id ??
+          null
+
+        // Resolve plan from price ID on the subscription
+        const subRes = await fetch(`https://api.stripe.com/v1/subscriptions/${session.subscription}`, {
+          headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}` },
+        })
+        const sub = await subRes.json() as { items?: { data: Array<{ price: { id: string } }> }; status?: string }
+        const priceId = sub.items?.data[0]?.price.id ?? ''
+        const plan = resolvePlan(priceId)
+
         await supabase.from('subscriptions').upsert({
-          workspace_id: session.metadata?.workspace_id ?? null,
+          workspace_id: workspaceId,
           stripe_customer_id: session.customer,
           stripe_sub_id: session.subscription,
-          plan: 'starter',
-          status: 'trialing',
+          plan,
+          status: sub.status ?? 'trialing',
         }, { onConflict: 'stripe_sub_id' })
       }
       break
