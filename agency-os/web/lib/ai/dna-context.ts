@@ -2,9 +2,20 @@ import { SupabaseClient } from '@supabase/supabase-js'
 import { generateEmbedding } from './embeddings'
 import { extractDesignTokens } from './extract-design-tokens'
 
+// ── Context Compression limits (prevents 200k token overflow) ───────────────
+const MAX_DNA_CHARS        = 3_000   // ~750 tokens
+const MAX_STYLEGUIDE_CHARS = 1_800   // ~450 tokens — priority: always preserved
+const MAX_PRODUCTS_CHARS   = 1_200   // ~300 tokens
+
+function truncate(str: string, max: number, label = ''): string {
+  if (str.length <= max) return str
+  return str.slice(0, max) + (label ? `\n[${label}: truncado para economizar tokens]` : '\n[...truncado]')
+}
+
 /**
  * Busca o DNA do cliente na memória vetorial.
  * Retorna o documento DNA completo se existir, ou os fragmentos mais relevantes.
+ * Context compression: cada seção é truncada para evitar overflow de 200k tokens.
  */
 export async function getClientDNAContext(
   supabase: SupabaseClient,
@@ -24,7 +35,7 @@ export async function getClientDNAContext(
     .maybeSingle()
 
   if (dnaDoc?.content) {
-    parts.push(`BRAND DNA DO CLIENTE (use como referência obrigatória para todas as respostas):\n${dnaDoc.content}`)
+    parts.push(`BRAND DNA DO CLIENTE (use como referência obrigatória para todas as respostas):\n${truncate(dnaDoc.content, MAX_DNA_CHARS, 'DNA')}`)
   } else {
     // 2. Fallback: busca semântica nos fragmentos de DNA
     if (query) {
@@ -37,7 +48,7 @@ export async function getClientDNAContext(
           match_count: 5,
         })
         if (memories && memories.length > 0) {
-          const ctx = (memories as { content: string }[]).map(m => m.content).join('\n')
+          const ctx = truncate((memories as { content: string }[]).map(m => m.content).join('\n'), MAX_DNA_CHARS, 'memórias')
           parts.push(`CONTEXTO DO CLIENTE (memória IA):\n${ctx}`)
         }
       }
@@ -54,7 +65,7 @@ export async function getClientDNAContext(
         .limit(5)
 
       if (fields && fields.length > 0) {
-        const ctx = fields.map(f => f.content).join('\n')
+        const ctx = truncate(fields.map(f => f.content).join('\n'), MAX_DNA_CHARS, 'campos DNA')
         parts.push(`IDENTIDADE DA MARCA (campos capturados):\n${ctx}`)
       }
     }
@@ -79,7 +90,9 @@ export async function getClientDNAContext(
       }
     }
     if (tokenParts.length > 0) {
-      parts.push(`STYLEGUIDE — DESIGN TOKENS DA MARCA (use ao descrever criativos para o ATLAS):\n${tokenParts.join('\n\n')}`)
+      // Styleguide is highest priority — always keep full, truncate only if extremely large
+      const styleguideText = tokenParts.join('\n\n')
+      parts.push(`STYLEGUIDE — DESIGN TOKENS DA MARCA (use ao descrever criativos para o ATLAS):\n${truncate(styleguideText, MAX_STYLEGUIDE_CHARS, 'styleguide')}`)
     }
   }
 
@@ -115,13 +128,14 @@ export async function getClientDNAContext(
     }
 
     if (productLines.length > 0) {
-      parts.push(`ECOSSISTEMA DE PRODUTOS (use para sugerir o CTA mais adequado ao contexto do conteúdo):${productLines.join('\n')}
+      const productsText = `ECOSSISTEMA DE PRODUTOS (use para sugerir o CTA mais adequado ao contexto do conteúdo):${productLines.join('\n')}
 
 REGRA DE FUNIL:
 - Conteúdo de topo (educativo/atrativo) → sugira produto TOFU ou MOFU como CTA
 - Conteúdo de fundo (case, prova social, comparação) → sugira produto BOFU como CTA
 - Nunca ofereça High Ticket para audiência fria
-- Sempre inclua o link de checkout no CTA quando disponível`)
+- Sempre inclua o link de checkout no CTA quando disponível`
+      parts.push(truncate(productsText, MAX_PRODUCTS_CHARS, 'produtos'))
     }
   }
 

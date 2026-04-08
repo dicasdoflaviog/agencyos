@@ -244,16 +244,33 @@ async function runAtlasCarousel(
 ): Promise<Response> {
   const encoder = new TextEncoder()
 
+  // ── System Prompt Guards (TOKEN GUARD + IDENTITY LOCK + CARROSSEL DINAMICO) ──
+  const ATLAS_GUARDS =
+    `\n\n## CRITICAL SYSTEM RULES - AGENCY OS 360\n` +
+    `TOKEN GUARD: Use apenas o MASTER.md e o styleguide do cliente. Ignore documentacao verbosa. Foque em cores e tipografia.\n` +
+    `IDENTITY LOCK: Backgrounds DEVEM usar APENAS as cores #0C0C0E (bg escuro), #131317 (superfície), #26262F (elevado), #F59E0B (accent amber). PROIBIDO: azul, branco genérico, paletas não autorizadas.\n` +
+    `CARROSSEL DINAMICO: Cada slide DEVE ter uma composição visual ÚNICA e diferente (ex: Slide 1 = cérebro IA abstrato, Slide 2 = interface digital minimalista, Slide 3 = conexões de rede, Slide 4 = partículas de luz). NUNCA repita o mesmo conceito visual.\n\n`
+
   // ── Directive Mestra do ATLAS ────────────────────────────────────────────
+  const CONCEPTS = [
+    'abstract AI brain neural network visualization',
+    'minimal digital interface grid lines',
+    'glowing network connections nodes',
+    'flowing light particles vortex',
+    'geometric crystal structure facets',
+    'deep space galaxy minimal dark',
+  ]
+
   const carouselSystem =
     systemPrompt +
-    `\n\n## DIRETRIZES OBRIGATÓRIAS — ATLAS\n` +
-    `- Cores e fontes: palette Agency OS #0C0C0E, #131317, #F59E0B accent, #F0F0F5 texto. DM Sans títulos, Inter corpo.\n` +
-    `- PROIBIDO gerar texto em imagens via IA. Texto é JSON separado, renderizado via HTML/CSS.\n` +
-    `- Carrossel: 1 background image + ${n} objetos de texto. NUNCA ${n} imagens separadas.\n\n` +
-    `Retorne APENAS este JSON (sem markdown):\n` +
-    `{"backgroundPrompt":"<English background only, NO TEXT, NO WORDS, cinematic minimal, use client palette>",` +
-    `"slides":[{"titulo":"<PT título max 60 chars>","corpo":"<PT apoio max 120 chars>","textPosition":"bottom"}]}`
+    ATLAS_GUARDS +
+    `## DIRETRIZES OBRIGATÓRIAS - ATLAS\n` +
+    `- Cores: palette #0C0C0E, #131317, #F59E0B accent, #F0F0F5 texto. Tipografia: DM Sans titulos, Inter corpo.\n` +
+    `- PROIBIDO texto em imagens via IA. Texto retorna como JSON separado, renderizado em HTML/CSS.\n` +
+    `- Carrossel: ${n} backgroundPrompts DISTINTOS (composições únicas) + ${n} objetos de texto.\n\n` +
+    `Retorne APENAS este JSON (sem markdown, sem blocos de código):\n` +
+    `{"backgroundPrompts":["<English, NO TEXT, cinematic dark, unique concept per slide, composition 1>","<composition 2>"],` +
+    `"slides":[{"titulo":"<PT titulo max 60 chars>","corpo":"<PT apoio max 120 chars>","textPosition":"bottom"}]}`
 
   const readable = new ReadableStream({
     async start(controller) {
@@ -261,34 +278,49 @@ async function runAtlasCarousel(
       try {
         controller.enqueue(encoder.encode(`⏳ Planejando carrossel com ${n} slides...\n\n`))
 
-        // 1. ATLAS → structured spec: 1 backgroundPrompt + N text slides
+        // 1. ATLAS → structured spec: N backgroundPrompts + N text slides
         const { content: raw } = await routeChat('atlas', [
           { role: 'system', content: carouselSystem },
           { role: 'user',   content: userMessage },
         ], { maxTokens: 2048 })
 
-        type Spec = { backgroundPrompt: string; slides: Array<{ titulo: string; corpo: string; textPosition: 'top' | 'bottom' }> }
+        type Spec = { backgroundPrompts: string[]; slides: Array<{ titulo: string; corpo: string; textPosition: 'top' | 'bottom' }> }
         let spec: Spec | null = null
         try {
           const match = raw.match(/\{[\s\S]*\}/)
           if (match) spec = JSON.parse(match[0]) as Spec
         } catch { /* fallback below */ }
 
-        if (!spec?.slides?.length) {
+        // Fallback: use distinct concept variations
+        if (!spec?.slides?.length || !spec?.backgroundPrompts?.length) {
+          const palette = `#0C0C0E deep black ${DS.colors.accent} amber accent`
           spec = {
-            backgroundPrompt: `Cinematic dark minimal background, ${DS.colors.bgBase} deep black, ${DS.colors.accent} amber accent, abstract texture, NO TEXT`,
+            backgroundPrompts: Array.from({ length: n }, (_, i) =>
+              `Cinematic dark minimal background, ${palette}, ${CONCEPTS[i % CONCEPTS.length]}, NO TEXT NO WORDS NO LETTERS`
+            ),
             slides: Array.from({ length: n }, (_, i) => ({
               titulo: `Slide ${i + 1}`,
               corpo: userMessage.slice(0, 100),
-              textPosition: i === 0 ? 'top' : 'bottom',
+              textPosition: (i === 0 ? 'top' : 'bottom') as 'top' | 'bottom',
             })),
           }
         }
 
-        controller.enqueue(encoder.encode(`✅ Roteiro criado — gerando 1 imagem de fundo...\n\n`))
+        // Ensure we have exactly N prompts (pad with variations if LLM returned fewer)
+        while (spec.backgroundPrompts.length < n) {
+          const idx = spec.backgroundPrompts.length
+          spec.backgroundPrompts.push(
+            `Cinematic dark minimal background, #0C0C0E deep black, ${DS.colors.accent} amber, ${CONCEPTS[idx % CONCEPTS.length]}, NO TEXT`
+          )
+        }
+        spec.backgroundPrompts = spec.backgroundPrompts.slice(0, n)
 
-        // 2. Generate exactly ONE background image
-        const bgResult = await generateImage({ prompt: spec.backgroundPrompt, aspectRatio: '1:1' })
+        controller.enqueue(encoder.encode(`✅ Roteiro criado — gerando ${n} imagens em paralelo...\n\n`))
+
+        // 2. Generate N background images IN PARALLEL (one unique composition per slide)
+        const bgResults = await Promise.all(
+          spec.backgroundPrompts.map(prompt => generateImage({ prompt, aspectRatio: '1:1' }))
+        )
 
         // 3. Resolve style_tokens from client knowledge_files → fallback to DS
         let style_tokens: CarouselPayload['style_tokens'] = {
@@ -322,11 +354,10 @@ async function runAtlasCarousel(
           } catch { /* use DS defaults */ }
         }
 
-        // 4. Assemble CarouselPayload (spec from user contract)
+        // 4. Assemble CarouselPayload — N unique backgrounds + N text objects
         const payload: CarouselPayload = {
-          backgroundBase64: bgResult.imageBase64,
-          mimeType:         bgResult.mimeType,
-          slides:           spec.slides,
+          backgrounds: bgResults.map(r => ({ base64: r.imageBase64, mimeType: r.mimeType })),
+          slides:      spec.slides,
           style_tokens,
         }
 

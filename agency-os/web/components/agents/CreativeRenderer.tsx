@@ -6,8 +6,8 @@ import { ChevronLeft, ChevronRight, Check, Trash2, Download, Loader2 } from 'luc
 
 // ── Public contract (matches backend CarouselPayload) ────────────────────────
 export interface CarouselPayload {
-  backgroundBase64: string
-  mimeType: string
+  // One unique background per slide (generated in parallel, different compositions)
+  backgrounds: Array<{ base64: string; mimeType: string }>
   slides: Array<{
     titulo: string
     corpo: string
@@ -27,7 +27,7 @@ const SCRIM_TOP    = 'linear-gradient(to bottom, rgba(0,0,0,0.82) 0%, rgba(0,0,0
 
 type Status = 'pending' | 'approved' | 'rejected' | 'saving'
 
-export function CreativeRenderer({ backgroundBase64, mimeType, slides, style_tokens }: CarouselPayload) {
+export function CreativeRenderer({ backgrounds, slides, style_tokens }: CarouselPayload) {
   const [current,     setCurrent]     = useState(0)
   const [statuses,    setStatuses]    = useState<Record<number, Status>>({})
   const [downloading, setDownloading] = useState(false)
@@ -36,6 +36,8 @@ export function CreativeRenderer({ backgroundBase64, mimeType, slides, style_tok
   const slide  = slides[current]
   const status = statuses[current] ?? 'pending'
   const isBottom = slide.textPosition !== 'top'
+  const bg = backgrounds[current] ?? backgrounds[0]
+  const backgroundSrc = bg ? `data:${bg.mimeType};base64,${bg.base64}` : ''
 
   // ── Download 1080×1080 via html-to-image ──────────────────────────────────
   const handleDownload = async () => {
@@ -73,10 +75,10 @@ export function CreativeRenderer({ backgroundBase64, mimeType, slides, style_tok
         className="relative w-[360px] h-[360px] rounded-xl overflow-hidden select-none"
         style={{ backgroundColor: style_tokens.primary, fontFamily: "'DM Sans', sans-serif" }}
       >
-        {/* Background image — single image shared across all slides */}
+        {/* Background image — unique per slide, generated in parallel */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`data:${mimeType};base64,${backgroundBase64}`}
+          src={backgroundSrc}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
