@@ -131,10 +131,11 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
         throw new Error(errData.error ?? `HTTP ${res.status}`)
       }
 
-      const data = await res.json() as { asset?: CreativeAsset; url?: string }
+      const data = await res.json() as { asset?: CreativeAsset; url?: string; dataUrl?: string }
       if (data.asset) {
-        // Usa data.url (URL resolvida) em vez de asset.image_url (pode estar expirada/vazia no DB)
-        setPendingAsset({ ...data.asset, image_url: data.url ?? data.asset.image_url })
+        // dataUrl é sempre válido para preview (data URL self-contained)
+        // url é a signed URL do Storage (usada na galeria / download)
+        setPendingAsset({ ...data.asset, image_url: data.dataUrl ?? data.url ?? data.asset.image_url })
       }
     } catch (err) {
       console.error('[ATLAS]', err)

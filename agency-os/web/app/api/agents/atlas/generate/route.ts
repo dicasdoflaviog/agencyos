@@ -166,6 +166,11 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: `Erro ao salvar: ${dbError.message}` }, { status: 500 })
   }
 
-  return Response.json({ success: true, asset, url: imageUrl })
+  return Response.json({
+    success: true,
+    asset,
+    url:     imageUrl,
+    dataUrl: `data:${mimeType};base64,${imageBase64}`, // sempre válido para preview imediato
+  })
 }
 
