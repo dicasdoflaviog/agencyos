@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Calistoga, JetBrains_Mono } from 'next/font/google'
+import { Inter, DM_Sans, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import { QueryProvider } from '@/components/providers/QueryProvider'
@@ -13,10 +13,11 @@ const inter = Inter({
 })
 
 // Editorial display font — headings, hero titles
-const calistoga = Calistoga({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-calistoga',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-dm-sans',
+  display: 'swap',
 })
 
 // Monospace — data labels, IDs, badges, code
@@ -39,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${calistoga.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${inter.variable} ${dmSans.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-[var(--color-bg-base)] text-[var(--color-text-primary)] font-sans antialiased">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
           <QueryProvider>{children}</QueryProvider>

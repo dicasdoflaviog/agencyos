@@ -28,14 +28,14 @@
 
 ### Typography
 
-- **Heading Font:** Calistoga
+- **Heading Font:** DM Sans
 - **Body Font:** Inter
 - **Mood:** saas, boutique, electric, warm, editorial, bold, premium, fintech, business, dual font, human warmth
-- **Google Fonts:** [Calistoga + Inter](https://fonts.google.com/share?selection.family=Calistoga:ital@0;1|Inter:wght@300;400;500;600;700|JetBrains+Mono:wght@400;500)
+- **Google Fonts:** [DM Sans + Inter](https://fonts.google.com/share?selection.family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700|Inter:wght@300;400;500;600;700|JetBrains+Mono:wght@400;500)
 
 **CSS Import:**
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Calistoga:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 ```
 
 ### Spacing Variables

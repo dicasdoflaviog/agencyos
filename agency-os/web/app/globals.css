@@ -272,7 +272,7 @@
 
   /* Fonts */
   --font-sans:              var(--font-inter);
-  --font-display:           var(--font-calistoga);
+  --font-display:           var(--font-dm-sans);
   --font-mono:              var(--font-jetbrains);
 }
 
@@ -311,7 +311,7 @@ html:focus-visible {
 ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
 
 /* ── Typography utilities ────────────────────────────────── */
-.font-display { font-family: var(--font-calistoga), sans-serif; }
+.font-display { font-family: var(--font-dm-sans), sans-serif; }
 .font-mono    { font-family: var(--font-mono), monospace; }
 
 /* ── Keyframes ───────────────────────────────────────────── */
