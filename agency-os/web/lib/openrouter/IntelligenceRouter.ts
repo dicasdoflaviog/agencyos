@@ -362,7 +362,7 @@ export async function generateImage({
       body: JSON.stringify({
         model,
         messages: [{ role: 'user', content: prompt }],
-        modalities: ['text', 'image'],
+        modalities: ['image'],
         image_config: { aspect_ratio: aspectRatio },
       }),
     })
