@@ -115,15 +115,19 @@ export async function POST(req: NextRequest) {
 
   const modelUsed = usedFallback ? 'google/gemini-3.1-flash-image-preview' : 'google/gemini-2.5-flash-image'
 
-  // Salvar em creative_assets
-  const { data: asset, error: dbError } = await supabase
+  // Salvar em creative_assets — tenta com colunas novas, faz fallback para schema legado
+  let asset: Record<string, unknown> | null = null
+  let dbError: { message: string } | null = null
+
+  // Tentativa 1: schema completo (pós-migration)
+  const insertFull = await supabase
     .from('creative_assets')
     .insert({
       client_id:  clientId ?? null,
       job_id:     jobId ?? null,
       format,
       style,
-      type:       format, // legado
+      type:       format,
       prompt:     rawPrompt,
       image_url:  imageUrl,
       model:      modelUsed,
@@ -133,6 +137,27 @@ export async function POST(req: NextRequest) {
     })
     .select()
     .single()
+
+  if (insertFull.error) {
+    // Tentativa 2: schema legado (sem format/style/status/source)
+    const insertLegacy = await supabase
+      .from('creative_assets')
+      .insert({
+        client_id:  clientId ?? null,
+        job_id:     jobId ?? null,
+        type:       format,
+        prompt:     rawPrompt,
+        image_url:  imageUrl,
+        model:      modelUsed,
+        created_by: user.id,
+      })
+      .select()
+      .single()
+    asset   = insertLegacy.data as Record<string, unknown> | null
+    dbError = insertLegacy.error
+  } else {
+    asset = insertFull.data as Record<string, unknown> | null
+  }
 
   if (dbError) {
     console.error('[ATLAS generate] DB error:', dbError)
