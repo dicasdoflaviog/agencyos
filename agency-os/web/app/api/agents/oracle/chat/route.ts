@@ -14,7 +14,9 @@ import {
 } from '@/lib/apify/tools'
 import { routeChatStream, routeChat, getModelForAgent, generateImage } from '@/lib/openrouter/IntelligenceRouter'
 import { getClientDNAContext } from '@/lib/ai/dna-context'
-import { type CreativeSlide } from '@/components/agents/CreativeRenderer'
+import { extractDesignTokens } from '@/lib/ai/extract-design-tokens'
+import { DS } from '@/lib/design-system/tokens'
+import { type CarouselPayload } from '@/components/agents/CreativeRenderer'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 60
@@ -226,10 +228,11 @@ function detectCarouselSlides(msg: string): number {
 }
 
 type CarouselCtx = {
-  supabase: Awaited<ReturnType<typeof createClient>>
-  user: { id: string }
-  profile: { workspace_id?: string } | null
-  job_id?: string
+  supabase:   Awaited<ReturnType<typeof createClient>>
+  user:       { id: string }
+  profile:    { workspace_id?: string } | null
+  client_id?: string
+  job_id?:    string
   session_id?: string
 }
 
@@ -241,16 +244,16 @@ async function runAtlasCarousel(
 ): Promise<Response> {
   const encoder = new TextEncoder()
 
+  // ── Directive Mestra do ATLAS ────────────────────────────────────────────
   const carouselSystem =
     systemPrompt +
-    `\n\nMODO CARROSSEL ATIVADO: crie ${n} slides para Instagram (1080×1080px).` +
-    `\nREGRAS CRÍTICAS:\n` +
-    `1. imagePrompt = BACKGROUND ONLY. Sem texto, sem palavras, sem tipografia na imagem gerada.\n` +
-    `2. headline e body serão sobrepostos via CSS no frontend — não coloque texto no imagePrompt.\n` +
-    `3. Use as cores HEX exatas do cliente presentes no contexto acima.\n` +
-    `4. textPosition: "top" para slides de capa, "bottom" para demais.\n\n` +
-    `Retorne APENAS este JSON array (sem markdown, sem texto antes ou depois):\n` +
-    `[{"slide":1,"imagePrompt":"<English background-only prompt, NO TEXT>","headline":"<PT título>","body":"<PT apoio>","textPosition":"bottom"}]`
+    `\n\n## DIRETRIZES OBRIGATÓRIAS — ATLAS\n` +
+    `- Cores e fontes: palette Agency OS #0C0C0E, #131317, #F59E0B accent, #F0F0F5 texto. DM Sans títulos, Inter corpo.\n` +
+    `- PROIBIDO gerar texto em imagens via IA. Texto é JSON separado, renderizado via HTML/CSS.\n` +
+    `- Carrossel: 1 background image + ${n} objetos de texto. NUNCA ${n} imagens separadas.\n\n` +
+    `Retorne APENAS este JSON (sem markdown):\n` +
+    `{"backgroundPrompt":"<English background only, NO TEXT, NO WORDS, cinematic minimal, use client palette>",` +
+    `"slides":[{"titulo":"<PT título max 60 chars>","corpo":"<PT apoio max 120 chars>","textPosition":"bottom"}]}`
 
   const readable = new ReadableStream({
     async start(controller) {
@@ -258,55 +261,77 @@ async function runAtlasCarousel(
       try {
         controller.enqueue(encoder.encode(`⏳ Planejando carrossel com ${n} slides...\n\n`))
 
-        // 1. Ask ATLAS for structured slide specs
+        // 1. ATLAS → structured spec: 1 backgroundPrompt + N text slides
         const { content: raw } = await routeChat('atlas', [
           { role: 'system', content: carouselSystem },
           { role: 'user',   content: userMessage },
         ], { maxTokens: 2048 })
 
-        type SlideSpec = { slide: number; imagePrompt: string; headline: string; body: string; textPosition: 'top' | 'bottom' }
-        let specs: SlideSpec[] = []
+        type Spec = { backgroundPrompt: string; slides: Array<{ titulo: string; corpo: string; textPosition: 'top' | 'bottom' }> }
+        let spec: Spec | null = null
         try {
-          const jsonMatch = raw.match(/\[[\s\S]*\]/)
-          if (jsonMatch) specs = JSON.parse(jsonMatch[0]) as SlideSpec[]
+          const match = raw.match(/\{[\s\S]*\}/)
+          if (match) spec = JSON.parse(match[0]) as Spec
         } catch { /* fallback below */ }
 
-        if (!specs.length) {
-          specs = [{ slide: 1, imagePrompt: userMessage, headline: 'Criativo', body: '', textPosition: 'bottom' }]
-        }
-
-        controller.enqueue(encoder.encode(`✅ Roteiro criado — gerando ${specs.length} imagens em paralelo...\n\n`))
-
-        // 2. Generate all background images in parallel
-        const results = await Promise.allSettled(
-          specs.map(s => generateImage({ prompt: s.imagePrompt, aspectRatio: '1:1' }))
-        )
-
-        // 3. Build CreativeSlide array
-        const slides: CreativeSlide[] = []
-        results.forEach((r, i) => {
-          const spec = specs[i]
-          if (r.status === 'fulfilled') {
-            slides.push({
-              slide:       spec.slide,
-              imageBase64: r.value.imageBase64,
-              mimeType:    r.value.mimeType,
-              headline:    spec.headline,
-              body:        spec.body,
-              textPosition: spec.textPosition,
-            })
+        if (!spec?.slides?.length) {
+          spec = {
+            backgroundPrompt: `Cinematic dark minimal background, ${DS.colors.bgBase} deep black, ${DS.colors.accent} amber accent, abstract texture, NO TEXT`,
+            slides: Array.from({ length: n }, (_, i) => ({
+              titulo: `Slide ${i + 1}`,
+              corpo: userMessage.slice(0, 100),
+              textPosition: i === 0 ? 'top' : 'bottom',
+            })),
           }
-        })
-
-        if (slides.length === 0) {
-          finalContent = '⚠️ Nenhuma imagem foi gerada. Tente novamente.'
-          controller.enqueue(encoder.encode(finalContent))
-          return
         }
 
-        // 4. Embed as carousel marker — frontend renders CreativeRenderer
-        const marker = `%%ATLAS_CAROUSEL%%${JSON.stringify(slides)}%%END_CAROUSEL%%`
-        finalContent = `✨ Carrossel com ${slides.length} slides pronto!\n\n${marker}`
+        controller.enqueue(encoder.encode(`✅ Roteiro criado — gerando 1 imagem de fundo...\n\n`))
+
+        // 2. Generate exactly ONE background image
+        const bgResult = await generateImage({ prompt: spec.backgroundPrompt, aspectRatio: '1:1' })
+
+        // 3. Resolve style_tokens from client knowledge_files → fallback to DS
+        let style_tokens: CarouselPayload['style_tokens'] = {
+          primary: DS.colors.bgBase,
+          accent:  DS.colors.accent,
+          text:    DS.colors.textPrimary,
+          surface: DS.colors.bgSurface,
+        }
+        if (ctx.client_id) {
+          try {
+            const { data: cssFile } = await ctx.supabase
+              .from('knowledge_files')
+              .select('content_text')
+              .eq('client_id', ctx.client_id)
+              .eq('sync_status', 'synced')
+              .in('file_type', ['HTML', 'CSS'])
+              .not('content_text', 'is', null)
+              .order('created_at', { ascending: false })
+              .limit(1)
+              .maybeSingle()
+
+            if (cssFile?.content_text) {
+              const { colors, palette } = extractDesignTokens(cssFile.content_text)
+              style_tokens = {
+                primary: colors['color-primary']  ?? colors['primary']      ?? palette[0] ?? DS.colors.bgBase,
+                accent:  colors['color-accent']   ?? colors['accent']       ?? colors['color-cta'] ?? palette[1] ?? DS.colors.accent,
+                text:    colors['color-text']      ?? colors['color-text-primary'] ?? DS.colors.textPrimary,
+                surface: colors['color-bg-surface'] ?? colors['surface']    ?? DS.colors.bgSurface,
+              }
+            }
+          } catch { /* use DS defaults */ }
+        }
+
+        // 4. Assemble CarouselPayload (spec from user contract)
+        const payload: CarouselPayload = {
+          backgroundBase64: bgResult.imageBase64,
+          mimeType:         bgResult.mimeType,
+          slides:           spec.slides,
+          style_tokens,
+        }
+
+        const marker = `%%ATLAS_CAROUSEL%%${JSON.stringify(payload)}%%END_CAROUSEL%%`
+        finalContent = `✨ Carrossel com ${spec.slides.length} slides pronto!\n\n${marker}`
         controller.enqueue(encoder.encode(finalContent))
 
       } catch (err) {
@@ -333,7 +358,7 @@ async function runAtlasCarousel(
       'X-Content-Type-Options': 'nosniff',
       'X-Agent':                'atlas',
       'X-Model':                'atlas-carousel',
-      'X-Agent-Label':          'ATLAS \u2014 Diretor de Arte',
+      'X-Agent-Label':          'ATLAS - Diretor de Arte',
     },
   })
 }
@@ -446,7 +471,7 @@ export async function POST(req: NextRequest) {
       const n = detectCarouselSlides(message)
       if (n > 0) {
         return await runAtlasCarousel(n, message, systemPrompt, {
-          supabase, user, profile, job_id, session_id,
+          supabase, user, profile, client_id, job_id, session_id,
         })
       }
     }
