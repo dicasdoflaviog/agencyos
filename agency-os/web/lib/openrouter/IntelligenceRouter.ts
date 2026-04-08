@@ -313,18 +313,27 @@ export function getCategoryForAgent(agentId: string): AgentCategory {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ATLAS IMAGE GENERATION — via OpenRouter native image endpoint
-// Usa fetch direto (não SDK OpenAI) pois o SDK não suporta modalities:['image']
+// ATLAS IMAGE GENERATION — via OpenRouter /chat/completions + modalities
 // ─────────────────────────────────────────────────────────────────────────────
+
+/** Converte data URL, URL externa ou base64 puro → { imageBase64, mimeType } */
+async function resolveRawImage(raw: string): Promise<{ imageBase64: string; mimeType: string }> {
+  if (raw.startsWith('data:')) {
+    const [header, base64] = raw.split(',')
+    const mimeType = header.match(/data:(.*);base64/)?.[1] ?? 'image/png'
+    return { imageBase64: base64, mimeType }
+  }
+  if (raw.startsWith('http')) {
+    const r = await fetch(raw)
+    if (!r.ok) throw new Error(`[ATLAS] Falha ao buscar imagem externa: ${r.status}`)
+    const buf = await r.arrayBuffer()
+    return { imageBase64: Buffer.from(buf).toString('base64'), mimeType: r.headers.get('content-type') ?? 'image/png' }
+  }
+  return { imageBase64: raw, mimeType: 'image/png' }
+}
 
 const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'
 const ATLAS_MODEL_FALLBACK = 'google/gemini-3.1-flash-image-preview'
-
-const ASPECT_TO_SIZE: Record<string, string> = {
-  '1:1':  '1024x1024',
-  '9:16': '1024x1792',
-  '16:9': '1792x1024',
-}
 
 export async function generateImage({
   prompt,
@@ -336,11 +345,9 @@ export async function generateImage({
   const apiKey = process.env.OPENROUTER_API_KEY
   if (!apiKey) throw new Error('[ATLAS] OPENROUTER_API_KEY não configurada')
 
-  const size = ASPECT_TO_SIZE[aspectRatio] ?? '1024x1024'
-
   const callOpenRouter = async (model: string): Promise<{ imageBase64: string; mimeType: string }> => {
-    // Usa /images/generations — endpoint correto para modelos de geração de imagem
-    const response = await fetch('https://openrouter.ai/api/v1/images/generations', {
+    // /chat/completions com modalities:["text","image"] — formato correto para Gemini image no OpenRouter
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -350,10 +357,9 @@ export async function generateImage({
       },
       body: JSON.stringify({
         model,
-        prompt,
-        n: 1,
-        size,
-        response_format: 'b64_json',
+        messages: [{ role: 'user', content: prompt }],
+        modalities: ['text', 'image'],
+        image_config: { aspect_ratio: aspectRatio },
       }),
     })
 
@@ -364,30 +370,33 @@ export async function generateImage({
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let data: { data?: Array<{ b64_json?: string; url?: string }> }
+    let data: { choices?: Array<{ message?: { content?: string | any[]; images?: any[] } }> }
     try {
       data = JSON.parse(responseText)
     } catch {
       throw new Error(`[ATLAS] OpenRouter ${model} resposta inválida: ${responseText.slice(0, 300)}`)
     }
 
-    const item = data?.data?.[0]
+    const message = data?.choices?.[0]?.message
 
-    // Preferência: b64_json direto; fallback: buscar URL externa
-    if (item?.b64_json) {
-      return { imageBase64: item.b64_json, mimeType: 'image/png' }
+    // 1) images[] — pode ser string ou { url } ou { b64_json }
+    const imgs = message?.images
+    if (Array.isArray(imgs) && imgs.length > 0) {
+      const img = imgs[0]
+      const raw = typeof img === 'string' ? img : ((img as { url?: string }).url ?? (img as { b64_json?: string }).b64_json)
+      if (raw) return resolveRawImage(raw)
     }
 
-    if (item?.url) {
-      if (item.url.startsWith('data:')) {
-        const [header, base64] = item.url.split(',')
-        const mimeType = header.match(/data:(.*);base64/)?.[1] ?? 'image/png'
-        return { imageBase64: base64, mimeType }
-      }
-      const imgRes = await fetch(item.url)
-      if (!imgRes.ok) throw new Error(`[ATLAS] Falha ao buscar imagem: ${imgRes.status}`)
-      const buffer = await imgRes.arrayBuffer()
-      return { imageBase64: Buffer.from(buffer).toString('base64'), mimeType: imgRes.headers.get('content-type') ?? 'image/png' }
+    // 2) content string
+    if (typeof message?.content === 'string' && message.content) {
+      return resolveRawImage(message.content)
+    }
+
+    // 3) content array — [{ type:'image_url', image_url:{ url } }]
+    if (Array.isArray(message?.content)) {
+      const parts = message.content as Array<{ type: string; image_url?: { url: string } }>
+      const imgPart = parts.find(p => p.type === 'image_url')
+      if (imgPart?.image_url?.url) return resolveRawImage(imgPart.image_url.url)
     }
 
     throw new Error(`[ATLAS] Nenhuma imagem retornada. Resposta: ${responseText.slice(0, 400)}`)
