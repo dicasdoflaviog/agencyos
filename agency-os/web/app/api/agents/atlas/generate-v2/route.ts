@@ -50,13 +50,13 @@ export async function POST(req: NextRequest) {
   }
 
   const geminiRes = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts }],
-        generationConfig: { responseModalities: ['IMAGE', 'TEXT'] },
+        generationConfig: { responseModalities: ['TEXT', 'IMAGE'] },
       }),
     }
   )
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
     type,
     prompt: enhancedPrompt,
     image_url: finalUrl,
-    model: 'gemini-2.0-flash-image',
+    model: 'gemini-2.5-flash-image-preview',
     created_by: user.id,
   }).select().single()
 
