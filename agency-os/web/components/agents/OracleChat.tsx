@@ -8,6 +8,7 @@ import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, 
 import { type AgentType } from '@/types/agents'
 import { createClient } from '@/lib/supabase/client'
 import { AtlasMessage } from './AtlasMessage'
+import { CreativeRenderer, type CreativeSlide } from './CreativeRenderer'
 
 type AtlasData = {
   imageBase64: string
@@ -15,6 +16,18 @@ type AtlasData = {
   assetId?: string
   format?: string
   prompt?: string
+}
+
+function parseAtlasCarouselMarker(content: string): { text: string; slides?: CreativeSlide[] } {
+  const match = content.match(/%%ATLAS_CAROUSEL%%([\s\S]+?)%%END_CAROUSEL%%/)
+  if (!match) return { text: content }
+  try {
+    const slides = JSON.parse(match[1]) as CreativeSlide[]
+    const text = content.replace(/\n*%%ATLAS_CAROUSEL%%[\s\S]+?%%END_CAROUSEL%%/, '').trim()
+    return { text, slides }
+  } catch {
+    return { text: content }
+  }
 }
 
 function parseAtlasMarker(content: string): { text: string; atlasData?: AtlasData } {
@@ -506,6 +519,21 @@ function OracleChatInner({ jobId, clientId, clientName, initialSessionId }: Orac
                   {isUser ? (
                     <span className="whitespace-pre-wrap">{msg.content}</span>
                   ) : (() => {
+                    // Carousel marker takes priority
+                    const { text: carouselText, slides } = parseAtlasCarouselMarker(msg.content)
+                    if (slides?.length) {
+                      return (
+                        <>
+                          {carouselText && (
+                            <div className="oracle-prose">
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>{carouselText}</ReactMarkdown>
+                            </div>
+                          )}
+                          <CreativeRenderer slides={slides} />
+                        </>
+                      )
+                    }
+                    // Single image marker fallback
                     const { text, atlasData } = parseAtlasMarker(msg.content)
                     return (
                       <>

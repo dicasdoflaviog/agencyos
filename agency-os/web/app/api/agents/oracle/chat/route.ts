@@ -12,9 +12,12 @@ import {
   isIGSyncRequest,
   extractIGHandle,
 } from '@/lib/apify/tools'
-import { routeChatStream, routeChat, extractStyleguideTokens, getModelForAgent, generateImage } from '@/lib/openrouter/IntelligenceRouter'
+import { routeChatStream, routeChat, getModelForAgent, generateImage } from '@/lib/openrouter/IntelligenceRouter'
+import { getClientDNAContext } from '@/lib/ai/dna-context'
+import { type CreativeSlide } from '@/components/agents/CreativeRenderer'
 
 export const dynamic = 'force-dynamic'
+export const maxDuration = 60
 
 // ── ATLAS image-generation intent detector ────────────────────────────────────
 // Detecta se o usuário quer gerar a imagem de verdade (não apenas um prompt)
@@ -213,6 +216,128 @@ async function classifyIntent(message: string): Promise<AgentType> {
   return 'oracle'
 }
 
+// ── ATLAS carousel helpers ───────────────────────────────────────────────────
+
+function detectCarouselSlides(msg: string): number {
+  const m = msg.match(/(\d+)\s*(?:slide|criativo|card|frame|post)/i)
+  if (m) return Math.min(Math.max(parseInt(m[1]), 2), 6)
+  if (/carrossel|carousel/i.test(msg)) return 4
+  return 0
+}
+
+type CarouselCtx = {
+  supabase: Awaited<ReturnType<typeof createClient>>
+  user: { id: string }
+  profile: { workspace_id?: string } | null
+  job_id?: string
+  session_id?: string
+}
+
+async function runAtlasCarousel(
+  n: number,
+  userMessage: string,
+  systemPrompt: string,
+  ctx: CarouselCtx,
+): Promise<Response> {
+  const encoder = new TextEncoder()
+
+  const carouselSystem =
+    systemPrompt +
+    `\n\nMODO CARROSSEL ATIVADO: crie ${n} slides para Instagram (1080×1080px).` +
+    `\nREGRAS CRÍTICAS:\n` +
+    `1. imagePrompt = BACKGROUND ONLY. Sem texto, sem palavras, sem tipografia na imagem gerada.\n` +
+    `2. headline e body serão sobrepostos via CSS no frontend — não coloque texto no imagePrompt.\n` +
+    `3. Use as cores HEX exatas do cliente presentes no contexto acima.\n` +
+    `4. textPosition: "top" para slides de capa, "bottom" para demais.\n\n` +
+    `Retorne APENAS este JSON array (sem markdown, sem texto antes ou depois):\n` +
+    `[{"slide":1,"imagePrompt":"<English background-only prompt, NO TEXT>","headline":"<PT título>","body":"<PT apoio>","textPosition":"bottom"}]`
+
+  const readable = new ReadableStream({
+    async start(controller) {
+      let finalContent = ''
+      try {
+        controller.enqueue(encoder.encode(`⏳ Planejando carrossel com ${n} slides...\n\n`))
+
+        // 1. Ask ATLAS for structured slide specs
+        const { content: raw } = await routeChat('atlas', [
+          { role: 'system', content: carouselSystem },
+          { role: 'user',   content: userMessage },
+        ], { maxTokens: 2048 })
+
+        type SlideSpec = { slide: number; imagePrompt: string; headline: string; body: string; textPosition: 'top' | 'bottom' }
+        let specs: SlideSpec[] = []
+        try {
+          const jsonMatch = raw.match(/\[[\s\S]*\]/)
+          if (jsonMatch) specs = JSON.parse(jsonMatch[0]) as SlideSpec[]
+        } catch { /* fallback below */ }
+
+        if (!specs.length) {
+          specs = [{ slide: 1, imagePrompt: userMessage, headline: 'Criativo', body: '', textPosition: 'bottom' }]
+        }
+
+        controller.enqueue(encoder.encode(`✅ Roteiro criado — gerando ${specs.length} imagens em paralelo...\n\n`))
+
+        // 2. Generate all background images in parallel
+        const results = await Promise.allSettled(
+          specs.map(s => generateImage({ prompt: s.imagePrompt, aspectRatio: '1:1' }))
+        )
+
+        // 3. Build CreativeSlide array
+        const slides: CreativeSlide[] = []
+        results.forEach((r, i) => {
+          const spec = specs[i]
+          if (r.status === 'fulfilled') {
+            slides.push({
+              slide:       spec.slide,
+              imageBase64: r.value.imageBase64,
+              mimeType:    r.value.mimeType,
+              headline:    spec.headline,
+              body:        spec.body,
+              textPosition: spec.textPosition,
+            })
+          }
+        })
+
+        if (slides.length === 0) {
+          finalContent = '⚠️ Nenhuma imagem foi gerada. Tente novamente.'
+          controller.enqueue(encoder.encode(finalContent))
+          return
+        }
+
+        // 4. Embed as carousel marker — frontend renders CreativeRenderer
+        const marker = `%%ATLAS_CAROUSEL%%${JSON.stringify(slides)}%%END_CAROUSEL%%`
+        finalContent = `✨ Carrossel com ${slides.length} slides pronto!\n\n${marker}`
+        controller.enqueue(encoder.encode(finalContent))
+
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err)
+        finalContent = `⚠️ Erro ao gerar carrossel: ${msg}`
+        controller.enqueue(encoder.encode(finalContent))
+      } finally {
+        await ctx.supabase.from('agent_conversations').insert({
+          session_id:   ctx.session_id  ?? null,
+          job_id:       ctx.job_id      ?? null,
+          workspace_id: ctx.profile?.workspace_id ?? null,
+          agent:        'atlas',
+          role:         'assistant',
+          content:      finalContent,
+        }).then(() => {}, () => {})
+        controller.close()
+      }
+    },
+  })
+
+  return new Response(readable, {
+    headers: {
+      'Content-Type':           'text/plain; charset=utf-8',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Agent':                'atlas',
+      'X-Model':                'atlas-carousel',
+      'X-Agent-Label':          'ATLAS \u2014 Diretor de Arte',
+    },
+  })
+}
+
 // ── Route ───────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   // ── 1. Environment guard ────────────────────────────────────────────────
@@ -270,19 +395,14 @@ export async function POST(req: NextRequest) {
       }),
     ])
 
-    // ── 6. Client DNA context ───────────────────────────────────────────────
+    // ── 6+8b. Client intelligence: DNA + styleguide + products (full pipeline) ─
+    // getClientDNAContext lê: client_memories (DNA doc + vector search),
+    // knowledge_files (tokens CSS/HEX reais), client_products (funil completo).
     let dnaContext = ''
     if (client_id) {
       try {
-        const { data: dna } = await supabase
-          .from('client_dna')
-          .select('brand_name, brand_voice, target_audience, key_messages, visual_style')
-          .eq('client_id', client_id)
-          .maybeSingle()
-        if (dna) {
-          dnaContext = `\n\nCONTEXTO DO CLIENTE:\n- Marca: ${dna.brand_name ?? ''}\n- Voz da Marca: ${dna.brand_voice ?? ''}\n- Público-alvo: ${dna.target_audience ?? ''}\n- Mensagens-chave: ${dna.key_messages ?? ''}\n- Estilo Visual: ${dna.visual_style ?? ''}`
-        }
-      } catch { /* DNA table may not exist yet — non-fatal */ }
+        dnaContext = await getClientDNAContext(supabase, client_id, message)
+      } catch { /* context is best-effort — non-fatal */ }
     }
 
     // ── 7. Instagram metrics context ────────────────────────────────────────
@@ -318,30 +438,17 @@ export async function POST(req: NextRequest) {
       } catch { /* IG context is best-effort — non-fatal */ }
     }
 
-    // ── 8. Build messages for OpenRouter ───────────────────────────────────
-    let systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
+    // ── 8. Build system prompt ──────────────────────────────────────────────
+    const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
 
-    // ── 8b. Styleguide tokens → ATLAS (ORACLE injeta design context no ATLAS) ──
-    if (agent === 'atlas' && client_id) {
-      try {
-        const { data: styleguideFile } = await supabase
-          .from('knowledge_files')
-          .select('content_text')
-          .eq('client_id', client_id)
-          .eq('sync_status', 'synced')
-          .in('file_type', ['HTML', 'CSS'])
-          .not('content_text', 'is', null)
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .maybeSingle()
-
-        if (styleguideFile?.content_text) {
-          const tokens = extractStyleguideTokens(styleguideFile.content_text)
-          if (Object.keys(tokens.colors).length > 0) {
-            systemPrompt += `\n\n${tokens.raw}\n\nIMPORTANTE: Use obrigatoriamente as cores e tipografia acima em todos os prompts de imagem gerados para este cliente.`
-          }
-        }
-      } catch { /* styleguide context é melhor-esforço */ }
+    // ── 8b. ATLAS carousel auto-generation (BLOCO 5) ──────────────────────
+    if (agent === 'atlas') {
+      const n = detectCarouselSlides(message)
+      if (n > 0) {
+        return await runAtlasCarousel(n, message, systemPrompt, {
+          supabase, user, profile, job_id, session_id,
+        })
+      }
     }
 
     const safeHistory = Array.isArray(history) ? history : []
