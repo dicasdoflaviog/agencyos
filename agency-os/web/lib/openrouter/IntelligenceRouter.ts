@@ -355,29 +355,41 @@ export async function generateImage({
     // Lê como text primeiro — se OpenRouter retornar texto puro (não JSON), expomos o erro real
     const responseText = await response.text()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let data: { choices?: Array<{ message?: { content?: string | any[]; images?: string[] } }> }
+    let data: { choices?: Array<{ message?: { content?: string | any[]; images?: any[] } }> }
     try {
       data = JSON.parse(responseText)
     } catch {
       throw new Error(`[ATLAS] OpenRouter ${model} resposta inválida: ${responseText.slice(0, 300)}`)
     }
 
-    // OpenRouter pode retornar imagem em images[], content string, ou content array com image_url
+    // Extrai string de imagem — suporta todos os formatos do OpenRouter:
+    // images: string[] | { url }[] | { b64_json }[]
+    // content: string | [{ type:'image_url', image_url:{ url } }]
     const message = data?.choices?.[0]?.message
     let rawImage: string | undefined
 
-    if (message?.images?.[0]) {
-      rawImage = message.images[0]
-    } else if (typeof message?.content === 'string') {
-      rawImage = message.content
-    } else if (Array.isArray(message?.content)) {
-      // formato: [{ type: 'image_url', image_url: { url: 'data:...' } }]
-      const imgPart = (message.content as Array<{ type: string; image_url?: { url: string }; text?: string }>)
-        .find(p => p.type === 'image_url')
-      rawImage = imgPart?.image_url?.url
+    const imgs = message?.images
+    if (Array.isArray(imgs) && imgs.length > 0) {
+      const img = imgs[0]
+      if (typeof img === 'string') rawImage = img
+      else if (img && typeof img === 'object') {
+        rawImage = (img as { url?: string }).url ?? (img as { b64_json?: string }).b64_json
+      }
     }
 
-    if (!rawImage) throw new Error('[ATLAS] Nenhuma imagem retornada pelo modelo')
+    if (!rawImage) {
+      if (typeof message?.content === 'string') {
+        rawImage = message.content
+      } else if (Array.isArray(message?.content)) {
+        // [{ type: 'image_url', image_url: { url: 'data:...' } }]
+        const parts = message.content as Array<{ type: string; image_url?: { url: string }; text?: string }>
+        rawImage = parts.find(p => p.type === 'image_url')?.image_url?.url
+      }
+    }
+
+    if (!rawImage) {
+      throw new Error(`[ATLAS] Nenhuma imagem retornada. Resposta: ${responseText.slice(0, 400)}`)
+    }
 
     // Suporte a data URL ("data:image/png;base64,...") ou base64 puro
     if (rawImage.startsWith('data:')) {
