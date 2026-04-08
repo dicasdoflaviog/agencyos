@@ -6,6 +6,6 @@
     { "path": "/api/cron/ig-metrics",                  "schedule": "30 0 * * *"    },
     { "path": "/api/cron/ads-metrics",                 "schedule": "0 1 * * *"     },
     { "path": "/api/cron/publish-scheduled-posts",     "schedule": "0 8 * * *"     },
-    { "path": "/api/cron/sdr-runner",                  "schedule": "0 * * * *"     }
+    { "path": "/api/cron/sdr-runner",                  "schedule": "0 8 * * *"     }
   ]
 }
