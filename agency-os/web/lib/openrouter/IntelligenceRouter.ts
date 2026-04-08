@@ -320,6 +320,12 @@ export function getCategoryForAgent(agentId: string): AgentCategory {
 const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'
 const ATLAS_MODEL_FALLBACK = 'google/gemini-3.1-flash-image-preview'
 
+const ASPECT_TO_SIZE: Record<string, string> = {
+  '1:1':  '1024x1024',
+  '9:16': '1024x1792',
+  '16:9': '1792x1024',
+}
+
 export async function generateImage({
   prompt,
   aspectRatio = '1:1',
@@ -330,8 +336,11 @@ export async function generateImage({
   const apiKey = process.env.OPENROUTER_API_KEY
   if (!apiKey) throw new Error('[ATLAS] OPENROUTER_API_KEY não configurada')
 
+  const size = ASPECT_TO_SIZE[aspectRatio] ?? '1024x1024'
+
   const callOpenRouter = async (model: string): Promise<{ imageBase64: string; mimeType: string }> => {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    // Usa /images/generations — endpoint correto para modelos de geração de imagem
+    const response = await fetch('https://openrouter.ai/api/v1/images/generations', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -341,74 +350,47 @@ export async function generateImage({
       },
       body: JSON.stringify({
         model,
-        messages: [{ role: 'user', content: prompt }],
-        modalities: ['image'],
-        image_config: { aspect_ratio: aspectRatio },
+        prompt,
+        n: 1,
+        size,
+        response_format: 'b64_json',
       }),
     })
 
+    const responseText = await response.text()
+
     if (!response.ok) {
-      const err = await response.text()
-      throw new Error(`[ATLAS] OpenRouter ${model} falhou: ${err}`)
+      throw new Error(`[ATLAS] OpenRouter ${model} falhou: ${responseText.slice(0, 300)}`)
     }
 
-    // Lê como text primeiro — se OpenRouter retornar texto puro (não JSON), expomos o erro real
-    const responseText = await response.text()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let data: { choices?: Array<{ message?: { content?: string | any[]; images?: any[] } }> }
+    let data: { data?: Array<{ b64_json?: string; url?: string }> }
     try {
       data = JSON.parse(responseText)
     } catch {
       throw new Error(`[ATLAS] OpenRouter ${model} resposta inválida: ${responseText.slice(0, 300)}`)
     }
 
-    // Extrai string de imagem — suporta todos os formatos do OpenRouter:
-    // images: string[] | { url }[] | { b64_json }[]
-    // content: string | [{ type:'image_url', image_url:{ url } }]
-    const message = data?.choices?.[0]?.message
-    let rawImage: string | undefined
+    const item = data?.data?.[0]
 
-    const imgs = message?.images
-    if (Array.isArray(imgs) && imgs.length > 0) {
-      const img = imgs[0]
-      if (typeof img === 'string') rawImage = img
-      else if (img && typeof img === 'object') {
-        rawImage = (img as { url?: string }).url ?? (img as { b64_json?: string }).b64_json
+    // Preferência: b64_json direto; fallback: buscar URL externa
+    if (item?.b64_json) {
+      return { imageBase64: item.b64_json, mimeType: 'image/png' }
+    }
+
+    if (item?.url) {
+      if (item.url.startsWith('data:')) {
+        const [header, base64] = item.url.split(',')
+        const mimeType = header.match(/data:(.*);base64/)?.[1] ?? 'image/png'
+        return { imageBase64: base64, mimeType }
       }
+      const imgRes = await fetch(item.url)
+      if (!imgRes.ok) throw new Error(`[ATLAS] Falha ao buscar imagem: ${imgRes.status}`)
+      const buffer = await imgRes.arrayBuffer()
+      return { imageBase64: Buffer.from(buffer).toString('base64'), mimeType: imgRes.headers.get('content-type') ?? 'image/png' }
     }
 
-    if (!rawImage) {
-      if (typeof message?.content === 'string') {
-        rawImage = message.content
-      } else if (Array.isArray(message?.content)) {
-        // [{ type: 'image_url', image_url: { url: 'data:...' } }]
-        const parts = message.content as Array<{ type: string; image_url?: { url: string }; text?: string }>
-        rawImage = parts.find(p => p.type === 'image_url')?.image_url?.url
-      }
-    }
-
-    if (!rawImage) {
-      throw new Error(`[ATLAS] Nenhuma imagem retornada. Resposta: ${responseText.slice(0, 400)}`)
-    }
-
-    // data URL → extrair base64 + mimeType
-    if (rawImage.startsWith('data:')) {
-      const [header, base64] = rawImage.split(',')
-      const mimeType = header.match(/data:(.*);base64/)?.[1] ?? 'image/png'
-      return { imageBase64: base64, mimeType }
-    }
-
-    // URL externa (https://...) → buscar bytes e converter para base64
-    if (rawImage.startsWith('http')) {
-      const imgRes = await fetch(rawImage)
-      if (!imgRes.ok) throw new Error(`[ATLAS] Falha ao buscar imagem da URL externa: ${imgRes.status}`)
-      const buffer  = await imgRes.arrayBuffer()
-      const mimeType = imgRes.headers.get('content-type') ?? 'image/png'
-      return { imageBase64: Buffer.from(buffer).toString('base64'), mimeType }
-    }
-
-    // base64 puro
-    return { imageBase64: rawImage, mimeType: 'image/png' }
+    throw new Error(`[ATLAS] Nenhuma imagem retornada. Resposta: ${responseText.slice(0, 400)}`)
   }
 
   try {
