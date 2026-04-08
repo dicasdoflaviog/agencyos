@@ -399,13 +399,12 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
               </div>
             )}
 
-            <div className="relative flex-1 min-h-[400px] bg-[var(--color-bg-base)]">
-              <Image
+            <div className="relative flex-1 min-h-[400px] bg-[var(--color-bg-base)] flex items-center justify-center p-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={previewAsset.image_url}
                 alt="Creative"
-                fill
-                className="object-contain p-4"
-                unoptimized
+                className="max-h-[400px] w-full object-contain rounded-lg"
               />
               {(previewAsset.format === 'carousel' || previewAsset.type === 'carrossel') && (
                 <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] text-white backdrop-blur-sm">
