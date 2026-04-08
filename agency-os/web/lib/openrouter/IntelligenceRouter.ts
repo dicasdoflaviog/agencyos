@@ -317,8 +317,8 @@ export function getCategoryForAgent(agentId: string): AgentCategory {
 // Usa fetch direto (não SDK OpenAI) pois o SDK não suporta modalities:['image']
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'
-const ATLAS_MODEL_FALLBACK = 'openai/dall-e-3'
+const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image-preview'
+const ATLAS_MODEL_FALLBACK = 'openai/gpt-image-1'
 
 export async function generateImage({
   prompt,
