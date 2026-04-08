@@ -391,13 +391,23 @@ export async function generateImage({
       throw new Error(`[ATLAS] Nenhuma imagem retornada. Resposta: ${responseText.slice(0, 400)}`)
     }
 
-    // Suporte a data URL ("data:image/png;base64,...") ou base64 puro
+    // data URL → extrair base64 + mimeType
     if (rawImage.startsWith('data:')) {
       const [header, base64] = rawImage.split(',')
       const mimeType = header.match(/data:(.*);base64/)?.[1] ?? 'image/png'
       return { imageBase64: base64, mimeType }
     }
 
+    // URL externa (https://...) → buscar bytes e converter para base64
+    if (rawImage.startsWith('http')) {
+      const imgRes = await fetch(rawImage)
+      if (!imgRes.ok) throw new Error(`[ATLAS] Falha ao buscar imagem da URL externa: ${imgRes.status}`)
+      const buffer  = await imgRes.arrayBuffer()
+      const mimeType = imgRes.headers.get('content-type') ?? 'image/png'
+      return { imageBase64: Buffer.from(buffer).toString('base64'), mimeType }
+    }
+
+    // base64 puro
     return { imageBase64: rawImage, mimeType: 'image/png' }
   }
 
