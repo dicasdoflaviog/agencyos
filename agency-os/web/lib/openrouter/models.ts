@@ -37,6 +37,10 @@ export const AGENT_MODELS: Record<string, string> = {
   surge:     'qwen/qwen3-235b-a22b:free',
   anchor:    'qwen/qwen3-235b-a22b:free',
 
+  // ── VISUAL — Image generation (ATLAS)
+  atlas_image:          'google/gemini-2.5-flash-image',
+  atlas_image_fallback: 'openai/dall-e-3',
+
   // ── Classifier (cheapest possible)
   classifier: 'google/gemma-3-4b-it:free',
 }

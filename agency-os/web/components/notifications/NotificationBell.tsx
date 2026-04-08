@@ -118,7 +118,7 @@ export default function NotificationBell() {
           />
         </svg>
         {unread > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-violet-500 text-[10px] font-bold text-white">
+          <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-black">
             {unread > 9 ? '9+' : unread}
           </span>
         )}
@@ -131,7 +131,7 @@ export default function NotificationBell() {
               {unread > 0 && (
                 <button
                   onClick={markAllRead}
-                  className="text-xs text-violet-400 hover:text-violet-300 transition-colors"
+                  className="text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors"
                 >
                   Marcar todas como lidas
                 </button>
@@ -149,10 +149,10 @@ export default function NotificationBell() {
                     key={n.id}
                     onClick={() => markRead(n.id)}
                     className={`flex gap-3 px-4 py-3 border-b border-[var(--color-border-subtle)] last:border-0 transition-colors ${
-                      !n.read ? 'bg-violet-500/5' : 'hover:bg-[var(--color-bg-hover)]'
+                      !n.read ? 'bg-[var(--color-accent)]/5' : 'hover:bg-[var(--color-bg-hover)]'
                     }`}
                   >
-                    <div className={`mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${!n.read ? 'bg-violet-400' : 'bg-transparent'}`} />
+                    <div className={`mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${!n.read ? 'bg-[var(--color-accent)]' : 'bg-transparent'}`} />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium text-[var(--color-text-primary)]">{n.title}</p>
                       {n.body && <p className="text-xs text-[var(--color-text-muted)] mt-0.5 truncate">{n.body}</p>}
@@ -169,7 +169,7 @@ export default function NotificationBell() {
                       <Link
                         href={n.link}
                         onClick={(e) => e.stopPropagation()}
-                        className="flex-shrink-0 text-xs text-violet-400 hover:text-violet-300 transition-colors self-center"
+                        className="flex-shrink-0 text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors self-center"
                       >
                         Ver →
                       </Link>

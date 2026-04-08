@@ -7,6 +7,27 @@ import remarkGfm from 'remark-gfm'
 import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, X, FileText, Image, Zap, CheckCircle2, UploadCloud, Plus, MessageSquare } from 'lucide-react'
 import { type AgentType } from '@/types/agents'
 import { createClient } from '@/lib/supabase/client'
+import { AtlasMessage } from './AtlasMessage'
+
+type AtlasData = {
+  imageBase64: string
+  mimeType: string
+  assetId?: string
+  format?: string
+  prompt?: string
+}
+
+function parseAtlasMarker(content: string): { text: string; atlasData?: AtlasData } {
+  const markerMatch = content.match(/%%ATLAS_IMAGE%%([\s\S]+?)%%/)
+  if (!markerMatch) return { text: content }
+  try {
+    const atlasData = JSON.parse(markerMatch[1]) as AtlasData
+    const text = content.replace(/\n\n%%ATLAS_IMAGE%%[\s\S]+?%%/, '').trim()
+    return { text, atlasData }
+  } catch {
+    return { text: content }
+  }
+}
 
 type Message = {
   role: 'user' | 'assistant'
@@ -484,11 +505,19 @@ function OracleChatInner({ jobId, clientId, clientName, initialSessionId }: Orac
                   )}
                   {isUser ? (
                     <span className="whitespace-pre-wrap">{msg.content}</span>
-                  ) : (
-                    <div className="oracle-prose">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
-                    </div>
-                  )}
+                  ) : (() => {
+                    const { text, atlasData } = parseAtlasMarker(msg.content)
+                    return (
+                      <>
+                        {text && (
+                          <div className="oracle-prose">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+                          </div>
+                        )}
+                        {atlasData && <AtlasMessage {...atlasData} />}
+                      </>
+                    )
+                  })()}
                   {msg.streaming && <span className={`inline-block w-1 h-4 ml-0.5 animate-pulse ${style.color.replace('text-', 'bg-')}`} />}
                 </div>
 

@@ -268,6 +268,74 @@ GROWTH:        SURGE · ANCHOR
 
 ---
 
+## 🔧 WORKFLOW DE DESENVOLVIMENTO
+
+> Baseado nos sistemas **Superpowers** + **Get Shit Done** instalados em `../superpowers/` e `../get-shit-done/`
+
+### Princípios Fundamentais
+
+- **TDD** — Escreva o teste que falha ANTES do código que o faz passar
+- **YAGNI** — "You Aren't Gonna Need It" — não implemente o que não foi pedido agora
+- **DRY** — Não duplique código; extraia em funções/componentes reutilizáveis
+- **Root Cause First** — NUNCA corrija um bug sem encontrar a causa raiz primeiro
+- **Spec → Plan → Code** — Nunca pular etapas. Sem spec aprovado, sem código
+
+### Antes de Implementar Qualquer Feature
+
+```
+1. Existe spec aprovado? → NÃO: criar PRD/SPEC antes
+2. Mapeei os arquivos afetados? → listar TODOS os arquivos: criados, modificados, testados
+3. Existe plano de tarefas bite-sized? → cada tarefa = 2-5 min, TDD, com código real (sem "TBD")
+4. Verifiquei duplicação? → buscar componente/função existente antes de criar novo
+```
+
+### Estrutura de Plano (obrigatória para tasks > 3 arquivos)
+
+Salvar em: `docs/plans/YYYY-MM-DD-<feature>.md`
+
+```markdown
+# [Feature] — Plano de Implementação
+**Goal:** [uma frase]
+**Arquitetura:** [2-3 frases]
+**Stack:** [tecnologias envolvidas]
+
+### Task N: [Nome]
+**Arquivos:**
+- Criar: `exact/path/file.ts`
+- Modificar: `exact/path/existing.ts`
+
+- [ ] Escrever teste que falha
+- [ ] Rodar teste (confirmar FAIL)
+- [ ] Implementar código mínimo
+- [ ] Rodar teste (confirmar PASS)
+- [ ] Commit: `git commit -m "feat: ..."`
+```
+
+### Debugging Sistemático
+
+```
+NUNCA propor fix sem completar:
+1. Reproduzir o bug de forma consistente
+2. Identificar ONDE exatamente o comportamento diverge
+3. Descobrir POR QUE acontece (causa raiz)
+4. Só então → propor correção cirúrgica
+```
+
+### Subagent-Driven Development
+
+Para tasks independentes com plano aprovado:
+- Cada task → subagente fresco com contexto isolado
+- Revisão em 2 estágios: (1) conformidade com spec → (2) qualidade de código
+- Nunca herdar contexto do agente principal no subagente
+
+### Context Management (anti-rot)
+
+- Quando context window > 60% → fazer checkpoint (resumo + próximos passos)
+- Salvar decisões importantes em `CLAUDE.md` ou spec, não apenas na conversa
+- Referências de arquivos via path exato, não descrição vaga
+
+---
+
 ## 🚫 REGRAS DE OURO
 
 1. **Nunca** criar arquivos fora de `agency-os/`

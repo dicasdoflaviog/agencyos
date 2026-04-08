@@ -25,9 +25,9 @@ import { cn } from '@/lib/utils'
 import { CreditWidget } from '@/components/credits/CreditWidget'
 
 const NAV_ITEMS = [
-  { href: '/',           label: 'Overview',    icon: LayoutDashboard },
+  { href: '/',           label: 'Visão Geral', icon: LayoutDashboard },
   { href: '/clients',    label: 'Clientes',    icon: Users },
-  { href: '/jobs',       label: 'Jobs',        icon: Briefcase },
+  { href: '/jobs',       label: 'Projetos',    icon: Briefcase },
   { href: '/gallery',    label: 'Galeria',     icon: Images },
   { href: '/analytics',  label: 'Analytics',   icon: BarChart2 },
   { href: '/pipelines',  label: 'Pipelines',   icon: GitBranch },

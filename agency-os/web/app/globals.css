@@ -298,6 +298,12 @@ body {
   border-radius: var(--radius-sm);
 }
 
+/* Impede que body/html exibam o outline de foco como borda ao redor da viewport */
+body:focus-visible,
+html:focus-visible {
+  outline: none;
+}
+
 /* Scrollbar customizada */
 ::-webkit-scrollbar          { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track    { background: var(--color-bg-base); }

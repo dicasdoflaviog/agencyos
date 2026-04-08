@@ -2,11 +2,14 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Dna, RefreshCw, Copy, Check, Clock } from 'lucide-react'
+import { Dna, RefreshCw, Copy, Check, Clock, Pencil } from 'lucide-react'
+import { DNAWizard } from './DNAWizard'
 
 interface Props {
   clientId: string
   clientName: string
+  niche: string | null
+  syncedFilesCount?: number
   memoryId: string
   content: string
   createdAt: string
@@ -48,10 +51,11 @@ function parseDocument(content: string): { title: string; body: string }[] {
   return sections
 }
 
-export function DNADocument({ clientId, clientName, memoryId, content, createdAt }: Props) {
+export function DNADocument({ clientId, clientName, niche, syncedFilesCount = 0, memoryId, content, createdAt }: Props) {
   const router = useRouter()
   const [copied, setCopied] = useState(false)
   const [regenerating, setRegenerating] = useState(false)
+  const [editing, setEditing] = useState(false)
 
   const sections = parseDocument(content)
   const date = new Date(createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })
@@ -76,6 +80,28 @@ export function DNADocument({ clientId, clientName, memoryId, content, createdAt
     }
   }
 
+  if (editing) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">Editar Brand DNA</h3>
+          <button
+            onClick={() => setEditing(false)}
+            className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+          >
+            ← Voltar para documento
+          </button>
+        </div>
+        <DNAWizard
+          clientId={clientId}
+          clientName={clientName}
+          niche={niche}
+          syncedFilesCount={syncedFilesCount}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -98,6 +124,13 @@ export function DNADocument({ clientId, clientName, memoryId, content, createdAt
             className="flex items-center gap-1.5 rounded-lg border border-[var(--color-border-subtle)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] transition-all hover:border-white/20 hover:text-[var(--color-text-primary)]"
           >
             {copied ? <><Check size={12} className="text-green-400" /> Copiado</> : <><Copy size={12} /> Copiar</>}
+          </button>
+          <button
+            onClick={() => setEditing(true)}
+            className="flex items-center gap-1.5 rounded-lg border border-[var(--color-border-subtle)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] transition-all hover:border-white/20 hover:text-[var(--color-text-primary)]"
+          >
+            <Pencil size={12} />
+            Editar
           </button>
           <button
             onClick={handleRegenerate}

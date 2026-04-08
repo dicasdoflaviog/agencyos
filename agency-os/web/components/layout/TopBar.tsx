@@ -3,14 +3,17 @@ import { usePathname } from 'next/navigation'
 import NotificationBell from '@/components/notifications/NotificationBell'
 
 const PAGE_TITLES: Record<string, string> = {
-  '/':           'Overview',
+  '/':           'Visão Geral',
   '/clients':    'Clientes',
-  '/jobs':       'Jobs',
+  '/jobs':       'Projetos',
   '/gallery':    'Galeria',
   '/financial':  'Financeiro',
   '/analytics':  'Analytics',
   '/pipelines':  'Pipelines',
   '/templates':  'Templates',
+  '/crm':        'CRM',
+  '/reports':    'Relatórios',
+  '/agentes':    'Time de Agentes',
 }
 
 function getTitle(pathname: string): string {

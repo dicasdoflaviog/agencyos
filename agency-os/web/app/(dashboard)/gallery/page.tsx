@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
+import { AtlasGallerySection } from '@/components/gallery/AtlasGallerySection'
 import { Images } from 'lucide-react'
 
 interface GalleryPageProps {
@@ -26,9 +27,20 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
     query = query.not('output_type', 'in', `(${STRATEGY_TYPES.map(t => `"${t}"`).join(',')})`)
   }
 
-  const [{ data: outputs }, { data: clients }] = await Promise.all([
+  // Query ATLAS approved creative assets
+  let atlasQuery = supabase
+    .from('creative_assets')
+    .select('id, client_id, format, style, type, status, prompt, image_url, model, created_at, client:clients(id, name)')
+    .eq('status', 'approved')
+    .order('created_at', { ascending: false })
+    .limit(24)
+
+  if (clientFilter) atlasQuery = atlasQuery.eq('client_id', clientFilter)
+
+  const [{ data: outputs }, { data: clients }, { data: atlasAssets }] = await Promise.all([
     query,
     supabase.from('clients').select('id, name').eq('status', 'active').order('name'),
+    atlasQuery,
   ])
 
   return (
@@ -42,6 +54,11 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <p className="text-xs text-[var(--color-text-muted)]">Outputs visuais e criativos gerados pelos agentes</p>
         </div>
       </div>
+
+      {/* ATLAS Creative Assets — seção dedicada */}
+      {(atlasAssets && atlasAssets.length > 0) && (
+        <AtlasGallerySection assets={atlasAssets} />
+      )}
 
       <GalleryGrid
         outputs={outputs ?? []}

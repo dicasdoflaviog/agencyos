@@ -12,9 +12,43 @@ import {
   isIGSyncRequest,
   extractIGHandle,
 } from '@/lib/apify/tools'
-import { routeChatStream, routeChat, extractStyleguideTokens, getModelForAgent } from '@/lib/openrouter/IntelligenceRouter'
+import { routeChatStream, routeChat, extractStyleguideTokens, getModelForAgent, generateImage } from '@/lib/openrouter/IntelligenceRouter'
 
 export const dynamic = 'force-dynamic'
+
+// ── ATLAS image-generation intent detector ────────────────────────────────────
+// Detecta se o usuário quer gerar a imagem de verdade (não apenas um prompt)
+const ATLAS_IMAGE_INTENT_RE = /\b(ger[ae]r?\s+(a\s+)?imagem|cri[ae]r?\s+(a\s+)?imagem|cri[ae]r?\s+criativo|faz[ea]r?\s+(a\s+)?imagem|produz[ir]*\s+(a\s+)?imagem|creat[e]?\s+image|generat[e]?\s+image|gera\s+(o\s+)?criativo|cria\s+(o\s+)?criativo)\b/i
+
+// Extrai o melhor prompt de imagem de uma resposta do ATLAS
+function extractImagePrompt(text: string): string | null {
+  // 1. Procura por bloco de código ou linha rotulada "Prompt:"
+  const codeMatch = text.match(/```(?:prompt|image)?\s*([\s\S]+?)```/)
+  if (codeMatch) return codeMatch[1].trim()
+
+  const labelMatch = text.match(/(?:^|\n)(?:Prompt:|Image prompt:|Prompt de imagem:)\s*(.+)/im)
+  if (labelMatch) return labelMatch[1].trim()
+
+  // 2. Usa a primeira linha longa em inglês (heurística)
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean)
+  const engLine = lines.find(l => l.length > 60 && /[a-zA-Z]{3,}/.test(l))
+  return engLine ?? null
+}
+
+// Aspect ratio padrão por formato
+const FORMAT_ASPECT_MAP: Record<string, string> = {
+  feed: '1:1', stories: '9:16', banner: '16:9', thumbnail: '16:9',
+  portrait: '9:16', carousel: '1:1',
+}
+
+function detectFormat(text: string): string {
+  if (/stories|9:16/i.test(text)) return 'stories'
+  if (/banner|16:9/i.test(text)) return 'banner'
+  if (/thumbnail/i.test(text)) return 'thumbnail'
+  if (/retrato|portrait/i.test(text)) return 'portrait'
+  if (/carrossel|carousel/i.test(text)) return 'carousel'
+  return 'feed'
+}
 
 // ── All 22 agent system prompts ──────────────────────────────────────────────
 

@@ -1,90 +1,143 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import OpenAI from 'openai'
+import { generateImage } from '@/lib/openrouter/IntelligenceRouter'
 
 export const dynamic = 'force-dynamic'
 
-const CREATIVE_TYPES: Record<string, { size: '1024x1024' | '1792x1024' | '1024x1792'; label: string }> = {
-  post_feed:  { size: '1024x1024',  label: 'Post Feed' },
-  stories:    { size: '1024x1792',  label: 'Stories' },
-  banner:     { size: '1792x1024',  label: 'Banner' },
-  thumbnail:  { size: '1792x1024',  label: 'Thumbnail' },
-  portrait:   { size: '1024x1792',  label: 'Retrato' },
+const FORMAT_ASPECT_RATIO: Record<string, string> = {
+  feed:      '1:1',
+  stories:   '9:16',
+  banner:    '16:9',
+  thumbnail: '16:9',
+  portrait:  '9:16',
+  carousel:  '1:1',
+  // legado
+  post_feed:  '1:1',
+  carrossel:  '1:1',
+}
+
+const STYLE_KEYWORDS: Record<string, string> = {
+  fotorrealista:   'photorealistic, high quality photography, professional lighting',
+  photorealistic:  'photorealistic, high quality photography, professional lighting',
+  ilustracao:      'digital illustration, artistic, colorful, vector style',
+  illustration:    'digital illustration, artistic, colorful, vector style',
+  minimalista:     'minimalist, clean, simple, white space, modern design',
+  minimal:         'minimalist, clean, simple, white space, modern design',
+  bold:            'bold graphic design, strong colors, high contrast, impactful',
+  bold_graphic:    'bold graphic design, strong colors, high contrast, impactful',
+  cinematografico: 'cinematic, dramatic lighting, film quality, atmospheric mood',
+  cinematic:       'cinematic, dramatic lighting, film quality, atmospheric mood',
 }
 
 export async function POST(req: NextRequest) {
-  const openai = new OpenAI({
-    apiKey: process.env.OPENROUTER_API_KEY!,
-    baseURL: 'https://openrouter.ai/api/v1',
-    defaultHeaders: {
-      'HTTP-Referer': 'https://agencyos-cyan.vercel.app',
-      'X-Title': 'Agency OS',
-    },
-  })
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const {
-    prompt,
-    type = 'post_feed',
-    client_id,
-    job_id,
-    style = 'photorealistic',
-  } = await req.json() as {
+  const body = await req.json() as {
     prompt: string
+    format?: string
+    style?: string
+    // legado
     type?: string
     client_id?: string
+    clientId?: string
     job_id?: string
-    style?: string
+    jobId?: string
   }
 
-  if (!prompt) return Response.json({ error: 'prompt required' }, { status: 400 })
+  const format    = body.format ?? body.type ?? 'feed'
+  const style     = body.style ?? 'fotorrealista'
+  const clientId  = body.clientId ?? body.client_id
+  const jobId     = body.jobId ?? body.job_id
+  const rawPrompt = body.prompt?.trim()
 
-  const { data: profile } = await supabase.from('profiles').select('workspace_id').eq('id', user.id).single()
+  if (!rawPrompt) return Response.json({ error: 'prompt obrigatório' }, { status: 400 })
 
-  const config = CREATIVE_TYPES[type] ?? CREATIVE_TYPES.post_feed
+  // Enriquecer prompt com contexto do cliente
+  let clientContext = ''
+  if (clientId) {
+    const { data: client } = await supabase
+      .from('clients')
+      .select('name, niche')
+      .eq('id', clientId)
+      .single()
+    if (client) clientContext = `Brand: ${client.name}${client.niche ? `, ${client.niche}` : ''}.`
+  }
 
-  const enhancedPrompt = `${prompt}. Style: ${style}, professional marketing creative, high quality, vibrant, agency-level design. No text overlays unless specified.`
+  const styleKeywords = STYLE_KEYWORDS[style] ?? style
+  const enrichedPrompt = [
+    rawPrompt,
+    styleKeywords,
+    clientContext,
+    'Professional marketing creative. No text overlays unless explicitly requested.',
+  ].filter(Boolean).join('. ')
 
-  const response = await openai.images.generate({
-    model: 'dall-e-3',
-    prompt: enhancedPrompt,
-    size: config.size,
-    quality: 'standard',
-    n: 1,
-  })
+  const aspectRatio = FORMAT_ASPECT_RATIO[format] ?? '1:1'
 
-  const imageUrl = response.data?.[0]?.url
-  if (!imageUrl) return Response.json({ error: 'Generation failed' }, { status: 500 })
+  // Gerar imagem via OpenRouter
+  let imageBase64: string
+  let mimeType: string
+  let usedFallback: boolean
 
-  // Download and store in Supabase Storage
-  const imageRes = await fetch(imageUrl)
-  const imageBuffer = await imageRes.arrayBuffer()
-  const fileName = `${Date.now()}-${type}.png`
-  const storagePath = `${profile?.workspace_id ?? 'default'}/${client_id ?? 'general'}/${fileName}`
+  try {
+    const result = await generateImage({ prompt: enrichedPrompt, aspectRatio })
+    imageBase64  = result.imageBase64
+    mimeType     = result.mimeType
+    usedFallback = result.usedFallback
+  } catch (err) {
+    console.error('[ATLAS generate]', err)
+    return Response.json(
+      { error: err instanceof Error ? err.message : 'Falha na geração de imagem' },
+      { status: 500 },
+    )
+  }
+
+  // Upload para Supabase Storage
+  const assetId     = crypto.randomUUID()
+  const ext         = mimeType === 'image/jpeg' ? 'jpg' : 'png'
+  const storagePath = `${clientId ?? 'general'}/${assetId}.${ext}`
+  const imageBuffer = Buffer.from(imageBase64, 'base64')
 
   const { error: storageError } = await supabase.storage
     .from('creative-assets')
-    .upload(storagePath, imageBuffer, { contentType: 'image/png' })
+    .upload(storagePath, imageBuffer, { contentType: mimeType, upsert: false })
 
-  let finalUrl = imageUrl // fallback to temp URL if storage fails
+  // Signed URL válida por 1 ano (fallback para data URL se storage falhar)
+  let imageUrl = `data:${mimeType};base64,${imageBase64}`
   if (!storageError) {
-    const { data: publicData } = supabase.storage.from('creative-assets').getPublicUrl(storagePath)
-    finalUrl = publicData.publicUrl
+    const { data: urlData } = await supabase.storage
+      .from('creative-assets')
+      .createSignedUrl(storagePath, 60 * 60 * 24 * 365)
+    if (urlData?.signedUrl) imageUrl = urlData.signedUrl
   }
 
-  // Save to DB
-  const { data: asset } = await supabase.from('creative_assets').insert({
-    client_id: client_id || null,
-    job_id: job_id || null,
-    workspace_id: profile?.workspace_id,
-    type,
-    prompt: enhancedPrompt,
-    image_url: finalUrl,
-    model: 'dall-e-3',
-    created_by: user.id,
-  }).select().single()
+  const modelUsed = usedFallback ? 'openai/dall-e-3' : 'google/gemini-2.5-flash-image'
 
-  return Response.json({ asset, url: finalUrl })
+  // Salvar em creative_assets
+  const { data: asset, error: dbError } = await supabase
+    .from('creative_assets')
+    .insert({
+      client_id:  clientId ?? null,
+      job_id:     jobId ?? null,
+      format,
+      style,
+      type:       format, // legado
+      prompt:     rawPrompt,
+      image_url:  imageUrl,
+      model:      modelUsed,
+      status:     'pending',
+      source:     'manual',
+      created_by: user.id,
+    })
+    .select()
+    .single()
+
+  if (dbError) {
+    console.error('[ATLAS generate] DB error:', dbError)
+    return Response.json({ error: `Erro ao salvar: ${dbError.message}` }, { status: 500 })
+  }
+
+  return Response.json({ success: true, asset, url: imageUrl })
 }
+

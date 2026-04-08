@@ -311,3 +311,85 @@ export function getModelForAgent(agentId: string): string {
 export function getCategoryForAgent(agentId: string): AgentCategory {
   return AGENT_CONFIG[agentId]?.category ?? 'elite'
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ATLAS IMAGE GENERATION — via OpenRouter native image endpoint
+// Usa fetch direto (não SDK OpenAI) pois o SDK não suporta modalities:['image']
+// ─────────────────────────────────────────────────────────────────────────────
+
+const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'
+const ATLAS_MODEL_FALLBACK = 'openai/dall-e-3'
+
+export async function generateImage({
+  prompt,
+  aspectRatio = '1:1',
+}: {
+  prompt: string
+  aspectRatio?: string
+}): Promise<{ imageBase64: string; mimeType: string; usedFallback: boolean }> {
+  const apiKey = process.env.OPENROUTER_API_KEY
+  if (!apiKey) throw new Error('[ATLAS] OPENROUTER_API_KEY não configurada')
+
+  const callOpenRouter = async (model: string): Promise<{ imageBase64: string; mimeType: string }> => {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://agencyos-cyan.vercel.app',
+        'X-Title': 'Agency OS ATLAS',
+      },
+      body: JSON.stringify({
+        model,
+        messages: [{ role: 'user', content: prompt }],
+        modalities: ['image'],
+        image_config: { aspect_ratio: aspectRatio },
+      }),
+    })
+
+    if (!response.ok) {
+      const err = await response.text()
+      throw new Error(`[ATLAS] OpenRouter ${model} falhou: ${err}`)
+    }
+
+    const data = await response.json() as {
+      choices?: Array<{
+        message?: {
+          content?: string
+          images?: string[]
+        }
+      }>
+    }
+
+    // OpenRouter retorna imagem como data URL em images[] ou como content base64
+    const rawImage = data?.choices?.[0]?.message?.images?.[0]
+      ?? data?.choices?.[0]?.message?.content
+
+    if (!rawImage) throw new Error('[ATLAS] Nenhuma imagem retornada pelo modelo')
+
+    // Suporte a data URL ("data:image/png;base64,...") ou base64 puro
+    if (rawImage.startsWith('data:')) {
+      const [header, base64] = rawImage.split(',')
+      const mimeType = header.match(/data:(.*);base64/)?.[1] ?? 'image/png'
+      return { imageBase64: base64, mimeType }
+    }
+
+    return { imageBase64: rawImage, mimeType: 'image/png' }
+  }
+
+  try {
+    const result = await callOpenRouter(ATLAS_MODEL_PRIMARY)
+    return { ...result, usedFallback: false }
+  } catch (primaryErr) {
+    console.warn('[ATLAS] Primário falhou, tentando fallback:', primaryErr instanceof Error ? primaryErr.message : primaryErr)
+    try {
+      const result = await callOpenRouter(ATLAS_MODEL_FALLBACK)
+      return { ...result, usedFallback: true }
+    } catch (fallbackErr) {
+      throw new Error(
+        `[ATLAS] Primário (${ATLAS_MODEL_PRIMARY}) e fallback (${ATLAS_MODEL_FALLBACK}) falharam. ` +
+        `Último erro: ${fallbackErr instanceof Error ? fallbackErr.message : String(fallbackErr)}`,
+      )
+    }
+  }
+}

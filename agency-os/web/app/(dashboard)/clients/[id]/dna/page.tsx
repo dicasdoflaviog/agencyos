@@ -80,6 +80,8 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
             <DNADocument
               clientId={id}
               clientName={client.name}
+              niche={client.niche}
+              syncedFilesCount={syncedFiles.length}
               memoryId={dnaMemory.id}
               content={dnaMemory.content}
               createdAt={dnaMemory.created_at}

@@ -66,7 +66,7 @@ export default function NewPipelinePage() {
     router.push(`/pipelines/${data.id}`)
   }
 
-  const input = 'w-full rounded-lg bg-white/[0.04] border border-white/10 text-zinc-100 placeholder:text-zinc-600 px-3 py-2 text-sm focus:outline-none focus:border-violet-500 transition-colors'
+  const input = 'w-full rounded-lg bg-white/[0.04] border border-white/10 text-zinc-100 placeholder:text-zinc-600 px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors'
   const label = 'block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1.5'
 
   return (
@@ -138,7 +138,7 @@ export default function NewPipelinePage() {
                   <select
                     value={step.agent_id}
                     onChange={(e) => updateStep(i, 'agent_id', e.target.value)}
-                    className="flex-1 rounded-lg bg-white/[0.04] border border-white/10 text-zinc-100 px-3 py-1.5 text-sm focus:outline-none focus:border-violet-500"
+                    className="flex-1 rounded-lg bg-white/[0.04] border border-white/10 text-zinc-100 px-3 py-1.5 text-sm focus:outline-none focus:border-[var(--color-accent)]"
                   >
                     {AGENT_LIST.map((a) => (
                       <option key={a.id} value={a.id} className="bg-zinc-900">

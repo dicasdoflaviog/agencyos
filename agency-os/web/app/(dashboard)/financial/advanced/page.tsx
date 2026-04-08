@@ -48,8 +48,8 @@ export default async function AdvancedFinancialPage() {
   if (allContracts.length === 0) {
     const { data: activeClients } = await supabase
       .from('clients')
-      .select('contract_value')
-      .eq('contract_status', 'active')
+      .select('contract_value, contract_status')
+      .eq('status', 'active')
     const clients = activeClients ?? []
     activeCount = clients.length
     mrr = clients.reduce((sum, c) => sum + (c.contract_value ?? 0), 0)

@@ -24,7 +24,7 @@ export function AgentSelector({ selectedId, onSelect }: AgentSelectorProps) {
                 <button
                   key={agent.id}
                   onClick={() => onSelect(agent.id)}
-                  title={agent.name}
+                  title={`${agent.name} — ${agent.role}`}
                   className={cn(
                     'flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left transition-all cursor-pointer',
                     isSelected

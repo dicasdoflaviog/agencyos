@@ -1,16 +1,21 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Sparkles, Download, Loader2, ImageIcon, RefreshCw, LayoutGrid, Upload, X, Eye, Zap } from 'lucide-react'
+import { Sparkles, Download, Loader2, ImageIcon, RefreshCw, LayoutGrid, Upload, X, Eye, Zap, Check, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 
-type CreativeType = 'post_feed' | 'stories' | 'banner' | 'thumbnail' | 'portrait' | 'carrossel'
-type StyleType = 'photorealistic' | 'illustration' | 'minimal' | 'bold_graphic' | 'cinematic'
+type CreativeFormat = 'feed' | 'stories' | 'banner' | 'thumbnail' | 'portrait' | 'carousel'
+// legado — mantido para compatibilidade com assets existentes
+type LegacyCreativeType = 'post_feed' | 'stories' | 'banner' | 'thumbnail' | 'portrait' | 'carrossel'
+type StyleType = 'fotorrealista' | 'ilustracao' | 'minimalista' | 'bold' | 'cinematografico'
 
 export interface CreativeAsset {
   id: string
   image_url: string
-  type: string
+  format?: string
+  type?: string          // legado
+  style?: string
+  status?: 'pending' | 'approved' | 'rejected'
   prompt: string
   created_at: string
 }
@@ -21,21 +26,21 @@ interface CreativeStudioProps {
   initialAssets?: CreativeAsset[]
 }
 
-const TYPES: { value: CreativeType; label: string; aspect: string }[] = [
-  { value: 'post_feed',  label: 'Post Feed',  aspect: '1:1'  },
-  { value: 'stories',    label: 'Stories',    aspect: '9:16' },
-  { value: 'banner',     label: 'Banner',     aspect: '16:9' },
-  { value: 'thumbnail',  label: 'Thumbnail',  aspect: '16:9' },
-  { value: 'portrait',   label: 'Retrato',    aspect: '9:16' },
-  { value: 'carrossel',  label: 'Carrossel',  aspect: '1:1'  },
+const FORMATS: { value: CreativeFormat; label: string; aspect: string }[] = [
+  { value: 'feed',      label: 'Feed',       aspect: '1:1'  },
+  { value: 'stories',   label: 'Stories',    aspect: '9:16' },
+  { value: 'banner',    label: 'Banner',     aspect: '16:9' },
+  { value: 'thumbnail', label: 'Thumbnail',  aspect: '16:9' },
+  { value: 'portrait',  label: 'Retrato',    aspect: '9:16' },
+  { value: 'carousel',  label: 'Carrossel',  aspect: '1:1'  },
 ]
 
 const STYLES: { value: StyleType; label: string }[] = [
-  { value: 'photorealistic', label: 'Fotorrealista' },
-  { value: 'illustration',   label: 'Ilustração' },
-  { value: 'minimal',        label: 'Minimalista' },
-  { value: 'bold_graphic',   label: 'Bold / Gráfico' },
-  { value: 'cinematic',      label: 'Cinematográfico' },
+  { value: 'fotorrealista',  label: 'Fotorrealista' },
+  { value: 'ilustracao',     label: 'Ilustração' },
+  { value: 'minimalista',    label: 'Minimalista' },
+  { value: 'bold',           label: 'Bold / Gráfico' },
+  { value: 'cinematografico',label: 'Cinematográfico' },
 ]
 
 const QUICK_PROMPTS = [
@@ -46,19 +51,22 @@ const QUICK_PROMPTS = [
 ]
 
 export function CreativeStudio({ clientId, clientName, initialAssets = [] }: CreativeStudioProps) {
-  const [prompt, setPrompt]               = useState('')
-  const [type, setType]                   = useState<CreativeType>('post_feed')
-  const [style, setStyle]                 = useState<StyleType>('photorealistic')
-  const [slideCount, setSlideCount]       = useState(5)
-  const [isGenerating, setIsGenerating]   = useState(false)
-  const [assets, setAssets]               = useState<CreativeAsset[]>(initialAssets)
-  const [selectedAsset, setSelectedAsset] = useState<CreativeAsset | null>(null)
+  const [prompt, setPrompt]                       = useState('')
+  const [format, setFormat]                       = useState<CreativeFormat>('feed')
+  const [style, setStyle]                         = useState<StyleType>('fotorrealista')
+  const [slideCount, setSlideCount]               = useState(5)
+  const [isGenerating, setIsGenerating]           = useState(false)
+  const [isApproving, setIsApproving]             = useState(false)
+  const [assets, setAssets]                       = useState<CreativeAsset[]>(initialAssets)
+  // pendingAsset: recém-gerado, ainda aguardando aprovação
+  const [pendingAsset, setPendingAsset]           = useState<CreativeAsset | null>(null)
+  const [selectedAsset, setSelectedAsset]         = useState<CreativeAsset | null>(null)
 
   // Reference image
-  const fileRef                           = useRef<HTMLInputElement>(null)
-  const [refImage, setRefImage]           = useState<string | null>(null)   // base64 data URL
-  const [refAnalysis, setRefAnalysis]     = useState<string | null>(null)
-  const [isAnalyzing, setIsAnalyzing]     = useState(false)
+  const fileRef                                   = useRef<HTMLInputElement>(null)
+  const [refImage, setRefImage]                   = useState<string | null>(null)
+  const [refAnalysis, setRefAnalysis]             = useState<string | null>(null)
+  const [isAnalyzing, setIsAnalyzing]             = useState(false)
 
   async function handleRefUpload(file: File) {
     const reader = new FileReader()
@@ -66,7 +74,6 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
       const dataUrl = e.target?.result as string
       setRefImage(dataUrl)
       setRefAnalysis(null)
-      // Auto-analyze
       setIsAnalyzing(true)
       try {
         const res = await fetch('/api/agents/oracle/analyze-image', {
@@ -91,10 +98,11 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
   const generate = async () => {
     if (!prompt.trim() || isGenerating) return
     setIsGenerating(true)
+    setPendingAsset(null)
+    setSelectedAsset(null)
     try {
-      // Build enriched prompt
       let enrichedPrompt = prompt
-      if (type === 'carrossel') {
+      if (format === 'carousel') {
         enrichedPrompt = `[CARROSSEL INSTAGRAM — ${slideCount} SLIDES] ${enrichedPrompt}. Slide 1 (capa): design atrativo e impactante. Slides 2-${slideCount - 1}: conteúdo progressivo. Slide ${slideCount}: CTA claro. Consistência visual em todos os slides.`
       }
       if (refAnalysis) {
@@ -102,7 +110,12 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
       }
 
       const endpoint = refImage ? '/api/agents/atlas/generate-v2' : '/api/agents/atlas/generate'
-      const body: Record<string, unknown> = { prompt: enrichedPrompt, type, style, client_id: clientId }
+      const body: Record<string, unknown> = {
+        prompt: enrichedPrompt,
+        format,
+        style,
+        client_id: clientId,
+      }
       if (refImage) body.reference_images = [refImage]
 
       const res = await fetch(endpoint, {
@@ -110,17 +123,72 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+
+      if (!res.ok) {
+        const errData = await res.json() as { error?: string }
+        throw new Error(errData.error ?? `HTTP ${res.status}`)
+      }
+
       const data = await res.json() as { asset?: CreativeAsset; url?: string }
       if (data.asset) {
-        setAssets(prev => [data.asset!, ...prev])
-        setSelectedAsset(data.asset!)
+        // Muda para estado pending — não vai para galeria até ser aprovado
+        setPendingAsset(data.asset)
       }
     } catch (err) {
-      console.error(err)
+      console.error('[ATLAS]', err)
     } finally {
       setIsGenerating(false)
     }
   }
+
+  const handleApprove = async () => {
+    if (!pendingAsset || isApproving) return
+    setIsApproving(true)
+    try {
+      const res = await fetch('/api/agents/atlas/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ assetId: pendingAsset.id, action: 'approved' }),
+      })
+      if (res.ok) {
+        const approved = { ...pendingAsset, status: 'approved' as const }
+        setAssets(prev => [approved, ...prev])
+        setSelectedAsset(approved)
+        setPendingAsset(null)
+      }
+    } catch (err) {
+      console.error('[ATLAS approve]', err)
+    } finally {
+      setIsApproving(false)
+    }
+  }
+
+  const handleReject = async () => {
+    if (!pendingAsset || isApproving) return
+    setIsApproving(true)
+    try {
+      await fetch('/api/agents/atlas/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ assetId: pendingAsset.id, action: 'rejected' }),
+      })
+    } catch { /* non-fatal */ }
+    finally {
+      setIsApproving(false)
+      setPendingAsset(null)
+    }
+  }
+
+  const handleRegenerate = () => {
+    if (pendingAsset) {
+      setPrompt(pendingAsset.prompt)
+      setPendingAsset(null)
+    }
+    void generate()
+  }
+
+  // O asset exibido no preview: pending tem prioridade, depois selecionado da galeria
+  const previewAsset = pendingAsset ?? selectedAsset
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -133,28 +201,28 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
             <span className="text-xs text-[var(--color-text-secondary)]">· {clientName}</span>
           </div>
 
-          {/* Type selector */}
+          {/* Format selector */}
           <div>
             <p className="text-xs text-[var(--color-text-secondary)] mb-2">Formato</p>
             <div className="flex flex-wrap gap-2">
-              {TYPES.map(t => (
+              {FORMATS.map(f => (
                 <button
-                  key={t.value}
-                  onClick={() => setType(t.value)}
+                  key={f.value}
+                  onClick={() => setFormat(f.value)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    type === t.value
+                    format === f.value
                       ? 'bg-[var(--color-accent)] text-[var(--color-text-inverse)]'
                       : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                   }`}
                 >
-                  {t.value === 'carrossel' && <LayoutGrid size={11} />}
-                  {t.label} <span className="opacity-60">{t.aspect}</span>
+                  {f.value === 'carousel' && <LayoutGrid size={11} />}
+                  {f.label} <span className="opacity-60">{f.aspect}</span>
                 </button>
               ))}
             </div>
 
-            {/* Slide count — only when carrossel */}
-            {type === 'carrossel' && (
+            {/* Slide count — only when carousel */}
+            {format === 'carousel' && (
               <div className="mt-3 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-4 py-3">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs text-[var(--color-text-secondary)]">Número de slides</span>
@@ -280,24 +348,23 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
           </button>
         </div>
 
-        {/* Recent Gallery */}
+        {/* Recent Gallery — apenas assets aprovados */}
         {assets.length > 0 && (
           <div>
-            <p className="text-xs text-[var(--color-text-secondary)] mb-2">Gerados recentemente</p>
+            <p className="text-xs text-[var(--color-text-secondary)] mb-2">Aprovados</p>
             <div className="grid grid-cols-3 gap-2">
               {assets.slice(0, 9).map(a => (
                 <div key={a.id} className="group relative aspect-square rounded-lg overflow-hidden">
                   <button
-                    onClick={() => setSelectedAsset(a)}
+                    onClick={() => { setPendingAsset(null); setSelectedAsset(a) }}
                     className={`absolute inset-0 border-2 rounded-lg transition-all z-10 ${
-                      selectedAsset?.id === a.id ? 'border-[var(--color-accent)]' : 'border-transparent'
+                      selectedAsset?.id === a.id && !pendingAsset ? 'border-[var(--color-accent)]' : 'border-transparent'
                     }`}
                   />
-                  <Image src={a.image_url} alt={a.type} fill className="object-cover" unoptimized />
-                  {/* Iterar overlay */}
+                  <Image src={a.image_url} alt={a.format ?? a.type ?? 'criativo'} fill className="object-cover" unoptimized />
                   <div className="absolute inset-0 flex items-end justify-center pb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/60 to-transparent z-20">
                     <button
-                      onClick={(e) => { e.stopPropagation(); setPrompt(a.prompt); setSelectedAsset(null) }}
+                      onClick={(e) => { e.stopPropagation(); setPrompt(a.prompt); setPendingAsset(null); setSelectedAsset(null) }}
                       className="flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-zinc-900 hover:bg-white transition-colors"
                     >
                       <RefreshCw size={9} /> Iterar
@@ -312,41 +379,81 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
 
       {/* Preview Panel */}
       <div className="bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] rounded-xl overflow-hidden">
-        {selectedAsset ? (
+        {previewAsset ? (
           <div className="flex flex-col h-full">
+            {/* Badge de status */}
+            {pendingAsset && (
+              <div className="px-4 pt-3">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 px-3 py-1 text-[11px] font-medium text-amber-400">
+                  <Eye size={11} /> Aguardando aprovação
+                </span>
+              </div>
+            )}
+
             <div className="relative flex-1 min-h-[400px] bg-[var(--color-bg-base)]">
               <Image
-                src={selectedAsset.image_url}
+                src={previewAsset.image_url}
                 alt="Creative"
                 fill
                 className="object-contain p-4"
                 unoptimized
               />
-              {selectedAsset.type === 'carrossel' && (
+              {(previewAsset.format === 'carousel' || previewAsset.type === 'carrossel') && (
                 <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] text-white backdrop-blur-sm">
                   <LayoutGrid size={10} /> Capa do carrossel
                 </div>
               )}
             </div>
-            <div className="p-4 border-t border-[var(--color-border-subtle)] space-y-2">
-              <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2">{selectedAsset.prompt}</p>
-              <div className="flex gap-2">
-                <a
-                  href={selectedAsset.image_url}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] py-2 text-xs font-medium hover:bg-[var(--color-bg-overlay)] transition-colors"
-                >
-                  <Download size={14} /> Download
-                </a>
-                <button
-                  onClick={() => { setPrompt(selectedAsset.prompt); setSelectedAsset(null) }}
-                  className="flex items-center justify-center gap-2 rounded-lg bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] px-4 py-2 text-xs font-medium hover:text-[var(--color-text-primary)] transition-colors"
-                >
-                  <RefreshCw size={14} /> Iterar
-                </button>
-              </div>
+
+            <div className="p-4 border-t border-[var(--color-border-subtle)] space-y-3">
+              <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2">{previewAsset.prompt}</p>
+
+              {/* Botões de aprovação — só para assets pendentes */}
+              {pendingAsset ? (
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleApprove}
+                    disabled={isApproving}
+                    className="flex-1 flex items-center justify-center gap-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 py-2 text-xs font-semibold hover:bg-emerald-500/25 disabled:opacity-50 transition-all"
+                  >
+                    {isApproving ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />}
+                    Aprovar
+                  </button>
+                  <button
+                    onClick={() => { void handleRegenerate() }}
+                    disabled={isGenerating || isApproving}
+                    className="flex items-center justify-center gap-1.5 rounded-lg bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] px-4 py-2 text-xs font-medium hover:text-[var(--color-text-primary)] disabled:opacity-50 transition-all"
+                  >
+                    <RefreshCw size={13} /> Regenerar
+                  </button>
+                  <button
+                    onClick={() => { void handleReject() }}
+                    disabled={isApproving}
+                    className="flex items-center justify-center gap-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-2 text-xs font-medium hover:bg-red-500/20 disabled:opacity-50 transition-all"
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                </div>
+              ) : (
+                /* Botões padrão — asset aprovado da galeria */
+                <div className="flex gap-2">
+                  <a
+                    href={selectedAsset?.image_url}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] py-2 text-xs font-medium hover:bg-[var(--color-bg-overlay)] transition-colors"
+                  >
+                    <Download size={14} /> Download
+                  </a>
+                  <button
+                    onClick={() => { if (selectedAsset) { setPrompt(selectedAsset.prompt); setSelectedAsset(null) } }}
+                    className="flex items-center justify-center gap-2 rounded-lg bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] px-4 py-2 text-xs font-medium hover:text-[var(--color-text-primary)] transition-colors"
+                  >
+                    <RefreshCw size={14} /> Iterar
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         ) : (

@@ -52,7 +52,7 @@ export function WorkspaceSettingsForm({ initialData }: { initialData: Workspace 
           onChange={(e) => setName(e.target.value)}
           placeholder="Nome do workspace"
           required
-          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
         />
       </div>
 
@@ -66,7 +66,7 @@ export function WorkspaceSettingsForm({ initialData }: { initialData: Workspace 
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
           placeholder="meu-workspace"
-          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
         />
       </div>
 
@@ -82,10 +82,6 @@ export function WorkspaceSettingsForm({ initialData }: { initialData: Workspace 
             onChange={(e) => setPrimaryColor(e.target.value)}
             className="h-9 w-14 cursor-pointer rounded border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] p-0.5"
           />
-          <div
-            className="h-9 w-9 rounded border border-[var(--color-border-subtle)]"
-            style={{ backgroundColor: primaryColor }}
-          />
           <span className="font-mono text-sm text-[var(--color-text-secondary)]">{primaryColor}</span>
         </div>
       </div>
@@ -100,7 +96,7 @@ export function WorkspaceSettingsForm({ initialData }: { initialData: Workspace 
           value={logoUrl}
           onChange={(e) => setLogoUrl(e.target.value)}
           placeholder="https://..."
-          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
         />
         {logoUrl && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -111,15 +107,18 @@ export function WorkspaceSettingsForm({ initialData }: { initialData: Workspace 
       {/* Domain */}
       <div className="space-y-1.5">
         <label className="text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)]">
-          Domínio
+          Domínio Personalizado
         </label>
         <input
           type="text"
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
           placeholder="app.minhaagencia.com.br"
-          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[#F59E0B]"
+          className="w-full rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-bg-base)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
         />
+        <p className="text-xs text-[var(--color-text-muted)]">
+          Domínio próprio para acessar o sistema. Ex: app.minhaagencia.com.br
+        </p>
       </div>
 
       <div className="pt-1">
