@@ -133,8 +133,8 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
 
       const data = await res.json() as { asset?: CreativeAsset; url?: string }
       if (data.asset) {
-        // Muda para estado pending — não vai para galeria até ser aprovado
-        setPendingAsset(data.asset)
+        // Usa data.url (URL resolvida) em vez de asset.image_url (pode estar expirada/vazia no DB)
+        setPendingAsset({ ...data.asset, image_url: data.url ?? data.asset.image_url })
       }
     } catch (err) {
       console.error('[ATLAS]', err)
