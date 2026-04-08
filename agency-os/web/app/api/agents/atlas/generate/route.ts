@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
     if (urlData?.signedUrl) imageUrl = urlData.signedUrl
   }
 
-  const modelUsed = usedFallback ? 'openai/gpt-image-1' : 'google/gemini-2.5-flash-image-preview'
+  const modelUsed = usedFallback ? 'openai/gpt-5-image-mini' : 'google/gemini-3.1-flash-image-preview'
 
   // Salvar em creative_assets
   const { data: asset, error: dbError } = await supabase
