@@ -74,7 +74,25 @@ const AGENT_SYSTEMS: Record<AgentType, string> = {
 
   marco: `Você é o MARCO, Roteirista e Diretor de Conteúdo de Vídeo da agência. Escreva roteiros completos para Reels, TikToks, YouTube Shorts, podcasts e vídeos institucionais. Inclua: gancho (0-3s), desenvolvimento e CTA. Use linguagem falada natural, indicando cenas, cortes e trilha quando relevante. Responda em português do Brasil.`,
 
-  atlas: `Você é o ATLAS, Diretor de Arte da agência. Crie prompts detalhados em inglês para geração de imagens com IA (Midjourney/Stable Diffusion/DALL-E). Descreva estilo visual, composição, cores, iluminação, mood e aspect ratio. Além do prompt, explique brevemente a proposta criativa em português. Para briefings de design, entregue diretrizes visuais completas.`,
+  atlas: `Você é o ATLAS, Diretor de Arte e Prompt Engineer especialista da agência. Você domina a geração de imagens com IA via Flux.1 (seu modelo principal), Midjourney, DALL-E 3 e Stable Diffusion.
+
+ESTRUTURA OBRIGATÓRIA DE PROMPT (use SEMPRE esta ordem):
+1. SUBJECT: elemento visual principal com detalhes específicos
+2. STYLE: estilo artístico (cinematic photography, abstract digital art, dark minimal, etc.)
+3. LIGHTING: iluminação precisa (volumetric fog, rim light amber glow, bioluminescent, god rays, etc.)
+4. COMPOSITION: ângulo de câmera + profundidade (low angle, shallow depth of field, rule of thirds, worm's eye, etc.)
+5. BRAND COLORS: cores da marca como PALAVRAS DESCRITIVAS (deep obsidian black, warm amber luminescence — NUNCA hex codes)
+6. MOOD: atmosfera emocional (mysterious, powerful, futuristic, elegant, raw, etc.)
+7. QUALITY: ultra-detailed, 8k uhd, sharp focus, physically based rendering, ray tracing, photorealistic
+8. NEGATIVE: no text, no words, no letters, no UI elements, no watermarks, no humans, no logos
+
+PROMPT REVERSO: Antes de criar, pense: "Qual imagem causaria o MAIOR impacto emocional para o DNA desta marca?"
+
+REGRAS:
+- Prompts sempre em inglês
+- Cada slide deve ter composição e ângulo ÚNICOS
+- Use metáforas visuais poderosas que representem o conceito do slide
+- Escreva APENAS o prompt — sem explicações, sem markdown quando em modo Art Direction`,
 
   volt: `Você é o VOLT, Especialista em Tráfego Pago e Performance da agência. Crie e analise campanhas para Meta Ads, Google Ads e TikTok Ads. Entregue: estrutura de campanha, segmentação de audiência, copies de anúncio, estratégia de lances e análise de métricas (CTR, CPC, ROAS, CAC). Sempre orientado a performance e ROI. Responda em português do Brasil.`,
 
@@ -244,82 +262,104 @@ async function runAtlasCarousel(
 ): Promise<Response> {
   const encoder = new TextEncoder()
 
-  // ── System Prompt Guards (TOKEN GUARD + IDENTITY LOCK + CARROSSEL DINAMICO) ──
+  // ── System Prompt Guards ─────────────────────────────────────────────────
   const ATLAS_GUARDS =
     `\n\n## CRITICAL SYSTEM RULES - AGENCY OS 360\n` +
-    `TOKEN GUARD: Use apenas o MASTER.md e o styleguide do cliente. Ignore documentacao verbosa. Foque em cores e tipografia.\n` +
-    `IDENTITY LOCK: Backgrounds DEVEM usar APENAS as cores #0C0C0E (bg escuro), #131317 (superfície), #26262F (elevado), #F59E0B (accent amber). PROIBIDO: azul, branco genérico, paletas não autorizadas.\n` +
-    `CARROSSEL DINAMICO: Cada slide DEVE ter uma composição visual ÚNICA e diferente (ex: Slide 1 = cérebro IA abstrato, Slide 2 = interface digital minimalista, Slide 3 = conexões de rede, Slide 4 = partículas de luz). NUNCA repita o mesmo conceito visual.\n\n`
+    `TOKEN GUARD: Use apenas MASTER.md e styleguide do cliente. Ignore documentação verbosa.\n` +
+    `IDENTITY LOCK: Cores APENAS #0C0C0E (bg), #131317 (surface), #26262F (elevated), #F59E0B (amber accent). PROIBIDO azul, branco genérico.\n` +
+    `CARROSSEL DINAMICO: Cada slide DEVE ter conceito visual ÚNICO (cérebro IA, interface digital, rede de conexões, partículas de luz...). NUNCA repita.\n\n`
 
-  // ── Directive Mestra do ATLAS ────────────────────────────────────────────
+  // ── Conceitos visuais de fallback (rotação automática) ───────────────────
   const CONCEPTS = [
-    'abstract AI brain neural network visualization',
-    'minimal digital interface grid lines',
-    'glowing network connections nodes',
-    'flowing light particles vortex',
-    'geometric crystal structure facets',
-    'deep space galaxy minimal dark',
+    'abstract AI brain neural network, dark obsidian background, amber bioluminescent synapses',
+    'minimal digital interface holographic grid, deep black void, golden amber data streams',
+    'glowing geometric network nodes constellation, dark space, warm amber light pulses',
+    'flowing liquid light vortex abstract, obsidian black, amber luminescent swirls',
+    'crystalline geometric prism structure, deep black background, amber refracted light',
+    'cosmic dark nebula abstract minimal, obsidian space, warm amber star clusters',
   ]
 
-  const carouselSystem =
-    systemPrompt +
-    ATLAS_GUARDS +
-    `## DIRETRIZES OBRIGATÓRIAS - ATLAS\n` +
-    `- Cores: palette #0C0C0E, #131317, #F59E0B accent, #F0F0F5 texto. Tipografia: DM Sans titulos, Inter corpo.\n` +
-    `- PROIBIDO texto em imagens via IA. Texto retorna como JSON separado, renderizado em HTML/CSS.\n` +
-    `- Carrossel: ${n} backgroundPrompts DISTINTOS (composições únicas) + ${n} objetos de texto.\n\n` +
+  // ── STEP 1: Roteiro (conteúdo + conceito visual por slide) ───────────────
+  const planningSystem =
+    systemPrompt + ATLAS_GUARDS +
+    `Você é um roteirista criativo. Planeje o carrossel com base no DNA do cliente.\n` +
     `Retorne APENAS este JSON (sem markdown, sem blocos de código):\n` +
-    `{"backgroundPrompts":["<English, NO TEXT, cinematic dark, unique concept per slide, composition 1>","<composition 2>"],` +
-    `"slides":[{"titulo":"<PT titulo max 60 chars>","corpo":"<PT apoio max 120 chars>","textPosition":"bottom"}]}`
+    `{"slides":[{"titulo":"<PT título max 60 chars>","corpo":"<PT apoio max 120 chars>","textPosition":"bottom","visualConcept":"<English: unique visual composition concept for this slide, 15-20 words>"}]}`
+
+  // ── STEP 2 (Art Direction): sistema para ATLAS escrever prompts ricos ────
+  const artDirectionSystem =
+    `You are ATLAS, an expert AI Art Director and Prompt Engineer specializing in Flux.1 image generation.\n\n` +
+    `MANDATORY PROMPT STRUCTURE (all 8 layers, in this order):\n` +
+    `1. SUBJECT: main visual element with rich specific details\n` +
+    `2. STYLE: art style (cinematic dark photography, abstract digital art, dark minimal, neo-noir, etc.)\n` +
+    `3. LIGHTING: precise lighting (volumetric amber fog, rim lighting, bioluminescent glow, god rays, chiaroscuro)\n` +
+    `4. COMPOSITION: camera angle + depth (low angle shot, extreme close-up, shallow depth of field, symmetrical)\n` +
+    `5. BRAND COLORS: describe as words (deep obsidian black, warm amber luminescence — NEVER hex codes)\n` +
+    `6. MOOD: emotional atmosphere (mysterious, powerful, futuristic, minimal, raw, meditative)\n` +
+    `7. QUALITY: ultra-detailed, 8k uhd, sharp focus, physically based rendering, ray tracing, professional photography\n` +
+    `8. NEGATIVE: no text, no words, no letters, no UI, no watermarks, no logos, no humans\n\n` +
+    `REVERSE PROMPT: Before writing, ask yourself: "What visual would cause maximum emotional impact for this brand DNA?"\n\n` +
+    `OUTPUT: Only the complete prompt string. No explanations. No JSON. No markdown.\n\n` +
+    systemPrompt  // injects full client DNA
 
   const readable = new ReadableStream({
     async start(controller) {
       let finalContent = ''
       try {
-        controller.enqueue(encoder.encode(`⏳ Planejando carrossel com ${n} slides...\n\n`))
+        controller.enqueue(encoder.encode(`⏳ Planejando roteiro com ${n} slides...\n\n`))
 
-        // 1. ATLAS → structured spec: N backgroundPrompts + N text slides
-        const { content: raw } = await routeChat('atlas', [
-          { role: 'system', content: carouselSystem },
+        // ── STEP 1: Planejar conteúdo + conceitos visuais ──────────────────
+        const { content: rawPlan } = await routeChat('atlas', [
+          { role: 'system', content: planningSystem },
           { role: 'user',   content: userMessage },
-        ], { maxTokens: 2048 })
+        ], { maxTokens: 1500 })
 
-        type Spec = { backgroundPrompts: string[]; slides: Array<{ titulo: string; corpo: string; textPosition: 'top' | 'bottom' }> }
-        let spec: Spec | null = null
+        type ContentSpec = { slides: Array<{ titulo: string; corpo: string; textPosition: 'top' | 'bottom'; visualConcept: string }> }
+        let contentSpec: ContentSpec | null = null
         try {
-          const match = raw.match(/\{[\s\S]*\}/)
-          if (match) spec = JSON.parse(match[0]) as Spec
+          const match = rawPlan.match(/\{[\s\S]*\}/)
+          if (match) contentSpec = JSON.parse(match[0]) as ContentSpec
         } catch { /* fallback below */ }
 
-        // Fallback: use distinct concept variations
-        if (!spec?.slides?.length || !spec?.backgroundPrompts?.length) {
-          const palette = `#0C0C0E deep black ${DS.colors.accent} amber accent`
-          spec = {
-            backgroundPrompts: Array.from({ length: n }, (_, i) =>
-              `Cinematic dark minimal background, ${palette}, ${CONCEPTS[i % CONCEPTS.length]}, NO TEXT NO WORDS NO LETTERS`
-            ),
+        if (!contentSpec?.slides?.length) {
+          contentSpec = {
             slides: Array.from({ length: n }, (_, i) => ({
               titulo: `Slide ${i + 1}`,
               corpo: userMessage.slice(0, 100),
               textPosition: (i === 0 ? 'top' : 'bottom') as 'top' | 'bottom',
+              visualConcept: CONCEPTS[i % CONCEPTS.length],
             })),
           }
         }
-
-        // Ensure we have exactly N prompts (pad with variations if LLM returned fewer)
-        while (spec.backgroundPrompts.length < n) {
-          const idx = spec.backgroundPrompts.length
-          spec.backgroundPrompts.push(
-            `Cinematic dark minimal background, #0C0C0E deep black, ${DS.colors.accent} amber, ${CONCEPTS[idx % CONCEPTS.length]}, NO TEXT`
-          )
+        // Ensure exactly N slides
+        while (contentSpec.slides.length < n) {
+          const idx = contentSpec.slides.length
+          contentSpec.slides.push({ titulo: `Slide ${idx + 1}`, corpo: '', textPosition: 'bottom', visualConcept: CONCEPTS[idx % CONCEPTS.length] })
         }
-        spec.backgroundPrompts = spec.backgroundPrompts.slice(0, n)
+        contentSpec.slides = contentSpec.slides.slice(0, n)
 
-        controller.enqueue(encoder.encode(`✅ Roteiro criado — gerando ${n} imagens em paralelo...\n\n`))
+        controller.enqueue(encoder.encode(`✅ Roteiro criado — ATLAS criando direção de arte para ${n} slides...\n\n`))
 
-        // 2. Generate N background images IN PARALLEL (one unique composition per slide)
+        // ── STEP 2: Art Direction — ATLAS escreve prompts ricos em paralelo ──
+        const richPrompts = await Promise.all(
+          contentSpec.slides.map((slide, i) =>
+            routeChat('atlas', [
+              { role: 'system', content: artDirectionSystem },
+              { role: 'user',   content: `Create a detailed Flux.1 image prompt for slide ${i + 1}/${n}.\nVisual concept: ${slide.visualConcept}` },
+            ], { maxTokens: 400 })
+              .then(r => r.content.trim())
+              .catch(() =>
+                `Cinematic dark ${slide.visualConcept}, deep obsidian black background, warm amber luminescent accent, ` +
+                `ultra-detailed, 8k uhd, sharp focus, ray tracing, no text, no words, no letters`
+              )
+          )
+        )
+
+        controller.enqueue(encoder.encode(`🎨 Gerando ${n} imagens com Flux.1...\n\n`))
+
+        // ── STEP 3: Gerar N imagens em paralelo com prompts ricos ──────────
         const bgResults = await Promise.all(
-          spec.backgroundPrompts.map(prompt => generateImage({ prompt, aspectRatio: '1:1' }))
+          richPrompts.map(prompt => generateImage({ prompt, aspectRatio: '1:1' }))
         )
 
         // 3. Resolve style_tokens from client knowledge_files → fallback to DS
@@ -354,15 +394,15 @@ async function runAtlasCarousel(
           } catch { /* use DS defaults */ }
         }
 
-        // 4. Assemble CarouselPayload — N unique backgrounds + N text objects
+        // ── Assemble CarouselPayload — N unique backgrounds + N text objects
         const payload: CarouselPayload = {
           backgrounds: bgResults.map(r => ({ base64: r.imageBase64, mimeType: r.mimeType })),
-          slides:      spec.slides,
+          slides:      contentSpec.slides,
           style_tokens,
         }
 
         const marker = `%%ATLAS_CAROUSEL%%${JSON.stringify(payload)}%%END_CAROUSEL%%`
-        finalContent = `✨ Carrossel com ${spec.slides.length} slides pronto!\n\n${marker}`
+        finalContent = `✨ Carrossel com ${contentSpec.slides.length} slides pronto!\n\n${marker}`
         controller.enqueue(encoder.encode(finalContent))
 
       } catch (err) {

@@ -336,8 +336,20 @@ async function resolveRawImage(raw: string): Promise<{ imageBase64: string; mime
   return { imageBase64: raw.replace(/\s/g, ''), mimeType: 'image/png' }
 }
 
-const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'
-const ATLAS_MODEL_FALLBACK = 'google/gemini-3.1-flash-image-preview'
+// ─────────────────────────────────────────────────────────────────────────────
+// ATLAS IMAGE GENERATION — Flux.1 Dev (primary) + Recraft v3 (fallback)
+// Uses /images/generations endpoint for Flux/Recraft, /chat/completions for Gemini
+// ─────────────────────────────────────────────────────────────────────────────
+
+const ATLAS_MODEL_PRIMARY  = 'black-forest-labs/flux-1-dev'
+const ATLAS_MODEL_FALLBACK = 'recraft-ai/recraft-v3'
+
+const ATLAS_SIZE_MAP: Record<string, string> = {
+  '1:1':  '1024x1024',
+  '4:5':  '1024x1280',
+  '16:9': '1920x1080',
+  '9:16': '1080x1920',
+}
 
 export async function generateImage({
   prompt,
@@ -349,16 +361,43 @@ export async function generateImage({
   const apiKey = process.env.OPENROUTER_API_KEY
   if (!apiKey) throw new Error('[ATLAS] OPENROUTER_API_KEY não configurada')
 
-  const callOpenRouter = async (model: string): Promise<{ imageBase64: string; mimeType: string }> => {
-    // /chat/completions com modalities:["text","image"] — formato correto para Gemini image no OpenRouter
+  const size = ATLAS_SIZE_MAP[aspectRatio] ?? '1024x1024'
+  const commonHeaders = {
+    'Authorization': `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+    'HTTP-Referer': 'https://agencyos-cyan.vercel.app',
+    'X-Title': 'Agency OS ATLAS',
+  }
+
+  // ── /images/generations — Flux.1, Recraft, Ideogram, Stability ──────────
+  const callImagesAPI = async (model: string): Promise<{ imageBase64: string; mimeType: string }> => {
+    const response = await fetch('https://openrouter.ai/api/v1/images/generations', {
+      method: 'POST',
+      headers: commonHeaders,
+      body: JSON.stringify({ model, prompt, n: 1, size, response_format: 'b64_json' }),
+    })
+
+    const responseText = await response.text()
+    console.log(`[ATLAS] ${model} status=${response.status} body=${responseText.slice(0, 500)}`)
+
+    if (!response.ok) throw new Error(`[ATLAS] ${model} falhou: ${responseText.slice(0, 300)}`)
+
+    let data: { data?: Array<{ b64_json?: string; url?: string }> }
+    try { data = JSON.parse(responseText) }
+    catch { throw new Error(`[ATLAS] ${model} JSON inválido: ${responseText.slice(0, 300)}`) }
+
+    const img = data?.data?.[0]
+    if (img?.b64_json) return { imageBase64: img.b64_json.replace(/\s/g, ''), mimeType: 'image/png' }
+    if (img?.url)      return resolveRawImage(img.url)
+
+    throw new Error(`[ATLAS] Nenhuma imagem em: ${responseText.slice(0, 400)}`)
+  }
+
+  // ── /chat/completions + modalities — Gemini image models (legacy fallback) ──
+  const callChatAPI = async (model: string): Promise<{ imageBase64: string; mimeType: string }> => {
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://agencyos-cyan.vercel.app',
-        'X-Title': 'Agency OS ATLAS',
-      },
+      headers: commonHeaders,
       body: JSON.stringify({
         model,
         messages: [{ role: 'user', content: prompt }],
@@ -369,61 +408,49 @@ export async function generateImage({
 
     const responseText = await response.text()
     console.log(`[ATLAS] ${model} status=${response.status} body=${responseText.slice(0, 2000)}`)
-
-    if (!response.ok) {
-      throw new Error(`[ATLAS] OpenRouter ${model} falhou: ${responseText.slice(0, 300)}`)
-    }
+    if (!response.ok) throw new Error(`[ATLAS] OpenRouter ${model} falhou: ${responseText.slice(0, 300)}`)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let data: { choices?: Array<{ message?: { content?: string | any[]; images?: any[] } }> }
-    try {
-      data = JSON.parse(responseText)
-    } catch {
-      throw new Error(`[ATLAS] OpenRouter ${model} resposta inválida: ${responseText.slice(0, 300)}`)
-    }
+    try { data = JSON.parse(responseText) }
+    catch { throw new Error(`[ATLAS] OpenRouter ${model} resposta inválida: ${responseText.slice(0, 300)}`) }
 
     const message = data?.choices?.[0]?.message
-    // Log estrutural: substitui strings >80 chars pelo tamanho para não poluir o log
     const debugMsg = JSON.stringify(message, (_k, v) =>
       typeof v === 'string' && v.length > 80 ? `[str:${v.length}]` : v
     )
     console.log(`[ATLAS] ${model} message=${debugMsg}`)
 
-    // 1) images[] — formato OpenRouter: { type:'image_url', image_url:{ url } }
-    //    ou fallback: string | { url } | { b64_json }
     const imgs = message?.images
     if (Array.isArray(imgs) && imgs.length > 0) {
       const img = imgs[0]
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const raw = typeof img === 'string' ? img
-        : (img as { image_url?: { url?: string } }).image_url?.url  // formato principal
+        : (img as { image_url?: { url?: string } }).image_url?.url
         ?? (img as { url?: string }).url
         ?? (img as { b64_json?: string }).b64_json
       if (raw) return resolveRawImage(raw)
     }
-
-    // 2) content string
-    if (typeof message?.content === 'string' && message.content) {
-      return resolveRawImage(message.content)
-    }
-
-    // 3) content array — [{ type:'image_url', image_url:{ url } }]
+    if (typeof message?.content === 'string' && message.content) return resolveRawImage(message.content)
     if (Array.isArray(message?.content)) {
       const parts = message.content as Array<{ type: string; image_url?: { url: string } }>
       const imgPart = parts.find(p => p.type === 'image_url')
       if (imgPart?.image_url?.url) return resolveRawImage(imgPart.image_url.url)
     }
-
     throw new Error(`[ATLAS] Nenhuma imagem retornada. Resposta: ${responseText.slice(0, 400)}`)
   }
 
+  // Route: Gemini uses chat API, everything else uses images API
+  const callModel = (model: string) =>
+    model.startsWith('google/') ? callChatAPI(model) : callImagesAPI(model)
+
   try {
-    const result = await callOpenRouter(ATLAS_MODEL_PRIMARY)
+    const result = await callModel(ATLAS_MODEL_PRIMARY)
     return { ...result, usedFallback: false }
   } catch (primaryErr) {
     console.warn('[ATLAS] Primário falhou, tentando fallback:', primaryErr instanceof Error ? primaryErr.message : primaryErr)
     try {
-      const result = await callOpenRouter(ATLAS_MODEL_FALLBACK)
+      const result = await callModel(ATLAS_MODEL_FALLBACK)
       return { ...result, usedFallback: true }
     } catch (fallbackErr) {
       throw new Error(
