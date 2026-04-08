@@ -317,8 +317,8 @@ export function getCategoryForAgent(agentId: string): AgentCategory {
 // Usa fetch direto (não SDK OpenAI) pois o SDK não suporta modalities:['image']
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ATLAS_MODEL_PRIMARY  = 'google/gemini-3.1-flash-image-preview'
-const ATLAS_MODEL_FALLBACK = 'openai/gpt-5-image-mini'
+const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'
+const ATLAS_MODEL_FALLBACK = 'google/gemini-3.1-flash-image-preview'
 
 export async function generateImage({
   prompt,
@@ -352,18 +352,30 @@ export async function generateImage({
       throw new Error(`[ATLAS] OpenRouter ${model} falhou: ${err}`)
     }
 
-    const data = await response.json() as {
-      choices?: Array<{
-        message?: {
-          content?: string
-          images?: string[]
-        }
-      }>
+    // Lê como text primeiro — se OpenRouter retornar texto puro (não JSON), expomos o erro real
+    const responseText = await response.text()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let data: { choices?: Array<{ message?: { content?: string | any[]; images?: string[] } }> }
+    try {
+      data = JSON.parse(responseText)
+    } catch {
+      throw new Error(`[ATLAS] OpenRouter ${model} resposta inválida: ${responseText.slice(0, 300)}`)
     }
 
-    // OpenRouter retorna imagem como data URL em images[] ou como content base64
-    const rawImage = data?.choices?.[0]?.message?.images?.[0]
-      ?? data?.choices?.[0]?.message?.content
+    // OpenRouter pode retornar imagem em images[], content string, ou content array com image_url
+    const message = data?.choices?.[0]?.message
+    let rawImage: string | undefined
+
+    if (message?.images?.[0]) {
+      rawImage = message.images[0]
+    } else if (typeof message?.content === 'string') {
+      rawImage = message.content
+    } else if (Array.isArray(message?.content)) {
+      // formato: [{ type: 'image_url', image_url: { url: 'data:...' } }]
+      const imgPart = (message.content as Array<{ type: string; image_url?: { url: string }; text?: string }>)
+        .find(p => p.type === 'image_url')
+      rawImage = imgPart?.image_url?.url
+    }
 
     if (!rawImage) throw new Error('[ATLAS] Nenhuma imagem retornada pelo modelo')
 
