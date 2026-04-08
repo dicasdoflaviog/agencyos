@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { generateImage } from '@/lib/openrouter/IntelligenceRouter'
 
 export const dynamic = 'force-dynamic'
+export const maxDuration = 60 // segundos — geração de imagem pode levar ~20-30s
 
 const FORMAT_ASPECT_RATIO: Record<string, string> = {
   feed:      '1:1',

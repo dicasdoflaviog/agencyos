@@ -57,6 +57,7 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
   const [slideCount, setSlideCount]               = useState(5)
   const [isGenerating, setIsGenerating]           = useState(false)
   const [isApproving, setIsApproving]             = useState(false)
+  const [generateError, setGenerateError]         = useState<string | null>(null)
   const [assets, setAssets]                       = useState<CreativeAsset[]>(initialAssets)
   // pendingAsset: recém-gerado, ainda aguardando aprovação
   const [pendingAsset, setPendingAsset]           = useState<CreativeAsset | null>(null)
@@ -98,6 +99,7 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
   const generate = async () => {
     if (!prompt.trim() || isGenerating) return
     setIsGenerating(true)
+    setGenerateError(null)
     setPendingAsset(null)
     setSelectedAsset(null)
     try {
@@ -136,6 +138,7 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
       }
     } catch (err) {
       console.error('[ATLAS]', err)
+      setGenerateError(err instanceof Error ? err.message : 'Erro ao gerar criativo. Tente novamente.')
     } finally {
       setIsGenerating(false)
     }
@@ -346,6 +349,12 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
               <><Sparkles size={16} /> Gerar com ATLAS</>
             )}
           </button>
+
+          {generateError && (
+            <p className="mt-2 text-xs text-[var(--color-error)] bg-[var(--color-error)]/10 border border-[var(--color-error)]/20 rounded-lg px-3 py-2">
+              ⚠️ {generateError}
+            </p>
+          )}
         </div>
 
         {/* Recent Gallery — apenas assets aprovados */}
