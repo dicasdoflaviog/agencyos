@@ -364,6 +364,7 @@ export async function generateImage({
     })
 
     const responseText = await response.text()
+    console.log(`[ATLAS] ${model} status=${response.status} body=${responseText.slice(0, 600)}`)
 
     if (!response.ok) {
       throw new Error(`[ATLAS] OpenRouter ${model} falhou: ${responseText.slice(0, 300)}`)

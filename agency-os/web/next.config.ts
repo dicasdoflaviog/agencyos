@@ -18,6 +18,21 @@ const nextConfig: NextConfig = {
         hostname: '**.openai.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.googleusercontent.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.googleapis.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'openrouter.ai',
+        pathname: '/**',
+      },
     ],
   },
 };

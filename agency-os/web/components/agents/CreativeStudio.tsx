@@ -388,7 +388,17 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
 
       {/* Preview Panel */}
       <div className="bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] rounded-xl overflow-hidden">
-        {previewAsset ? (
+        {/* Skeleton durante geração */}
+        {isGenerating && !previewAsset && (
+          <div className="flex flex-col items-center justify-center min-h-[460px] gap-4 p-6">
+            <div className="w-full max-w-[320px] aspect-square rounded-xl bg-[var(--color-bg-elevated)] animate-pulse" />
+            <div className="flex flex-col items-center gap-1.5">
+              <div className="h-2.5 w-32 rounded bg-[var(--color-bg-elevated)] animate-pulse" />
+              <div className="h-2 w-20 rounded bg-[var(--color-bg-elevated)] animate-pulse" />
+            </div>
+          </div>
+        )}
+        {!isGenerating && previewAsset ? (
           <div className="flex flex-col h-full">
             {/* Badge de status */}
             {pendingAsset && (
@@ -405,6 +415,17 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
                 src={previewAsset.image_url}
                 alt="Creative"
                 className="max-h-[400px] w-full object-contain rounded-lg"
+                onError={(e) => {
+                  const t = e.currentTarget
+                  t.style.display = 'none'
+                  const parent = t.parentElement
+                  if (parent && !parent.querySelector('.img-error-msg')) {
+                    const msg = document.createElement('div')
+                    msg.className = 'img-error-msg flex flex-col items-center gap-2 text-[var(--color-text-secondary)]'
+                    msg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" opacity="0.4"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><p class="text-xs">Imagem gerada — URL expirou.<br/>Aprove ou regenere.</p>'
+                    parent.appendChild(msg)
+                  }
+                }}
               />
               {(previewAsset.format === 'carousel' || previewAsset.type === 'carrossel') && (
                 <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] text-white backdrop-blur-sm">
@@ -465,6 +486,7 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
             </div>
           </div>
         ) : (
+          !isGenerating && (
           <div className="flex flex-col items-center justify-center h-full min-h-[400px] gap-3">
             <div className="h-16 w-16 rounded-2xl bg-[var(--color-bg-elevated)] flex items-center justify-center">
               <ImageIcon size={32} className="text-[var(--color-text-muted)]" />
@@ -472,6 +494,7 @@ export function CreativeStudio({ clientId, clientName, initialAssets = [] }: Cre
             <p className="text-sm text-[var(--color-text-secondary)]">Seus criativos aparecem aqui</p>
             <p className="text-xs text-[var(--color-text-muted)]">Descreva e clique em Gerar</p>
           </div>
+          )
         )}
       </div>
     </div>
