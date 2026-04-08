@@ -8,7 +8,7 @@ import { Send, Bot, User, Sparkles, Loader2, Save, Mic, Copy, Check, Paperclip, 
 import { type AgentType } from '@/types/agents'
 import { createClient } from '@/lib/supabase/client'
 import { AtlasMessage } from './AtlasMessage'
-import { CreativeRenderer, type CreativeSlide } from './CreativeRenderer'
+import { CreativeRenderer, type CarouselPayload } from './CreativeRenderer'
 
 type AtlasData = {
   imageBase64: string
@@ -18,13 +18,13 @@ type AtlasData = {
   prompt?: string
 }
 
-function parseAtlasCarouselMarker(content: string): { text: string; slides?: CreativeSlide[] } {
+function parseAtlasCarouselMarker(content: string): { text: string; payload?: CarouselPayload } {
   const match = content.match(/%%ATLAS_CAROUSEL%%([\s\S]+?)%%END_CAROUSEL%%/)
   if (!match) return { text: content }
   try {
-    const slides = JSON.parse(match[1]) as CreativeSlide[]
+    const payload = JSON.parse(match[1]) as CarouselPayload
     const text = content.replace(/\n*%%ATLAS_CAROUSEL%%[\s\S]+?%%END_CAROUSEL%%/, '').trim()
-    return { text, slides }
+    return { text, payload }
   } catch {
     return { text: content }
   }
@@ -520,8 +520,8 @@ function OracleChatInner({ jobId, clientId, clientName, initialSessionId }: Orac
                     <span className="whitespace-pre-wrap">{msg.content}</span>
                   ) : (() => {
                     // Carousel marker takes priority
-                    const { text: carouselText, slides } = parseAtlasCarouselMarker(msg.content)
-                    if (slides?.length) {
+                    const { text: carouselText, payload } = parseAtlasCarouselMarker(msg.content)
+                    if (payload) {
                       return (
                         <>
                           {carouselText && (
@@ -529,7 +529,7 @@ function OracleChatInner({ jobId, clientId, clientName, initialSessionId }: Orac
                               <ReactMarkdown remarkPlugins={[remarkGfm]}>{carouselText}</ReactMarkdown>
                             </div>
                           )}
-                          <CreativeRenderer slides={slides} />
+                          <CreativeRenderer {...payload} />
                         </>
                       )
                     }
