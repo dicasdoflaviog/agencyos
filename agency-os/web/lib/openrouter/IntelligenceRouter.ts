@@ -319,7 +319,10 @@ export function getCategoryForAgent(agentId: string): AgentCategory {
 /** Converte data URL, URL externa ou base64 puro → { imageBase64, mimeType } */
 async function resolveRawImage(raw: string): Promise<{ imageBase64: string; mimeType: string }> {
   if (raw.startsWith('data:')) {
-    const [header, base64] = raw.split(',')
+    // Divide apenas no primeiro ',' (base64 não contém vírgulas mas por segurança)
+    const commaIdx = raw.indexOf(',')
+    const header   = raw.slice(0, commaIdx)
+    const base64   = raw.slice(commaIdx + 1).replace(/\s/g, '') // remove quebras de linha
     const mimeType = header.match(/data:(.*);base64/)?.[1] ?? 'image/png'
     return { imageBase64: base64, mimeType }
   }
@@ -329,7 +332,8 @@ async function resolveRawImage(raw: string): Promise<{ imageBase64: string; mime
     const buf = await r.arrayBuffer()
     return { imageBase64: Buffer.from(buf).toString('base64'), mimeType: r.headers.get('content-type') ?? 'image/png' }
   }
-  return { imageBase64: raw, mimeType: 'image/png' }
+  // base64 puro — remover whitespace por segurança
+  return { imageBase64: raw.replace(/\s/g, ''), mimeType: 'image/png' }
 }
 
 const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'

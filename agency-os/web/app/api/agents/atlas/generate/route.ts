@@ -113,6 +113,8 @@ export async function POST(req: NextRequest) {
     if (urlData?.signedUrl) imageUrl = urlData.signedUrl
   }
 
+  console.log(`[ATLAS] imageUrl type=${imageUrl.startsWith('data:') ? 'dataURL' : 'signedURL'} base64len=${imageBase64.length} storageErr=${storageError?.message ?? 'none'}`)
+
   const modelUsed = usedFallback ? 'google/gemini-3.1-flash-image-preview' : 'google/gemini-2.5-flash-image'
 
   // Salvar em creative_assets — tenta com colunas novas, faz fallback para schema legado
