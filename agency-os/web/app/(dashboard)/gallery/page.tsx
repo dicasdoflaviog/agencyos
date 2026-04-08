@@ -57,7 +57,10 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
 
       {/* ATLAS Creative Assets — seção dedicada */}
       {(atlasAssets && atlasAssets.length > 0) && (
-        <AtlasGallerySection assets={atlasAssets} />
+        <AtlasGallerySection assets={atlasAssets.map(a => ({
+          ...a,
+          client: Array.isArray(a.client) ? (a.client[0] ?? null) : a.client,
+        }))} />
       )}
 
       <GalleryGrid
