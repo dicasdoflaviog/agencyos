@@ -383,13 +383,22 @@ export async function generateImage({
     }
 
     const message = data?.choices?.[0]?.message
-    console.log(`[ATLAS] ${model} message keys=${Object.keys(message ?? {}).join(',')} content_type=${typeof message?.content} images_len=${message?.images?.length ?? 0}`)
+    // Log estrutural: substitui strings >80 chars pelo tamanho para não poluir o log
+    const debugMsg = JSON.stringify(message, (_k, v) =>
+      typeof v === 'string' && v.length > 80 ? `[str:${v.length}]` : v
+    )
+    console.log(`[ATLAS] ${model} message=${debugMsg}`)
 
-    // 1) images[] — pode ser string ou { url } ou { b64_json }
+    // 1) images[] — formato OpenRouter: { type:'image_url', image_url:{ url } }
+    //    ou fallback: string | { url } | { b64_json }
     const imgs = message?.images
     if (Array.isArray(imgs) && imgs.length > 0) {
       const img = imgs[0]
-      const raw = typeof img === 'string' ? img : ((img as { url?: string }).url ?? (img as { b64_json?: string }).b64_json)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const raw = typeof img === 'string' ? img
+        : (img as { image_url?: { url?: string } }).image_url?.url  // formato principal
+        ?? (img as { url?: string }).url
+        ?? (img as { b64_json?: string }).b64_json
       if (raw) return resolveRawImage(raw)
     }
 
