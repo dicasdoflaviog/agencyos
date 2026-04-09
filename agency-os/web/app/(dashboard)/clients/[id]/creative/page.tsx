@@ -6,15 +6,13 @@ export default async function CreativePage({ params }: { params: Promise<{ id: s
   const { id } = await params
   const supabase = await createClient()
 
-  const [{ data: client }, { data: profile }] = await Promise.all([
-    supabase.from('clients').select('name').eq('id', id).single(),
-    supabase.auth.getUser().then(async ({ data: { user } }) => {
-      if (!user) return { data: null }
-      return supabase.from('profiles').select('role').eq('id', user.id).single()
-    }),
-  ])
-
+  const { data: client } = await supabase.from('clients').select('name').eq('id', id).single()
   if (!client) notFound()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  const { data: profile } = user
+    ? await supabase.from('profiles').select('role').eq('id', user.id).single()
+    : { data: null }
 
   const userRole = (profile?.role ?? 'viewer') as 'admin' | 'collaborator' | 'viewer'
 
