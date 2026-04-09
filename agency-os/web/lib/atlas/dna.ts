@@ -7,7 +7,7 @@ export interface ClientDNAContext {
   client_name: string
   niche: string
 
-  // Brand voice completo — concatenação de TODOS os pilares (Biografia, Voz, Credenciais, Proibidas)
+  // Brand voice completo — prioridade: dna_document > pilares client_assets > client_dna
   brand_voice_text: string
   // Styleguide visual em texto (ex: guia de cores, tipografia, referências)
   styleguide_text: string
@@ -31,60 +31,80 @@ export async function getClientDNA(
   clientId: string,
   supabase: SupabaseClient
 ): Promise<ClientDNAContext> {
-  // 1. Busca paralela em todas as fontes
-  const [clientRes, assetsRes, dnaRes] = await Promise.all([
+  // 1. Busca paralela em TODAS as fontes possíveis
+  const [clientRes, assetsRes, dnaRes, memoriesRes] = await Promise.all([
     supabase
       .from('clients')
       .select('name, niche')
       .eq('id', clientId)
       .single(),
 
-    // Inclui `name` para identificar cada pilar (Biografia, Voz, Credenciais, Proibidas)
+    // client_assets: inclui name para identificar cada pilar
     supabase
       .from('client_assets')
       .select('type, content, file_url, name')
       .eq('client_id', clientId)
       .in('type', ['brandvoice', 'styleguide', 'logo', 'font']),
 
-    // maybeSingle: não lança erro se tabela ou registro não existir
+    // client_dna: pode não ter todos os campos preenchidos
     supabase
       .from('client_dna')
       .select('*')
       .eq('client_id', clientId)
       .maybeSingle(),
+
+    // client_memories: fonte PRIMÁRIA do Brand DNA completo (dna_document + knowledge_files)
+    supabase
+      .from('client_memories')
+      .select('source, content')
+      .eq('client_id', clientId)
+      .in('source', ['dna_document', 'dna_field', 'knowledge_file'])
+      .order('created_at', { ascending: false })
+      .limit(20),
   ])
 
-  const client = clientRes.data
-  const assets = assetsRes.data ?? []
-  const dna = dnaRes.data
+  const client   = clientRes.data
+  const assets   = assetsRes.data ?? []
+  const dna      = dnaRes.data
+  const memories = memoriesRes.data ?? []
 
-  // 2. Separar assets por tipo
+  // 2. Extrair brand voice em ordem de prioridade:
+  //    a) dna_document (Brand DNA curado — mais completo)
+  const dnaDoc = memories.find((m) => m.source === 'dna_document')
+
+  //    b) client_assets brandvoice (pilares individuais se existirem)
   const brandVoiceAssets = assets.filter((a) => a.type === 'brandvoice')
-  const styleguideAssets = assets.filter((a) => a.type === 'styleguide')
-  const logoAsset        = assets.find((a) => a.type === 'logo')
-  const fontAsset        = assets.find((a) => a.type === 'font')
-
-  // 3. Concatenar TODOS os pilares de brand voice com seus nomes como heading
-  //    Exemplo: Biografia, Voz da Marca, Credenciais & Provas, Palavras Proibidas
   const brandVoiceFromAssets = brandVoiceAssets
     .filter((a) => a.content)
     .map((a) => (a.name ? `### ${a.name}\n${a.content}` : a.content))
     .join('\n\n')
 
-  // Prioridade: campo direto no client_dna > legado 'voz' > client_assets concatenados
+  //    c) brand_voice_text do client_dna ou campo legado 'voz'
   const brand_voice_text =
-    dna?.brand_voice_text ||
-    dna?.voz ||
+    dnaDoc?.content ||
     brandVoiceFromAssets ||
+    dna?.brand_voice_text ||
+    (dna as Record<string, string> | null)?.voz ||
     ''
 
-  // 4. Styleguide: campo do client_dna ou assets de styleguide
+  // 3. Styleguide: assets de styleguide + knowledge_files de styleguide
+  const styleguideAssets = assets.filter((a) => a.type === 'styleguide')
   const styleguideFromAssets = styleguideAssets
     .filter((a) => a.content)
     .map((a) => (a.name ? `### ${a.name}\n${a.content}` : a.content))
     .join('\n\n')
 
-  const styleguide_text = styleguideFromAssets || ''
+  // knowledge_file de styleguide (ex: brand-voice.txt, styleguide.txt)
+  const styleguideMemory = memories
+    .filter((m) => m.source === 'knowledge_file' && m.content?.includes('STYLE GUIDE'))
+    .map((m) => m.content)
+    .join('\n\n')
+
+  const styleguide_text = styleguideFromAssets || styleguideMemory || ''
+
+  // 4. Logo: client_dna > client_assets
+  const logoAsset = assets.find((a) => a.type === 'logo')
+  const fontAsset = assets.find((a) => a.type === 'font')
 
   return {
     client_name:      client?.name ?? '',
