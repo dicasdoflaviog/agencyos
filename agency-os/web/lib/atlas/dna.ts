@@ -72,19 +72,38 @@ export async function getClientDNA(
   //    a) dna_document (Brand DNA curado — mais completo)
   const dnaDoc = memories.find((m) => m.source === 'dna_document')
 
-  //    b) client_assets brandvoice (pilares individuais se existirem)
+  //    b) knowledge_files relevantes: brand-voice.txt, styleguide.txt, etc.
+  //       Concatenados ao dna_document para enriquecer o contexto da VERA
+  const knowledgeVoice = memories
+    .filter((m) =>
+      m.source === 'knowledge_file' &&
+      m.content &&
+      // Inclui arquivos de brand voice, voz, copy — exclui HTML (design tokens do sistema)
+      !m.content.trimStart().startsWith('<!DOCTYPE') &&
+      !m.content.trimStart().startsWith('<html') &&
+      (
+        m.content.includes('BRAND VOICE') ||
+        m.content.includes('COPY') ||
+        m.content.includes('PALAVRAS') ||
+        m.content.includes('TOM') ||
+        m.content.includes('VOZ')
+      )
+    )
+    .map((m) => m.content)
+    .join('\n\n')
+
+  //    c) client_assets brandvoice (pilares individuais se existirem)
   const brandVoiceAssets = assets.filter((a) => a.type === 'brandvoice')
   const brandVoiceFromAssets = brandVoiceAssets
     .filter((a) => a.content)
     .map((a) => (a.name ? `### ${a.name}\n${a.content}` : a.content))
     .join('\n\n')
 
-  //    c) brand_voice_text do client_dna ou campo legado 'voz'
+  // Combina dna_document + knowledge voice files para máximo contexto
   const brand_voice_text =
-    dnaDoc?.content ||
-    brandVoiceFromAssets ||
-    dna?.brand_voice_text ||
-    (dna as Record<string, string> | null)?.voz ||
+    [dnaDoc?.content, knowledgeVoice, brandVoiceFromAssets, dna?.brand_voice_text, (dna as Record<string, string> | null)?.voz]
+      .filter(Boolean)
+      .join('\n\n---\n\n') ||
     ''
 
   // 3. Styleguide: assets de styleguide + knowledge_files de styleguide
