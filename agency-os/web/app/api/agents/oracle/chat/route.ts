@@ -15,6 +15,8 @@ import {
 import { routeChatStream, routeChat, getModelForAgent, generateImage } from '@/lib/openrouter/IntelligenceRouter'
 import { getClientDNAContext } from '@/lib/ai/dna-context'
 import { extractDesignTokens } from '@/lib/ai/extract-design-tokens'
+import { ORACLE_SYSTEM_V2 } from '@/lib/ai/oracle-system'
+import { AGENCY_DIRECTIVES } from '@/lib/ai/agency-directives'
 import { DS } from '@/lib/design-system/tokens'
 import { type CarouselPayload } from '@/components/agents/CreativeRenderer'
 
@@ -128,6 +130,9 @@ REGRAS:
 }
 
 // ── Classifier ──────────────────────────────────────────────────────────────
+
+// Override Oracle with v2 system prompt (full 22-agent awareness + 3 gates + 4 pillars)
+AGENT_SYSTEMS.oracle = ORACLE_SYSTEM_V2
 
 const ALL_AGENTS = Object.keys(AGENT_SYSTEMS).join(', ')
 
@@ -540,8 +545,8 @@ export async function POST(req: NextRequest) {
       } catch { /* IG context is best-effort — non-fatal */ }
     }
 
-    // ── 8. Build system prompt ──────────────────────────────────────────────
-    const systemPrompt = AGENT_SYSTEMS[agent] + dnaContext + igContext
+    // ── 8. Build system prompt — agent + agency directives + DNA + IG ──────────
+    const systemPrompt = AGENT_SYSTEMS[agent] + AGENCY_DIRECTIVES + dnaContext + igContext
 
     // ── 8b. ATLAS carousel auto-generation (BLOCO 5) ──────────────────────
     if (agent === 'atlas') {

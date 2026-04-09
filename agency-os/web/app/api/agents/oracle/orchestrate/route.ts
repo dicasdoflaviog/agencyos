@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { type AgentType, AGENT_LABELS } from '@/types/agents'
 import { getClientIGMetrics, getClientIGTrend, formatIGContext, formatIGTrendContext } from '@/lib/apify/tools'
+import { getClientDNAContext } from '@/lib/ai/dna-context'
+import { AGENCY_DIRECTIVES } from '@/lib/ai/agency-directives'
 import { openrouter } from '@/lib/openrouter/client'
 import { getProviderModel } from '@/lib/openrouter/models'
 import { fireOrchestrationComplete, fireReviewComplete } from '@/lib/n8n-pipeline'
@@ -205,7 +207,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No valid agents selected by planner' }, { status: 500 })
   }
 
-  const systemSuffix = clientContext
+  // Enhance clientContext with full DNA (design tokens, products, vector memories)
+  // This supersedes the basic client_dna query with the complete intelligence layer.
+  if (client_id) {
+    try {
+      const richDNA = await getClientDNAContext(supabase, client_id, message)
+      if (richDNA) clientContext = richDNA
+    } catch { /* keep basic clientContext as fallback */ }
+  }
+
+  // System suffix = rich DNA + agency-wide directives injected into every agent
+  const systemSuffix = clientContext + AGENCY_DIRECTIVES
 
   // ── Step 2: Execute — parallel or sequential (Layer 2) ───────────────────────
   type OutputItem = {
