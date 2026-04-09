@@ -4,11 +4,13 @@ import { type AgentType, AGENT_LABELS } from '@/types/agents'
 import { getClientIGMetrics, getClientIGTrend, formatIGContext, formatIGTrendContext } from '@/lib/apify/tools'
 import { openrouter } from '@/lib/openrouter/client'
 import { getProviderModel } from '@/lib/openrouter/models'
+import { fireOrchestrationComplete, fireReviewComplete } from '@/lib/n8n-pipeline'
 
 export const dynamic = 'force-dynamic'
+export const maxDuration = 300
 
 // ── Agent system prompts (same as oracle/chat) ────────────────────────────────
-const AGENT_SYSTEMS: Partial<Record<AgentType, string>> = {
+const AGENT_SYSTEMS_BASE: Partial<Record<AgentType, string>> = {
   vance:  `Você é o VANCE, Estrategista de Marca e Marketing da agência. Desenvolva posicionamento de marca, estratégias de campanha, análise de concorrência e calendários editoriais. Entregue análises estruturadas com insights e recomendações acionáveis. Responda em português do Brasil.`,
   vera:   `Você é a VERA, Copywriter especialista da agência. Crie textos persuasivos, legendas para Instagram, copies para anúncios, headlines, CTAs e emails marketing. Sempre em português do Brasil, tom próximo e engajador. Entregue o copy pronto para uso, formatado com quebras de linha.`,
   marco:  `Você é o MARCO, Roteirista e Diretor de Conteúdo de Vídeo da agência. Escreva roteiros completos para Reels, TikToks e YouTube Shorts. Inclua gancho (0-3s), desenvolvimento e CTA. Use linguagem falada natural, indicando cenas e cortes. Responda em português do Brasil.`,
@@ -21,9 +23,35 @@ const AGENT_SYSTEMS: Partial<Record<AgentType, string>> = {
   cipher: `Você é o CIPHER, Especialista em Distribuição e Publicação de Conteúdo da agência. Crie planos de publicação com cronogramas, canais, frequência e estratégias de distribuição multiplataforma. Responda em português do Brasil.`,
 }
 
+// All 21 orchestratable agents (oracle excluded — it's the conductor)
+const AGENT_SYSTEMS: Partial<Record<AgentType, string>> = {
+  ...AGENT_SYSTEMS_BASE,
+  genesis: `Você é o GENESIS, Criador e Configurador de Agentes da agência. Você ajuda a projetar novos agentes de IA: escreve system prompts, define personas, mapeia capacidades e limites de cada agente. Seja técnico e criativo. Responda em português do Brasil.`,
+  lore:    `Você é o LORE, guardião da Memória Institucional da agência. Você tem acesso ao histórico de decisões, processos internos, cases, metodologias e conhecimento acumulado. Responda perguntas sobre como a agência trabalha, decisões passadas e boas práticas. Seja preciso e referenciado. Responda em português do Brasil.`,
+  flux:    `Você é o FLUX, Especialista em Automação e Integrações da agência. Você cria fluxos de automação no Zapier, Make (Integromat), n8n e webhooks. Mapeie processos, identifique gargalos e entregue blueprints de automação com gatilhos, ações e condições. Seja técnico e preciso. Responda em português do Brasil.`,
+  vox:     `Você é o VOX, Produtor de Conteúdo de Áudio da agência. Escreva roteiros e scripts prontos para narração em áudio, podcasts e vídeos. Use linguagem falada natural, com ritmo adequado para narração. Indique pausas com [...] e ênfases com *palavra*. Entregue o script completo e pronto para gravar.`,
+  vector:  `Você é o VECTOR, Especialista em Analytics e Dados da agência. Você analisa métricas de marketing digital, interpreta dashboards, identifica padrões e gera relatórios de performance. Seja analítico, visual (use tabelas/listas) e orientado a decisão. Responda em português do Brasil.`,
+  bridge:  `Você é o BRIDGE, Especialista em Onboarding de Clientes da agência. Você conduz o processo de entrada de novos clientes: coleta de informações, alinhamento de expectativas, setup inicial, criação de briefing e primeiras entregas. Seja acolhedor, organizado e detalhista. Responda em português do Brasil.`,
+  aegis:   `Você é o AEGIS, Gestor de Qualidade e Aprovação da agência. Você revisa entregas antes de ir ao cliente, verifica alinhamento com briefing, identifica erros, sugere melhorias e gerencia o fluxo de aprovação interno e externo. Seja criterioso, construtivo e detalhista. Responda em português do Brasil.`,
+  harbor:  `Você é o HARBOR, Especialista em CRM e Relacionamento Comercial da agência. Você gerencia o pipeline de vendas, qualifica leads, prepara propostas comerciais, acompanha negociações e identifica oportunidades de upsell/cross-sell. Seja estratégico e orientado a fechamento. Responda em português do Brasil.`,
+  ledger:  `Você é o LEDGER, Especialista Financeiro da agência. Você analisa rentabilidade de contas, prepara relatórios financeiros, calcula ROI de campanhas, elabora propostas comerciais com precificação e monitora indicadores como MRR, LTV e CAC. Seja preciso e orientado a números. Responda em português do Brasil.`,
+  surge:   `Você é o SURGE, Growth Hacker da agência. Você identifica alavancas de crescimento, propõe experimentos A/B, otimiza funis de conversão, estratégias de aquisição e retenção. Pense em escala, velocidade e custo-efetividade. Entregue hipóteses testáveis e planos de experimento. Responda em português do Brasil.`,
+  anchor:  `Você é o ANCHOR, Especialista em Customer Success da agência. Você garante a satisfação e retenção de clientes: NPS, health score, QBRs, planos de expansão e prevenção de churn. Seja proativo, empático e orientado a valor entregue. Responda em português do Brasil.`,
+}
+
 const VALID_ORCHESTRATION_AGENTS = new Set(Object.keys(AGENT_SYSTEMS))
 
-// ── Planner prompt ─────────────────────────────────────────────────────────────
+// ── Output type per agent ──────────────────────────────────────────────────────
+const OUTPUT_TYPE_MAP: Partial<Record<AgentType, string>> = {
+  nexus:   'client_note',   genesis: 'agent_spec',    lore:    'knowledge',
+  vance:   'strategy',      vera:    'copy',           marco:   'script',
+  atlas:   'image_prompt',  volt:    'ads_copy',       pulse:   'social_post',
+  cipher:  'publish_plan',  flux:    'automation',     vox:     'audio_script',
+  iris:    'research',      vector:  'analytics',      prism:   'audience_insight',
+  bridge:  'onboarding',    aegis:   'review',         harbor:  'crm_note',
+  ledger:  'financial',     surge:   'growth_plan',    anchor:  'success_plan',
+}
+// ── Planner prompt — all 21 agents + parallel/sequential mode selection ─────────
 const PLANNER_PROMPT = (request: string, clientContext: string) => `
 Você é o ORACLE, Diretor de IA de uma agência de marketing. Um usuário fez o seguinte pedido:
 
@@ -31,37 +59,80 @@ Você é o ORACLE, Diretor de IA de uma agência de marketing. Um usuário fez o
 
 ${clientContext}
 
-Agentes disponíveis para orquestração:
-- vance: estratégia de marca, posicionamento, análise competitiva, calendário editorial
-- vera: copy, legenda, headline, CTA, email marketing, texto para anúncio
-- marco: roteiro de Reel, TikTok, YouTube Short, vídeo institucional
-- atlas: prompt de imagem IA, direção de arte, briefing visual
-- volt: campanha Meta Ads / Google Ads, segmentação, estratégia de tráfego pago
-- pulse: engajamento, stories, DM script, community management
-- prism: pesquisa de persona, tendências, comportamento de audiência
-- iris: pesquisa de mercado, benchmarking, análise de concorrência
-- nexus: comunicação com cliente, apresentação, follow-up
-- cipher: plano de publicação, cronograma, distribuição de conteúdo
+Agentes disponíveis:
+PRODUÇÃO: vance (estratégia/posicionamento), vera (copy/legenda/headline), marco (roteiro/reel/tiktok), atlas (imagem IA/arte), volt (Meta Ads/Google Ads), pulse (engajamento/stories/DM), cipher (publicação/hashtags/SEO), flux (automação/n8n/Zapier), vox (áudio/podcast/narração)
+INTELIGÊNCIA: iris (pesquisa de mercado/benchmarking), vector (analytics/métricas/relatório), prism (personas/tendências/audiência)
+OPERAÇÕES: bridge (onboarding/briefing), aegis (revisão/aprovação), harbor (CRM/pipeline/proposta), ledger (financeiro/ROI/precificação)
+CRESCIMENTO: surge (growth hacking/A/B test/funil), anchor (customer success/churn/NPS)
+GESTÃO: nexus (comunicação/apresentação/follow-up), genesis (design de agentes/system prompts), lore (memória institucional/processos)
 
-Selecione de 2 a 5 agentes que farão entregas DIRETAS e COMPLEMENTARES para este pedido.
-Para cada agente, defina uma tarefa específica e acionável (não genérica).
+MODO DE EXECUÇÃO:
+- "parallel": agentes executam simultaneamente (use quando as tarefas são independentes)
+- "sequential": agentes executam em cadeia, cada output alimenta o próximo (use quando faz sentido: VANCE estratégia → VERA usa ela → ATLAS usa ambas)
 
-Responda APENAS com JSON válido, sem markdown, sem explicação:
+Selecione de 2 a 5 agentes. Defina uma tarefa específica e acionável para cada um (não genérica).
+
+Responda APENAS com JSON válido, sem markdown:
 {
-  "campaign_title": "título curto da campanha ou entrega",
+  "campaign_title": "título curto",
+  "mode": "parallel",
   "agents": [
-    { "agent": "vera", "task": "tarefa específica para vera..." },
-    { "agent": "atlas", "task": "tarefa específica para atlas..." }
+    { "agent": "vance", "task": "tarefa específica..." },
+    { "agent": "vera", "task": "tarefa específica..." }
   ]
 }
 `
 
-// ── Output type map ────────────────────────────────────────────────────────────
-const OUTPUT_TYPE_MAP: Partial<Record<AgentType, string>> = {
-  vera: 'copy', marco: 'script', atlas: 'image_prompt', volt: 'ads_copy',
-  pulse: 'social_post', cipher: 'publish_plan', vance: 'strategy',
-  iris: 'research', prism: 'audience_insight', nexus: 'client_note',
+// ── Oracle review prompt — Layer 3: quality gate ──────────────────────────────
+const REVIEWER_PROMPT = (
+  request: string,
+  outputs: Array<{ agent: string; task: string; content: string }>
+) => `
+Você é o ORACLE, Diretor de IA da agência. Avalie as entregas dos seus agentes:
+
+PEDIDO ORIGINAL: "${request}"
+
+OUTPUTS:
+${outputs.map(o => `[${o.agent.toUpperCase()}] Tarefa: ${o.task}\nEntrega: ${o.content.slice(0, 600)}`).join('\n---\n')}
+
+Avalie: alinhamento com o pedido, completude, qualidade prática e coerência entre as entregas.
+
+Responda APENAS com JSON válido:
+{
+  "quality_score": 85,
+  "verdict": "approved",
+  "summary": "Uma frase resumindo as entregas para o cliente",
+  "revisions": []
 }
+
+Se quality_score < 70, use verdict "needs_revision" e adicione em "revisions":
+[{ "agent": "vera", "issue": "descrição do problema e o que melhorar" }]
+`
+
+// ── Execute a single agent — shared by parallel and sequential modes ───────────
+async function executeAgent(
+  agentId: AgentType,
+  task: string,
+  systemSuffix: string,
+  prevContext?: string,
+): Promise<string> {
+  const systemPrompt = (AGENT_SYSTEMS[agentId] ?? AGENT_SYSTEMS.vera!) + systemSuffix
+  const userContent = prevContext
+    ? `CONTEXTO DA ETAPA ANTERIOR:\n${prevContext.slice(0, 1200)}\n\n---\nSUA TAREFA:\n${task}`
+    : task
+
+  const msg = await openrouter.chat.completions.create({
+    model: getProviderModel(agentId),
+    max_tokens: 1500,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userContent },
+    ],
+  })
+  return msg.choices[0]?.message?.content ?? ''
+}
+
+
 
 // ── Route ──────────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
@@ -107,23 +178,25 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // ── Step 1: Planner — decide which agents and their tasks ───────────────────
-  let plan: { campaign_title: string; agents: Array<{ agent: string; task: string }> }
+  // ── Step 1: Planner — Oracle picks agents, tasks, and execution mode ──────────
+  let plan: {
+    campaign_title: string
+    mode: 'parallel' | 'sequential'
+    agents: Array<{ agent: string; task: string }>
+  }
   try {
     const planRes = await openrouter.chat.completions.create({
       model: getProviderModel('dna'),
-      max_tokens: 800,
+      max_tokens: 1000,
       messages: [{ role: 'user', content: PLANNER_PROMPT(message, clientContext) }],
     })
     const planText = planRes.choices[0]?.message?.content?.trim() ?? ''
-    // Strip markdown code fences if present
     const jsonText = planText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim()
     plan = JSON.parse(jsonText) as typeof plan
   } catch (err) {
     return NextResponse.json({ error: `Planner failed: ${String(err)}` }, { status: 500 })
   }
 
-  // Filter to valid agents only (max 5)
   const agentTasks = plan.agents
     .filter(a => VALID_ORCHESTRATION_AGENTS.has(a.agent))
     .slice(0, 5)
@@ -132,68 +205,140 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No valid agents selected by planner' }, { status: 500 })
   }
 
-  // ── Step 2: Execute all agents in parallel ──────────────────────────────────
   const systemSuffix = clientContext
 
-  const results = await Promise.allSettled(
-    agentTasks.map(async ({ agent, task }) => {
-      const agentId = agent as AgentType
-      const systemPrompt = (AGENT_SYSTEMS[agentId] ?? AGENT_SYSTEMS.vera!) + systemSuffix
+  // ── Step 2: Execute — parallel or sequential (Layer 2) ───────────────────────
+  type OutputItem = {
+    agent: AgentType
+    label: string
+    task: string
+    content: string
+    output_id: string | null
+    status: 'fulfilled' | 'rejected'
+  }
 
-      const msg = await openrouter.chat.completions.create({
-        model: getProviderModel(agentId),
-        max_tokens: 1500,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: task },
-        ],
+  const saveOutput = async (agentId: AgentType, task: string, content: string): Promise<string | null> => {
+    const { data: saved } = await supabase
+      .from('job_outputs')
+      .insert({
+        job_id: job_id ?? null,
+        client_id: client_id ?? null,
+        workspace_id: profile?.workspace_id,
+        agent_id: agentId,
+        agent_name: AGENT_LABELS[agentId] ?? agentId.toUpperCase(),
+        input_prompt: task,
+        output_content: content,
+        output_type: OUTPUT_TYPE_MAP[agentId] ?? 'text',
+        status: 'pending',
+      })
+      .select('id')
+      .single()
+    return saved?.id ?? null
+  }
+
+  let outputs: OutputItem[] = []
+
+  if (plan.mode === 'sequential') {
+    // Sequential: each agent receives the previous agent's output as context
+    for (const { agent, task } of agentTasks) {
+      const agentId = agent as AgentType
+      const prevContent = outputs.at(-1)?.content
+      try {
+        const content = await executeAgent(agentId, task, systemSuffix, prevContent)
+        const output_id = await saveOutput(agentId, task, content)
+        outputs.push({ agent: agentId, label: AGENT_LABELS[agentId] ?? agentId.toUpperCase(), task, content, output_id, status: 'fulfilled' })
+      } catch {
+        outputs.push({ agent: agentId, label: AGENT_LABELS[agentId] ?? agentId.toUpperCase(), task, content: '⚠️ Erro ao executar este agente. Tente novamente.', output_id: null, status: 'rejected' })
+      }
+    }
+  } else {
+    // Parallel: all agents run simultaneously
+    const results = await Promise.allSettled(
+      agentTasks.map(({ agent, task }) =>
+        executeAgent(agent as AgentType, task, systemSuffix).then(async content => {
+          const agentId = agent as AgentType
+          const output_id = await saveOutput(agentId, task, content)
+          return { agent: agentId, task, content, output_id }
+        })
+      )
+    )
+    outputs = results.map((r, i) => {
+      const agentId = agentTasks[i].agent as AgentType
+      if (r.status === 'fulfilled') {
+        return { agent: agentId, label: AGENT_LABELS[agentId] ?? agentId.toUpperCase(), task: agentTasks[i].task, content: r.value.content, output_id: r.value.output_id, status: 'fulfilled' as const }
+      }
+      return { agent: agentId, label: AGENT_LABELS[agentId] ?? agentId.toUpperCase(), task: agentTasks[i].task, content: '⚠️ Erro ao executar este agente. Tente novamente.', output_id: null, status: 'rejected' as const }
+    })
+  }
+
+  // ── Step 3: Oracle review loop (Layer 3) ─────────────────────────────────────
+  // Oracle grades all outputs; re-runs agents below quality threshold (once)
+  const successfulOutputs = outputs.filter(o => o.status === 'fulfilled' && o.content.length > 50)
+  let review: { quality_score: number; verdict: string; summary: string } | null = null
+
+  if (successfulOutputs.length > 0) {
+    try {
+      const reviewRes = await openrouter.chat.completions.create({
+        model: getProviderModel('oracle'),
+        max_tokens: 600,
+        messages: [{ role: 'user', content: REVIEWER_PROMPT(message, successfulOutputs) }],
+      })
+      const reviewText = reviewRes.choices[0]?.message?.content?.trim() ?? ''
+      const parsed = JSON.parse(reviewText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim()) as {
+        quality_score: number
+        verdict: string
+        summary: string
+        revisions?: Array<{ agent: string; issue: string }>
+      }
+      review = { quality_score: parsed.quality_score, verdict: parsed.verdict, summary: parsed.summary }
+
+      // ── Fire review event to n8n pipeline ───────────────────────────────────
+      fireReviewComplete({
+        campaign_title:  plan.campaign_title,
+        quality_score:   parsed.quality_score,
+        verdict:         parsed.verdict,
+        summary:         parsed.summary,
+        agents_revised:  parsed.revisions?.map(r => r.agent),
+        client_id:       client_id ?? null,
       })
 
-      const content = msg.choices[0]?.message?.content ?? ''
-
-      // Save to job_outputs
-      const { data: savedOutput } = await supabase
-        .from('job_outputs')
-        .insert({
-          job_id: job_id ?? null,
-          client_id: client_id ?? null,
-          workspace_id: profile?.workspace_id,
-          agent_id: agentId,
-          agent_name: AGENT_LABELS[agentId] ?? agentId.toUpperCase(),
-          input_prompt: task,
-          output_content: content,
-          output_type: OUTPUT_TYPE_MAP[agentId] ?? 'text',
-          status: 'pending',
-        })
-        .select('id')
-        .single()
-
-      return {
-        agent: agentId,
-        label: AGENT_LABELS[agentId] ?? agentId.toUpperCase(),
-        task,
-        content,
-        output_id: savedOutput?.id ?? null,
-        status: 'fulfilled' as const,
+      // Re-run agents flagged by Oracle for revision (once — no infinite loop)
+      if (parsed.verdict === 'needs_revision' && parsed.revisions && parsed.revisions.length > 0) {
+        for (const { agent, issue } of parsed.revisions) {
+          const originalTask = agentTasks.find(a => a.agent === agent)
+          if (!originalTask) continue
+          const agentId = agent as AgentType
+          const improvedTask = `${originalTask.task}\n\nFEEDBACK DO ORACLE (melhore estes pontos):\n${issue}`
+          try {
+            const newContent = await executeAgent(agentId, improvedTask, systemSuffix)
+            await saveOutput(agentId, improvedTask, newContent)
+            const idx = outputs.findIndex(o => o.agent === agentId)
+            if (idx >= 0) outputs[idx].content = newContent
+          } catch { /* keep original if re-run fails */ }
+        }
       }
-    }),
-  )
+    } catch { /* review failed — return outputs without review metadata */ }
+  }
 
-  // ── Step 3: Collect results ─────────────────────────────────────────────────
-  const outputs = results.map((r, i) => {
-    if (r.status === 'fulfilled') return r.value
-    return {
-      agent: agentTasks[i].agent as AgentType,
-      label: AGENT_LABELS[agentTasks[i].agent as AgentType] ?? agentTasks[i].agent.toUpperCase(),
-      task: agentTasks[i].task,
-      content: `⚠️ Erro ao executar este agente. Tente novamente.`,
-      output_id: null,
-      status: 'rejected' as const,
-    }
+  // ── Fire orchestration complete to n8n pipeline ─────────────────────────────
+  fireOrchestrationComplete({
+    campaign_title: plan.campaign_title,
+    mode:           plan.mode,
+    workspace_id:   profile?.workspace_id,
+    client_id:      client_id ?? null,
+    agents_used:    outputs.map(o => ({
+      agent:  o.agent,
+      label:  o.label,
+      status: o.status,
+      chars:  o.content.length,
+    })),
+    review,
   })
 
   return NextResponse.json({
     campaign_title: plan.campaign_title,
+    mode: plan.mode,
     agents: outputs,
+    ...(review ? { review } : {}),
   })
 }

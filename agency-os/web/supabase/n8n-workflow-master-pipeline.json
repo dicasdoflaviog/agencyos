@@ -1,0 +1,258 @@
+{
+  "name": "Agency OS — Master Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agency-os-pipeline",
+        "responseMode": "responseNode"
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook — Agency OS Events",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ received: true, event: $json.event, timestamp: new Date().toISOString() }) }}"
+      },
+      "id": "respond-ok",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "string": [{"value1": "={{ $json.event }}", "operation": "equals", "value2": "oracle.orchestration.complete"}]
+              }
+            },
+            {
+              "conditions": {
+                "string": [{"value1": "={{ $json.event }}", "operation": "equals", "value2": "oracle.review.complete"}]
+              }
+            },
+            {
+              "conditions": {
+                "string": [{"value1": "={{ $json.event }}", "operation": "equals", "value2": "atlas.carousel.generated"}]
+              }
+            },
+            {
+              "conditions": {
+                "string": [{"value1": "={{ $json.event }}", "operation": "equals", "value2": "atlas.carousel.approved"}]
+              }
+            },
+            {
+              "conditions": {
+                "string": [{"value1": "={{ $json.event }}", "operation": "equals", "value2": "atlas.carousel.rejected"}]
+              }
+            },
+            {
+              "conditions": {
+                "string": [{"value1": "={{ $json.event }}", "operation": "equals", "value2": "agent.task.complete"}]
+              }
+            }
+          ]
+        }
+      },
+      "id": "event-router",
+      "name": "Roteador de Eventos",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list"
+        },
+        "table": {
+          "__rl": true,
+          "value": "pipeline_events",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event":          "={{ $json.event }}",
+            "source":         "={{ $json.source }}",
+            "campaign_title": "={{ $json.campaign_title }}",
+            "mode":           "={{ $json.mode }}",
+            "quality_score":  "={{ $json.review?.quality_score ?? null }}",
+            "verdict":        "={{ $json.review?.verdict ?? null }}",
+            "agents_count":   "={{ ($json.agents_used ?? []).length }}",
+            "client_id":      "={{ $json.client_id }}",
+            "workspace_id":   "={{ $json.workspace_id }}",
+            "payload":        "={{ JSON.stringify($json) }}",
+            "created_at":     "={{ $json.timestamp }}"
+          }
+        }
+      },
+      "id": "save-orchestration",
+      "name": "Salvar: Orquestração Completa",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [900, 160],
+      "credentials": {"supabaseApi": {"id": "1", "name": "Supabase Agency OS"}}
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": {"__rl": true, "value": "public", "mode": "list"},
+        "table": {"__rl": true, "value": "pipeline_events", "mode": "list"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event":         "={{ $json.event }}",
+            "source":        "={{ $json.source }}",
+            "quality_score": "={{ $json.quality_score }}",
+            "verdict":       "={{ $json.verdict }}",
+            "summary":       "={{ $json.summary }}",
+            "client_id":     "={{ $json.client_id }}",
+            "payload":       "={{ JSON.stringify($json) }}",
+            "created_at":    "={{ $json.timestamp }}"
+          }
+        }
+      },
+      "id": "save-review",
+      "name": "Salvar: Review do Oracle",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [900, 280],
+      "credentials": {"supabaseApi": {"id": "1", "name": "Supabase Agency OS"}}
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": {"__rl": true, "value": "public", "mode": "list"},
+        "table": {"__rl": true, "value": "pipeline_events", "mode": "list"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event":      "={{ $json.event }}",
+            "source":     "={{ $json.source }}",
+            "asset_id":   "={{ $json.asset_id }}",
+            "client_id":  "={{ $json.client_id }}",
+            "format":     "={{ $json.format }}",
+            "template":   "={{ $json.template }}",
+            "payload":    "={{ JSON.stringify($json) }}",
+            "created_at": "={{ $json.timestamp }}"
+          }
+        }
+      },
+      "id": "save-carousel-generated",
+      "name": "Salvar: Carrossel Gerado",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [900, 400],
+      "credentials": {"supabaseApi": {"id": "1", "name": "Supabase Agency OS"}}
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": {"__rl": true, "value": "public", "mode": "list"},
+        "table": {"__rl": true, "value": "pipeline_events", "mode": "list"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event":       "={{ $json.event }}",
+            "source":      "={{ $json.source }}",
+            "asset_id":    "={{ $json.asset_id }}",
+            "client_id":   "={{ $json.client_id }}",
+            "approved_by": "={{ $json.approved_by }}",
+            "payload":     "={{ JSON.stringify($json) }}",
+            "created_at":  "={{ $json.timestamp }}"
+          }
+        }
+      },
+      "id": "save-carousel-approved",
+      "name": "Salvar: Carrossel Aprovado",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [900, 520],
+      "credentials": {"supabaseApi": {"id": "1", "name": "Supabase Agency OS"}}
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": {"__rl": true, "value": "public", "mode": "list"},
+        "table": {"__rl": true, "value": "pipeline_events", "mode": "list"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event":      "={{ $json.event }}",
+            "source":     "={{ $json.source }}",
+            "asset_id":   "={{ $json.asset_id }}",
+            "client_id":  "={{ $json.client_id }}",
+            "payload":    "={{ JSON.stringify($json) }}",
+            "created_at": "={{ $json.timestamp }}"
+          }
+        }
+      },
+      "id": "save-carousel-rejected",
+      "name": "Salvar: Carrossel Rejeitado",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [900, 640],
+      "credentials": {"supabaseApi": {"id": "1", "name": "Supabase Agency OS"}}
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": {"__rl": true, "value": "public", "mode": "list"},
+        "table": {"__rl": true, "value": "pipeline_events", "mode": "list"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event":     "={{ $json.event }}",
+            "source":    "={{ $json.source }}",
+            "agent":     "={{ $json.agent }}",
+            "label":     "={{ $json.label }}",
+            "client_id": "={{ $json.client_id }}",
+            "payload":   "={{ JSON.stringify($json) }}",
+            "created_at":"={{ $json.timestamp }}"
+          }
+        }
+      },
+      "id": "save-agent-task",
+      "name": "Salvar: Tarefa do Agente",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [900, 760],
+      "credentials": {"supabaseApi": {"id": "1", "name": "Supabase Agency OS"}}
+    }
+  ],
+  "connections": {
+    "Webhook — Agency OS Events": {
+      "main": [[{"node": "Respond OK", "type": "main", "index": 0}, {"node": "Roteador de Eventos", "type": "main", "index": 0}]]
+    },
+    "Roteador de Eventos": {
+      "main": [
+        [{"node": "Salvar: Orquestração Completa", "type": "main", "index": 0}],
+        [{"node": "Salvar: Review do Oracle", "type": "main", "index": 0}],
+        [{"node": "Salvar: Carrossel Gerado", "type": "main", "index": 0}],
+        [{"node": "Salvar: Carrossel Aprovado", "type": "main", "index": 0}],
+        [{"node": "Salvar: Carrossel Rejeitado", "type": "main", "index": 0}],
+        [{"node": "Salvar: Tarefa do Agente", "type": "main", "index": 0}]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {"executionOrder": "v1"},
+  "versionId": "1",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": "agency-os"
+  },
+  "id": "agency-os-master-pipeline",
+  "tags": ["agency-os", "pipeline", "agents"]
+}

@@ -347,8 +347,8 @@ const ATLAS_MODEL_FALLBACK = 'recraft-ai/recraft-v3'
 const ATLAS_SIZE_MAP: Record<string, string> = {
   '1:1':  '1024x1024',
   '4:5':  '1024x1280',
-  '16:9': '1920x1080',
-  '9:16': '1080x1920',
+  '16:9': '1792x1024',
+  '9:16': '1024x1792',
 }
 
 export async function generateImage({

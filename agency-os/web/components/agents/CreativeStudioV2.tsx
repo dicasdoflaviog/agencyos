@@ -301,7 +301,10 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
     <div style={{ maxWidth: '680px', margin: '0 auto', padding: '2rem', textAlign: 'center' }}>
       <Loader2 size={32} color="#f59e0b" style={{ animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }} />
       <p style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '4px' }}>VERA está escrevendo o copy...</p>
-      <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>ATLAS vai gerar as imagens em seguida</p>
+      <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>ATLAS vai gerar as imagens em seguida</p>
+      <p style={{ fontSize: '11px', color: 'var(--color-text-secondary)', opacity: 0.6 }}>
+        Geração de imagens leva até 3 min · não feche esta janela
+      </p>
     </div>
   )
 
@@ -339,8 +342,9 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
               <img src={slide.image_url} alt={slide.title}
                 style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
             ) : (
-              <div style={{ width: '100%', aspectRatio: '4/5', background: 'var(--color-background-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Loader2 size={20} color="#f59e0b" style={{ animation: 'spin 1s linear infinite' }} />
+              <div style={{ width: '100%', aspectRatio: '4/5', background: 'var(--color-background-secondary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                <span style={{ fontSize: '20px' }}>🖼️</span>
+                <span style={{ fontSize: '10px', color: 'var(--color-text-secondary)', textAlign: 'center', padding: '0 8px' }}>Imagem não gerada</span>
               </div>
             )}
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.8))', padding: '24px 8px 8px' }}>

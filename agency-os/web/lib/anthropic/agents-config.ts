@@ -24,6 +24,8 @@ export const AGENTS = {
   ledger:  { name: 'LEDGER',  role: 'Financeiro',             layer: 'operations' },
   surge:   { name: 'SURGE',   role: 'Growth Hacker',          layer: 'growth' },
   anchor:  { name: 'ANCHOR',  role: 'Customer Success',       layer: 'growth' },
+  // ── Media
+  vox:     { name: 'VOX',     role: 'Áudio & Narração',       layer: 'production' },
 } as const
 
 export const LAYER_LABELS: Record<string, string> = {

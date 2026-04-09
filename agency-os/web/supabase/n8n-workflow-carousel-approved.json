@@ -1,0 +1,71 @@
+{
+  "name": "Agency OS — Carousel Aprovado",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "carousel-approved",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook — Carrossel Aprovado",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "carousel-approved"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/notifications",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey",        "value": "={{ $env.SUPABASE_SERVICE_KEY }}" },
+            { "name": "Authorization", "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}" },
+            { "name": "Content-Type",  "value": "application/json" },
+            { "name": "Prefer",        "value": "return=representation" }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"type\": \"carousel_approved\",\n  \"title\": \"Carrossel aprovado\",\n  \"body\": \"Um novo carrossel foi aprovado no Creative Studio.\",\n  \"metadata\": {\n    \"asset_id\": \"{{ $json.body.asset_id }}\",\n    \"client_id\": \"{{ $json.body.client_id }}\",\n    \"format\": \"{{ $json.body.format }}\",\n    \"slide_count\": {{ $json.body.slide_count }},\n    \"approved_at\": \"{{ $json.body.approved_at }}\",\n    \"approved_by\": \"{{ $json.body.approved_by }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "supabase-insert",
+      "name": "Supabase — Inserir Notificação",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"ok\": true }",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [760, 300]
+    }
+  ],
+  "connections": {
+    "Webhook — Carrossel Aprovado": {
+      "main": [[ { "node": "Supabase — Inserir Notificação", "type": "main", "index": 0 } ]]
+    },
+    "Supabase — Inserir Notificação": {
+      "main": [[ { "node": "Responder OK", "type": "main", "index": 0 } ]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": [{ "name": "agency-os" }]
+}
