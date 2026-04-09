@@ -5,6 +5,9 @@ import { generateCarouselCopy } from '@/lib/atlas/vera-copy'
 import { buildImagePrompt, getAspectRatio } from '@/lib/atlas/prompt-builder'
 import { generateImage } from '@/lib/openrouter/IntelligenceRouter'
 
+// Flux.1-dev pode levar até 40s por imagem × 10 slides = 400s máx
+export const maxDuration = 300
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
@@ -38,63 +41,58 @@ export async function POST(request: NextRequest) {
       dna
     )
 
-    // 3. Gerar imagens para cada slide via ATLAS
+    // 3. Gerar imagens para todos os slides em PARALELO via ATLAS
+    // (em vez de sequencial, reduz o tempo de 6×30s → ~30s)
     const aspectRatio = getAspectRatio(format)
-    const slidesWithImages: Array<{
-      number: number
-      title: string
-      subtitle: string
-      image_url: string
-      prompt: string
-    }> = []
 
-    for (const slide of copy.slides) {
-      const imagePrompt = buildImagePrompt(slide, dna, template, customStyle)
+    const slidesWithImages = await Promise.all(
+      copy.slides.map(async (slide) => {
+        const imagePrompt = buildImagePrompt(slide, dna, template, customStyle)
 
-      try {
-        const { imageBase64, mimeType } = await generateImage({
-          prompt: imagePrompt,
-          aspectRatio,
-        })
-
-        // Upload para Supabase Storage
-        const imageBuffer = Buffer.from(imageBase64, 'base64')
-        const assetId = crypto.randomUUID()
-        const storagePath = `${clientId}/${assetId}.png`
-
-        const { error: storageErr } = await supabase.storage
-          .from('creative-assets')
-          .upload(storagePath, imageBuffer, {
-            contentType: mimeType,
-            upsert: false,
+        try {
+          const { imageBase64, mimeType } = await generateImage({
+            prompt: imagePrompt,
+            aspectRatio,
           })
 
-        let imageUrl = ''
-        if (!storageErr) {
-          const { data: urlData } = await supabase.storage
-            .from('creative-assets')
-            .createSignedUrl(storagePath, 60 * 60 * 24 * 365)
-          imageUrl = urlData?.signedUrl ?? ''
-        }
+          const imageBuffer = Buffer.from(imageBase64, 'base64')
+          const slideAssetId = crypto.randomUUID()
+          const storagePath = `${clientId}/${slideAssetId}.png`
 
-        slidesWithImages.push({
-          number: slide.number,
-          title: slide.title,
-          subtitle: slide.subtitle,
-          image_url: imageUrl,
-          prompt: imagePrompt,
-        })
-      } catch {
-        // Slide sem imagem — não falha o carrossel inteiro
-        slidesWithImages.push({
-          number: slide.number,
-          title: slide.title,
-          subtitle: slide.subtitle,
-          image_url: '',
-          prompt: imagePrompt,
-        })
-      }
-    }
+          const { error: storageErr } = await supabase.storage
+            .from('creative-assets')
+            .upload(storagePath, imageBuffer, {
+              contentType: mimeType,
+              upsert: false,
+            })
+
+          let imageUrl = ''
+          if (!storageErr) {
+            const { data: urlData } = await supabase.storage
+              .from('creative-assets')
+              .createSignedUrl(storagePath, 60 * 60 * 24 * 365)
+            imageUrl = urlData?.signedUrl ?? ''
+          }
+
+          return {
+            number: slide.number,
+            title: slide.title,
+            subtitle: slide.subtitle,
+            image_url: imageUrl,
+            prompt: imagePrompt,
+          }
+        } catch {
+          // Slide sem imagem — não falha o carrossel inteiro
+          return {
+            number: slide.number,
+            title: slide.title,
+            subtitle: slide.subtitle,
+            image_url: '',
+            prompt: imagePrompt,
+          }
+        }
+      })
+    )
 
     // 4. Salvar creative_asset principal (representa o carrossel)
     const { data: asset, error: dbErr } = await supabase
