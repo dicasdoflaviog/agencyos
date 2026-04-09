@@ -44,6 +44,13 @@ BEGIN
   END IF;
 END $$;
 
+-- ─── client_dna — RLS + Index (garantir que estejam ativos) ─────────────────
+CREATE INDEX IF NOT EXISTS idx_client_dna_workspace ON client_dna (workspace_id);
+CREATE INDEX IF NOT EXISTS idx_client_dna_client    ON client_dna (client_id);
+ALTER TABLE client_dna ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "client_dna_auth" ON client_dna;
+CREATE POLICY "client_dna_auth" ON client_dna FOR ALL USING (auth.uid() IS NOT NULL);
+
 -- ─── CREATE: oracle_sessions ────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS oracle_sessions (
   id           UUID DEFAULT gen_random_uuid() PRIMARY KEY,
