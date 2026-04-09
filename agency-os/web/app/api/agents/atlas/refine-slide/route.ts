@@ -71,7 +71,7 @@ Retorne APENAS JSON válido:
       const { buildImagePrompt, getAspectRatio } = await import('@/lib/atlas/prompt-builder')
       const dna = asset.dna_snapshot as Parameters<typeof buildImagePrompt>[1]
       const imagePrompt = buildImagePrompt(
-        { number: slideNumber, title: refined.title, subtitle: refined.subtitle, image_context: refined.image_context },
+        { number: slideNumber, title: refined.title, subtitle: refined.subtitle, image_context: refined.image_context, template_id: 'titulo-bold' as const },
         dna, asset.template ?? 'minimalista'
       )
 

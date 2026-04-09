@@ -95,8 +95,9 @@ export function buildImagePrompt(
   template: string,
   customStyle?: string
 ): string {
-  // Resolve estilo de template: Agency OS templates têm prioridade, senão usa VISUAL_STYLE_MAP
-  const agencyTemplate = TEMPLATE_IMAGE_STYLE_MAP[template]
+  // Per-slide template_id tem prioridade sobre o template do carrossel
+  const effectiveTemplate = slide.template_id ?? template
+  const agencyTemplate = TEMPLATE_IMAGE_STYLE_MAP[effectiveTemplate]
 
   const parts = [
     // Contexto da cena — derivado do conteúdo do slide (mais importante)
@@ -131,12 +132,10 @@ export function buildImagePrompt(
     // Instruções de overlay do template (como deixar espaço para o texto/UI)
     agencyTemplate
       ? agencyTemplate.overlay
-      : template === 'minimalista'
-        ? 'Leave dark area at bottom third for text overlay. Dramatic foreground subject.'
-        : 'Clean background with visual breathing room. Subject centered or left-aligned.',
+      : 'Clean background with visual breathing room. Subject centered or left-aligned.',
 
     // Para o template editorial (titulo-bold), a imagem é fundo sutil — texto domina
-    template === 'titulo-bold'
+    effectiveTemplate === 'titulo-bold'
       ? 'Very subtle background texture only — image will be overlaid with large typography. Keep extremely low contrast.'
       : '',
 

@@ -1,6 +1,6 @@
 'use client'
 import { useState, useCallback } from 'react'
-import { EditorialTemplate } from './templates/EditorialTemplate'
+import { resolveTemplate, buildTemplateProps, TemplateId, SlideTemplateData } from './templates'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────────
 
@@ -10,6 +10,8 @@ interface Slide {
   subtitle: string
   image_url: string
   prompt: string
+  template_id?: TemplateId
+  template_data?: SlideTemplateData
 }
 
 type SlideStatus = 'pending' | 'approved' | 'rejected'
@@ -403,14 +405,23 @@ export function CarouselPreview({
 
         {/* Criativo grande */}
         <div style={S.card}>
-          {template === 'titulo-bold' ? (
-            /* Template Editorial — renderiza o slide como componente React (sem img+overlay) */
-            <EditorialTemplate
-              title={current.title}
-              subtitle={current.subtitle}
-              backgroundImage={current.image_url || undefined}
-              size={480}
-            />
+          {current.template_id ? (
+            /* Template Blueprint — renderiza componente React por slide (sem img+overlay) */
+            (() => {
+              const TemplateComponent = resolveTemplate(current.template_id)
+              const props = buildTemplateProps(
+                { title: current.title, subtitle: current.subtitle, backgroundImage: current.image_url || undefined, template_data: current.template_data },
+                undefined,
+                480
+              )
+              return <TemplateComponent {...props} />
+            })()
+          ) : template === 'titulo-bold' ? (
+            /* Fallback legado: carrossel inteiro usa titulo-bold sem template_id por slide */
+            (() => {
+              const TemplateComponent = resolveTemplate('titulo-bold')
+              return <TemplateComponent title={current.title} subtitle={current.subtitle} backgroundImage={current.image_url || undefined} size={480} />
+            })()
           ) : current.image_url ? (
             <img src={current.image_url} alt={current.title} style={S.hero} />
           ) : (
@@ -419,8 +430,8 @@ export function CarouselPreview({
             </div>
           )}
 
-          {/* Overlay de copy sobre a imagem (somente templates sem componente próprio) */}
-          {template !== 'titulo-bold' && (
+          {/* Overlay de copy — somente quando não há template Blueprint ativo */}
+          {!current.template_id && template !== 'titulo-bold' && (
           <div style={S.imageOverlay}>
             <div style={S.overlayNum}>Slide {current.number} de {slides.length}</div>
             <div style={S.overlayTitle}>{current.title}</div>
