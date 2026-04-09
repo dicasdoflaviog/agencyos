@@ -12,13 +12,13 @@ import { getClientDNA, formatDNAContext } from '@/lib/atlas/dna'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const clientId = params.id
+  const { id: clientId } = await params
   if (!clientId) return NextResponse.json({ error: 'clientId obrigatório' }, { status: 400 })
 
   const { data: clientRow } = await supabase
