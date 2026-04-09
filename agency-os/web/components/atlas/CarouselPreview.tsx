@@ -231,6 +231,7 @@ export function CarouselPreview({
       background: 'var(--color-background-primary)',
       border: '0.5px solid var(--color-border-tertiary)',
       borderRadius: 'var(--border-radius-lg)', overflow: 'hidden',
+      position: 'relative' as const,
     },
 
     hero: {
@@ -238,7 +239,17 @@ export function CarouselPreview({
       background: 'var(--color-background-secondary)', minHeight: '280px',
     },
 
-    cardFooter: { padding: '12px 14px', borderTop: '0.5px solid var(--color-border-tertiary)', display: 'flex', flexDirection: 'column' as const, gap: '8px' },
+    imageOverlay: {
+      position: 'absolute' as const, bottom: 0, left: 0, right: 0,
+      background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 50%, transparent 100%)',
+      padding: '48px 14px 14px', pointerEvents: 'none' as const,
+    },
+
+    overlayNum:   { fontSize: '10px', color: 'rgba(255,255,255,0.55)', fontWeight: 500, textTransform: 'uppercase' as const, letterSpacing: '.06em', marginBottom: '4px' },
+    overlayTitle: { fontSize: '16px', fontWeight: 700, color: '#ffffff', lineHeight: 1.2, marginBottom: '5px', textShadow: '0 1px 4px rgba(0,0,0,0.6)' },
+    overlaySub:   { fontSize: '12px', color: 'rgba(255,255,255,0.78)', lineHeight: 1.4, textShadow: '0 1px 3px rgba(0,0,0,0.5)' },
+
+    cardFooter: { padding: '10px 14px', borderTop: '0.5px solid var(--color-border-tertiary)', display: 'flex', flexDirection: 'column' as const, gap: '8px' },
 
     slideNum:   { fontSize: '10px', color: 'var(--color-text-secondary)', fontWeight: 500, textTransform: 'uppercase' as const, letterSpacing: '.06em' },
     slideTitle: { fontSize: '15px', fontWeight: 500, color: 'var(--color-text-primary)' },
@@ -399,11 +410,14 @@ export function CarouselPreview({
             </div>
           )}
 
-          <div style={S.cardFooter}>
-            <div style={S.slideNum}>Slide {current.number} de {slides.length}</div>
-            <div style={S.slideTitle}>{current.title}</div>
-            <div style={S.slideSub}>{current.subtitle}</div>
+          {/* Overlay de copy sobre a imagem */}
+          <div style={S.imageOverlay}>
+            <div style={S.overlayNum}>Slide {current.number} de {slides.length}</div>
+            <div style={S.overlayTitle}>{current.title}</div>
+            <div style={S.overlaySub}>{current.subtitle}</div>
+          </div>
 
+          <div style={S.cardFooter}>
             <div style={S.actionsRow}>
               <button style={S.actionBtn} onClick={downloadSlide}>Download</button>
               {canEdit && (

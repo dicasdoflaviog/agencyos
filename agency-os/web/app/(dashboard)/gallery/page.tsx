@@ -30,7 +30,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   // Query ATLAS approved creative assets
   let atlasQuery = supabase
     .from('creative_assets')
-    .select('id, client_id, format, style, type, status, prompt, image_url, model, created_at, client:clients(id, name)')
+    .select('id, client_id, format, style, type, status, prompt, image_url, model, created_at, slide_count, template, client:clients(id, name)')
     .eq('status', 'approved')
     .order('created_at', { ascending: false })
     .limit(24)
