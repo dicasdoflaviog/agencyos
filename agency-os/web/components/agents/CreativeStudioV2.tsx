@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Loader2, Edit3 } from 'lucide-react'
+import { Loader2, Edit3, Copy, RotateCcw } from 'lucide-react'
 
 type Step = 'config' | 'generating' | 'preview'
 type Template = 'minimalista' | 'profile'
@@ -22,6 +22,16 @@ interface DNAData {
   [key: string]: string | undefined
 }
 
+interface PastAsset {
+  id: string
+  image_url: string
+  prompt: string
+  slide_count: number
+  template: string
+  created_at: string
+  status: string
+}
+
 interface CreativeStudioV2Props {
   clientId: string
   userRole: 'admin' | 'collaborator' | 'viewer'
@@ -30,6 +40,8 @@ interface CreativeStudioV2Props {
 export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) {
   const [step, setStep] = useState<Step>('config')
   const [dna, setDna] = useState<DNAData | null>(null)
+  const [pastAssets, setPastAssets] = useState<PastAsset[]>([])
+  const [copiedId, setCopiedId] = useState<string | null>(null)
 
   // Config state
   const [template, setTemplate] = useState<Template>('minimalista')
@@ -46,13 +58,32 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
   const [selectedSlide, setSelectedSlide] = useState(0)
   const [showEditor, setShowEditor] = useState(false)
 
-  // Carregar DNA do cliente
+  // Carregar DNA e histórico do cliente
   useEffect(() => {
     fetch(`/api/clients/${clientId}/dna`)
       .then(r => r.json())
       .then(d => setDna(d))
       .catch(() => {})
+
+    fetch(`/api/agents/atlas/gallery/${clientId}?status=all&limit=12`)
+      .then(r => r.json())
+      .then(d => { if (Array.isArray(d)) setPastAssets(d) })
+      .catch(() => {})
   }, [clientId])
+
+  function copyPrompt(asset: PastAsset) {
+    navigator.clipboard.writeText(asset.prompt)
+    setCopiedId(asset.id)
+    setTimeout(() => setCopiedId(null), 1500)
+  }
+
+  function reuseAsset(asset: PastAsset) {
+    setUserPrompt(asset.prompt)
+    if (asset.template === 'minimalista' || asset.template === 'profile') {
+      setTemplate(asset.template as Template)
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   async function generate() {
     if (!userPrompt.trim()) return
@@ -203,6 +234,55 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
         style={{ width: '100%', background: '#f59e0b', color: '#000', fontWeight: 700, padding: '14px', borderRadius: '10px', fontSize: '15px', border: 'none', cursor: 'pointer', opacity: !userPrompt.trim() ? 0.4 : 1 }}>
         ★ Gerar com ATLAS
       </button>
+
+      {/* Galeria de carrosséis anteriores — Bloco 8 */}
+      {pastAssets.length > 0 && (
+        <div style={{ marginTop: '2.5rem' }}>
+          <p style={{ fontSize: '11px', fontWeight: 500, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: '12px' }}>
+            Carrosséis anteriores
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '10px' }}>
+            {pastAssets.map(asset => (
+              <div key={asset.id} style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden', border: '0.5px solid var(--color-border-tertiary)', background: 'var(--color-background-secondary)' }}>
+                {asset.image_url ? (
+                  <img src={asset.image_url} alt={asset.prompt?.slice(0, 40)}
+                    style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+                ) : (
+                  <div style={{ width: '100%', aspectRatio: '4/5', background: 'var(--color-background-secondary)' }} />
+                )}
+
+                {/* Slide count badge */}
+                {asset.slide_count > 1 && (
+                  <div style={{ position: 'absolute', top: '6px', right: '6px', background: 'rgba(0,0,0,0.7)', color: '#fff', fontSize: '10px', padding: '2px 6px', borderRadius: '10px' }}>
+                    {asset.slide_count} slides
+                  </div>
+                )}
+
+                {/* Hover overlay */}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(transparent 30%, rgba(0,0,0,0.85))', padding: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '4px' }}>
+                  <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.7)', margin: 0, lineHeight: 1.3, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                    {asset.prompt}
+                  </p>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <button onClick={() => copyPrompt(asset)}
+                      title="Copiar prompt"
+                      style={{ flex: 1, fontSize: '10px', padding: '4px', borderRadius: '5px', border: '0.5px solid rgba(255,255,255,0.25)', background: 'rgba(255,255,255,0.1)', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px' }}>
+                      <Copy size={9} />
+                      {copiedId === asset.id ? '✓' : 'Prompt'}
+                    </button>
+                    <button onClick={() => reuseAsset(asset)}
+                      title="Reusar este prompt"
+                      style={{ flex: 1, fontSize: '10px', padding: '4px', borderRadius: '5px', border: '0.5px solid rgba(245,158,11,0.5)', background: 'rgba(245,158,11,0.2)', color: '#f59e0b', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px' }}>
+                      <RotateCcw size={9} />
+                      Reusar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 
