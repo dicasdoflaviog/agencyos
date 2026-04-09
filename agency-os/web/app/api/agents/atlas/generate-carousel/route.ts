@@ -5,6 +5,7 @@ import { getClientDNA } from '@/lib/atlas/dna'
 import { generateCarouselCopy } from '@/lib/atlas/vera-copy'
 import { buildImagePrompt, getAspectRatio } from '@/lib/atlas/prompt-builder'
 import { generateImage } from '@/lib/openrouter/IntelligenceRouter'
+import { renderSlideToBuffer } from '@/lib/atlas/render-template'
 import { checkAndDeductCredits } from '@/lib/credits'
 
 // Flux.1-dev pode levar até 40s por imagem × 10 slides = 400s máx
@@ -70,31 +71,42 @@ export async function POST(request: NextRequest) {
       dna
     )
 
-    // 3. Gerar imagens para todos os slides em PARALELO via ATLAS
-    // (em vez de sequencial, reduz o tempo de 6×30s → ~30s)
+    // 3. Renderizar slides: Motor HTML → PNG (server-side) com fallback para FLUX
+    // Blueprints T05 e T04 → render-template (pixel-fidelity)
+    // Outros templates → gera background via FLUX e renderiza sobre ele
     const aspectRatio = getAspectRatio(format)
-    const adminSupabase = createAdminClient() // bypass RLS para storage
+    const adminSupabase = createAdminClient()
 
     const slidesWithImages = await Promise.all(
       copy.slides.map(async (slide) => {
-        const imagePrompt = buildImagePrompt(slide, dna, template, customStyle)
+        const effectiveTemplate = slide.template_id || template
 
         try {
-          const { imageBase64, mimeType } = await generateImage({
-            prompt: imagePrompt,
-            aspectRatio,
-          })
+          let imageBuffer: Buffer
 
-          const imageBuffer = Buffer.from(imageBase64, 'base64')
+          // Templates com renderização server-side nativa (sem depender de FLUX)
+          const SERVER_RENDERED = ['titulo-bold', 'problema-solucao', 'produto-flutuante', 'fundo-solido']
+
+          if (SERVER_RENDERED.includes(effectiveTemplate)) {
+            // Motor de Renderização: template HTML → PNG diretamente
+            imageBuffer = await renderSlideToBuffer(slide, dna)
+          } else {
+            // Outros templates: gera background via FLUX e renderiza sobre ele
+            const imagePrompt = buildImagePrompt(slide, dna, effectiveTemplate, customStyle)
+            const { imageBase64, mimeType } = await generateImage({ prompt: imagePrompt, aspectRatio })
+            const fluxBuffer = Buffer.from(imageBase64, 'base64')
+            // Renderiza template com background do FLUX
+            const bgDataUrl = `data:${mimeType};base64,${imageBase64}`
+            imageBuffer = await renderSlideToBuffer(slide, dna, bgDataUrl)
+            void fluxBuffer // usada via bgDataUrl acima
+          }
+
           const slideAssetId = crypto.randomUUID()
           const storagePath = `${clientId}/${slideAssetId}.png`
 
           const { error: storageErr } = await adminSupabase.storage
             .from('creative-assets')
-            .upload(storagePath, imageBuffer, {
-              contentType: mimeType,
-              upsert: false,
-            })
+            .upload(storagePath, imageBuffer, { contentType: 'image/png', upsert: false })
 
           if (storageErr) {
             console.error(`[atlas/generate-carousel] Storage upload falhou (slide ${slide.number}):`, storageErr.message)
@@ -109,27 +121,27 @@ export async function POST(request: NextRequest) {
           }
 
           return {
-            number: slide.number,
-            title: slide.title,
-            subtitle: slide.subtitle,
-            image_url: imageUrl,
+            number:        slide.number,
+            title:         slide.title,
+            subtitle:      slide.subtitle,
+            image_url:     imageUrl,
             storage_error: storageErr?.message ?? null,
-            prompt: imagePrompt,
-            template_id: slide.template_id,
+            prompt:        `[blueprint:${effectiveTemplate}] ${slide.title}`,
+            template_id:   slide.template_id,
             template_data: slide.template_data ?? null,
           }
         } catch (slideErr) {
           const msg = slideErr instanceof Error ? slideErr.message : String(slideErr)
           console.error(`[atlas/generate-carousel] Slide ${slide.number} falhou:`, msg)
           return {
-            number: slide.number,
-            title: slide.title,
-            subtitle: slide.subtitle,
-            image_url: '',
+            number:           slide.number,
+            title:            slide.title,
+            subtitle:         slide.subtitle,
+            image_url:        '',
             generation_error: msg,
-            prompt: imagePrompt,
-            template_id: slide.template_id,
-            template_data: slide.template_data ?? null,
+            prompt:           '',
+            template_id:      slide.template_id,
+            template_data:    slide.template_data ?? null,
           }
         }
       })

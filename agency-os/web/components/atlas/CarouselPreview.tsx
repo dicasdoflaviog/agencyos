@@ -403,35 +403,29 @@ export function CarouselPreview({
       {/* Main grid */}
       <div style={S.grid}>
 
-        {/* Criativo grande */}
+        {/* Criativo grande — imagem já renderizada server-side com design baked in */}
         <div style={S.card}>
-          {current.template_id ? (
-            /* Template Blueprint — renderiza componente React por slide (sem img+overlay) */
+          {current.image_url ? (
+            /* PNG renderizado pelo Motor de Renderização (template + copy + Design System) */
+            <img src={current.image_url} alt={current.title} style={S.hero} />
+          ) : current.template_id ? (
+            /* Fallback client-side enquanto a imagem renderizada não chega */
             (() => {
               const TemplateComponent = resolveTemplate(current.template_id)
               const props = buildTemplateProps(
-                { title: current.title, subtitle: current.subtitle, backgroundImage: current.image_url || undefined, template_data: current.template_data },
-                undefined,
-                480
+                { title: current.title, subtitle: current.subtitle, backgroundImage: undefined, template_data: current.template_data },
+                undefined, 480
               )
               return <TemplateComponent {...props} />
             })()
-          ) : template === 'titulo-bold' ? (
-            /* Fallback legado: carrossel inteiro usa titulo-bold sem template_id por slide */
-            (() => {
-              const TemplateComponent = resolveTemplate('titulo-bold')
-              return <TemplateComponent title={current.title} subtitle={current.subtitle} backgroundImage={current.image_url || undefined} size={480} />
-            })()
-          ) : current.image_url ? (
-            <img src={current.image_url} alt={current.title} style={S.hero} />
           ) : (
             <div style={{ ...S.hero, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Gerando imagem...</span>
+              <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Gerando slide...</span>
             </div>
           )}
 
-          {/* Overlay de copy — somente quando não há template Blueprint ativo */}
-          {!current.template_id && template !== 'titulo-bold' && (
+          {/* Overlay de copy — só quando não há imagem renderizada nem template Blueprint */}
+          {!current.image_url && !current.template_id && (
           <div style={S.imageOverlay}>
             <div style={S.overlayNum}>Slide {current.number} de {slides.length}</div>
             <div style={S.overlayTitle}>{current.title}</div>

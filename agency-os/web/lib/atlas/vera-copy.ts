@@ -83,13 +83,17 @@ Crie o copy completo. Retorne APENAS JSON válido sem markdown:
 }
 
 REGRAS OBRIGATÓRIAS:
-- Slide 1: gancho que gera curiosidade ou provoca (NÃO comece com "5 dicas de")
-- Slides intermediários: cada um entrega valor isolado
-- Último slide: CTA claro (comentar, salvar, seguir, enviar mensagem)
+- Slide 1 (CAPA): gancho de impacto — MÁXIMO 4 PALAVRAS no título. Deve ser uma afirmação ou provocação direta. Não comece com "5 dicas de" ou qualquer lista genérica.
+- Slides intermediários (2 a ${slideCount - 1}): cada slide entrega valor isolado. Um conceito por slide.
+- Slide ${slideCount} (FECHAMENTO / CTA): MÁXIMO 5 PALAVRAS no título. Direto e acionável. Antes de escrever, releia as "Frases Proibidas" do Brand Voice — ZERO tolerância a jargões, clichês ou promessas vazias. O tom deve ser exatamente o do Léxico do cliente: curto, direto, sem enrolação.
 - image_context em inglês, descreve cena fotorrealista relacionada ao conteúdo do slide
 - caption com emojis moderados e hashtags PT-BR relevantes ao nicho
 - template_id: escolha baseado nas REGRAS DE SELEÇÃO DE TEMPLATE acima — um por slide
-- template_data: inclua apenas campos relevantes para o template escolhido (tags para titulo-bold, problem/solution para problema-solucao, features para produto-flutuante, etc). Pode omitir se não houver dados específicos.`
+- template_data: inclua apenas campos relevantes para o template escolhido (tags para titulo-bold, problem/solution/stats para problema-solucao, features para produto-flutuante, icons para fundo-solido, ctaText para o último slide). Pode omitir se não houver dados específicos.
+
+FILTRO DE TOM (ANTIGURU):
+- PROIBIDO: "transforme sua carreira", "alcance o próximo nível", "descubra o segredo", "fórmula do sucesso", "resultados garantidos", "estratégia poderosa", qualquer palavra com acento de hype.
+- OBRIGATÓRIO: frases curtas, linguagem natural, verbos no imperativo direto (ex: "Comece.", "Use.", "Pare de esperar."), dados concretos quando possível.`
 
   const result = await routeChat('vera', [
     { role: 'user', content: prompt }
