@@ -240,6 +240,7 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
         signal: controller.signal,
       })
       const data = await res.json()
+      if (res.status === 402) throw new Error(data.error ?? 'Créditos insuficientes')
       if (!res.ok) throw new Error(data.error ?? `Erro ${res.status}`)
 
       setAssetId(data.asset.id)
