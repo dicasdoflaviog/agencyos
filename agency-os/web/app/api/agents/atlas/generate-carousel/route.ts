@@ -115,6 +115,8 @@ export async function POST(request: NextRequest) {
             image_url: imageUrl,
             storage_error: storageErr?.message ?? null,
             prompt: imagePrompt,
+            template_id: slide.template_id,
+            template_data: slide.template_data ?? null,
           }
         } catch (slideErr) {
           const msg = slideErr instanceof Error ? slideErr.message : String(slideErr)
@@ -126,6 +128,8 @@ export async function POST(request: NextRequest) {
             image_url: '',
             generation_error: msg,
             prompt: imagePrompt,
+            template_id: slide.template_id,
+            template_data: slide.template_data ?? null,
           }
         }
       })
