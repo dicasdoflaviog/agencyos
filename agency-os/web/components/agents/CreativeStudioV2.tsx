@@ -56,9 +56,11 @@ interface PastAsset {
 interface CreativeStudioV2Props {
   clientId: string
   userRole: 'admin' | 'collaborator' | 'viewer'
+  initialPrompt?: string
+  initialTemplate?: string
 }
 
-export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) {
+export function CreativeStudioV2({ clientId, userRole, initialPrompt = '', initialTemplate }: CreativeStudioV2Props) {
   const [step, setStep] = useState<Step>('config')
   const [dna, setDna] = useState<DNAData | null>(null)
   const [pastAssets, setPastAssets] = useState<PastAsset[]>([])
@@ -85,10 +87,10 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
   }, [lightbox, closeLightbox, lightboxPrev, lightboxNext])
 
   // Config state
-  const [template, setTemplate] = useState<Template>('minimalista')
+  const [template, setTemplate] = useState<Template>((initialTemplate === 'minimalista' || initialTemplate === 'profile') ? initialTemplate as Template : 'minimalista')
   const [format, setFormat] = useState<Format>('ig_feed_portrait')
   const [slideCount, setSlideCount] = useState(6)
-  const [userPrompt, setUserPrompt] = useState('')
+  const [userPrompt, setUserPrompt] = useState(initialPrompt)
   const [customStyle, setCustomStyle] = useState('')
 
   // Result state

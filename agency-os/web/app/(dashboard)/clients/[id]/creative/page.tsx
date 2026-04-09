@@ -2,8 +2,14 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import { CreativeStudioV2 } from '@/components/agents/CreativeStudioV2'
 
-export default async function CreativePage({ params }: { params: Promise<{ id: string }> }) {
+interface PageProps {
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ prompt?: string; template?: string }>
+}
+
+export default async function CreativePage({ params, searchParams }: PageProps) {
   const { id } = await params
+  const { prompt, template } = await searchParams
   const supabase = await createClient()
 
   const { data: client } = await supabase.from('clients').select('name').eq('id', id).single()
@@ -20,6 +26,8 @@ export default async function CreativePage({ params }: { params: Promise<{ id: s
     <CreativeStudioV2
       clientId={id}
       userRole={userRole}
+      initialPrompt={prompt ? decodeURIComponent(prompt) : undefined}
+      initialTemplate={template ? decodeURIComponent(template) : undefined}
     />
   )
 }
