@@ -46,17 +46,20 @@ function loadInterBold(): Promise<ArrayBuffer> {
 
 // ─── T05 — Título Bold (Capa, Posicionamento, Value Prop) ─────────────────────
 function T05JSX({
-  title, subtitle, tags, brandName, accentColor, bgUrl,
+  title, subtitle, tags, brandName, niche, accentColor, bgUrl,
 }: {
   title: string
   subtitle: string
   tags?: string[]
   brandName?: string
+  niche?: string
   accentColor?: string
   bgUrl?: string
 }) {
   const ac = accentColor || TK.accentDefault
-  const chips = (tags && tags.length > 0) ? tags.slice(0, 5) : ['Digital', 'Automação', 'Resultado']
+  // Fallback de chips usa nicho do cliente — nunca genérico
+  const nicheWords = niche ? niche.split(/[\s,/]+/).slice(0, 3) : []
+  const chips = (tags && tags.length > 0) ? tags.slice(0, 5) : [...nicheWords, 'Resultado'].filter(Boolean).slice(0, 4)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: W, height: H, background: TK.bgBase, padding: `${s(44)}px ${s(36)}px ${s(36)}px`, position: 'relative' }}>
@@ -110,7 +113,7 @@ function T05JSX({
 
 // ─── T04 — Problema → Solução + Stats (slides internos) ──────────────────────
 function T04JSX({
-  title, subtitle, problemText, stats, ctaText, brandName, accentColor,
+  title, subtitle, problemText, stats, ctaText, brandName, accentColor, niche, audience,
 }: {
   title: string
   subtitle: string
@@ -119,9 +122,15 @@ function T04JSX({
   ctaText?: string
   brandName?: string
   accentColor?: string
+  niche?: string
+  audience?: string
 }) {
   const ac = accentColor || TK.accentDefault
-  const problem = problemText || 'Antes: tempo perdido com processos manuais e resultados inconsistentes.'
+  // Fallback usa público-alvo ou nicho do cliente — nunca texto genérico fixo
+  const problem = problemText
+    || (audience ? `Antes: ${audience} perdendo tempo e dinheiro com tarefas que podem ser automatizadas.` : null)
+    || (niche    ? `Antes: agências de ${niche} sobrecarregadas com processos manuais.` : null)
+    || 'Antes: tempo desperdiçado com processos manuais sem consistência.'
 
   const defaultStats = [
     { icon: '→', value: '10×', label: 'Velocidade' },
@@ -305,6 +314,8 @@ export async function renderSlideToBuffer(
   const td = slide.template_data || {}
   const ac = (dna.primary_color && dna.primary_color !== '#000000') ? dna.primary_color : TK.accentDefault
   const brandName = dna.client_name || 'Agency OS'
+  const niche = dna.niche || ''
+  const audience = dna.target_audience || ''
 
   const fontData = await loadInterBold()
 
@@ -318,6 +329,7 @@ export async function renderSlideToBuffer(
           subtitle={slide.subtitle}
           tags={td.tags}
           brandName={brandName}
+          niche={niche}
           accentColor={ac}
           bgUrl={backgroundImageUrl}
         />
@@ -333,6 +345,8 @@ export async function renderSlideToBuffer(
           stats={td.stats}
           ctaText={td.ctaText}
           brandName={brandName}
+          niche={niche}
+          audience={audience}
           accentColor={ac}
         />
       )

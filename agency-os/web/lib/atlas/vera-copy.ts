@@ -61,20 +61,46 @@ ATENÇÃO: Leia o DNA acima com cuidado antes de escrever qualquer palavra.
 Respeite TODAS as palavras proibidas, o tom, o ritmo e as estruturas preferidas da marca.
 Se houver exemplos de frases certas no Brand Voice, siga o mesmo estilo.
 
-Crie o copy completo. Retorne APENAS JSON válido sem markdown:
+Crie o copy completo. Retorne APENAS JSON válido sem markdown.
+O campo "template_data" DEVE incluir os campos corretos para cada template_id escolhido:
+
+  titulo-bold    → tags: string[], accentPhrase?: string, ctaText?: string
+  problema-solucao → problem: string (texto do balão dor), solution?: string (balão solução, opcional), stats: [{icon:"→", value:"X%", label:"..."}] (2-3 stat cards)
+  produto-flutuante → features: string[] (4 benefícios curtos), ctaText?: string
+  fundo-solido   → icons: [{emoji:"letra", label:"..."}] (4 ícones), ctaText?: string
+  grid-agentes   → agents: [{emoji:"emoji", name:"...", role:"..."}] (4 agentes/ferramentas), heroEmoji?: string
+  modal-clean    → (sem campos obrigatórios)
+  foto-cards     → cards: [{emoji:"emoji", name:"...", description:"..."}] (3 cards)
+
+Formato de retorno:
 {
   "hook": "gancho irresistível para o slide 1 — máx 6 palavras — deve parar o scroll",
   "slides": [
     {
       "number": 1,
-      "title": "título do slide — máx 6 palavras para minimalista, 15 para profile",
+      "title": "título do slide",
       "subtitle": "frase de apoio — máx 20 palavras",
       "image_context": "descreva a cena ideal para a imagem deste slide em inglês",
       "template_id": "titulo-bold",
       "template_data": {
-        "tags": ["palavra1", "palavra2"],
-        "accentPhrase": "palavra de destaque no título",
-        "ctaText": "texto do botão se houver"
+        "tags": ["Palavra do nicho do cliente", "Conceito chave", "Resultado"],
+        "ctaText": "botão se houver"
+      }
+    },
+    {
+      "number": 2,
+      "title": "título do slide 2",
+      "subtitle": "solução ao problema",
+      "image_context": "...",
+      "template_id": "problema-solucao",
+      "template_data": {
+        "problem": "Antes: descreva a dor real do público-alvo do cliente (máx 30 palavras)",
+        "stats": [
+          {"icon": "→", "value": "X×", "label": "Métrica do nicho"},
+          {"icon": "→", "value": "Y%", "label": "Outra métrica"},
+          {"icon": "→", "value": "Zx", "label": "Resultado"}
+        ],
+        "ctaText": "Resolva agora"
       }
     }
   ],
