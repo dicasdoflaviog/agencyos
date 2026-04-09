@@ -337,12 +337,12 @@ async function resolveRawImage(raw: string): Promise<{ imageBase64: string; mime
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ATLAS IMAGE GENERATION — Flux.1 Dev (primary) + Recraft v3 (fallback)
-// Uses /images/generations endpoint for Flux/Recraft, /chat/completions for Gemini
+// ATLAS IMAGE GENERATION — Gemini 2.5 Flash Image (primary) + Gemini 3.1 Flash Image (fallback)
+// Both use /chat/completions with modalities: ["image"] via OpenRouter
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ATLAS_MODEL_PRIMARY  = 'black-forest-labs/flux-1-dev'
-const ATLAS_MODEL_FALLBACK = 'recraft-ai/recraft-v3'
+const ATLAS_MODEL_PRIMARY  = 'google/gemini-2.5-flash-image'
+const ATLAS_MODEL_FALLBACK = 'google/gemini-2.5-flash-image-preview'
 
 const ATLAS_SIZE_MAP: Record<string, string> = {
   '1:1':    '1024x1024',  // Square: Instagram/Facebook feed, TikTok thumb
@@ -366,7 +366,7 @@ export async function generateImage({
   const commonHeaders = {
     'Authorization': `Bearer ${apiKey}`,
     'Content-Type': 'application/json',
-    'HTTP-Referer': 'https://agencyos-cyan.vercel.app',
+    'HTTP-Referer': 'https://web-seven-phi-76.vercel.app',
     'X-Title': 'Agency OS ATLAS',
   }
 
@@ -402,7 +402,7 @@ export async function generateImage({
       body: JSON.stringify({
         model,
         messages: [{ role: 'user', content: prompt }],
-        modalities: ['image'],
+        modalities: ['image', 'text'],
         image_config: { aspect_ratio: aspectRatio },
       }),
     })

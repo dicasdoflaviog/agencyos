@@ -30,7 +30,19 @@ export function DNACreativeConfig({ clientId, userRole }: { clientId: string; us
   useEffect(() => {
     fetch(`/api/clients/${clientId}/dna`)
       .then(r => r.json())
-      .then(d => { if (d.client_id) setDna(d) })
+      .then(d => {
+        if (!d.client_id) return
+        // Mescla com defaults — preserva valores padrão quando DB tem null
+        setDna(prev => ({
+          primary_color:    d.primary_color    ?? prev.primary_color,
+          visual_style:     d.visual_style     ?? prev.visual_style,
+          tone:             d.tone             ?? prev.tone,
+          target_audience:  d.target_audience  ?? prev.target_audience,
+          key_message:      d.key_message      ?? prev.key_message,
+          // brand_voice_text: lê campo direto, depois legado 'voz'
+          brand_voice_text: d.brand_voice_text ?? d.voz ?? prev.brand_voice_text,
+        }))
+      })
   }, [clientId])
 
   async function save() {

@@ -8,6 +8,7 @@ import { KnowledgeFiles } from '@/components/dna/KnowledgeFiles'
 import { DNATabNav } from '@/components/dna/DNATabNav'
 import { DNAStyleguide } from '@/components/dna/DNAStyleguide'
 import { ProductEcosystem } from '@/components/dna/ProductEcosystem'
+import { DNACreativeConfig } from '@/components/dna/DNACreativeConfig'
 
 type PageProps = {
   params: Promise<{ id: string }>
@@ -18,6 +19,14 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
   const { id } = await params
   const { tab = 'structured' } = await searchParams
   const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  const { data: profile } = user ? await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single() : { data: null }
+  const userRole = profile?.role ?? 'viewer'
 
   const { data: client } = await supabase
     .from('clients')
@@ -114,6 +123,10 @@ export default async function ClientDNAPage({ params, searchParams }: PageProps)
       {tab === 'products' && (
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         <ProductEcosystem clientId={id} initialProducts={(products ?? []) as any} />
+      )}
+
+      {tab === 'creative' && (
+        <DNACreativeConfig clientId={id} userRole={userRole} />
       )}
     </div>
   )
