@@ -100,6 +100,7 @@ export function ClientForm({ initialData, mode }: ClientFormProps) {
       instagram_handle: data.instagram_handle?.replace('@', '') || null,
       contract_value: data.contract_value ? parseFloat(data.contract_value) : null,
       contract_status: data.contract_status,
+      status: 'active' as const,
       notes: data.notes || null,
     }
 

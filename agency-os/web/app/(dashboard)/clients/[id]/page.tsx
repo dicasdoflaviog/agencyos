@@ -29,7 +29,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
 
   if (!client) notFound()
 
-  const status = STATUS_CONFIG[client.status as keyof typeof STATUS_CONFIG]
+  const status = STATUS_CONFIG[client.status as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.active
 
   return (
     <div>
@@ -74,8 +74,8 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
                       <span className="text-xs text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors truncate max-w-[120px]">
                         {job.title}
                       </span>
-                      <span className={cn('rounded px-1.5 py-0.5 text-xs font-medium', js.className)}>
-                        {js.label}
+                      <span className={cn('rounded px-1.5 py-0.5 text-xs font-medium', js?.className)}>
+                        {js?.label}
                       </span>
                     </Link>
                   )

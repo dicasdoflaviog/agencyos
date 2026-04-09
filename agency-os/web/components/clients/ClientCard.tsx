@@ -9,7 +9,7 @@ const STATUS_CONFIG = {
 }
 
 export function ClientCard({ client }: { client: Client }) {
-  const status = STATUS_CONFIG[client.status]
+  const status = STATUS_CONFIG[client.status] ?? STATUS_CONFIG.active
 
   return (
     <Link
