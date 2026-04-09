@@ -60,7 +60,7 @@ export async function getClientDNA(
       .eq('client_id', clientId)
       .in('source', ['dna_document', 'dna_field', 'knowledge_file'])
       .order('created_at', { ascending: false })
-      .limit(20),
+      .limit(50),
   ])
 
   const client   = clientRes.data
@@ -72,22 +72,14 @@ export async function getClientDNA(
   //    a) dna_document (Brand DNA curado — mais completo)
   const dnaDoc = memories.find((m) => m.source === 'dna_document')
 
-  //    b) knowledge_files relevantes: brand-voice.txt, styleguide.txt, etc.
-  //       Concatenados ao dna_document para enriquecer o contexto da VERA
+  //    b) Todos os knowledge_files não-HTML/CSS (sem filtro de keyword — qualquer doc de texto é relevante)
   const knowledgeVoice = memories
     .filter((m) =>
       m.source === 'knowledge_file' &&
       m.content &&
-      // Inclui arquivos de brand voice, voz, copy — exclui HTML (design tokens do sistema)
       !m.content.trimStart().startsWith('<!DOCTYPE') &&
       !m.content.trimStart().startsWith('<html') &&
-      (
-        m.content.includes('BRAND VOICE') ||
-        m.content.includes('COPY') ||
-        m.content.includes('PALAVRAS') ||
-        m.content.includes('TOM') ||
-        m.content.includes('VOZ')
-      )
+      !m.content.trimStart().startsWith('<style')
     )
     .map((m) => m.content)
     .join('\n\n')
@@ -99,9 +91,18 @@ export async function getClientDNA(
     .map((a) => (a.name ? `### ${a.name}\n${a.content}` : a.content))
     .join('\n\n')
 
-  // Combina dna_document + knowledge voice files para máximo contexto
+  //    d) client_dna — TODOS os campos curados pelo ORACLE (biografia, voz, credenciais, proibidas)
+  const dnaCurated = dna ? [
+    dna.biografia   ? `### Biografia da Marca\n${dna.biografia}`   : null,
+    dna.voz         ? `### Voz da Marca (Tom e Estilo)\n${dna.voz}` : null,
+    dna.credenciais ? `### Credenciais e Autoridade\n${dna.credenciais}` : null,
+    dna.proibidas   ? `### FRASES E TERMOS PROIBIDOS (NUNCA USE)\n${dna.proibidas}` : null,
+    (dna as Record<string, string> | null)?.brand_voice_text ?? null,
+  ].filter(Boolean).join('\n\n') : ''
+
+  // Combina TODAS as fontes: dna_document > knowledge_files > client_assets > client_dna curado
   const brand_voice_text =
-    [dnaDoc?.content, knowledgeVoice, brandVoiceFromAssets, dna?.brand_voice_text, (dna as Record<string, string> | null)?.voz]
+    [dnaDoc?.content, knowledgeVoice, brandVoiceFromAssets, dnaCurated]
       .filter(Boolean)
       .join('\n\n---\n\n') ||
     ''
