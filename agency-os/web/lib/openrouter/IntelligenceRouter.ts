@@ -145,11 +145,15 @@ export async function routeChat(
   const { maxTokens = 2048, workspaceId } = options
 
   const attempt = async (model: string, isFallback: boolean): Promise<RouteResult> => {
-    const res = await openrouter.chat.completions.create({
+    const isQwen3Thinking = model.includes('qwen3') || model.includes('qwen/qwen3')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const res = await (openrouter.chat.completions.create as any)({
       model,
       max_tokens: maxTokens,
       messages,
-    })
+      // Desativa extended thinking do Qwen3 para respostas diretas sem <think> tags
+      ...(isQwen3Thinking ? { thinking: { type: 'disabled' } } : {}),
+    }) as Awaited<ReturnType<typeof openrouter.chat.completions.create>> & { choices: Array<{ message: { content?: string | null } }>; id: string }
 
     // Rastreia custo real de forma assíncrona (não bloqueia)
     if (workspaceId && res.id) {

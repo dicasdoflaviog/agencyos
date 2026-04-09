@@ -77,9 +77,26 @@ REGRAS OBRIGATÓRIAS:
   ], { maxTokens: 2000 })
 
   try {
-    const clean = result.content.replace(/```json|```/g, '').trim()
-    return JSON.parse(clean) as CarouselCopy
-  } catch {
+    // Remove blocos <think>...</think> do Qwen3 antes de parsear
+    const stripped = result.content
+      .replace(/<think>[\s\S]*?<\/think>/gi, '')
+      .replace(/```json|```/g, '')
+      .trim()
+
+    // Extrai o objeto JSON mesmo que haja texto antes/depois
+    const jsonMatch = stripped.match(/\{[\s\S]*\}/)
+    if (!jsonMatch) throw new Error(`Nenhum JSON encontrado na resposta VERA. Preview: ${stripped.slice(0, 200)}`)
+
+    const parsed = JSON.parse(jsonMatch[0]) as CarouselCopy
+
+    // Garante que slides têm o número correto de entradas
+    if (!Array.isArray(parsed.slides) || parsed.slides.length === 0) {
+      throw new Error('VERA retornou slides vazios')
+    }
+
+    return parsed
+  } catch (err) {
+    console.error('[VERA] Falha ao parsear JSON:', err, '\nResposta bruta (500 chars):', result.content.slice(0, 500))
     // Fallback estruturado caso o JSON falhe
     return {
       hook: userPrompt.slice(0, 30),
