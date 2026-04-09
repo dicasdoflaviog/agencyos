@@ -1,5 +1,6 @@
 'use client'
 import { useState, useCallback } from 'react'
+import { EditorialTemplate } from './templates/EditorialTemplate'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────────
 
@@ -402,7 +403,15 @@ export function CarouselPreview({
 
         {/* Criativo grande */}
         <div style={S.card}>
-          {current.image_url ? (
+          {template === 'titulo-bold' ? (
+            /* Template Editorial — renderiza o slide como componente React (sem img+overlay) */
+            <EditorialTemplate
+              title={current.title}
+              subtitle={current.subtitle}
+              backgroundImage={current.image_url || undefined}
+              size={480}
+            />
+          ) : current.image_url ? (
             <img src={current.image_url} alt={current.title} style={S.hero} />
           ) : (
             <div style={{ ...S.hero, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -410,12 +419,14 @@ export function CarouselPreview({
             </div>
           )}
 
-          {/* Overlay de copy sobre a imagem */}
+          {/* Overlay de copy sobre a imagem (somente templates sem componente próprio) */}
+          {template !== 'titulo-bold' && (
           <div style={S.imageOverlay}>
             <div style={S.overlayNum}>Slide {current.number} de {slides.length}</div>
             <div style={S.overlayTitle}>{current.title}</div>
             <div style={S.overlaySub}>{current.subtitle}</div>
           </div>
+          )}
 
           <div style={S.cardFooter}>
             <div style={S.actionsRow}>

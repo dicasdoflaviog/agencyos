@@ -28,11 +28,24 @@ export async function generateCarouselCopy(
   // DNA completo injetado — inclui todos os pilares (Biografia, Voz, Credenciais, Proibidas)
   const dnaContext = formatDNAContext(dna)
 
+  // Mapa de instruções por template Agency OS para ajudar VERA a escolher image_context adequado
+  const TEMPLATE_VERA_GUIDE: Record<string, string> = {
+    'produto-flutuante': 'Template escuro com card UI flutuante no centro. image_context: fundo atmosférico dark com elementos tech/circulares sutis, espaço central para card.',
+    'modal-clean':       'Template minimalista dark com modal/card limpo. image_context: fundo escuro liso, sem elementos visuais complexos, espaço central vazio.',
+    'foto-cards':        'Template com fotografia + strip de cards abaixo. image_context: cena fotorrealista humana ou de produto com boa iluminação natural, recortável.',
+    'problema-solucao':  'Template split: problema vs. solução. image_context: composição dramática com contraste luz/sombra, duas zonas visuais distintas.',
+    'titulo-bold':       'Template com título grande + tag cloud. image_context: fundo escuro simples (quase sólido), sem competir com a tipografia.',
+    'fundo-solido':      'Template com fundo sólido âmbar + preview + ícones. image_context: fundo âmbar/dourado plano, quente e vibrante, muito limpo.',
+    'grid-agentes':      'Template grid tech dark + cards de agentes. image_context: grid futurista com nós e conexões, atmosfera IA, azul-preto profundo.',
+  }
+  const templateGuide = TEMPLATE_VERA_GUIDE[template] ?? ''
+
   const prompt = `Você é VERA, copywriter especialista em carrosséis virais para Instagram brasileiro.
 
 ${dnaContext}
 
-TEMPLATE: ${template === 'minimalista'
+TEMPLATE VISUAL: ${template}
+${templateGuide ? templateGuide : template === 'minimalista'
   ? 'Minimalista — títulos curtos e impactantes (máx 6 palavras). Tom dramático. Ganchos contraintuitivos e polêmicos.'
   : 'Profile/Twitter — texto informativo estilo thread. Compartilhável. Dados e insights.'}
 
