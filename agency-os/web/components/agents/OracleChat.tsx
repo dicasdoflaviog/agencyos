@@ -487,7 +487,7 @@ function OracleChatInner({ jobId, clientId, clientName, initialSessionId }: Orac
         )}
 
         {messages.map((msg, i) => {
-          const agent = msg.agent ?? 'oracle'
+          const agent = (msg.agent && msg.agent in AGENT_STYLES ? msg.agent : 'oracle') as keyof typeof AGENT_STYLES
           const style = AGENT_STYLES[agent]
           const isUser = msg.role === 'user'
           return (
