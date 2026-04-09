@@ -468,13 +468,19 @@ export async function POST(req: NextRequest) {
       .maybeSingle()
 
     // ── 4b. Credit check ────────────────────────────────────────────────────
+    // Fail-open: se as tabelas de crédito não existirem ainda, permite passar.
+    // Erros de crédito legítimos (saldo insuficiente) bloqueam normalmente.
     if (profile?.workspace_id) {
-      const credit = await checkAndDeductCredits(profile.workspace_id, 'oracle_message', 'ORACLE — mensagem')
-      if (!credit.ok) {
-        return new Response(
-          JSON.stringify({ error: credit.error, balance: credit.balance, cost: credit.cost }),
-          { status: 402, headers: { 'Content-Type': 'application/json' } }
-        )
+      try {
+        const credit = await checkAndDeductCredits(profile.workspace_id, 'oracle_message', 'ORACLE — mensagem')
+        if (!credit.ok && credit.error !== 'Workspace não encontrado') {
+          return new Response(
+            JSON.stringify({ error: credit.error, balance: credit.balance, cost: credit.cost }),
+            { status: 402, headers: { 'Content-Type': 'application/json' } }
+          )
+        }
+      } catch {
+        // Tabelas de crédito não configuradas — permite continuar
       }
     }
 

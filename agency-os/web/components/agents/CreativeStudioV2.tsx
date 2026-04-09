@@ -91,6 +91,10 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
     setError(null)
     setSlides([])
 
+    // AbortController: 3 minutos máx (Flux.1 pode demorar ~30s/imagem em paralelo)
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 3 * 60 * 1000)
+
     try {
       const res = await fetch('/api/agents/atlas/generate-carousel', {
         method: 'POST',
@@ -103,17 +107,23 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
           slideCount,
           customStyle: customStyle || undefined,
         }),
+        signal: controller.signal,
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
+      if (!res.ok) throw new Error(data.error ?? `Erro ${res.status}`)
 
       setAssetId(data.asset.id)
       setSlides(data.slides)
       setCaption(data.copy?.caption ?? '')
       setStep('preview')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao gerar')
+      const msg = err instanceof Error
+        ? (err.name === 'AbortError' ? 'Tempo esgotado (3 min). Tente com menos slides.' : err.message)
+        : 'Erro ao gerar'
+      setError(msg)
       setStep('config')
+    } finally {
+      clearTimeout(timeout)
     }
   }
 
