@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         niche: body.niche ?? null,
         notes: body.pain ?? null,
         workspace_id: workspaceId,
-        stage: 'prospect',
+        stage: 'lead',
       })
       .select()
       .single()

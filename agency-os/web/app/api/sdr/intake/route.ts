@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
         niche: niche ?? null,
         notes: pain ?? null,
         source_id: source_id ?? null,
-        stage: 'prospect',
+        stage: 'lead',
         workspace_id,
         created_by: user.id,
       })

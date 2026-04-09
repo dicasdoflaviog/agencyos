@@ -40,7 +40,7 @@ export async function POST(
         notes: pain,
         source_id: source.id,
         workspace_id: source.workspace_id,
-        stage: 'prospect',
+        stage: 'lead',
       })
       .select()
       .single()

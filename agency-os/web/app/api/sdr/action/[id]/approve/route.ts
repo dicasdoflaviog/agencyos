@@ -47,7 +47,7 @@ export async function POST(
     await supabase.from('leads')
       .update({
         first_contacted_at: new Date().toISOString(),
-        stage: 'contacted',
+        stage: 'qualified',
       })
       .eq('id', action.lead_id)
       .is('first_contacted_at', null)
