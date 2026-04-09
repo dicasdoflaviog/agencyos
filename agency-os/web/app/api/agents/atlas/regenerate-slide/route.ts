@@ -43,7 +43,15 @@ export async function POST(request: NextRequest) {
     if (!asset) return NextResponse.json({ error: 'Asset não encontrado' }, { status: 404 })
 
     // Verificar e debitar créditos (15 créditos por geração de imagem)
-    const workspaceId = process.env.AGENCY_WORKSPACE_ID!
+    const { data: profWs } = await supabase
+      .from('profiles')
+      .select('workspace_id')
+      .eq('id', user.id)
+      .maybeSingle()
+    const workspaceId = profWs?.workspace_id
+    if (!workspaceId) {
+      return NextResponse.json({ error: 'Workspace não encontrado para este usuário' }, { status: 403 })
+    }
     const credit = await checkAndDeductCredits(
       workspaceId,
       'content_generation',

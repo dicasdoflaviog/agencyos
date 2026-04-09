@@ -33,7 +33,15 @@ export async function POST(request: NextRequest) {
     }
 
     // 0. Verificar e debitar créditos (15 por slide = custo total proporcional ao carrossel)
-    const workspaceId = process.env.AGENCY_WORKSPACE_ID!
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('workspace_id')
+      .eq('id', user.id)
+      .maybeSingle()
+    const workspaceId = profile?.workspace_id
+    if (!workspaceId) {
+      return NextResponse.json({ error: 'Workspace não encontrado para este usuário' }, { status: 403 })
+    }
     const totalSlides = Math.min(Math.max(slideCount, 3), 10)
     const credit = await checkAndDeductCredits(
       workspaceId,
