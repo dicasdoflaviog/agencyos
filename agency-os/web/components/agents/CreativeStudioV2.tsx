@@ -101,6 +101,9 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
   // Regeneração de imagem por slide
   const [regeneratingSlides, setRegeneratingSlides] = useState<Set<number>>(new Set())
 
+  // Progresso de geração (simulado com base no slideCount e timing médio)
+  const [genProgress, setGenProgress] = useState<{ phase: 'vera' | 'atlas'; slide: number } | null>(null)
+
   // Carregar DNA e histórico do cliente
   useEffect(() => {
     fetch(`/api/clients/${clientId}/dna`)
@@ -195,7 +198,30 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
     setError(null)
     setSlides([])
 
-    // AbortController: 3 minutos máx (Flux.1 pode demorar ~30s/imagem em paralelo)
+    // ── Progresso simulado ───────────────────────────────────────────────────
+    // VERA leva ~4s, cada imagem ATLAS ~12-16s (paralelo, mas simulamos sequencial)
+    setGenProgress({ phase: 'vera', slide: 0 })
+    const ATLAS_STEP_MS = 14_000
+    let currentSlide = 0
+    const progressTimers: ReturnType<typeof setTimeout>[] = []
+
+    // Após ~5s, VERA pronta → começa ATLAS
+    progressTimers.push(setTimeout(() => {
+      setGenProgress({ phase: 'atlas', slide: 1 })
+      currentSlide = 1
+    }, 5_000))
+
+    // Cada ~14s avança 1 slide (até slideCount - 1, o último "aparece" com a resposta real)
+    for (let s = 2; s < slideCount; s++) {
+      const delay = 5_000 + (s - 1) * ATLAS_STEP_MS
+      const slideNum = s
+      progressTimers.push(setTimeout(() => {
+        currentSlide = slideNum
+        setGenProgress({ phase: 'atlas', slide: slideNum })
+      }, delay))
+    }
+
+    // AbortController: 3 minutos máx
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 3 * 60 * 1000)
 
@@ -228,6 +254,8 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
       setStep('config')
     } finally {
       clearTimeout(timeout)
+      progressTimers.forEach(clearTimeout)
+      setGenProgress(null)
     }
   }
 
@@ -501,21 +529,48 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
   )
 
   // ── STEP: GENERATING ─────────────────────────────────────────────────────
-  if (step === 'generating') return (
-    <div style={{ maxWidth: '680px', margin: '0 auto', padding: '2rem', textAlign: 'center' }}>
-      <Loader2 size={32} color="#f59e0b" style={{ animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }} />
-      <p style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '4px' }}>VERA está escrevendo o copy...</p>
-      <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>ATLAS vai gerar as imagens em seguida</p>
-      <p style={{ fontSize: '11px', color: 'var(--color-text-secondary)', opacity: 0.6 }}>
-        Geração de imagens leva até 3 min · não feche esta janela
-      </p>
-    </div>
-  )
+  if (step === 'generating') {
+    const phaseLabel = !genProgress || genProgress.phase === 'vera'
+      ? 'VERA está escrevendo o copy...'
+      : `ATLAS gerando slide ${genProgress.slide} de ${slideCount}...`
+
+    const phaseSubLabel = !genProgress || genProgress.phase === 'vera'
+      ? 'Em seguida ATLAS vai gerar as imagens'
+      : 'Cada imagem leva ~15s · não feche esta janela'
+
+    const pct = !genProgress || genProgress.phase === 'vera'
+      ? 5
+      : Math.round((genProgress.slide / slideCount) * 90) + 5
+
+    return (
+      <div style={{ maxWidth: '480px', margin: '0 auto', padding: '3rem 2rem', textAlign: 'center' }}>
+        <Loader2 size={32} color="#f59e0b" style={{ animation: 'spin 1s linear infinite', margin: '0 auto 1.5rem' }} />
+        <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '6px' }}>
+          {phaseLabel}
+        </p>
+        <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginBottom: '1.5rem' }}>
+          {phaseSubLabel}
+        </p>
+
+        {/* Barra de progresso */}
+        <div style={{ background: 'var(--color-background-secondary)', borderRadius: '99px', height: '4px', overflow: 'hidden', width: '100%', marginBottom: '10px' }}>
+          <div style={{
+            height: '100%', borderRadius: '99px', background: '#f59e0b',
+            width: `${pct}%`, transition: 'width 1.2s ease',
+          }} />
+        </div>
+        <p style={{ fontSize: '11px', color: 'var(--color-text-secondary)', opacity: 0.5 }}>
+          {pct}% concluído
+        </p>
+      </div>
+    )
+  }
 
   // ── STEP: PREVIEW ─────────────────────────────────────────────────────────
   const displayRatio = FORMAT_DISPLAY_RATIO[format] ?? '4/5'
 
   return (
+    <>
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
         <h2 style={{ fontSize: '16px', fontWeight: 500, color: 'var(--color-text-primary)' }}>
@@ -631,6 +686,8 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
         </div>
       )}
     </div>
+    {LightboxOverlay}
+    </>
   )
 }
 
