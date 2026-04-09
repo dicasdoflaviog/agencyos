@@ -2,7 +2,7 @@
 // VERA gera a estrutura de copy do carrossel antes do ATLAS gerar imagens
 
 import { routeChat } from '@/lib/openrouter/IntelligenceRouter'
-import { ClientDNAContext } from './dna'
+import { ClientDNAContext, formatDNAContext } from './dna'
 
 export interface SlideContent {
   number: number
@@ -18,19 +18,6 @@ export interface CarouselCopy {
   caption: string
 }
 
-const TONE_MAP: Record<string, string> = {
-  profissional:  'professional, authoritative, trustworthy',
-  casual:        'friendly, conversational, warm, approachable',
-  inspiracional: 'motivational, aspirational, uplifting, energizing',
-  tecnico:       'precise, data-driven, informative, expert',
-  humor:         'playful, witty, fun, light-hearted',
-}
-
-const TEMPLATE_COPY_MAP: Record<string, string> = {
-  minimalista: 'Títulos curtos e impactantes (máx 6 palavras). Tom dramático. Ganchos polêmicos ou contraintuitivos.',
-  profile:     'Texto mais longo e informativo. Estilo de thread/tweet. Compartilhável. Dados e insights.',
-}
-
 export async function generateCarouselCopy(
   userPrompt: string,
   slideCount: number,
@@ -38,17 +25,23 @@ export async function generateCarouselCopy(
   dna: ClientDNAContext
 ): Promise<CarouselCopy> {
 
+  // DNA completo injetado — inclui todos os pilares (Biografia, Voz, Credenciais, Proibidas)
+  const dnaContext = formatDNAContext(dna)
+
   const prompt = `Você é VERA, copywriter especialista em carrosséis virais para Instagram brasileiro.
 
-CLIENTE: ${dna.client_name} — ${dna.niche}
-TOM: ${TONE_MAP[dna.tone] ?? TONE_MAP.profissional}
-PÚBLICO-ALVO: ${dna.target_audience || 'Não especificado'}
-MENSAGEM CENTRAL: ${dna.key_message || 'Não especificada'}
-BRAND VOICE: ${dna.brand_voice_text?.slice(0, 400) || 'Profissional e direto'}
-TEMPLATE: ${template} — ${TEMPLATE_COPY_MAP[template] ?? ''}
+${dnaContext}
+
+TEMPLATE: ${template === 'minimalista'
+  ? 'Minimalista — títulos curtos e impactantes (máx 6 palavras). Tom dramático. Ganchos contraintuitivos e polêmicos.'
+  : 'Profile/Twitter — texto informativo estilo thread. Compartilhável. Dados e insights.'}
 
 TEMA DO CARROSSEL: "${userPrompt}"
 NÚMERO DE SLIDES: ${slideCount}
+
+ATENÇÃO: Leia o DNA acima com cuidado antes de escrever qualquer palavra.
+Respeite TODAS as palavras proibidas, o tom, o ritmo e as estruturas preferidas da marca.
+Se houver exemplos de frases certas no Brand Voice, siga o mesmo estilo.
 
 Crie o copy completo. Retorne APENAS JSON válido sem markdown:
 {
