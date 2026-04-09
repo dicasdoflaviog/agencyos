@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     const supabase = createAdminClient()
     const body = await request.json() as Record<string, string>
 
-    const { data: lead } = await supabase
+    const { data: lead, error: leadError } = await supabase
       .from('leads')
       .insert({
         name: body.name,
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       .select()
       .single()
 
-    if (!lead) return NextResponse.json({ error: 'Erro ao criar lead' }, { status: 500 })
+    if (!lead) return NextResponse.json({ error: 'Erro ao criar lead', debug: leadError?.message }, { status: 500 })
 
     if (body.instagram) {
       void supabase.from('lead_enrichments').upsert({
