@@ -345,10 +345,11 @@ const ATLAS_MODEL_PRIMARY  = 'black-forest-labs/flux-1-dev'
 const ATLAS_MODEL_FALLBACK = 'recraft-ai/recraft-v3'
 
 const ATLAS_SIZE_MAP: Record<string, string> = {
-  '1:1':  '1024x1024',
-  '4:5':  '1024x1280',
-  '16:9': '1792x1024',
-  '9:16': '1024x1792',
+  '1:1':    '1024x1024',  // Square: Instagram/Facebook feed, TikTok thumb
+  '4:5':    '1024x1280',  // Portrait: Instagram feed (recomendado)
+  '9:16':   '1024x1792',  // Vertical: Stories, Reels, TikTok
+  '16:9':   '1792x1024',  // Horizontal: YouTube, Twitter/X, banners
+  '1.91:1': '1792x1024',  // Wide: Facebook ads, LinkedIn (mais perto de 1200x628)
 }
 
 export async function generateImage({

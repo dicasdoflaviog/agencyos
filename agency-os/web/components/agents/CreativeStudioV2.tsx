@@ -4,7 +4,27 @@ import { Loader2, Edit3, Copy, RotateCcw } from 'lucide-react'
 
 type Step = 'config' | 'generating' | 'preview'
 type Template = 'minimalista' | 'profile'
-type Format = 'feed' | 'stories' | 'banner' | 'thumbnail'
+type Format =
+  // Instagram
+  | 'ig_feed_portrait' | 'ig_feed_square' | 'ig_stories' | 'ig_reels'
+  // Facebook
+  | 'fb_feed' | 'fb_stories' | 'fb_ad'
+  // TikTok / YouTube / LinkedIn / Twitter
+  | 'tiktok' | 'yt_thumbnail' | 'linkedin_post' | 'twitter_post'
+  // Legacy
+  | 'feed' | 'stories' | 'banner' | 'thumbnail' | 'portrait' | 'carousel' | 'square'
+
+// Mapa de aspect ratio para CSS (display no preview)
+const FORMAT_DISPLAY_RATIO: Record<string, string> = {
+  ig_feed_portrait: '4/5',   ig_feed_square:   '1/1',
+  ig_stories:       '9/16',  ig_reels:         '9/16',
+  fb_feed:          '1/1',   fb_stories:       '9/16',   fb_ad:            '16/9',
+  tiktok:           '9/16',  yt_thumbnail:     '16/9',
+  linkedin_post:    '16/9',  twitter_post:     '16/9',
+  feed:             '4/5',   stories:          '9/16',
+  banner:           '16/9',  thumbnail:        '16/9',
+  portrait:         '9/16',  carousel:         '4/5',   square:           '1/1',
+}
 
 interface Slide {
   number: number
@@ -45,7 +65,7 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
 
   // Config state
   const [template, setTemplate] = useState<Template>('minimalista')
-  const [format, setFormat] = useState<Format>('feed')
+  const [format, setFormat] = useState<Format>('ig_feed_portrait')
   const [slideCount, setSlideCount] = useState(6)
   const [userPrompt, setUserPrompt] = useState('')
   const [customStyle, setCustomStyle] = useState('')
@@ -194,10 +214,28 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
           <label style={{ fontSize: '11px', fontWeight: 500, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '.06em', display: 'block', marginBottom: '8px' }}>Formato</label>
           <select value={format} onChange={e => setFormat(e.target.value as Format)}
             style={{ width: '100%', background: 'var(--color-background-primary)', border: '0.5px solid var(--color-border-tertiary)', borderRadius: '8px', padding: '10px 12px', fontSize: '13px', color: 'var(--color-text-primary)' }}>
-            <option value="feed">Feed 4:5 (recomendado)</option>
-            <option value="stories">Stories 9:16</option>
-            <option value="banner">Banner 16:9</option>
-            <option value="thumbnail">Thumbnail 16:9</option>
+            <optgroup label="📸 Instagram">
+              <option value="ig_feed_portrait">Feed Portrait 4:5 — 1080×1350 (recomendado)</option>
+              <option value="ig_feed_square">Feed Square 1:1 — 1080×1080</option>
+              <option value="ig_stories">Stories / Reels 9:16 — 1080×1920</option>
+            </optgroup>
+            <optgroup label="📘 Facebook">
+              <option value="fb_feed">Feed 1:1 — 1080×1080</option>
+              <option value="fb_stories">Stories 9:16 — 1080×1920</option>
+              <option value="fb_ad">Anuncio 1.91:1 — 1200×628</option>
+            </optgroup>
+            <optgroup label="🎵 TikTok">
+              <option value="tiktok">Post / Video 9:16 — 1080×1920</option>
+            </optgroup>
+            <optgroup label="▶️ YouTube">
+              <option value="yt_thumbnail">Thumbnail 16:9 — 1280×720</option>
+            </optgroup>
+            <optgroup label="💼 LinkedIn">
+              <option value="linkedin_post">Post 1.91:1 — 1200×627</option>
+            </optgroup>
+            <optgroup label="✕ Twitter / X">
+              <option value="twitter_post">Post 16:9 — 1600×900</option>
+            </optgroup>
           </select>
         </div>
         <div>
@@ -309,6 +347,8 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
   )
 
   // ── STEP: PREVIEW ─────────────────────────────────────────────────────────
+  const displayRatio = FORMAT_DISPLAY_RATIO[format] ?? '4/5'
+
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
@@ -340,9 +380,9 @@ export function CreativeStudioV2({ clientId, userRole }: CreativeStudioV2Props) 
             style={{ cursor: 'pointer', borderRadius: '10px', overflow: 'hidden', border: selectedSlide === i ? '2px solid #f59e0b' : '0.5px solid var(--color-border-tertiary)', position: 'relative' }}>
             {slide.image_url ? (
               <img src={slide.image_url} alt={slide.title}
-                style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+                style={{ width: '100%', aspectRatio: displayRatio, objectFit: 'cover', display: 'block' }} />
             ) : (
-              <div style={{ width: '100%', aspectRatio: '4/5', background: 'var(--color-background-secondary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+              <div style={{ width: '100%', aspectRatio: displayRatio, background: 'var(--color-background-secondary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                 <span style={{ fontSize: '20px' }}>🖼️</span>
                 <span style={{ fontSize: '10px', color: 'var(--color-text-secondary)', textAlign: 'center', padding: '0 8px' }}>Imagem não gerada</span>
               </div>

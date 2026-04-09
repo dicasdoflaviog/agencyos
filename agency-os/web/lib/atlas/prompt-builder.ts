@@ -21,12 +21,31 @@ const TONE_VISUAL_MAP: Record<string, string> = {
 }
 
 const FORMAT_ASPECT_MAP: Record<string, string> = {
+  // ── Instagram ────────────────────────────────────────────────
+  ig_feed_portrait: '4:5',     // 1080×1350 — mais alcance no feed
+  ig_feed_square:   '1:1',     // 1080×1080 — feed quadrado clássico
+  ig_stories:       '9:16',    // 1080×1920 — Stories e Reels
+  ig_reels:         '9:16',    // 1080×1920 — Reels (mesmo que stories)
+  // ── Facebook ─────────────────────────────────────────────────
+  fb_feed:          '1:1',     // 1080×1080 — feed do Facebook
+  fb_stories:       '9:16',    // 1080×1920 — Stories
+  fb_ad:            '1.91:1',  // 1200×628  — anúncio padrão (Link + carrossel)
+  // ── TikTok ───────────────────────────────────────────────────
+  tiktok:           '9:16',    // 1080×1920 — vertical nativo
+  // ── YouTube ──────────────────────────────────────────────────
+  yt_thumbnail:     '16:9',    // 1280×720  — thumbnail padrão
+  // ── LinkedIn ─────────────────────────────────────────────────
+  linkedin_post:    '1.91:1',  // 1200×627  — post do feed
+  // ── Twitter / X ──────────────────────────────────────────────
+  twitter_post:     '16:9',    // 1600×900  — imagem no tweet
+  // ── Legacy (retrocompatibilidade) ────────────────────────────
   feed:      '4:5',
   stories:   '9:16',
   banner:    '16:9',
   thumbnail: '16:9',
   portrait:  '9:16',
   carousel:  '4:5',
+  square:    '1:1',
 }
 
 export function buildImagePrompt(
