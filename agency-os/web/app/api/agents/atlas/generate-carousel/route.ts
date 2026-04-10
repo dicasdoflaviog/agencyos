@@ -90,6 +90,7 @@ export async function POST(request: NextRequest) {
           if (SERVER_RENDERED.includes(effectiveTemplate)) {
             // Motor de Renderização: template HTML → PNG diretamente
             imageBuffer = await renderSlideToBuffer(slide, dna)
+            console.log(`[atlas] Slide ${slide.number} renderizado via Satori (${effectiveTemplate}), buffer: ${imageBuffer.length} bytes`)
           } else {
             // Outros templates: gera background via FLUX e renderiza sobre ele
             const imagePrompt = buildImagePrompt(slide, dna, effectiveTemplate, customStyle)
@@ -118,6 +119,7 @@ export async function POST(request: NextRequest) {
               .from('creative-assets')
               .createSignedUrl(storagePath, 60 * 60 * 24 * 365)
             imageUrl = urlData?.signedUrl ?? ''
+            console.log(`[atlas] Slide ${slide.number} URL: ${imageUrl ? 'ok (' + imageUrl.slice(0, 60) + '...)' : 'VAZIA'}`)
           }
 
           return {

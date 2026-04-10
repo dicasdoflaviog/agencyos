@@ -206,7 +206,7 @@ export function CarouselPreview({
         : '0.5px solid var(--color-border-tertiary)',
     }),
 
-    thumbImg: { width: '108px', height: '136px', objectFit: 'cover' as const, display: 'block', background: 'var(--color-background-secondary)' },
+    thumbImg: { width: '108px', height: '108px', objectFit: 'cover' as const, display: 'block', background: 'var(--color-background-secondary)' },
 
     thumbLabel: (status: SlideStatus): React.CSSProperties => ({
       padding: '5px 7px', fontSize: '10px',
@@ -238,7 +238,7 @@ export function CarouselPreview({
     },
 
     hero: {
-      width: '100%', aspectRatio: '4/5', objectFit: 'cover' as const, display: 'block',
+      width: '100%', aspectRatio: '1/1', objectFit: 'cover' as const, display: 'block',
       background: 'var(--color-background-secondary)', minHeight: '280px',
     },
 
